@@ -48,11 +48,5 @@ $ui = new EnzymeUi();
     <?php
       echo $ui->drawFooter();
     ?>
-<?php
-
-// track webstats
-echo Webstats::track();
-
-?>
   </body>
 </html>
