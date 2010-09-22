@@ -1,0 +1,2 @@
+document.observe('dom:loaded',function(){if($('result')){var checkScrollRepeat=window.setInterval(checkScroll,500);}});function parseAuthors(event){Event.stop(event);if(!$('show-skipped')||!$('result')){return false;}
+$('result').src=BASE_URL+'/tool/parse-authors.php?show_skipped='+$('show-skipped').checked;}

@@ -1,0 +1,128 @@
+div#content {
+  left:208px;
+  bottom:50px;
+  top:44px;
+  overflow-y:scroll;
+}
+
+
+div.item {
+  position:relative;
+  padding:10px;
+  margin-bottom:20px;
+  background-color:#e6e6e6;
+  
+  border-radius:5px;
+  -moz-border-radius:5px;
+  -webkit-border-radius:5px;
+}
+div.item:last-child {
+  margin-bottom:0;
+}
+
+div.item div.commit-title {
+  border-bottom:2px dotted #999;
+  margin-bottom:6px;
+  padding-bottom:4px;
+}
+div.item div.commit-title span {
+  font-weight:bold;
+}
+
+div.item div.commit-classify {
+  position:absolute;
+  right:8px;
+  top:8px;
+
+  background-color:#000;
+  padding:6px;
+  
+  border-radius:3px;
+  -moz-border-radius:3px;
+  -webkit-border-radius:3px;
+}
+div.item div.unfilled {
+  background-color:#d40000;
+}
+div.item div.filled {
+  background-color:green;
+}
+
+div.item div.commit-classify label {
+  display:block;
+  text-align:right;
+  color:#fff;
+}
+div.item div.commit-classify label:first-child {
+  margin-bottom:3px;
+}
+div.item div.commit-classify input {
+  width:32px;
+  border:1px solid #fff;
+  background-color:#111;
+  color:#fff;
+  padding:1px 2px;
+  margin-left:3px;
+}
+
+
+div.normal {
+  border:2px solid #e6e6e6;
+}
+div.selected {
+  border:2px solid red;
+}
+div.marked {
+  border:2px solid green;
+}
+
+
+
+div#classify-key {
+  position:fixed;
+  bottom:0;
+  left:0;  
+  width:205px;
+
+  z-index:1002;
+  border-right:3px solid #999;
+  background:url(../img/bg.png) repeat scroll 0 0 transparent;
+
+  border-radius:3px;
+  -moz-border-radius:3px;
+  -webkit-border-radius:3px;
+}
+div#classify-key ol {
+  margin:10px 0 14px 4px;
+}
+
+div#classify-key-selector {
+  bottom:0;
+  height:38px;
+  background-color:#ccc;
+}
+div#classify-key-selector input[type="button"] {
+  float:left;
+  height:38px;
+  width:50%;
+
+  margin:0;
+  padding:1px 0 5px 0;
+  text-align:center;
+  background-color:#333;
+  color:#fff;
+  opacity:0.3;
+  
+  border-radius:0;
+  -moz-border-radius:0;
+  -webkit-border-radius:0;
+}
+div#classify-key-selector input[type="button"]:hover {
+  color:#000;
+  opacity:0.6;
+}
+div#classify-key-selector input[type="button"].selected {
+  font-weight:bold;
+  opacity:1;
+  cursor:default;
+}

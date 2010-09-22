@@ -1,0 +1,9 @@
+div#content {
+  left:208px;
+}
+
+
+div#console input[type="text"] {
+  width:100px;
+  margin-right:22px;
+}

@@ -1,0 +1,45 @@
+div#content {
+  left:208px;
+}
+
+
+h3 {
+  position:relative;
+}
+h3 div {
+  position:absolute;
+  right:0;
+  top:-3px;
+}
+
+
+table {
+  display:inline;
+  margin-right:70px;
+}
+
+table tr.padding td.label {
+  padding:15px 20px 0 0;
+}
+table tr.padding td.value {
+  padding-top:14px;
+}
+
+table td.label {
+  padding:1px 20px 0 0;
+  width:120px;
+}
+table td#paths {
+  vertical-align:top;
+}
+
+
+input[type="checkbox"] {
+  margin-right:22px;
+}
+
+
+span.fade {
+  color:#999;
+  font-style:italic;
+}

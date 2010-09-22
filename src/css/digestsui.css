@@ -1,0 +1,353 @@
+div#content {
+  left:208px;
+}
+
+
+iframe#results {
+  margin-top:12px;
+}
+
+
+h2 {
+  margin:42px 0 8px 0 !important;
+}
+h2:first-child {
+  margin-top:0 !important;
+}
+
+
+h2,
+h3 {
+  position:relative;
+}
+h2 div,
+h3 div {
+  position:absolute;
+  right:0;
+  top:-3px;
+}
+
+
+h3 {
+  margin:18px 0 10px 0 !important;
+}
+h3:first-child {
+  margin-top:0 !important;
+}
+
+
+h4 {
+  margin-bottom:4px;
+}
+
+
+div.digests-container {
+  position:relative;
+  width:100%;
+}
+
+ul.digests {
+  width:40%;
+  left:0;
+
+  padding:0;
+  margin:16px 10px 12px 10px;
+  list-style-type:none;
+}
+ul.digests-right {
+  position:absolute;
+  left:50%;
+  top:-16px;
+}
+
+ul.digests li {
+  height:32px;
+  font-size:16px;
+  font-weight:bold;
+  margin-bottom:6px;
+}
+ul.digests li div {
+  margin:0 10px 0 0 !important;
+  cursor:pointer;
+}
+ul.digests li div div {
+  margin:0 !important;
+}
+ul.digests li a {
+  position:absolute;
+  margin-top:4px;
+}
+
+
+table#contributors textarea {
+  font-size:14px;
+  padding:4px;
+}
+
+
+table {
+  display:inline;
+  margin-right:40px;
+}
+table td.label {
+  vertical-align:top;
+  padding-top:5px;
+  width:130px;
+}
+table td.value {
+  width:194px;
+}
+
+
+table.stats thead tr td {
+  color:#666;
+  font-size:14px;
+  font-style:italic;
+}
+
+
+table.stats td.label {
+  width:160px;
+  padding-right:10px;
+}
+table.stats td.labelRight {
+  padding-left:140px;
+}
+
+
+table.stats td.valueLeft {
+  width:88px;
+  padding-right:9px;
+}
+table.stats td.valueRight {
+  width:88px;
+}
+
+table.stats td.modLabel {
+  width:249px;
+}
+table.stats td.modValue {
+  width:100px;
+}
+
+
+table#stats-developer,
+table#stats-bugfixers,
+table#stats-buzz-person {
+  margin-left:92px;
+}
+
+
+
+
+
+textarea#synopsis {
+  width:98.5%;
+  height:150px
+}
+
+
+
+
+
+div.section {
+  position:relative;
+  margin-bottom:20px;
+}
+div.section input[type="button"] {
+  width:28px;
+}
+
+div.section div.save-introduction {
+  position:absolute;
+  width:22px;
+  height:22px;
+  
+  left:0;
+  top:50px;
+
+  padding:9px;
+  margin:0;
+
+  background:url("../img/bgd.png") repeat transparent;
+  cursor:pointer;
+  
+  border-radius:5px;
+  -moz-border-radius:5px;
+  -webkit-border-radius:5px;
+}
+div.section div.save-introduction:hover {
+  background-color:#464D7A;
+}
+
+div.section div.save-introduction div {
+  width:22px;
+  height:22px;
+  background:url("../img/sprite.png") no-repeat transparent;
+  background-position:-0px -0px;
+}
+div.section div.save-introduction:hover div {
+  background-position:-0px -22px;
+}
+
+div.section span {
+  background:url("../img/bgd.png") repeat scroll 0 0 transparent;
+  position:absolute;
+  left:0;
+  font-size:26px;
+  font-weight:bold;
+  margin-right:10px;
+  padding:5px 0;
+  text-align:center;
+  width:40px;
+
+  border-radius:5px;
+  -moz-border-radius:5px;
+  -webkit-border-radius:5px;
+}
+
+div.section input.unselected {
+  opacity:0.3;
+}
+
+div.section textarea {
+  position:relative;
+  left:5%;
+  display:block;
+  width:93.5%;
+}
+
+div.section div.section-container {
+  width:958px;
+}
+
+div.section textarea.intro-message,
+div.section textarea.intro-comment {
+  width:818px;
+  margin-bottom:4px;
+}
+div.section textarea.intro-message {
+  height:42px;
+}
+div.section textarea.intro-comment {
+  height:88px;
+}
+
+
+
+div.indicator-success,
+div.indicator-failure {
+  position:relative;
+  float:left;
+  padding:4px;
+  margin:3px 2px 0 0;
+
+  opacity:0.6;
+
+  border-radius:5px;
+  -moz-border-radius:5px;
+  -webkit-border-radius:5px; 
+}
+div.indicator-success div,
+div.indicator-failure div {
+  position:relative;
+  top:1px;
+  width:22px;
+  height:22px;
+  background:url("../img/sprite.png") repeat scroll 0 0 transparent;
+}
+
+div.indicator-success {
+  background-color:green;
+}
+div.indicator-success div {
+  background-position:-22px -22px;
+}
+
+div.indicator-failure {
+  background-color:red;
+}
+div.indicator-failure div {
+  background-position:-44px -22px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+div.commit {
+  position:relative;
+  margin-bottom:32px;
+  width:960px;
+}
+
+div.commit div.intro {
+  width:700px;
+  margin-bottom:9px;
+}
+
+div.commit div.selectors {
+  position:absolute;
+  top:-3px;
+  right:0;
+}
+div.commit div.selectors select {
+  display:inline;
+  width:auto;
+  border-width:1px !important;
+}
+div.commit div.selectors select:first-child {
+  margin-right:4px;
+}
+
+div.commit div.details {
+  border:2px solid #f3f3f3;
+}
+div.commit div.details textarea.msg {
+  width:938px;
+  margin:0;
+  padding:7px;
+
+  font-style:italic;
+  background-color:#f3f3f3;
+  border-color:#f3f3f3;
+}
+
+div.commit div.details div.info {
+  border-top:2px solid #f3f3f3;
+  padding:10px;
+}
+
+div.commit div.details div.info div.b-p {
+  margin-bottom:10px;
+}
+
+div.commit div.details div.info div.b div.bug div {
+  float:right;
+}
+div.commit div.details div.info div.b div.bug div div {
+  float:left;
+  margin:2px 6px 0 0;
+
+  width:20px;
+  height:20px;
+  background:url('../img/sprite.png') no-repeat;
+  background-position:-100px -40px;
+}
+div.commit div.details div.info div.b div.bug div span {
+  float:right;
+  font-style:italic;
+  color:#999;
+}
+
+div.commit div.details div.info a.r {
+  float:right;
+}

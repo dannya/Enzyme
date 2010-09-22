@@ -1,0 +1,93 @@
+div#content {
+  left:208px;
+}
+
+
+h3 {
+  position:relative;
+}
+h3 div {
+  position:absolute;
+  right:0;
+  top:-3px;
+}
+
+
+table#users {
+  margin:40px auto 0 auto;
+  border-collapse:collapse;
+}
+
+table#users tbody tr:nth-child(even) {
+  background:#E1EAF3;
+}
+table#users tbody tr:nth-child(odd) {
+  background:#fff;
+}
+
+table#users thead tr td {
+  width:120px;
+  padding:0 8px;
+  
+  font-style:italic;
+  font-size:14px;
+  color:#666;
+}
+table#users thead tr td:first-child {
+  width:auto;
+}
+table#users thead tr td.permission {
+  width:16px;
+  text-align:center;
+}
+
+table#users tbody tr td {
+  padding:4px;
+}
+table#users tbody tr td:last-child {
+  width:200px;
+}
+
+table#users td.padding {
+  padding-right:50px;
+}
+
+
+
+div.account-status {
+  position:relative;
+  float:left;
+  padding:4px;
+  margin:0;
+
+  opacity:0.6;
+  cursor:pointer;
+
+  border-radius:5px;
+  -moz-border-radius:5px;
+  -webkit-border-radius:5px; 
+}
+div.account-status:hover {
+  opacity:1;
+}
+div.account-status div {
+  position:relative;
+  top:1px;
+  width:22px;
+  height:22px;
+  background:url("../img/sprite.png") repeat scroll 0 0 transparent;
+}
+
+div.active {
+  background-color:green;
+}
+div.active div {
+  background-position:-22px -22px;
+}
+
+div.inactive {
+  background-color:red;
+}
+div.inactive div {
+  background-position:-44px -22px;
+}

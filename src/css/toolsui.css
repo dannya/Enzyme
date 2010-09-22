@@ -1,0 +1,14 @@
+div#content {
+  left:208px;
+}
+
+
+div#console form {
+  position:relative;
+  padding-bottom:7px;
+}
+
+div#console form label {
+  position:relative;
+  top:4px;
+}
