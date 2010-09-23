@@ -52,7 +52,7 @@ if ($_REQUEST['type'] == 'review') {
 
   // insert data
   $json['saved']   = count($values);
-  $json['success'] = Db::insert('commits_reviewed', $values);
+  $json['success'] = Db::insert('commits_reviewed', $values, true);
 
   // report success
   App::returnHeaderJson();

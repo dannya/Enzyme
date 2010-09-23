@@ -235,6 +235,8 @@ class Enzyme {
 
 
   public static function loadBugs() {
+    $bugs = array();
+
     // load from db
     $q = mysql_query('SELECT * FROM commit_bugs') or trigger_error(sprintf(_('Query failed: %s'), mysql_error()));
 
@@ -296,9 +298,9 @@ class Enzyme {
 
 
     // initialise summary
-    $summary['skipped']['title']    = 'Skipped';
+    $summary['skipped']['title']    = 'Skipped: %d';
     $summary['skipped']['value']    = 0;
-    $summary['processed']['title']  = 'Processed';
+    $summary['processed']['title']  = 'Processed: %d';
     $summary['processed']['value']  = 0;
 
 

@@ -252,7 +252,7 @@ class Ui {
       $total += $entry['value'];
     }
 
-
+    // draw
     $buf = '<div class="summary_box">';
 
     foreach ($summary as $entry) {
