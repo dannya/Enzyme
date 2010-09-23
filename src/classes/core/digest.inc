@@ -554,7 +554,6 @@ class Digest {
           continue;
         }
 
-//        $string = $item['firstname'] . ' ' . $item['lastname'] . ' (' . $item['username'] . ')';
         $string = $item['firstname'] . ' ' . $item['lastname'];
 
         if (!$permission) {

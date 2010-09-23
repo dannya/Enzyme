@@ -31,7 +31,7 @@ class UsersUi extends BaseUi {
     $this->user = new User();
 
     // load users, grouped by permission
-    $this->users = Digest::getUsersByPermission(null, false, true);
+    $this->users = Digest::getUsersByPermission(null, true, true);
 
     // set available permissions
     $this->availablePermissions = Digest::getPermissions();
@@ -74,8 +74,17 @@ class UsersUi extends BaseUi {
 
               <tbody id="users-body">';
 
-    foreach ($this->users as $user) {
-      $buf .= $this->drawRow($user);
+    $shown = array();
+
+    foreach ($this->users as $permission => $users) {
+      foreach ($users as $username => $user) {
+        if (!isset($shown[$username])) {
+          $buf .= $this->drawRow($user);
+
+          // remember user, so we only draw each one once!
+          $shown[$username] = true;
+        }
+      }
     }
 
     // draw hidden row, to allow creation of new users
