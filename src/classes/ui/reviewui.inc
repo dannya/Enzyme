@@ -60,18 +60,21 @@ class ReviewUi extends BaseUi {
 
         // filter by path?
         if (!empty($revision['basepath'])) {
-          $pathFound = false;
+          if (!empty($this->user->paths)) {
+            // filter commits by user review areas
+            $pathFound = false;
 
-          foreach ($this->user->paths as $path) {
-            if (strpos($revision['basepath'], $path) !== false) {
-              $pathFound = true;
-              break;
+            foreach ($this->user->paths as $path) {
+              if (strpos($revision['basepath'], $path) !== false) {
+                $pathFound = true;
+                break;
+              }
             }
-          }
 
-          if (!$pathFound) {
-            // don't show this commit if not in user path
-            continue;
+            if (!$pathFound) {
+              // don't show this commit if not in user path
+              continue;
+            }
           }
         }
 
