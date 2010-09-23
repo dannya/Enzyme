@@ -264,14 +264,35 @@ class Digest {
 
     // load bugfixers
     $q = mysql_query('SELECT * FROM digest_stats_bugfixers
+                      LEFT JOIN bugfixers
+                      ON digest_stats_bugfixers.identifier = bugfixers.email
                       WHERE date = \'' . $date . '\'
-                      ORDER BY value DESC LIMIT 0, 10') or trigger_error(sprintf(_('Query failed: %s'), mysql_error()));
+                      ORDER BY value DESC
+                      LIMIT 0, 10') or trigger_error(sprintf(_('Query failed: %s'), mysql_error()));
 
     while ($row = mysql_fetch_assoc($q)) {
-      $digest['stats']['bugfixers'][$row['identifier']] = $row['value'];
+      // set account from joined bugfixers table if possible
+      if (!empty($row['account'])) {
+        $digest['stats']['bugfixers'][$row['account']] = $row['value'];
+
+        // record person so we can get name, etc later
+        $people[$row['account']] = $row['account'];
+
+      } else {
+        // use name if available, else use email account
+        if (!empty($row['name'])) {
+          $identifier = $row['name'];
+
+        } else {
+          // could be name or account
+          $identifier = $row['identifier'];
 
       // record person so we can get name, etc later
       $people[$row['identifier']] = $row['identifier'];
+    }
+
+        $digest['stats']['bugfixers'][$identifier] = $row['value'];
+      }
     }
 
 
@@ -426,7 +447,7 @@ class Digest {
 
               <div class="details">
                 <p class="msg">' .
-                  $commit['msg'] .
+                  Enzyme::formatMsg($commit['msg']) .
            '    </p>';
 
     // show diff / bug box?

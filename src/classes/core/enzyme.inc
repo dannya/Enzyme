@@ -655,10 +655,20 @@ class Enzyme {
       $page   = Dom::file_get_html(BUG_STATS);
       $table  = $page->find('table', 1);
 
+      // get known bugfixers
+      $knownBugfixers = Db::reindex(Db::load('bugfixers', false), 'email');
+
       foreach ($table->find('tr') as $row) {
         if (isset($row->children[0]) && isset($row->children[1])) {
+          // try and match identifier with known bugfixers
+          $identifier = trim(strip_tags($row->children[0]->innertext));
+
+          if (!empty($knownBugfixers[$identifier]['account'])) {
+            $identifier = $knownBugfixers[$identifier]['account'];
+          }
+
           $bugs[] = array('date'        => $boundaries['end'],
-                          'identifier'  => trim(strip_tags($row->children[0]->innertext)),
+                          'identifier'  => $identifier,
                           'value'       => trim(strip_tags($row->children[1]->innertext)));
         }
       }
