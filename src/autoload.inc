@@ -45,8 +45,11 @@ define('APP_ID',            'enzyme');
 define('APP_NAME',          'Enzyme');
 define('VERSION',           '0.6');
 
+define('META_DESCRIPTION',  'A project-independent tool for creating regular project reports and assisting interesting statistical analysis.');
+define('META_KEYWORDS',     'enzyme, digest, open source');
+
 define('DEFAULT_LOCATION',  'uk');
-define('DEFAULT_LANGUAGE',  'en_US');
+define('DEFAULT_LANGUAGE',  'en');
 define('DATE_FORMAT',       'Y-m-d');
 
 
@@ -61,16 +64,26 @@ if (empty($_SERVER['DOCUMENT_ROOT'])) {
 
 // set command line vars (error reporting, etc)
 if (COMMAND_LINE) {
+  // set command line vars (error reporting, etc)
   error_reporting(E_ALL);
-  define('LIVE_SITE',       null);
+  define('LIVE_SITE', null);
 
 } else {
+  // set general site vars
   error_reporting(E_ALL|E_STRICT);
 
-  define('DOMAIN',          'enzyme');
-  define('BASE_URL',        'http://' . $_SERVER['HTTP_HOST']);
+  define('DOMAIN',    'enzyme');
+  define('BASE_URL',  'http://' . $_SERVER['HTTP_HOST']);
 
-  define('LIVE_SITE',       true);
+  // start user session
+  session_start();
+
+  // set environment (live / development)
+  if ($_SERVER['HTTP_HOST'] == 'enzyme') {
+    define('LIVE_SITE', false);
+  } else {
+    define('LIVE_SITE', true);
+  }
 }
 
 
@@ -105,10 +118,21 @@ if (COMMAND_LINE) {
 } else {
   // set language
   if (isset($_GET['language'])) {
-    define('LANGUAGE', $_GET['language']);
+    // load language from query string
+    define('LANGUAGE', $_REQUEST['language']);
+
+    // store in session
+    $_SESSION['language'] = LANGUAGE;
+
+  } else if (isset($_SESSION['language'])) {
+    // load language from cookie
+    define('LANGUAGE', $_SESSION['language']);
+
   } else {
+    // use default language
     define('LANGUAGE', DEFAULT_LANGUAGE);
   }
+
 
   putenv('LC_ALL=' . LANGUAGE);
   setlocale(LC_ALL, LANGUAGE);
@@ -120,7 +144,7 @@ if (COMMAND_LINE) {
                      BASE_DIR . '/classes/ext/',
                      BASE_DIR . '/classes/ui/');
 
-  set_include_path(implode(PATH_SEPARATOR, $classDirs));
+  set_include_path(get_include_path() . PATH_SEPARATOR . implode(PATH_SEPARATOR, $classDirs));
 
   // define autoloader
   spl_autoload_register();

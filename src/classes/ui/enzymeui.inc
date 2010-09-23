@@ -19,9 +19,6 @@ class EnzymeUi {
   public $user              = null;
   public $frame             = null;
 
-  public $metaDescription   = '';
-  public $metaKeywords      = '';
-
   private $title            = APP_NAME;
 
   private $style            = array('/css/common.css');
@@ -94,8 +91,8 @@ class EnzymeUi {
 
 
   public function drawMeta() {
-    $buf = '<meta name="description" content="' . $this->metaDescription . '" />
-            <meta name="keywords" content="' . $this->metaKeywords . '" />
+    $buf = '<meta name="description" content="' . META_DESCRIPTION . '" />
+            <meta name="keywords" content="' . META_KEYWORDS . '" />
             <meta name="viewport" content="width=device-width; initial-scale=1.0" />
 
             <link rel="shortcut icon" href="' . BASE_URL .'/favicon.ico" type="image/x-icon" />

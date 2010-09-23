@@ -346,6 +346,7 @@ class Digest {
     // sort contributors to this digest issue by extent of contribution,
     // (feature editors already added to top), exclude reviewers and
     // contributors with minimal contribution (< 1%)
+    if (isset($contributors)) {
     arsort($contributors, SORT_NUMERIC);
 
     foreach ($contributors as $contributor => $value) {
@@ -356,6 +357,7 @@ class Digest {
                                           'name'   => $contributor,
                                           'value'  => $percent);
       }
+    }
     }
 
 
@@ -392,10 +394,61 @@ class Digest {
 
   public static function getLanguages() {
     return array('en'    => _('English'),
-                 'de'    => _('German'),
-                 'fr'    => _('French'),
-                 'it'    => _('Italian'),
-                 'es'    => _('Spanish'));
+                 'it'    => _('Italiano (Italian)'));
+
+
+    return array('en'    => _('English'),
+                 'it'    => _('Italiano (Italian)'),
+                 'de'    => _('Deutsch (German)'),
+                 'fr'    => _('Français (French)'),
+                 'es'    => _('Español (Spanish)'),
+                 'nl'    => _('Nederlands (Dutch)'),
+                 'pt'    => _('Português (Portuguese)'));
+  }
+
+
+  public static function drawCommit($commit, $issueDate, $showDiffs = true) {
+    // if not showing diffs, use different class to provide correct padding
+    if (!$showDiffs) {
+      $class = 'b';
+    } else {
+      $class = 'b b-p';
+    }
+
+    $buf = '<div class="commit">
+              <span class="intro">' .
+                sprintf(_('%s committed changes in %s:'),
+                '<a class="n" href="http://cia.vc/stats/author/' . $commit['author'] . '/">' . $commit['name'] . '</a>',
+                $commit['basepath']) .
+           '  </span>
+
+              <div class="details">
+                <p class="msg">' .
+                  $commit['msg'] .
+           '    </p>';
+
+    // show diff / bug box?
+    if ($showDiffs || isset($commit['bug'])) {
+      $buf .=  '<div class="info">' .
+                  self::drawBugs($commit, $class);
+
+      // show diffs?
+      if ($showDiffs) {
+        $buf .=  '  <span class="d">' .
+                      self::drawDiffs($commit, $issueDate) .
+                 '  </span>
+                    <a class="r n" href="' . BASE_URL . '/issues/' . $issueDate . '/moreinfo/' . $commit['revision'] . '/">' .
+                      sprintf(_('Revision %d'), $commit['revision']) .
+                 '  </a>';
+      }
+
+      $buf .=  '</div>';
+    }
+
+    $buf .=  '  </div>
+              </div>';
+
+    return $buf;
   }
 
 
