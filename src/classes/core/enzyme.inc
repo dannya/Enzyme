@@ -344,10 +344,10 @@ class Enzyme {
 
 
       // determine base commit path
-      if (count($tmpPaths) == 1) {
+      if (count($entry->paths->path) == 1) {
         $commit['basepath'] = $commitFile['path'];
       } else {
-        $commit['basepath'] = self::getBasePath($tmpPaths);
+        $commit['basepath'] = self::getBasePath($entry->paths->path);
       }
 
 
