@@ -126,7 +126,7 @@ class SettingsUi extends BaseUi {
               _('Change password') .
            '  <div>
                 <div id="indicator-change-password"><div>&nbsp;</div></div>
-                <input type="button" onclick="alert(\'change password\');" value="' . _('Change password') . '" title="' . _('Change password') . '" />
+                <input type="button" onclick="changePassword(\'' . $this->user->data['username'] . '\');" value="' . _('Change password') . '" title="' . _('Change password') . '" />
               </div>
             </h3>
 
@@ -152,7 +152,7 @@ class SettingsUi extends BaseUi {
 
 
   public function getScript() {
-    return array();
+    return array('/js/frame/settingsui.js');
   }
 
 

@@ -138,6 +138,19 @@ class User {
   }
 
 
+  public function changePassword($oldPassword, $newPassword) {
+    if ($this->getHash(trim($oldPassword)) == $this->data['password']) {
+      // change password
+      $this->data['password'] = $this->getHash(trim($newPassword));
+
+      // save changes
+      return $this->save();
+    }
+
+    return false;
+  }
+
+
   public function hasPermission($permission) {
     return in_array($permission, $this->permissions);
   }

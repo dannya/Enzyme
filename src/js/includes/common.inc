@@ -15,6 +15,10 @@
 
 var BASE_URL = '<?php echo BASE_URL; ?>';
 
+var strings  = {};
+strings.change_password_success = '<?php echo _('Your password has been changed') ?>';
+strings.change_password_failure = '<?php echo _('Error: Password not changed') ?>';
+
 
 function sprintf() {
   if (!arguments || (arguments.length < 1) || !RegExp) {

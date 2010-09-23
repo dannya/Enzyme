@@ -32,6 +32,7 @@ class UsersUi extends BaseUi {
 
     // load users, grouped by permission
     $this->users = Digest::getUsersByPermission(null, true, true);
+    sort($this->users);
 
     // set available permissions
     $this->availablePermissions = Digest::getPermissions();

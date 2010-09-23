@@ -51,6 +51,7 @@ function createNewDigest() {
           if ((typeof result.success != 'undefined') && result.success) {
             showIndicator('new-digest', 'indicator-success');
 
+            // wait for user to acknowledge change, then redirect
             sleep(2);
             top.location = BASE_URL + '/issues/' + theDate + '/';
 

@@ -43,7 +43,7 @@ define('DB_DATABASE',       'enzyme');
 // define app constants
 define('APP_ID',            'enzyme');
 define('APP_NAME',          'Enzyme');
-define('VERSION',           '0.6');
+define('VERSION',           '0.7');
 
 define('META_DESCRIPTION',  'A project-independent tool for creating regular project reports and assisting interesting statistical analysis.');
 define('META_KEYWORDS',     'enzyme, digest, open source');

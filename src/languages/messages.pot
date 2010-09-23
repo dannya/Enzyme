@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Enzyme\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-09-23 16:17-0000\n"
-"PO-Revision-Date: 2010-09-23 16:18-0000\n"
+"POT-Creation-Date: 2010-09-23 19:12-0000\n"
+"PO-Revision-Date: 2010-09-23 19:12-0000\n"
 "Last-Translator: Danny Allen <dannya40uk@yahoo.co.uk>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -31,7 +31,6 @@ msgstr ""
 #: C:\www\enzyme\src/tool/digest-commits.php:25
 #: C:\www\enzyme\src/tool/digest-intro.php:25
 #: C:\www\enzyme\src/tool/digest-stats.php:25
-#: C:\www\enzyme\src/tool/parse-authors.php:25
 msgid "Must be logged in!"
 msgstr ""
 
@@ -399,7 +398,7 @@ msgstr ""
 
 #: C:\www\enzyme\src/classes/ui/baseui.inc:45
 #: C:\www\enzyme\src/classes/ui/usersui.inc:28
-#: C:\www\enzyme\src/classes/ui/usersui.inc:49
+#: C:\www\enzyme\src/classes/ui/usersui.inc:50
 msgid "Users"
 msgstr ""
 
@@ -647,11 +646,11 @@ msgstr ""
 msgid "No commits reviewed and classified!"
 msgstr ""
 
-#: C:\www\enzyme\src/classes/ui/enzymeui.inc:163
+#: C:\www\enzyme\src/classes/ui/enzymeui.inc:160
 msgid "Logout"
 msgstr ""
 
-#: C:\www\enzyme\src/classes/ui/enzymeui.inc:164
+#: C:\www\enzyme\src/classes/ui/enzymeui.inc:161
 #: C:\www\enzyme\src/classes/ui/settingsui.inc:25
 msgid "Settings"
 msgstr ""
@@ -688,7 +687,7 @@ msgstr ""
 
 #: C:\www\enzyme\src/classes/ui/loginui.inc:31
 #: C:\www\enzyme\src/classes/ui/settingsui.inc:72
-#: C:\www\enzyme\src/classes/ui/usersui.inc:59
+#: C:\www\enzyme\src/classes/ui/usersui.inc:60
 msgid "Username"
 msgstr ""
 
@@ -705,17 +704,17 @@ msgid "Personal"
 msgstr ""
 
 #: C:\www\enzyme\src/classes/ui/settingsui.inc:78
-#: C:\www\enzyme\src/classes/ui/usersui.inc:60
+#: C:\www\enzyme\src/classes/ui/usersui.inc:61
 msgid "Email"
 msgstr ""
 
 #: C:\www\enzyme\src/classes/ui/settingsui.inc:85
-#: C:\www\enzyme\src/classes/ui/usersui.inc:61
+#: C:\www\enzyme\src/classes/ui/usersui.inc:62
 msgid "First name"
 msgstr ""
 
 #: C:\www\enzyme\src/classes/ui/settingsui.inc:91
-#: C:\www\enzyme\src/classes/ui/usersui.inc:62
+#: C:\www\enzyme\src/classes/ui/usersui.inc:63
 msgid "Last name"
 msgstr ""
 
@@ -724,7 +723,7 @@ msgid "Permissions"
 msgstr ""
 
 #: C:\www\enzyme\src/classes/ui/settingsui.inc:116
-#: C:\www\enzyme\src/classes/ui/usersui.inc:71
+#: C:\www\enzyme\src/classes/ui/usersui.inc:72
 msgid "Paths"
 msgstr ""
 
@@ -797,29 +796,37 @@ msgstr ""
 msgid "Parse authors"
 msgstr ""
 
-#: C:\www\enzyme\src/classes/ui/usersui.inc:51
+#: C:\www\enzyme\src/classes/ui/usersui.inc:52
 msgid "Add new user"
 msgstr ""
 
-#: C:\www\enzyme\src/classes/ui/usersui.inc:115
+#: C:\www\enzyme\src/classes/ui/usersui.inc:125
 msgid "Make this user inactive?"
 msgstr ""
 
-#: C:\www\enzyme\src/classes/ui/usersui.inc:121
+#: C:\www\enzyme\src/classes/ui/usersui.inc:131
 msgid "Make this user active?"
 msgstr ""
 
-#: C:\www\enzyme\src/classes/ui/usersui.inc:178
+#: C:\www\enzyme\src/classes/ui/usersui.inc:188
 msgid "Save new account?"
 msgstr ""
 
-#: C:\www\enzyme\src/js/includes/common.inc:232
+#: C:\www\enzyme\src/js/includes/common.inc:19
+msgid "Your password has been changed"
+msgstr ""
+
+#: C:\www\enzyme\src/js/includes/common.inc:20
+msgid "Error: Password not changed"
+msgstr ""
+
+#: C:\www\enzyme\src/js/includes/common.inc:236
 #, php-format
 msgid "Saved %d commits"
 msgstr ""
 
-#: C:\www\enzyme\src/js/includes/common.inc:242
-#: C:\www\enzyme\src/js/includes/common.inc:248
+#: C:\www\enzyme\src/js/includes/common.inc:246
+#: C:\www\enzyme\src/js/includes/common.inc:252
 msgid "Save unsuccessful"
 msgstr ""
 
