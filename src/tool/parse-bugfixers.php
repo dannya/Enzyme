@@ -58,8 +58,8 @@ foreach ($data as $row) {
   $row = explode('#####', $row);
 
   // assign data
-  $bugfixer['name']   = $row[0];
-  $bugfixer['email']  = $row[1];
+  $bugfixer['name']   = trim($row[0]);
+  $bugfixer['email']  = trim($row[1]);
 
   // attempt to get account name
   if (isset($accounts[$bugfixer['name']])) {
