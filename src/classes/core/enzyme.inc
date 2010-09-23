@@ -98,7 +98,7 @@ class Enzyme {
 
 
   public static function formatMsg($msg) {
-    return str_ireplace('<br>', '<br />', $msg);
+    return str_ireplace(array('<br>', "\n"), '<br />', $msg);
   }
 
 
@@ -250,7 +250,7 @@ class Enzyme {
 
   public static function getIgnoredPaths() {
     // TODO: store this data in db, create management interface in Enzyme
-    $ignored  = array('/l10n-kde4/');
+    $ignored  = array('/l10n-', '/www/');
 
     return $ignored;
   }

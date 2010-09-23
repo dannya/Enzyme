@@ -49,7 +49,7 @@ class Digest {
     }
 
     // get date
-    $date = date('Y-m-d', strtotime($timewarp . ' last sunday -1 minute'));
+    $date = date('Y-m-d', strtotime($timewarp . ' last sunday'));
 
     // only get a valid date?
     if ($getValid) {
@@ -181,7 +181,9 @@ class Digest {
 
 
     // numerically index contributors array and order by number of contributions
-    usort($digest['contributors'], 'self::sortContributors');
+    if (isset($digest['contributors'])) {
+      usort($digest['contributors'], 'self::sortContributors');
+    }
 
 
     // load digest issue people references

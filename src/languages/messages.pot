@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Enzyme\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-09-23 19:12-0000\n"
-"PO-Revision-Date: 2010-09-23 19:12-0000\n"
+"POT-Creation-Date: 2010-09-23 21:35-0000\n"
+"PO-Revision-Date: 2010-09-23 21:35-0000\n"
 "Last-Translator: Danny Allen <dannya40uk@yahoo.co.uk>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -313,59 +313,59 @@ msgstr ""
 msgid "Security"
 msgstr ""
 
-#: C:\www\enzyme\src/classes/core/enzyme.inc:319
+#: C:\www\enzyme\src/classes/core/enzyme.inc:362
 #, php-format
 msgid "Skipping revision %d"
 msgstr ""
 
-#: C:\www\enzyme\src/classes/core/enzyme.inc:356
+#: C:\www\enzyme\src/classes/core/enzyme.inc:399
 #, php-format
 msgid "Processed revision %d"
 msgstr ""
 
-#: C:\www\enzyme\src/classes/core/enzyme.inc:403
+#: C:\www\enzyme\src/classes/core/enzyme.inc:446
 msgid "Getting revision data..."
 msgstr ""
 
-#: C:\www\enzyme\src/classes/core/enzyme.inc:416
+#: C:\www\enzyme\src/classes/core/enzyme.inc:459
 msgid "Parsing revision data..."
 msgstr ""
 
-#: C:\www\enzyme\src/classes/core/enzyme.inc:467
+#: C:\www\enzyme\src/classes/core/enzyme.inc:510
 msgid "Inserted people stats"
 msgstr ""
 
-#: C:\www\enzyme\src/classes/core/enzyme.inc:485
+#: C:\www\enzyme\src/classes/core/enzyme.inc:528
 msgid "Inserted module stats"
 msgstr ""
 
-#: C:\www\enzyme\src/classes/core/enzyme.inc:494
+#: C:\www\enzyme\src/classes/core/enzyme.inc:537
 msgid "Extracting extended statistics..."
 msgstr ""
 
-#: C:\www\enzyme\src/classes/core/enzyme.inc:586
+#: C:\www\enzyme\src/classes/core/enzyme.inc:629
 msgid "Getting internationalization (i18n) stats..."
 msgstr ""
 
-#: C:\www\enzyme\src/classes/core/enzyme.inc:610
+#: C:\www\enzyme\src/classes/core/enzyme.inc:653
 msgid "Getting bug stats..."
 msgstr ""
 
-#: C:\www\enzyme\src/classes/core/enzyme.inc:655
+#: C:\www\enzyme\src/classes/core/enzyme.inc:698
 msgid "Inserted general stats"
 msgstr ""
 
-#: C:\www\enzyme\src/classes/core/ui.inc:212
-#: C:\www\enzyme\src/classes/core/ui.inc:216
+#: C:\www\enzyme\src/classes/core/ui.inc:220
+#: C:\www\enzyme\src/classes/core/ui.inc:224
 msgid "Save"
 msgstr ""
 
-#: C:\www\enzyme\src/classes/core/ui.inc:261
+#: C:\www\enzyme\src/classes/core/ui.inc:269
 #, php-format
 msgid " (%.1f percent of %d)"
 msgstr ""
 
-#: C:\www\enzyme\src/classes/core/ui.inc:272
+#: C:\www\enzyme\src/classes/core/ui.inc:280
 #, php-format
 msgid "Total: %d"
 msgstr ""
@@ -402,16 +402,16 @@ msgstr ""
 msgid "Users"
 msgstr ""
 
-#: C:\www\enzyme\src/classes/ui/classifyui.inc:46
+#: C:\www\enzyme\src/classes/ui/classifyui.inc:43
 #: C:\www\enzyme\src/classes/ui/reviewui.inc:48
 msgid "No revisions available"
 msgstr ""
 
-#: C:\www\enzyme\src/classes/ui/classifyui.inc:104
+#: C:\www\enzyme\src/classes/ui/classifyui.inc:107
 msgid "Areas"
 msgstr ""
 
-#: C:\www\enzyme\src/classes/ui/classifyui.inc:105
+#: C:\www\enzyme\src/classes/ui/classifyui.inc:108
 msgid "Types"
 msgstr ""
 
