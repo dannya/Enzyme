@@ -165,7 +165,7 @@ class Ui {
   }
 
 
-  public static function displayRevision($type, $id, $data, &$authors) {
+  public static function displayRevision($type, $id, $data, &$authors, &$classifications = null) {
     $buf = '<div id="' . $id . '" class="item normal">
               <div class="commit-title">
                 Commit <span class="revision">' . $data['revision'] . '</span> by <span>' . Enzyme::getAuthorInfo('name', $data['author']) . '</span> (<span>' . $data['author'] . '</span>)
@@ -178,23 +178,30 @@ class Ui {
 
     // add classification input fields?
     if ($type == 'classify') {
-      // show values as blank if set as 0
-      $area = $data['area'];
-      $type = $data['type'];
-
-      if ($area == 0) {
-        $area = null;
+      // search for basepath in common area classifications, so we can prefill value
+      if ($classifications) {
+        foreach ($classifications as $thePath => $theArea) {
+          if (strpos($data['basepath'], $thePath) !== false) {
+            $data['area'] = $theArea;
+            break;
+          }
+        }
       }
-      if ($type == 0) {
-        $type = null;
+
+      // show values as blank if set as 0
+      if ($data['area'] == 0) {
+        $data['area'] = null;
+      }
+      if ($data['type'] == 0) {
+        $data['type'] = null;
       }
 
       $buf .=  '<div class="commit-classify">
                   <label>
-                    Area <input id="' . $id . '-area" type="text" onblur="setCurrentItem(\'' . $id . '\');" onfocus="scrollItem(\'' . $id . '\');" value="' . $area . '" />
+                    Area <input id="' . $id . '-area" type="text" onblur="setCurrentItem(\'' . $id . '\');" onfocus="scrollItem(\'' . $id . '\');" value="' . $data['area'] . '" />
                   </label>
                   <label>
-                    Type <input id="' . $id . '-type" type="text" onblur="setCurrentItem(\'' . $id . '\');" onfocus="scrollItem(\'' . $id . '\');" value="' . $type . '" />
+                    Type <input id="' . $id . '-type" type="text" onblur="setCurrentItem(\'' . $id . '\');" onfocus="scrollItem(\'' . $id . '\');" value="' . $data['type'] . '" />
                   </label>
                 </div>';
     }

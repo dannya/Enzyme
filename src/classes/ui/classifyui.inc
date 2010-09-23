@@ -36,9 +36,6 @@ class ClassifyUi extends BaseUi {
     // get revision data
     $revisions = Enzyme::getProcessedRevisions('marked');
 
-    // get author data
-    $authors = Enzyme::getAuthors($revisions);
-
     // display revisions
     if (!$revisions) {
       // no 'marked' revisions
@@ -47,12 +44,18 @@ class ClassifyUi extends BaseUi {
              '</p>';
 
     } else {
-      $buf      = null;
-      $counter  = 1;
+      // get author data
+      $authors          = Enzyme::getAuthors($revisions);
+
+      // get common area classifications
+      $classifications  = Enzyme::getClassifications();
+
+      $buf              = null;
+      $counter          = 1;
 
       foreach ($revisions as $revision) {
         $key = 'commit-item-' . $counter++;
-        $buf .= Ui::displayRevision('classify', $key, $revision, $authors);
+        $buf .= Ui::displayRevision('classify', $key, $revision, $authors, $classifications);
       }
     }
 

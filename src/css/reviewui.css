@@ -29,6 +29,10 @@ div.item div.commit-title span {
   font-weight:bold;
 }
 
+div.item div.commit-msg {
+  right:110px;
+}
+
 div.item div.commit-classify {
   position:absolute;
   right:8px;
