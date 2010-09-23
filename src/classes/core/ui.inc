@@ -176,6 +176,7 @@ class Ui {
                 Enzyme::formatMsg($data['msg']) .
            '  </div>';
 
+
     // add classification input fields?
     if ($type == 'classify') {
       // search for basepath in common area classifications, so we can prefill value

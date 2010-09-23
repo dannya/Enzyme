@@ -248,6 +248,14 @@ class Enzyme {
   }
 
 
+  public static function getIgnoredPaths() {
+    // TODO: store this data in db, create management interface in Enzyme
+    $ignored  = array('/l10n-kde4/');
+
+    return $ignored;
+  }
+
+
   public static function getAuthorInfo($type, $key) {
     global $authors;
 
