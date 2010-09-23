@@ -102,7 +102,7 @@ class DigestsUi extends BaseUi {
                 <tr>
                   <td class="label">' . _('Date') . '</td>
                   <td class="value">
-                    <input id="info-date" type="text" value="' . Digest::getLastIssueDate() . '" />
+                    <input id="info-date" type="text" value="' . Digest::getLastIssueDate(null, false) . '" />
                   </td>
                 </tr>
                 <tr>
