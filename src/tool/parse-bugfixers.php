@@ -64,13 +64,20 @@ foreach ($data as $row) {
   // attempt to get account name
   if (isset($accounts[$bugfixer['name']])) {
     $bugfixer['account'] = $accounts[$bugfixer['name']]['account'];
+    $insertedName        = $bugfixer['account'];
+
+    // don't store name if account is found, we only want one canonical source of data
+    unset($bugfixer['name']);
+
+  } else {
+    $insertedName = $bugfixer['name'];
   }
 
   // insert into DB
   Db::insert('bugfixers', $bugfixer, true);
 
   // report success
-  Ui::displayMsg(sprintf(_('Inserted %s'), $bugfixer['name']));
+  Ui::displayMsg(sprintf(_('Inserted %s'), $insertedName));
 }
 
 
