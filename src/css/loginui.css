@@ -1,0 +1,137 @@
+div#login-footer {
+  position:fixed;
+  bottom:0;
+  left:0;
+  right:0;
+  height:35px;
+
+  background:url("../img/header-bg.png") repeat scroll 0 0 transparent;
+}
+div#login-footer a {
+  display:block;
+  position:absolute;
+  right:0px;
+  top:0px;
+
+  width:307px;
+  height:35px;
+  background:url("../img/powered-long.png") no-repeat scroll 0 0 transparent;
+}
+
+
+
+div#login-column-1,
+div#login-column-2 {
+  position:absolute;
+  top:0;
+  bottom:35px;
+  width:46%;
+  padding:24px 2%;
+}
+div#login-column-1 h2,
+div#login-column-2 h2 {
+  margin:0;
+}
+
+div#login-column-1 {
+  left:0;
+  background:url("../img/sidebar-bg.png") repeat scroll 0 0 transparent;
+  border-right:3px dotted #333;
+}
+div#login-column-2 {
+  right:0;
+}
+
+
+div#login-column-2 div#jobs,
+div#login-column-2 div#apply {
+  margin-top:22px;
+}
+
+div#login-column-2 div#jobs h3 {
+  position:relative;
+  margin:0 0 10px 0;
+}
+div#login-column-2 div#jobs h3 div {
+  position:absolute;
+  right:0;
+  top:-3px;
+}
+div#login-column-2 div#jobs p {
+  margin-bottom:22px;
+}
+
+
+
+div#apply div.row {
+  height:30px;
+  margin-bottom:6px;
+}
+div#apply div.row:last-child {
+  margin-bottom:0;
+}
+
+div#apply div.row div.left {
+  float:left;
+  margin-top:3px;
+  width:20%;
+  text-align:right;
+}
+div#apply div.row div.right {
+  float:right;
+  width:78%;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+div#login-box {
+  width:300px;
+  margin:100px auto;
+  padding:14px;
+  background:url(../img/header-bg.png) repeat scroll 0 0 transparent;
+}
+
+div#login-box div.row {
+  height:30px;
+  margin-bottom:6px;
+}
+div#login-box div.row:last-child {
+  margin-bottom:0;
+}
+
+div#login-box div.row div.left {
+  float:left;
+  margin-top:3px;
+  width:22%;
+  color:#fff;
+  text-align:right;
+}
+div#login-box div.row div.right {
+  float:right;
+  width:70%;
+}
+
+div#login-box div.button {
+  margin-top:16px;
+}
+div#login-box div.button a {
+  margin-top:4px;
+  display:block;
+  float:left;
+  color:#666;
+  font-style:italic;
+}
+
+div#login-box div.button input {
+  background:url(../img/bg.png) repeat scroll 0 0 transparent;
+}

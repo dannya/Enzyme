@@ -33,19 +33,26 @@ class EnzymeUi {
     // handle login
     $this->user = new User();
 
-    if (empty($this->user->auth)) {
-      // not logged in, show prompt
-      $this->frame = new LoginUi();
-
+    // determine current frame
+    if (isset($_GET['page'])) {
+      $current = trim($_GET['page'], '/');
     } else {
-      // logged in, determine current frame
-      if (isset($_GET['page'])) {
-        $current = trim($_GET['page'], '/');
+      $current = null;
+    }
+
+    if (empty($this->user->auth)) {
+      // not logged in
+      if ($current == 'about') {
+        // show information about Enzyme
+        $this->frame = new AboutUi();
+
       } else {
-        $current = null;
+        // show prompt
+        $this->frame = new LoginUi();
       }
 
-      // initialise UI
+    } else {
+      // logged in, initialise authorised UI
       if ($current == 'insert') {
         $this->frame = new InsertUI();
 
@@ -73,10 +80,10 @@ class EnzymeUi {
       } else {
         $this->frame = new HomeUi();
       }
-
-      // get specific style
-      $this->style = array_merge($this->style, $this->frame->getStyle());
     }
+
+    // get specific style
+    $this->style        = array_merge($this->style, $this->frame->getStyle());
 
     // set script
     $this->userScript[] = '/js/index.php?script=common&amp;id=' . $this->frame->id;

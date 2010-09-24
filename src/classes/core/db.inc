@@ -37,13 +37,22 @@ class Db {
                                   'filetypes',
                                   'languages',
                                   'people',
+                                  'settings',
                                   'users');
 
 
   public static function connect() {
-    mysql_pconnect(DB_HOST, DB_USER, DB_PASSWORD) or trigger_error(sprintf(_('Query failed: %s'), mysql_error()));
-    mysql_select_db(DB_DATABASE) or trigger_error(sprintf(_('Query failed: %s'), mysql_error()));
+    // connect to database server
+    mysql_pconnect(DB_HOST, DB_USER, DB_PASSWORD) or trigger_error(sprintf(_("Couldn't connect to database: ensure you have set the correct values at the top of %s/autoload.inc"), BASE_DIR));
+
+    // select database
+    $success = @mysql_select_db(DB_DATABASE);
+
+    // ensure database communicates using utf8
     mysql_query('SET NAMES \'utf8\'');
+
+    // return select database success
+    return $success;
   }
 
 

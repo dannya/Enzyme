@@ -28,7 +28,7 @@ class Ui {
   }
 
 
-  public static function drawHtmlPage($content, $title = null, $css = null, $js = null) {
+  public static function drawHtmlPage($content, $title = null, array $css = array(), array $js = array()) {
     $buf = self::drawHtmlPageStart($title, $css, $js) .
            $content .
            self::drawHtmlPageEnd();
@@ -37,7 +37,7 @@ class Ui {
   }
 
 
-  public static function drawHtmlPageStart($title = null, $css = null, $js = null) {
+  public static function drawHtmlPageStart($title = null, array $css = array(), array $js = array()) {
     $style   = null;
     $script  = null;
 

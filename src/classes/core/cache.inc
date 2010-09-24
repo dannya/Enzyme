@@ -32,7 +32,7 @@ class Cache {
 
 
   public static function loadSave($key, $function, $args = array(), $newData = null,
-  $serialize = false, $ttl = 0) {
+                                  $serialize = false, $ttl = 0) {
 
     $data = self::load($key, $serialize);
 

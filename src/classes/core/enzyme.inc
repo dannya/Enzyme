@@ -97,6 +97,117 @@ class Enzyme {
   }
 
 
+  public static function getAvailableSettings() {
+    $settings['REPOSITORY_TYPE']   = array('title'   => _('Repository Type'),
+                                           'valid'   => array('svn' => _('Subversion')),
+                                           'default' => null,
+                                           'example' => null);
+    $settings['REPOSITORY']        = array('title'   => _('Repository URL'),
+                                           'valid'   => null,
+                                           'default' => null,
+                                           'example' => 'svn://anonsvn.kde.org/home/kde/');
+    $settings['ACCOUNTS_FILE']     = array('title'   => _('Accounts File'),
+                                           'valid'   => null,
+                                           'default' => null,
+                                           'example' => null);
+    $settings['EXISTING_ISSUES']   = array('title'   => _('Existing Issues'),
+                                           'valid'   => null,
+                                           'default' => null,
+                                           'example' => null);
+    $settings['EXISTING_ARCHIVE']  = array('title'   => _('Existing Archive'),
+                                           'valid'   => null,
+                                           'default' => null,
+                                           'example' => null);
+    $settings['EXISTING_DATA']     = array('title'   => _('Existing Data'),
+                                           'valid'   => null,
+                                           'default' => null,
+                                           'example' => null);
+    $settings['WEBSVN']            = array('title'   => _('Web Repository Viewer'),
+                                           'valid'   => null,
+                                           'default' => null,
+                                           'example' => null);
+    $settings['WEBBUG']            = array('title'   => _('Web Bug Tracker'),
+                                           'valid'   => null,
+                                           'default' => null,
+                                           'example' => null);
+    $settings['WEBBUG_XML']        = array('title'   => _('Web Bug Tracker XML'),
+                                           'valid'   => null,
+                                           'default' => null,
+                                           'example' => null);
+    $settings['I18N_STATS']        = array('title'   => _('I18n Stats URL'),
+                                           'valid'   => null,
+                                           'default' => null,
+                                           'example' => null);
+    $settings['I18N_TEAMS']        = array('title'   => _('I18n Teams URL'),
+                                           'valid'   => null,
+                                           'default' => null,
+                                           'example' => null);
+    $settings['BUG_STATS']         = array('title'   => _('Bug Stats URL'),
+                                           'valid'   => null,
+                                           'default' => null,
+                                           'example' => null);
+    $settings['DOMAIN']            = array('title'   => _('Enzyme URL'),
+                                           'valid'   => null,
+                                           'default' => null,
+                                           'example' => null);
+    $settings['PROJECT_NAME']      = array('title'   => _('Project Name'),
+                                           'valid'   => null,
+                                           'default' => null,
+                                           'example' => null);
+    $settings['DISPLAY_URL']       = array('title'   => _('Digest URL'),
+                                           'valid'   => null,
+                                           'default' => null,
+                                           'example' => null);
+    $settings['DEFAULT_LOCATION']  = array('title'   => _('Default Location'),
+                                           'valid'   => null,
+                                           'default' => null,
+                                           'example' => null);
+    $settings['DEFAULT_TIMEZONE']  = array('title'   => _('Default Timezone'),
+                                           'valid'   => null,
+                                           'default' => null,
+                                           'example' => null);
+    $settings['DEFAULT_LANGUAGE']  = array('title'   => _('Default Language'),
+                                           'valid'   => null,
+                                           'default' => null,
+                                           'example' => null);
+    $settings['DATE_FORMAT']       = array('title'   => _('Date Format'),
+                                           'valid'   => null,
+                                           'default' => null,
+                                           'example' => null);
+
+    return $settings;
+  }
+
+
+  public static function getAvailableJobs() {
+    // define available jobs / i18n strings
+    $possible['reviewer']   = array('title'       => _('Commit Reviewer'),
+                                    'description' => _('Commit Reviewers look at all the recent commits, selecting those which are significant and interesting enough to be included into the weekly Commit-Digest.'));
+
+    $possible['classifier'] = array('title'       => _('Commit Classifier'),
+                                    'description' => _('Commit Classifiers sort the selected commits into areas (which is partly automated), and by type (such as bug fix, feature, etc).'));
+
+    $possible['editor']     = array('title'       => _('Feature Editor'),
+                                    'description' => _('Feature Editors contact people working on interesting projects and assist them in writing original pieces which are presented in the introduction of each Commit-Digest.'));
+
+    $possible['translator'] = array('title'       => _('Translator'),
+                                    'description' => _('Translators increase the reach of the Commit-Digest and the work done across the project by making the weekly Commit-Digests (and the website interfaces) available in the native language of people around the world.'));
+
+
+    // TODO: store this data in db, create management interface in Enzyme
+    $available = array('reviewer', 'classifier', 'editor', 'translator');
+
+    // link up available jobs with i18n'd strings
+    $jobs = array();
+
+    foreach ($available as $theJob) {
+      $jobs[$theJob] = $possible[$theJob];
+    }
+
+    return $jobs;
+  }
+
+
   public static function formatMsg($msg) {
     return str_ireplace(array('<br>', "\n"), '<br />', $msg);
   }

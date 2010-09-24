@@ -184,7 +184,7 @@ div#header div#logo {
 div#header h1#header-title {
   position:relative;
   top:8px;
-  width:300px;
+  width:600px;
   margin:0 auto;
   font-size:18px;
 
@@ -272,47 +272,6 @@ div#sidebar ul li.selected a {
   border-radius:3px;
   -moz-border-radius:3px;
   -webkit-border-radius:3px;
-}
-
-
-
-
-
-
-/*login*/
-div#login-box {
-  width:300px;
-  margin:100px auto;
-  padding:14px;
-  background:url(../img/header-bg.png) repeat scroll 0 0 transparent;
-}
-
-div#login-box div.row {
-  height:30px;
-  margin-bottom:6px;
-}
-div#login-box div.row:last-child {
-  margin-bottom:0;
-}
-
-div#login-box div.row div.left {
-  float:left;
-  margin-top:3px;
-  width:22%;
-  color:#fff;
-  text-align:right;
-}
-div#login-box div.row div.right {
-  float:right;
-  width:70%;
-}
-
-div#login-box div.button {
-  margin-top:16px;
-}
-
-div#login-box div.button input {
-  background:url(../img/bg.png) repeat scroll 0 0 transparent;
 }
 
 

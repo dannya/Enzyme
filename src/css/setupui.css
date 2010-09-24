@@ -1,0 +1,38 @@
+body#body-iframe {
+  padding:0;
+}
+
+
+div#setup-column {
+  width:600px;
+  margin:0 auto;
+}
+
+
+body#body-iframe table {
+  margin:0 auto;
+}
+
+table tr td.label {
+  padding-right:12px;
+  text-align:right;
+}
+table tr td.value {
+  width:300px;
+}
+
+
+table tr td.value input {
+  width:290px;
+}
+table tr td.value select {
+  width:300px;
+}
+table tr td.value input.prompt { 
+  color:#999;
+  font-style:italic;
+}
+
+input#setup-save {
+  margin:16px 0 20px 0;
+}

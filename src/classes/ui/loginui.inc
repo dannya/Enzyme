@@ -18,59 +18,125 @@
 class LoginUi {
   public $id      = 'login';
 
+  private $jobs   = array();
+
 
   public function __construct() {
-    $this->title = _('Login');
+    $this->title = sprintf(_('Welcome to Enzyme @ %s'), PROJECT_NAME);
+
+    // get list of available jobs
+    $this->jobs  = Enzyme::getAvailableJobs();
   }
 
 
   public function draw() {
-    $buf = '<form id="authenticate" method="post" action="">
-              <div id="login-box" class="r">
-                <div class="row">
-                  <div class="left">' . _('Username') . '</div>
-                  <div class="right">
-                    <input id="login-username" type="text" class="ex" name="login-username" />
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="left">' . _('Password') . '</div>
-                  <div class="right">
-                    <input id="login-password" type="password" class="ex" name="login-password" />
-                  </div>
-                </div>
+    $buf   = '<div id="login-column-1">
+                <h2>' . _('Login') . '</h2>
 
-                <div class="row button">
-                  <input type="button" onclick="$(\'authenticate\').submit();" value="' . _('Login') . '" />
-                </div>
+                <form id="authenticate" method="post" action="">
+                  <div id="login-box" class="r">
+                    <div class="row">
+                      <div class="left">' . _('Username') . '</div>
+                      <div class="right">
+                        <input id="login-username" type="text" class="ex" name="login-username" />
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="left">' . _('Password') . '</div>
+                      <div class="right">
+                        <input id="login-password" type="password" class="ex" name="login-password" />
+                      </div>
+                    </div>
+
+                    <div class="row button">
+                      <a href="#" onclick="forgotPassword(event);">' . _('Forgot password?') . '</a>
+                      <input type="button" onclick="$(\'authenticate\').submit();" value="' . _('Login') . '" />
+                    </div>
+                  </div>
+                </form>
               </div>
-            </form>
 
-            <script type="text/javascript">
-              // submit form on enter keypress
-              $("authenticate").observe("keydown", function(event) {
-                if (event.keyCode === 13) {
-                  $("authenticate").submit();
-                }
-              });
+              <div id="login-column-2">
+                <h2>' . _('Volunteer') . '</h2>
+                <div id="jobs" style="display:none;">';
 
-              // focus username box
-              if ($("login-username")) {
-                $("login-username").focus();
-              }
-            </script>';
+    foreach ($this->jobs as $job => $jobData) {
+      $buf  .= '<h3>' .
+                  $jobData['title'] .
+               '  <div>
+                    <input type="button" onclick="" value="Apply!" />
+                  </div>
+                </h3>
+                <p>' .
+                  $jobData['description'] .
+               '</p>';
+
+      $jobNames[$job] = $jobData['title'];
+    }
+
+    $buf  .= '</div>';
+
+
+    // draw hidden apply form
+    $jobSelector = Ui::htmlSelector('apply-job', $jobNames);
+
+    $buf  .= '<div id="apply">
+                <form id="apply-form" action="">
+                  <div class="row">
+                    <div class="left">' . _('Job') . '</div>
+                    <div class="right">' .
+                      $jobSelector .
+             '      </div>
+                  </div>
+                  <div class="row">
+                    <div class="left">' . _('First name') . '</div>
+                    <div class="right">
+                      <input id="apply-firstname" type="text" />
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="left">' . _('Last name') . '</div>
+                    <div class="right">
+                      <input id="apply-lastname" type="text" />
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="left">' . _('Email') . '</div>
+                    <div class="right">
+                      <input id="apply-email" type="text" />
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="left">' . _('Message') . '</div>
+                    <div class="right">
+                      <textarea id="apply-message"></textarea>
+                    </div>
+                  </div>
+
+                  <div class="row button">
+                    <a href="#" onclick="cancelApply(event);">' . _('Cancel') . '</a>
+                    <input type="button" onclick="$(\'form\').submit();" value="' . _('Apply!') . '" />
+                  </div>
+                </form>
+              </div>';
+
+    $buf  .= '</div>
+
+              <div id="login-footer">
+                <a href="http://enzyme-project.org/" target="_blank">&nbsp;</a>
+              </div>';
 
     return $buf;
   }
 
 
   public function getScript() {
-    return array();
+    return array('/js/frame/loginui.js');
   }
 
 
   public function getStyle() {
-    return array();
+    return array('/css/loginui.css');
   }
 }
 

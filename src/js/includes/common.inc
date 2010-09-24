@@ -302,3 +302,34 @@ function checkScroll() {
     $('result').contentWindow.document.body.descendants().last().scrollTo();
   }
 }
+
+
+function inputPrompt(event) {
+  var element = event.element();
+  var tagname = element.tagName;
+
+  if (event.type == 'focus') {
+    // save initial value?
+    if (element.hasClassName('prompt')) {
+      if (!element.readAttribute('alt')) {
+        if (tagname == 'TEXTAREA') {
+          var text = element.innerHTML;
+        } else {
+          var text = element.value;
+        }
+
+        element.writeAttribute('alt', text);
+      }
+
+      element.value = '';
+      element.removeClassName('prompt');
+    }
+
+  } else if (event.type == 'blur') {
+    // switch back?
+    if (element.value.empty() == true) {
+      element.value = element.readAttribute('alt');
+      element.addClassName('prompt');
+    }
+  }
+}
