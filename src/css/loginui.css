@@ -44,7 +44,8 @@ div#login-column-2 {
 
 
 div#login-column-2 div#jobs,
-div#login-column-2 div#apply {
+div#login-column-2 div#apply,
+div#login-column-2 div#success-message {
   margin-top:22px;
 }
 
@@ -67,8 +68,21 @@ div#apply div.row {
   height:30px;
   margin-bottom:6px;
 }
-div#apply div.row:last-child {
+div#apply div.tall {
+  height:110px;
+  padding-bottom:32px;
+}
+
+div#apply div.button {
   margin-bottom:0;
+  text-align:right;
+}
+div#apply div.button a {
+  position:relative;
+  right:6px;
+  top:3px;
+
+  font-style:italic;
 }
 
 div#apply div.row div.left {
@@ -81,15 +95,21 @@ div#apply div.row div.right {
   float:right;
   width:78%;
 }
+div#apply div.tall div.right {
+  height:100%;
+}
 
-
-
-
-
-
-
-
-
+div#apply div.row div.right input {
+  width:430px;
+}
+div#apply div.row div.right select {
+  width:440px;
+}
+div#apply div.row div.right textarea {
+  width:424px;
+  height:100%;
+  font-size:14px;
+}
 
 
 

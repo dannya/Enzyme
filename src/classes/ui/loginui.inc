@@ -58,13 +58,13 @@ class LoginUi {
 
               <div id="login-column-2">
                 <h2>' . _('Volunteer') . '</h2>
-                <div id="jobs" style="display:none;">';
+                <div id="jobs">';
 
     foreach ($this->jobs as $job => $jobData) {
       $buf  .= '<h3>' .
                   $jobData['title'] .
                '  <div>
-                    <input type="button" onclick="" value="Apply!" />
+                    <input type="button" onclick="apply(event, \'' . $job . '\');" value="' . _('Apply!') . '" />
                   </div>
                 </h3>
                 <p>' .
@@ -80,47 +80,51 @@ class LoginUi {
     // draw hidden apply form
     $jobSelector = Ui::htmlSelector('apply-job', $jobNames);
 
-    $buf  .= '<div id="apply">
-                <form id="apply-form" action="">
-                  <div class="row">
-                    <div class="left">' . _('Job') . '</div>
-                    <div class="right">' .
-                      $jobSelector .
-             '      </div>
-                  </div>
-                  <div class="row">
-                    <div class="left">' . _('First name') . '</div>
-                    <div class="right">
-                      <input id="apply-firstname" type="text" />
+    $buf  .= '  <div id="apply" style="display:none;">
+                  <form id="apply-form" action="">
+                    <div class="row">
+                      <div class="left">' . _('Job') . '</div>
+                      <div class="right">' .
+                        $jobSelector .
+               '      </div>
                     </div>
-                  </div>
-                  <div class="row">
-                    <div class="left">' . _('Last name') . '</div>
-                    <div class="right">
-                      <input id="apply-lastname" type="text" />
+                    <div class="row">
+                      <div class="left">' . _('First name') . '</div>
+                      <div class="right">
+                        <input id="apply-firstname" type="text" />
+                      </div>
                     </div>
-                  </div>
-                  <div class="row">
-                    <div class="left">' . _('Email') . '</div>
-                    <div class="right">
-                      <input id="apply-email" type="text" />
+                    <div class="row">
+                      <div class="left">' . _('Last name') . '</div>
+                      <div class="right">
+                        <input id="apply-lastname" type="text" />
+                      </div>
                     </div>
-                  </div>
-                  <div class="row">
-                    <div class="left">' . _('Message') . '</div>
-                    <div class="right">
-                      <textarea id="apply-message"></textarea>
+                    <div class="row">
+                      <div class="left">' . _('Email') . '</div>
+                      <div class="right">
+                        <input id="apply-email" type="text" />
+                      </div>
                     </div>
-                  </div>
+                    <div class="row tall">
+                      <div class="left">' . _('Message') . '</div>
+                      <div class="right">
+                        <textarea id="apply-message"></textarea>
+                      </div>
+                    </div>
 
-                  <div class="row button">
-                    <a href="#" onclick="cancelApply(event);">' . _('Cancel') . '</a>
-                    <input type="button" onclick="$(\'form\').submit();" value="' . _('Apply!') . '" />
-                  </div>
-                </form>
-              </div>';
+                    <div class="row button">
+                      <a href="#" onclick="cancelApply(event);">' . _('Cancel') . '</a>
+                      <input type="button" onclick="submitApply(event);" value="' . _('Apply!') . '" />
+                    </div>
+                  </form>
+                </div>
 
-    $buf  .= '</div>
+                <div id="success-message" style="display:none;">' .
+                  _('Thanks for your application!') . '<br /><br />' .
+                  _('The administrator will email you at the address provided when your application has been reviewed.') .
+               '</div>
+              </div>
 
               <div id="login-footer">
                 <a href="http://enzyme-project.org/" target="_blank">&nbsp;</a>

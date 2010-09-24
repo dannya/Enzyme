@@ -16,7 +16,8 @@
 
 
 class Db {
-  private static $tables  = array('authors',
+  private static $tables  = array('applications',
+                                  'authors',
                                   'bugfixers',
                                   'commits',
                                   'commits_reviewed',
