@@ -190,7 +190,7 @@ class EnzymeUi {
     }
 
     $buf = '<div id="header">
-              <div id="logo">&nbsp;</div>' .
+              <a id="logo" href="' . BASE_URL . '/" class="n">&nbsp;</a>' .
               $title .
               $user .
            '</div>';

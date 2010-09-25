@@ -163,6 +163,17 @@ a:hover {
 }
 
 
+a.n {
+  color:#222;
+  text-decoration:none;
+  border-bottom:0;
+}
+a.n:hover {
+  color:#000;
+  border-bottom:0;
+}
+
+
 
 
 /*common*/
@@ -173,7 +184,9 @@ div#header {
   background:url(../img/header-bg.png) repeat scroll 0 0 transparent;
   z-index:1000;
 }
-div#header div#logo {
+
+div#header a#logo {
+  display:block;
   position:absolute;
   top:0;
   left:0;
@@ -181,6 +194,7 @@ div#header div#logo {
   height:38px;
   background:url(../img/logo.png) no-repeat scroll 0 0 transparent;
 }
+
 div#header h1#header-title {
   position:relative;
   top:8px;
