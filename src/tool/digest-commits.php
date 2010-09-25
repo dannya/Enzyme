@@ -42,8 +42,8 @@ $dirs = App::getDirs(EXISTING_ISSUES);
 // iterate
 foreach ($dirs as $dir) {
   // load files
-  $file    = file($dir . '/selections.txt');
-  $diff    = file($dir . '/diffs.txt');
+  @$file    = file($dir . '/selections.txt');
+  @$diff    = file($dir . '/diffs.txt');
 
   // extract date
   $theDate  = explode('/', $dir);

@@ -21,6 +21,7 @@ class SetupUi extends BaseUi {
 
   private $setupDatabase      = false;
   private $availableSettings  = false;
+  private $settings           = false;
 
 
   public function __construct($setupDatabase = false) {
@@ -35,6 +36,9 @@ class SetupUi extends BaseUi {
 
     // define available settings
     $this->availableSettings = Enzyme::getAvailableSettings();
+
+    // load current settings (if available)
+    $this->settings = Db::reindex(Db::load('settings', false), 'setting');
   }
 
 
@@ -80,16 +84,23 @@ class SetupUi extends BaseUi {
       // determine input type to show
       if (isset($data['valid']) && is_array($data['valid'])) {
         // select box
-        if (!empty($data['default'])) {
+        if (!empty($this->settings[$key]['value'])) {
+          $default = $this->settings[$key]['value'];
+        } else if (!empty($data['default'])) {
           // preselect a default value
-          $input = Ui::htmlSelector($key, $data['valid'], $data['default']);
+          $default = $data['default'];
         } else {
-          $input = Ui::htmlSelector($key, $data['valid']);
+          $default = null;
         }
+
+        $input = Ui::htmlSelector($key, $data['valid'], $default);
 
       } else {
         // input box
-        if (!empty($data['default'])) {
+        if (!empty($this->settings[$key]['value'])) {
+          $value = ' value="' . $this->settings[$key]['value'] . '"';
+
+        } else if (!empty($data['default'])) {
           $value = ' value="' . $data['default'] . '"';
 
         } else if (!empty($data['example'])) {

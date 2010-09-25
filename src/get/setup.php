@@ -75,6 +75,10 @@ if (!$existingSettings) {
 }
 
 
+// clear settings cache
+Cache::delete('settings');
+
+
 // report success
 App::returnHeaderJson();
 

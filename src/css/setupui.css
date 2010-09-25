@@ -28,10 +28,10 @@ table tr td.value {
 
 
 table tr td.value input {
-  width:290px;
+  width:390px;
 }
 table tr td.value select {
-  width:300px;
+  width:400px;
 }
 table tr td.value input.prompt { 
   color:#999;
