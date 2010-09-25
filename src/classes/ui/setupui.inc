@@ -15,15 +15,23 @@
 +--------------------------------------------------------*/
 
 
-class SetupUi {
+class SetupUi extends BaseUi {
   public $id                  = 'setup';
+  public $title               = null;
 
   private $setupDatabase      = false;
   private $availableSettings  = false;
 
 
   public function __construct($setupDatabase = false) {
+    // set title
+    $this->title = _('Setup');
+
+    // do we need to setup the database?
     $this->setupDatabase = $setupDatabase;
+
+    // get currently logged in user, so we can check permissions, and hide disastrous buttons!
+    $this->user = new User();
 
     // define available settings
     $this->availableSettings = Enzyme::getAvailableSettings();
@@ -56,9 +64,14 @@ class SetupUi {
 
 
   public function draw() {
-    $buf  .= '<form id="setup-form" action="">
-                <table>
-                  <tbody>';
+    // check permission
+    if ($buf = App::checkPermission($this->user, 'admin')) {
+      return $buf;
+    }
+
+    $buf = '<form id="setup-form" action="">
+              <table>
+                <tbody>';
 
     foreach ($this->availableSettings as $key => $data) {
       $class = null;
@@ -116,7 +129,7 @@ class SetupUi {
 
 
   public function getStyle() {
-    return array();
+    return array('/css/setupui.css');
   }
 }
 

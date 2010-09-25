@@ -3,6 +3,11 @@ body#body-iframe {
 }
 
 
+div#content {
+  left:208px;
+}
+
+
 div#setup-column {
   width:600px;
   margin:0 auto;

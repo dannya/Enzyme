@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Enzyme\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-09-24 22:41-0000\n"
-"PO-Revision-Date: 2010-09-24 22:41-0000\n"
+"POT-Creation-Date: 2010-09-25 12:10-0000\n"
+"PO-Revision-Date: 2010-09-25 12:11-0000\n"
 "Last-Translator: Danny Allen <dannya40uk@yahoo.co.uk>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -29,7 +29,6 @@ msgstr ""
 #: C:\www\enzyme\src/get/insert.php:36
 #: C:\www\enzyme\src/get/statistics.php:36
 #: C:\www\enzyme\src/tool/digest-commits.php:25
-#: C:\www\enzyme\src/tool/digest-intro.php:25
 msgid "Must be logged in!"
 msgstr ""
 
@@ -42,12 +41,12 @@ msgid "Select settings and submit to start processing..."
 msgstr ""
 
 #: C:\www\enzyme\src/tool/digest-commits.php:181
-#: C:\www\enzyme\src/tool/digest-intro.php:151
 #, php-format
 msgid "Processed %s"
 msgstr ""
 
 #: C:\www\enzyme\src/tool/digest-intro.php:50
+#: C:\www\enzyme\src/tool/digest-stats.php:46
 msgid "Invalid import type (needs to be \"issue\" or \"archive\")"
 msgstr ""
 
@@ -57,14 +56,14 @@ msgid "File %s could not be found..."
 msgstr ""
 
 #: C:\www\enzyme\src/tool/digest-stats.php:91
-#: C:\www\enzyme\src/classes/core/db.inc:130
-#: C:\www\enzyme\src/classes/core/db.inc:159
-#: C:\www\enzyme\src/classes/core/db.inc:182
-#: C:\www\enzyme\src/classes/core/db.inc:206
-#: C:\www\enzyme\src/classes/core/db.inc:227
-#: C:\www\enzyme\src/classes/core/db.inc:239
-#: C:\www\enzyme\src/classes/core/db.inc:416
-#: C:\www\enzyme\src/classes/core/db.inc:424
+#: C:\www\enzyme\src/classes/core/db.inc:131
+#: C:\www\enzyme\src/classes/core/db.inc:160
+#: C:\www\enzyme\src/classes/core/db.inc:183
+#: C:\www\enzyme\src/classes/core/db.inc:207
+#: C:\www\enzyme\src/classes/core/db.inc:228
+#: C:\www\enzyme\src/classes/core/db.inc:240
+#: C:\www\enzyme\src/classes/core/db.inc:417
+#: C:\www\enzyme\src/classes/core/db.inc:425
 #: C:\www\enzyme\src/classes/core/digest.inc:95
 #: C:\www\enzyme\src/classes/core/digest.inc:127
 #: C:\www\enzyme\src/classes/core/digest.inc:142
@@ -155,7 +154,7 @@ msgid "Error detected on line %d"
 msgstr ""
 
 #: C:\www\enzyme\src/autoload.inc:112
-#: C:\www\enzyme\src/autoload.inc:126
+#: C:\www\enzyme\src/autoload.inc:129
 msgid "Setup"
 msgstr ""
 
@@ -178,12 +177,12 @@ msgstr ""
 msgid "in %d days"
 msgstr ""
 
-#: C:\www\enzyme\src/classes/core/db.inc:46
+#: C:\www\enzyme\src/classes/core/db.inc:47
 #, php-format
 msgid "Couldn't connect to database: ensure you have set the correct values at the top of %s/autoload.inc"
 msgstr ""
 
-#: C:\www\enzyme\src/classes/core/db.inc:298
+#: C:\www\enzyme\src/classes/core/db.inc:299
 msgid "Query failed"
 msgstr ""
 
@@ -524,7 +523,7 @@ msgstr ""
 
 #: C:\www\enzyme\src/classes/ui/aboutui.inc:30
 #, php-format
-msgid "Version %.1f"
+msgid "Version %.2f"
 msgstr ""
 
 #: C:\www\enzyme\src/classes/ui/baseui.inc:25
@@ -548,8 +547,6 @@ msgid "Digests"
 msgstr ""
 
 #: C:\www\enzyme\src/classes/ui/baseui.inc:41
-#: C:\www\enzyme\src/classes/ui/toolsui.inc:23
-#: C:\www\enzyme\src/classes/ui/toolsui.inc:82
 msgid "Tools"
 msgstr ""
 
@@ -802,11 +799,11 @@ msgstr ""
 msgid "No commits reviewed and classified!"
 msgstr ""
 
-#: C:\www\enzyme\src/classes/ui/enzymeui.inc:167
+#: C:\www\enzyme\src/classes/ui/enzymeui.inc:184
 msgid "Logout"
 msgstr ""
 
-#: C:\www\enzyme\src/classes/ui/enzymeui.inc:168
+#: C:\www\enzyme\src/classes/ui/enzymeui.inc:186
 #: C:\www\enzyme\src/classes/ui/settingsui.inc:25
 msgid "Settings"
 msgstr ""
@@ -828,7 +825,6 @@ msgid "End"
 msgstr ""
 
 #: C:\www\enzyme\src/classes/ui/insertui.inc:65
-#: C:\www\enzyme\src/classes/ui/toolsui.inc:171
 msgid "Show Skipped?"
 msgstr ""
 
@@ -863,6 +859,11 @@ msgstr ""
 msgid "Volunteer"
 msgstr ""
 
+#: C:\www\enzyme\src/classes/ui/loginui.inc:67
+#: C:\www\enzyme\src/classes/ui/loginui.inc:118
+msgid "Apply!"
+msgstr ""
+
 #: C:\www\enzyme\src/classes/ui/loginui.inc:86
 msgid "Job"
 msgstr ""
@@ -886,8 +887,12 @@ msgstr ""
 msgid "Cancel"
 msgstr ""
 
-#: C:\www\enzyme\src/classes/ui/loginui.inc:118
-msgid "Apply!"
+#: C:\www\enzyme\src/classes/ui/loginui.inc:124
+msgid "Thanks for your application!"
+msgstr ""
+
+#: C:\www\enzyme\src/classes/ui/loginui.inc:125
+msgid "The administrator will email you at the address provided when your application has been reviewed."
 msgstr ""
 
 #: C:\www\enzyme\src/classes/ui/settingsui.inc:56

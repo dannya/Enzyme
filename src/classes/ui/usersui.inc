@@ -27,7 +27,7 @@ class UsersUi extends BaseUi {
   public function __construct() {
     $this->title = _('Users');
 
-    // get currently logged in user, so we can check permissions, and hide disastarous buttons!
+    // get currently logged in user, so we can check permissions, and hide disastrous buttons!
     $this->user = new User();
 
     // load users, grouped by permission

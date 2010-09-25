@@ -40,45 +40,48 @@ class EnzymeUi {
       $current = null;
     }
 
-    if (empty($this->user->auth)) {
-      // not logged in
-      if ($current == 'about') {
-        // show information about Enzyme
-        $this->frame = new AboutUi();
 
-      } else {
-        // show prompt
-        $this->frame = new LoginUi();
-      }
+    if ($current == 'about') {
+      // show information about Enzyme
+      $this->frame = new AboutUi();
 
     } else {
-      // logged in, initialise authorised UI
-      if ($current == 'insert') {
-        $this->frame = new InsertUI();
-
-      } else if ($current == 'review') {
-        $this->frame = new ReviewUI();
-
-      } else if ($current == 'classify') {
-        $this->frame = new ClassifyUI();
-
-      } else if ($current == 'digests') {
-        $this->frame = new DigestsUI();
-
-      } else if ($current == 'tools') {
-        $this->frame = new ToolsUI();
-
-      } else if ($current == 'admin') {
-        $this->frame = new AdminUI();
-
-      } else if ($current == 'settings') {
-        $this->frame = new SettingsUI();
-
-      } else if ($current == 'users' || $current == 'error/HTTP_NOT_FOUND.html.var') {
-        $this->frame = new UsersUI();
+      if (empty($this->user->auth)) {
+        // not logged in, show prompt
+        $this->frame = new LoginUi();
 
       } else {
-        $this->frame = new HomeUi();
+        // logged in, initialise authorised UI
+        if ($current == 'insert') {
+          $this->frame = new InsertUI();
+
+        } else if ($current == 'review') {
+          $this->frame = new ReviewUI();
+
+        } else if ($current == 'classify') {
+          $this->frame = new ClassifyUI();
+
+        } else if ($current == 'digests') {
+          $this->frame = new DigestsUI();
+
+        } else if ($current == 'tools') {
+          $this->frame = new ToolsUI();
+
+        } else if ($current == 'admin') {
+          $this->frame = new AdminUI();
+
+        } else if ($current == 'settings') {
+          $this->frame = new SettingsUI();
+
+        } else if ($current == 'setup') {
+          $this->frame = new SetupUI();
+
+        } else if ($current == 'users') {
+          $this->frame = new UsersUI();
+
+        } else {
+          $this->frame = new HomeUi();
+        }
       }
     }
 
@@ -157,15 +160,30 @@ class EnzymeUi {
     if (!empty($this->user->auth)) {
       // select "settings" button?
       if ($this->frame->id == 'settings') {
-        $selected = ' selected';
+        $settingsSelected = ' selected';
       } else {
-        $selected = null;
+        $settingsSelected = null;
       }
 
+      // show "setup" button (only admins)
+      if ($this->user->hasPermission('admin')) {
+        if ($this->frame->id == 'setup') {
+          $setupSelected = ' selected';
+        } else {
+          $setupSelected = null;
+        }
+
+        $setupButton = '<input id="button_setup" class="padding' . $setupSelected . '" type="button" title="' . _('Setup') . '" value="' . _('Setup') . '" onclick="top.location=\'' . BASE_URL . '/setup/\';" />';
+      } else {
+        $setupButton = null;
+      }
+
+      // draw header
       $user =  '<div id="header-user">
                   <span>' . $this->user->data['firstname'] . ' ' . $this->user->data['lastname'] . '</span>
-                  <input id="button_logout" type="button" title="' . _('Logout') . '" value="' . _('Logout') . '" onclick="top.location=\'?logout\';" />
-                  <input id="button_settings" class="padding' . $selected . '" type="button" title="' . _('Settings') . '" value="' . _('Settings') . '" onclick="top.location=\'' . BASE_URL . '/settings/\';" />
+                  <input id="button_logout" type="button" title="' . _('Logout') . '" value="' . _('Logout') . '" onclick="top.location=\'?logout\';" />' .
+                  $setupButton .
+               '  <input id="button_settings" class="padding' . $settingsSelected . '" type="button" title="' . _('Settings') . '" value="' . _('Settings') . '" onclick="top.location=\'' . BASE_URL . '/settings/\';" />
                 </div>';
     } else {
       $user = null;
