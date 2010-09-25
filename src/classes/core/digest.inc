@@ -182,7 +182,7 @@ class Digest {
 
     // numerically index contributors array and order by number of contributions
     if (isset($digest['contributors'])) {
-      usort($digest['contributors'], 'self::sortContributors');
+      usort($digest['contributors'], array('Digest', 'sortContributors'));
     }
 
 

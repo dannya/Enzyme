@@ -854,6 +854,11 @@ class Enzyme {
 
 
   public static function getBasePath($tmpPaths, $depth = null) {
+    // if only one file provided, return input (otherwise we'll be locked in an infinite loop!)
+    if (count($tmpPaths) == 1) {
+      return array_pop($tmpPaths);
+    }
+
     $basepath  = null;
 
     $stop      = false;

@@ -76,7 +76,7 @@ class EnzymeUi {
         } else if ($current == 'setup') {
           $this->frame = new SetupUI();
 
-        } else if ($current == 'users') {
+        } else if ($current == 'users' || $current == 'error/HTTP_NOT_FOUND.html.var') {
           $this->frame = new UsersUI();
 
         } else {

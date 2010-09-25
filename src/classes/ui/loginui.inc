@@ -114,7 +114,7 @@ class LoginUi {
                     </div>
 
                     <div class="row button">
-                      <a href="#" onclick="cancelApply(event);">' . _('Cancel') . '</a>
+                      <a href="#" class="n" onclick="cancelApply(event);">' . _('Cancel') . '</a>
                       <input type="button" onclick="submitApply(event);" value="' . _('Apply!') . '" />
                     </div>
                   </form>
