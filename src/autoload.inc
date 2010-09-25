@@ -93,7 +93,7 @@ if (COMMAND_LINE) {
 // define app constants
 define('APP_ID',    'enzyme');
 define('APP_NAME',  'Enzyme');
-define('VERSION',   '0.7');
+define('VERSION',   '0.8');
 
 
 // connect to database
