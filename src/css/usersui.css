@@ -49,7 +49,7 @@ table#users tbody tr td:last-child {
 }
 
 table#users td.padding {
-  padding-right:50px;
+  padding-right:18px;
 }
 
 
@@ -90,4 +90,69 @@ div.inactive {
 }
 div.inactive div {
   background-position:-44px -22px;
+}
+
+
+
+div#applications {
+  margin:0 28px 0 28px;
+  font-size:14px;
+}
+
+div.application {
+  position:relative;
+  margin-bottom:22px;
+}
+
+div.application table {
+  width:100%;
+  padding:10px;
+}
+div.application div.reply {
+  position:absolute;
+  top:10px;
+  right:10px;
+}
+
+div.application table:nth-child(odd) {
+  background:#E1EAF3;
+}
+div.application table:nth-child(even) {
+  background:#fff;
+}
+
+div.application table td.label {
+  padding:6px 12px 0 0;
+
+  vertical-align:top;
+  text-align:right;
+  font-style:italic;
+  color:#666;
+}
+
+div.application table td.value input[type="text"] {
+  width:280px;
+}
+
+div.application table td.value label {
+  margin-left:32px;
+}
+div.application table td.value label:first-child {
+  margin-left:0;
+}
+
+div.application table tr.jobs td.value,
+div.application table tr.message td.value {
+  padding-top:6px;
+}
+
+div.application table tr.jobs td.label {
+  padding-top:24px;
+}
+div.application table tr.jobs td.value {
+  padding-top:22px;
+}
+
+div.application table tr.message td.value {
+  font-style:italic;
 }

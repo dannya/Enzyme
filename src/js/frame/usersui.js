@@ -39,7 +39,7 @@ function saveNewAccount(event) {
   var theData         = { };
   var unfilled        = false;
   var neededFields    = ['username', 'email', 'firstname', 'lastname'];
-  var optionalFields  = ['permission-admin', 'permission-editor', 'permission-reviewer', 'permission-classifier', 'paths'];
+  var optionalFields  = ['permission-admin', 'permission-editor', 'permission-reviewer', 'permission-classifier', 'permission-translator', 'paths'];
 
   fields.each(function(field) {
     if (neededFields.indexOf(field.readAttribute('name')) != -1) {
@@ -216,4 +216,58 @@ function managePaths(user, state) {
       }
     }
   }
+}
+
+
+function manageApplication(context, number) {
+	if ((typeof context == 'undefined') || (typeof number == 'undefined') ||
+	    !$('application-' + number) || !$('username-' + number)) {
+
+		return false;
+	}
+	
+	// ensure username is provided when approving
+	if ((context == 'approve') && $('username-' + number).value.empty()) {
+	  $('username-' + number).addClassName('failure');
+	  $('username-' + number).focus();
+
+	  return false;
+
+	} else {
+		$('username-' + number).removeClassName('failure');
+	}
+
+
+	// collect data
+	var theData = {};
+
+	$('application-' + number).select('input').each(function(field) {
+    if (field.type == 'checkbox') {
+      theData[field.readAttribute('name')] = field.checked;
+    } else {
+    	theData[field.readAttribute('name')] = field.value;
+    }
+	});
+
+
+  // send off data
+  new Ajax.Request(BASE_URL + '/get/users.php', {
+    method: 'post',
+    parameters: {
+      username: null, 
+      data:     Object.toQueryString(theData),
+      dataType: context + '-application'
+    },
+    onSuccess: function(transport) {
+      var result = transport.headerJSON;
+
+      if ((typeof result.success != 'undefined') && result.success) {
+        // reload page to reflect application + user changes
+        location.reload(true);
+
+      } else {
+        // error      
+      }
+    }
+  });
 }

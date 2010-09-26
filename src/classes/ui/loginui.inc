@@ -78,7 +78,7 @@ class LoginUi {
 
 
     // draw hidden apply form
-    $jobSelector = Ui::htmlSelector('apply-job', $jobNames);
+    $jobSelector = Ui::htmlSelector('apply-job', $jobNames, null, 'checkPathsInput(event);');
 
     $buf  .= '  <div id="apply" style="display:none;">
                   <form id="apply-form" action="">
@@ -87,6 +87,12 @@ class LoginUi {
                       <div class="right">' .
                         $jobSelector .
                '      </div>
+                    </div>
+                    <div class="row">
+                      <div class="left">' . _('Paths') . '</div>
+                      <div class="right">
+                        <input id="apply-paths" type="text" disabled="disabled" class="prompt" onfocus="inputPrompt(event);" onblur="inputPrompt(event);" value="' . sprintf(_('Optional. (e.g. %s)'), '/koffice/, /kdebase/') . '" />
+                      </div>
                     </div>
                     <div class="row">
                       <div class="left">' . _('First name') . '</div>

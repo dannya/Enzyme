@@ -14,12 +14,26 @@
 
 
 function changePassword(theUser) {
-	if (!$('data-oldpassword') || $('data-oldpassword').value.empty() || 
-	    !$('data-newpassword') || $('data-newpassword').value.empty()) {
-
+	if (!$('data-oldpassword') || !$('data-newpassword')) {
 	  return false;
 	}
 	
+	// show error if field not filled
+	if ($('data-oldpassword').value.empty()) {
+		$('data-oldpassword').addClassName('failure');
+	  return false;
+	} else {
+		$('data-oldpassword').removeClassName('failure');
+	}
+
+	if ($('data-newpassword').value.empty()) {
+		$('data-newpassword').addClassName('failure');
+	  return false;
+	} else {
+	  $('data-newpassword').removeClassName('failure');
+	}
+	
+
 	// send off data
   new Ajax.Request(BASE_URL + '/get/change-password.php', {
     method: 'post',
@@ -34,7 +48,11 @@ function changePassword(theUser) {
       if ((typeof result.success != 'undefined') && result.success) {
       	// success
       	if (typeof strings.change_password_success != 'undefined') {
+      		$('data-oldpassword').clear();
+      		$('data-newpassword').clear();
+
           alert(strings.change_password_success);
+
       	} else {
           alert('Your password has been changed');
       	}

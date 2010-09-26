@@ -150,10 +150,18 @@ class Enzyme {
                                            'valid'   => null,
                                            'default' => null,
                                            'example' => null);
+    $settings['SMTP']              = array('title'   => _('SMTP Mail Server'),
+                                           'valid'   => null,
+                                           'default' => null,
+                                           'example' => 'smtp.example.com');
     $settings['PROJECT_NAME']      = array('title'   => _('Project Name'),
                                            'valid'   => null,
                                            'default' => null,
                                            'example' => null);
+    $settings['ADMIN_EMAIL']       = array('title'   => _('Admin Email'),
+                                           'valid'   => null,
+                                           'default' => null,
+                                           'example' => 'admin@example.com');
     $settings['DISPLAY_URL']       = array('title'   => _('Digest URL'),
                                            'valid'   => null,
                                            'default' => null,

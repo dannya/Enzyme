@@ -54,10 +54,35 @@ function apply(event, job) {
       break;
 	  }
 	}
+	
+	// enable paths input?
+	if ($('apply-paths')) {
+		if ((job == 'reviewer') || (job == 'classifier')) {
+			$('apply-paths').disabled = false;
+		} else {
+		  $('apply-paths').disabled = true;
+		}
+	}
 
   // hide jobs, show application form
   $('jobs').hide();
   $('apply').show();
+}
+
+
+function checkPathsInput(event) {
+  if (typeof event == 'undefined') {
+    return false;
+  }
+
+  var element   = event.element();
+  var selected  = element.options[element.selectedIndex].value;
+
+  if ((selected == 'reviewer') || (selected == 'classifier')) {
+  	$('apply-paths').disabled = false;
+  } else {
+  	$('apply-paths').disabled = true;
+  }
 }
 
 
@@ -94,13 +119,18 @@ function submitApply(event) {
   var theData = {};
 
   $('apply-form').select('select, textarea, input[type="text"]').each(function(input) {
-  	if (input.value.empty()) {
+  	if (!input.disabled && input.value.empty()) {
   		input.addClassName('failure');
   		filled = false;
 
   	} else {
   		input.removeClassName('failure');
-  		theData[input.id] = input.value;
+  		
+  		if (input.hasClassName('prompt')) {
+  		  theData[input.id] = '';
+  		} else {
+  		  theData[input.id] = input.value;
+  		}
   	}
   });
   

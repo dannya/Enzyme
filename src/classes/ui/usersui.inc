@@ -23,6 +23,8 @@ class UsersUi extends BaseUi {
 
   private $availablePermissions = array();
 
+  private $applications         = array();
+
 
   public function __construct() {
     $this->title = _('Users');
@@ -36,6 +38,9 @@ class UsersUi extends BaseUi {
 
     // set available permissions
     $this->availablePermissions = Digest::getPermissions();
+
+    // load applications
+    $this->applications = Db::load('applications', false, null, '*', false);
   }
 
 
@@ -89,10 +94,19 @@ class UsersUi extends BaseUi {
     }
 
     // draw hidden row, to allow creation of new users
-    $buf .= $this->drawRow(null);
+    $buf  .= $this->drawRow(null);
 
-    $buf .=  '  </tbody>
+    $buf  .= '  </tbody>
               </table>';
+
+
+    // draw job applications?
+    if ($this->applications) {
+      $buf  .= '<h3>' .
+                _('Applications') .
+               '</h3>' .
+               $this->drawApplications();
+    }
 
     return $buf;
   }
@@ -221,6 +235,93 @@ class UsersUi extends BaseUi {
                   <input' . $pathsId . ' type="text" value="' . $user['data']['paths'] . '" name="paths"' . $onChange . $pathsState . ' />
                 </td>
               </tr>';
+
+    return $buf;
+  }
+
+
+  private function drawApplications() {
+    if (!$this->applications) {
+      return false;
+    }
+
+    $counter = 0;
+
+    // draw applications
+    $buf = '<div id="applications">';
+
+    foreach ($this->applications as $application) {
+      $permissionsString = null;
+
+      // draw permission (job) checkboxes
+      foreach ($this->availablePermissions as $permission => $permissionData) {
+        // is permission currently set?
+        if ($permission == $application['job']) {
+          $checked = ' checked="checked"';
+        } else {
+          $checked = null;
+        }
+
+        $permissionsString  .= '<label>
+                                  <input id="permission-' . $permission . '-' . $counter . '" type="checkbox"' . $checked . ' name="permission-' . $permission . '" /> ' . $permissionData['title'] .
+                               '</label>';
+      }
+
+      // draw application
+      $buf  .= '<div class="application">
+                  <table id="application-' . $counter . '">
+                    <tbody>
+                      <tr>
+                        <td class="label">' . _('Username') . '</td>
+                        <td class="value">
+                          <input id="username-' . $counter . '" name="username" type="text" value="" />
+                        </td>
+                      </tr>
+                      <tr>
+                        <td class="label">' . _('First name') . '</td>
+                        <td class="value">
+                          <input id="firstname-' . $counter . '" name="firstname" type="text" value="' . $application['firstname'] . '" />
+                        </td>
+                      </tr>
+                      <tr>
+                        <td class="label">' . _('Last name') . '</td>
+                        <td class="value">
+                          <input id="lastname-' . $counter . '" name="lastname" type="text" value="' . $application['lastname'] . '" />
+                        </td>
+                      </tr>
+                      <tr>
+                        <td class="label">' . _('Email') . '</td>
+                        <td class="value">
+                          <input id="email-' . $counter . '" name="email" type="text" value="' . $application['email'] . '" />
+                        </td>
+                      </tr>
+                      <tr class="jobs">
+                        <td class="label">' . _('Job') . '</td>
+                        <td class="value">' . $permissionsString . '</td>
+                      </tr>
+                      <tr>
+                        <td class="label">' . _('Paths') . '</td>
+                        <td class="value">
+                          <input id="paths-' . $counter . '" name="paths" type="text" value="' . $application['paths'] . '" />
+                        </td>
+                      </tr>
+                      <tr class="message">
+                        <td class="label">' . _('Message') . '</td>
+                        <td class="value">' . str_replace("\n", '<br />', $application['message']) . '</td>
+                      </tr>
+                    </tbody>
+                  </table>
+
+                  <div class="reply">
+                    <input type="button" value="' . _('Decline') . '" onclick="manageApplication(\'decline\', \'' . $counter . '\');" />
+                    <input type="button" value="' . _('Approve') . '" onclick="manageApplication(\'approve\', \'' . $counter . '\');" />
+                  </div>
+                </div>';
+
+      ++$counter;
+    }
+
+    $buf  .= '</div>';
 
     return $buf;
   }

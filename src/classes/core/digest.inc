@@ -547,7 +547,9 @@ class Digest {
                          'reviewer'    => array('string' => 'R',
                                                 'title'  => _('Reviewer')),
                          'classifier'  => array('string' => 'C',
-                                                'title'  => _('Classifier')));
+                                                'title'  => _('Classifier')),
+                         'translator'  => array('string' => 'T',
+                                                'title'  => _('Translator')));
 
     return $permissions;
   }

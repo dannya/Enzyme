@@ -111,8 +111,12 @@ class User {
     }
 
     // serialise arrays as strings for storage
-    $this->data['paths']        = implode(', ', $this->paths);
-    $this->data['permissions']  = implode(', ', $this->permissions);
+    if (!empty($this->paths)) {
+      $this->data['paths']        = implode(', ', $this->paths);
+    }
+    if (!empty($this->permissions)) {
+      $this->data['permissions']  = implode(', ', $this->permissions);
+    }
 
     // save changes in database
     return Db::save('users', array('username' => $this->data['username']), $this->data);
