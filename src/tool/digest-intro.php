@@ -90,6 +90,11 @@ foreach ($dirs as $dir) {
 
       } else if ($section == 'translation') {
         $digest['language'] = trim($file[++$i]);
+
+        if ($digest['language'] == 'en') {
+          $digest['language'] = 'en_US';
+        }
+
       } else if ($section == 'synopsis') {
         $digest['synopsis'] = Enzyme::formatMsg(trim($file[++$i]));
 

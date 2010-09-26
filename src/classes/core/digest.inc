@@ -416,17 +416,17 @@ class Digest {
 
 
   public static function getLanguages() {
-    return array('en'    => _('English'),
-                 'it'    => _('Italiano (Italian)'));
+    return array('en_US'  => _('English'),
+                 'it_IT'  => _('Italiano (Italian)'));
 
 
-    return array('en'    => _('English'),
-                 'it'    => _('Italiano (Italian)'),
-                 'de'    => _('Deutsch (German)'),
-                 'fr'    => _('Français (French)'),
-                 'es'    => _('Español (Spanish)'),
-                 'nl'    => _('Nederlands (Dutch)'),
-                 'pt'    => _('Português (Portuguese)'));
+    return array('en_US'  => _('English'),
+                 'it_IT'  => _('Italiano (Italian)'),
+                 'de_DE'  => _('Deutsch (German)'),
+                 'fr_FR'  => _('Français (French)'),
+                 'es_ES'  => _('Español (Spanish)'),
+                 'nl_NL'  => _('Nederlands (Dutch)'),
+                 'pt_PT'  => _('Português (Portuguese)'));
   }
 
 
