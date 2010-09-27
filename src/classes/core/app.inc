@@ -16,6 +16,41 @@
 
 
 class App {
+  public static function setLanguage($language = null) {
+    if (defined('LANGUAGE')) {
+      return false;
+    }
+
+    // set language
+    if (isset($_GET['language'])) {
+      // load language from query string
+      define('LANGUAGE', $_REQUEST['language']);
+
+      // store in session
+      $_SESSION['language'] = LANGUAGE;
+
+    } else if (isset($_SESSION['language'])) {
+      // load language from cookie
+      define('LANGUAGE', $_SESSION['language']);
+
+    } else if ($language) {
+      // load language from function invocation
+      define('LANGUAGE', $language);
+
+    } else {
+      // use default language
+      define('LANGUAGE', DEFAULT_LANGUAGE);
+    }
+
+
+    // load language strings for set language
+    putenv('LC_ALL=' . LANGUAGE);
+    setlocale(LC_ALL, LANGUAGE . '.utf8');
+    bindtextdomain('messages', BASE_DIR . '/languages');
+    textdomain('messages');
+  }
+
+
   public static function truncate($string, $numChars, $addEllipsis = false) {
     if (strlen($string) <= $numChars) {
       return $string;

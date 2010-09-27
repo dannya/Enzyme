@@ -25,6 +25,9 @@ class SetupUi extends BaseUi {
 
 
   public function __construct($setupDatabase = false) {
+    // setup language
+    App::setLanguage();
+
     // set title
     $this->title = _('Setup');
 

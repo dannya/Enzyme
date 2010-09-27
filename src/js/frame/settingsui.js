@@ -13,6 +13,43 @@
 +--------------------------------------------------------*/
 
 
+function saveChanges() {
+	// collect data
+	var theData = {};
+
+	$('personal').select('input, select').each(function(item) {
+		if (!item.disabled) {
+			if (item.tagName == 'SELECT') {
+				theData[item.name] = item.options[item.selectedIndex].value;
+			} else {
+				theData[item.name] = item.value;
+			}
+		}
+	});
+
+
+  // send off data
+  new Ajax.Request(BASE_URL + '/get/change-personal.php', {
+    method: 'post',
+    parameters: { 
+      data: Object.toQueryString(theData),
+    },
+    onSuccess: function(transport) {
+      var result = transport.headerJSON;
+
+      if ((typeof result.success != 'undefined') && result.success) {
+        // success
+        alert('success');
+
+      } else {
+        // failure
+        alert('fail');
+      }
+    }
+  });
+}
+
+
 function changePassword(theUser) {
 	if (!$('data-oldpassword') || !$('data-newpassword')) {
 	  return false;

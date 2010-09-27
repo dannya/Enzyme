@@ -49,6 +49,9 @@ class User {
     }
 
     if (!isset($_SESSION[APP_ID . '_user'])) {
+      // setup language
+      App::setLanguage();
+
       // login?
       if ($username && $password) {
         // check if username and password are valid
@@ -97,10 +100,16 @@ class User {
       $this->permissions = preg_split('/[\s,]+/', $this->data['permissions']);
     }
 
+    // set if authenticated
     if ($this->data) {
       $this->auth = true;
     } else {
       $this->auth = false;
+    }
+
+    // change language?
+    if ($this->data['language'] != DEFAULT_LANGUAGE) {
+      App::setLanguage($this->data['language']);
     }
   }
 

@@ -62,31 +62,6 @@ if (COMMAND_LINE) {
       include('classes/' . $class . '.inc');
     }
   }
-
-} else {
-  // set language
-  if (isset($_GET['language'])) {
-    // load language from query string
-    define('LANGUAGE', $_REQUEST['language']);
-
-    // store in session
-    $_SESSION['language'] = LANGUAGE;
-
-  } else if (isset($_SESSION['language'])) {
-    // load language from cookie
-    define('LANGUAGE', $_SESSION['language']);
-
-  } else {
-    // use default language
-    define('LANGUAGE', DEFAULT_LANGUAGE);
-  }
-
-
-  // load language strings for set language
-  putenv('LC_ALL=' . LANGUAGE);
-  setlocale(LC_ALL, LANGUAGE);
-  bindtextdomain('messages', BASE_DIR . '/languages');
-  textdomain('messages');
 }
 
 

@@ -62,7 +62,7 @@ class SettingsUi extends BaseUi {
               _('Personal') .
            '  <div>
                 <div id="indicator-personal"><div>&nbsp;</div></div>
-                <input type="button" onclick="alert(\'save\');" value="' . _('Save changes') . '" title="' . _('Save changes') . '" />
+                <input type="button" onclick="saveChanges();" value="' . _('Save changes') . '" title="' . _('Save changes') . '" />
               </div>
             </h3>
 
@@ -77,27 +77,27 @@ class SettingsUi extends BaseUi {
                 <tr>
                   <td class="label">' . _('Email') . '</td>
                   <td class="value">
-                    <input id="data-email" type="text" value="' . $this->user->data['email'] . '" />
+                    <input id="data-email" name="email" type="text" value="' . $this->user->data['email'] . '" />
                   </td>
                 </tr>
 
                 <tr class="padding">
                   <td class="label">' . _('First name') . '</td>
                   <td class="value">
-                    <input id="data-firstname" type="text" value="' . $this->user->data['firstname'] . '" />
+                    <input id="data-firstname" name="firstname" type="text" value="' . $this->user->data['firstname'] . '" />
                   </td>
                 </tr>
                 <tr>
                   <td class="label">' . _('Last name') . '</td>
                   <td class="value">
-                    <input id="data-lastname" type="text" value="' . $this->user->data['lastname'] . '" />
+                    <input id="data-lastname" name="lastname" type="text" value="' . $this->user->data['lastname'] . '" />
                   </td>
                 </tr>
 
                 <tr class="padding">
                   <td class="label">' . _('Language') . '</td>
                   <td class="value">' .
-                    Ui::htmlSelector('data-language', Digest::getLanguages()) .
+                    Ui::htmlSelector('language', Digest::getLanguages(), $this->user->data['language']) .
            '      </td>
                 </tr>
               </tbody>
