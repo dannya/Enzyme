@@ -216,11 +216,16 @@ class Ui {
   public static function statusArea($type) {
     // determine display string
     if ($type == 'classify') {
-      $display = '<span id="commit-counter">0</span> commits classified (<span id="commit-total">0</span> total)';
+      $display = sprintf(_('%s commits classified (%s total)'),
+                         '<span id="commit-counter">0</span>',
+                         '<span id="commit-total">0</span>');
       $buttons = '<input id="review-save" type="button" onclick="save(\'' . $type . '\');" value="' . _('Save') . '" title="' . _('Save') . '" />';
 
     } else if ($type == 'review') {
-      $display = '<span class="bold">Selected <span id="commit-selected">0</span></span> of <span id="commit-counter">0</span> commits reviewed (<span id="commit-total">0</span> total)';
+      $display = sprintf('<span class="bold">' . _('Selected %s of %s commits reviewed (%s total)'),
+                         '<span id="commit-selected">0</span></span>',
+                         '<span id="commit-counter">0</span>',
+                         '<span id="commit-total">0</span>');
       $buttons = '<input id="review-save" type="button" disabled="disabled" onclick="save(\'' . $type . '\');" value="' . _('Save') . '" title="' . _('Save') . '" />';
     }
 

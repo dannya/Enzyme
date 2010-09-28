@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Enzyme\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-09-25 12:10-0000\n"
-"PO-Revision-Date: 2010-09-25 12:11-0000\n"
+"POT-Creation-Date: 2010-09-28 01:26-0000\n"
+"PO-Revision-Date: 2010-09-28 01:26-0000\n"
 "Last-Translator: Danny Allen <dannya40uk@yahoo.co.uk>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -28,7 +28,6 @@ msgstr ""
 
 #: C:\www\enzyme\src/get/insert.php:36
 #: C:\www\enzyme\src/get/statistics.php:36
-#: C:\www\enzyme\src/tool/digest-commits.php:25
 msgid "Must be logged in!"
 msgstr ""
 
@@ -41,6 +40,8 @@ msgid "Select settings and submit to start processing..."
 msgstr ""
 
 #: C:\www\enzyme\src/tool/digest-commits.php:181
+#: C:\www\enzyme\src/tool/digest-intro.php:156
+#: C:\www\enzyme\src/tool/digest-stats.php:316
 #, php-format
 msgid "Processed %s"
 msgstr ""
@@ -81,10 +82,6 @@ msgstr ""
 #: C:\www\enzyme\src/classes/core/digest.inc:345
 #: C:\www\enzyme\src/classes/core/digest.inc:391
 #: C:\www\enzyme\src/classes/core/digest.inc:400
-#: C:\www\enzyme\src/classes/core/enzyme.inc:272
-#: C:\www\enzyme\src/classes/core/enzyme.inc:293
-#: C:\www\enzyme\src/classes/core/enzyme.inc:319
-#: C:\www\enzyme\src/classes/core/enzyme.inc:393
 #, php-format
 msgid "Query failed: %s"
 msgstr ""
@@ -153,12 +150,12 @@ msgstr ""
 msgid "Error detected on line %d"
 msgstr ""
 
-#: C:\www\enzyme\src/autoload.inc:112
-#: C:\www\enzyme\src/autoload.inc:129
+#: C:\www\enzyme\src/autoload.inc:87
+#: C:\www\enzyme\src/autoload.inc:104
 msgid "Setup"
 msgstr ""
 
-#: C:\www\enzyme\src/classes/core/app.inc:88
+#: C:\www\enzyme\src/classes/core/app.inc:123
 #, php-format
 msgid "You need to have the permission \"%s\" to view this section"
 msgstr ""
@@ -268,6 +265,14 @@ msgstr ""
 
 #: C:\www\enzyme\src/classes/core/digest.inc:550
 msgid "Classifier"
+msgstr ""
+
+#: C:\www\enzyme\src/classes/core/digest.inc:552
+msgid "Translator"
+msgstr ""
+
+#: C:\www\enzyme\src/classes/core/email.inc:15
+msgid "SMTP mail server has not been set!"
 msgstr ""
 
 #: C:\www\enzyme\src/classes/core/enzyme.inc:61
@@ -405,114 +410,128 @@ msgid "Enzyme URL"
 msgstr ""
 
 #: C:\www\enzyme\src/classes/core/enzyme.inc:153
-msgid "Project Name"
+msgid "SMTP Mail Server"
 msgstr ""
 
 #: C:\www\enzyme\src/classes/core/enzyme.inc:157
-msgid "Digest URL"
+msgid "Project Name"
 msgstr ""
 
 #: C:\www\enzyme\src/classes/core/enzyme.inc:161
-msgid "Default Location"
+msgid "Admin Email"
 msgstr ""
 
 #: C:\www\enzyme\src/classes/core/enzyme.inc:165
-msgid "Default Timezone"
+msgid "Digest URL"
 msgstr ""
 
 #: C:\www\enzyme\src/classes/core/enzyme.inc:169
-msgid "Default Language"
+msgid "Default Location"
 msgstr ""
 
 #: C:\www\enzyme\src/classes/core/enzyme.inc:173
+msgid "Default Timezone"
+msgstr ""
+
+#: C:\www\enzyme\src/classes/core/enzyme.inc:177
+msgid "Default Language"
+msgstr ""
+
+#: C:\www\enzyme\src/classes/core/enzyme.inc:181
 msgid "Date Format"
 msgstr ""
 
-#: C:\www\enzyme\src/classes/core/enzyme.inc:184
+#: C:\www\enzyme\src/classes/core/enzyme.inc:192
 msgid "Commit Reviewer"
 msgstr ""
 
-#: C:\www\enzyme\src/classes/core/enzyme.inc:185
+#: C:\www\enzyme\src/classes/core/enzyme.inc:193
 msgid "Commit Reviewers look at all the recent commits, selecting those which are significant and interesting enough to be included into the weekly Commit-Digest."
 msgstr ""
 
-#: C:\www\enzyme\src/classes/core/enzyme.inc:187
+#: C:\www\enzyme\src/classes/core/enzyme.inc:195
 msgid "Commit Classifier"
 msgstr ""
 
-#: C:\www\enzyme\src/classes/core/enzyme.inc:188
+#: C:\www\enzyme\src/classes/core/enzyme.inc:196
 msgid "Commit Classifiers sort the selected commits into areas (which is partly automated), and by type (such as bug fix, feature, etc)."
 msgstr ""
 
-#: C:\www\enzyme\src/classes/core/enzyme.inc:190
+#: C:\www\enzyme\src/classes/core/enzyme.inc:198
 msgid "Feature Editor"
 msgstr ""
 
-#: C:\www\enzyme\src/classes/core/enzyme.inc:191
+#: C:\www\enzyme\src/classes/core/enzyme.inc:199
 msgid "Feature Editors contact people working on interesting projects and assist them in writing original pieces which are presented in the introduction of each Commit-Digest."
 msgstr ""
 
-#: C:\www\enzyme\src/classes/core/enzyme.inc:193
-msgid "Translator"
-msgstr ""
-
-#: C:\www\enzyme\src/classes/core/enzyme.inc:194
+#: C:\www\enzyme\src/classes/core/enzyme.inc:202
 msgid "Translators increase the reach of the Commit-Digest and the work done across the project by making the weekly Commit-Digests (and the website interfaces) available in the native language of people around the world."
 msgstr ""
 
-#: C:\www\enzyme\src/classes/core/enzyme.inc:473
+#: C:\www\enzyme\src/classes/core/enzyme.inc:481
 #, php-format
 msgid "Skipping revision %d"
 msgstr ""
 
-#: C:\www\enzyme\src/classes/core/enzyme.inc:510
+#: C:\www\enzyme\src/classes/core/enzyme.inc:518
 #, php-format
 msgid "Processed revision %d"
 msgstr ""
 
-#: C:\www\enzyme\src/classes/core/enzyme.inc:557
+#: C:\www\enzyme\src/classes/core/enzyme.inc:565
 msgid "Getting revision data..."
 msgstr ""
 
-#: C:\www\enzyme\src/classes/core/enzyme.inc:570
+#: C:\www\enzyme\src/classes/core/enzyme.inc:578
 msgid "Parsing revision data..."
 msgstr ""
 
-#: C:\www\enzyme\src/classes/core/enzyme.inc:621
+#: C:\www\enzyme\src/classes/core/enzyme.inc:629
 msgid "Inserted people stats"
 msgstr ""
 
-#: C:\www\enzyme\src/classes/core/enzyme.inc:639
+#: C:\www\enzyme\src/classes/core/enzyme.inc:647
 msgid "Inserted module stats"
 msgstr ""
 
-#: C:\www\enzyme\src/classes/core/enzyme.inc:648
+#: C:\www\enzyme\src/classes/core/enzyme.inc:656
 msgid "Extracting extended statistics..."
 msgstr ""
 
-#: C:\www\enzyme\src/classes/core/enzyme.inc:740
+#: C:\www\enzyme\src/classes/core/enzyme.inc:748
 msgid "Getting internationalization (i18n) stats..."
 msgstr ""
 
-#: C:\www\enzyme\src/classes/core/enzyme.inc:764
+#: C:\www\enzyme\src/classes/core/enzyme.inc:772
 msgid "Getting bug stats..."
 msgstr ""
 
-#: C:\www\enzyme\src/classes/core/enzyme.inc:819
+#: C:\www\enzyme\src/classes/core/enzyme.inc:827
 msgid "Inserted general stats"
 msgstr ""
 
-#: C:\www\enzyme\src/classes/core/ui.inc:220
-#: C:\www\enzyme\src/classes/core/ui.inc:224
+#: C:\www\enzyme\src/classes/core/ui.inc:219
+#, php-format
+msgid "%s commits classified (%s total)"
+msgstr ""
+
+#: C:\www\enzyme\src/classes/core/ui.inc:222
+#: C:\www\enzyme\src/classes/core/ui.inc:229
 msgid "Save"
 msgstr ""
 
-#: C:\www\enzyme\src/classes/core/ui.inc:269
+#: C:\www\enzyme\src/classes/core/ui.inc:225
+#, php-format
+msgid "Selected %s of %s commits reviewed (%s total)"
+msgstr ""
+
+#: C:\www\enzyme\src/classes/core/ui.inc:274
 #, php-format
 msgid " (%.1f percent of %d)"
 msgstr ""
 
-#: C:\www\enzyme\src/classes/core/ui.inc:280
+#: C:\www\enzyme\src/classes/core/ui.inc:285
 #, php-format
 msgid "Total: %d"
 msgstr ""
@@ -598,7 +617,6 @@ msgstr ""
 #: C:\www\enzyme\src/classes/ui/digestsui.inc:115
 #: C:\www\enzyme\src/classes/ui/digestsui.inc:212
 #: C:\www\enzyme\src/classes/ui/digestsui.inc:503
-#: C:\www\enzyme\src/classes/ui/settingsui.inc:98
 msgid "Language"
 msgstr ""
 
@@ -622,7 +640,6 @@ msgstr ""
 #: C:\www\enzyme\src/classes/ui/digestsui.inc:187
 #: C:\www\enzyme\src/classes/ui/digestsui.inc:254
 #: C:\www\enzyme\src/classes/ui/digestsui.inc:307
-#: C:\www\enzyme\src/classes/ui/settingsui.inc:65
 msgid "Save changes"
 msgstr ""
 
@@ -667,7 +684,7 @@ msgid "No introduction sections found"
 msgstr ""
 
 #: C:\www\enzyme\src/classes/ui/digestsui.inc:312
-#: C:\www\enzyme\src/classes/ui/loginui.inc:110
+#: C:\www\enzyme\src/classes/ui/loginui.inc:116
 msgid "Message"
 msgstr ""
 
@@ -804,7 +821,6 @@ msgid "Logout"
 msgstr ""
 
 #: C:\www\enzyme\src/classes/ui/enzymeui.inc:186
-#: C:\www\enzyme\src/classes/ui/settingsui.inc:25
 msgid "Settings"
 msgstr ""
 
@@ -843,7 +859,6 @@ msgid "Login"
 msgstr ""
 
 #: C:\www\enzyme\src/classes/ui/loginui.inc:39
-#: C:\www\enzyme\src/classes/ui/settingsui.inc:72
 msgid "Username"
 msgstr ""
 
@@ -860,7 +875,7 @@ msgid "Volunteer"
 msgstr ""
 
 #: C:\www\enzyme\src/classes/ui/loginui.inc:67
-#: C:\www\enzyme\src/classes/ui/loginui.inc:118
+#: C:\www\enzyme\src/classes/ui/loginui.inc:124
 msgid "Apply!"
 msgstr ""
 
@@ -869,29 +884,35 @@ msgid "Job"
 msgstr ""
 
 #: C:\www\enzyme\src/classes/ui/loginui.inc:92
-#: C:\www\enzyme\src/classes/ui/settingsui.inc:85
-msgid "First name"
+msgid "Paths"
+msgstr ""
+
+#: C:\www\enzyme\src/classes/ui/loginui.inc:94
+#, php-format
+msgid "Optional. (e.g. %s)"
 msgstr ""
 
 #: C:\www\enzyme\src/classes/ui/loginui.inc:98
-#: C:\www\enzyme\src/classes/ui/settingsui.inc:91
-msgid "Last name"
+msgid "First name"
 msgstr ""
 
 #: C:\www\enzyme\src/classes/ui/loginui.inc:104
-#: C:\www\enzyme\src/classes/ui/settingsui.inc:78
+msgid "Last name"
+msgstr ""
+
+#: C:\www\enzyme\src/classes/ui/loginui.inc:110
 msgid "Email"
 msgstr ""
 
-#: C:\www\enzyme\src/classes/ui/loginui.inc:117
+#: C:\www\enzyme\src/classes/ui/loginui.inc:123
 msgid "Cancel"
 msgstr ""
 
-#: C:\www\enzyme\src/classes/ui/loginui.inc:124
+#: C:\www\enzyme\src/classes/ui/loginui.inc:130
 msgid "Thanks for your application!"
 msgstr ""
 
-#: C:\www\enzyme\src/classes/ui/loginui.inc:125
+#: C:\www\enzyme\src/classes/ui/loginui.inc:131
 msgid "The administrator will email you at the address provided when your application has been reviewed."
 msgstr ""
 
@@ -905,10 +926,6 @@ msgstr ""
 
 #: C:\www\enzyme\src/classes/ui/settingsui.inc:109
 msgid "Permissions"
-msgstr ""
-
-#: C:\www\enzyme\src/classes/ui/settingsui.inc:116
-msgid "Paths"
 msgstr ""
 
 #: C:\www\enzyme\src/classes/ui/settingsui.inc:126
@@ -980,20 +997,32 @@ msgstr ""
 msgid "Parse authors"
 msgstr ""
 
-#: C:\www\enzyme\src/classes/ui/usersui.inc:52
+#: C:\www\enzyme\src/classes/ui/usersui.inc:57
 msgid "Add new user"
 msgstr ""
 
-#: C:\www\enzyme\src/classes/ui/usersui.inc:125
+#: C:\www\enzyme\src/classes/ui/usersui.inc:106
+msgid "Applications"
+msgstr ""
+
+#: C:\www\enzyme\src/classes/ui/usersui.inc:139
 msgid "Make this user inactive?"
 msgstr ""
 
-#: C:\www\enzyme\src/classes/ui/usersui.inc:131
+#: C:\www\enzyme\src/classes/ui/usersui.inc:145
 msgid "Make this user active?"
 msgstr ""
 
-#: C:\www\enzyme\src/classes/ui/usersui.inc:188
+#: C:\www\enzyme\src/classes/ui/usersui.inc:202
 msgid "Save new account?"
+msgstr ""
+
+#: C:\www\enzyme\src/classes/ui/usersui.inc:316
+msgid "Decline"
+msgstr ""
+
+#: C:\www\enzyme\src/classes/ui/usersui.inc:317
+msgid "Approve"
 msgstr ""
 
 #: C:\www\enzyme\src/js/includes/common.inc:19
@@ -1004,13 +1033,21 @@ msgstr ""
 msgid "Error: Password not changed"
 msgstr ""
 
-#: C:\www\enzyme\src/js/includes/common.inc:236
+#: C:\www\enzyme\src/js/includes/common.inc:21
+msgid "Your information has been changed"
+msgstr ""
+
+#: C:\www\enzyme\src/js/includes/common.inc:22
+msgid "Error: Personal information not changed"
+msgstr ""
+
+#: C:\www\enzyme\src/js/includes/common.inc:238
 #, php-format
 msgid "Saved %d commits"
 msgstr ""
 
-#: C:\www\enzyme\src/js/includes/common.inc:246
-#: C:\www\enzyme\src/js/includes/common.inc:252
+#: C:\www\enzyme\src/js/includes/common.inc:248
+#: C:\www\enzyme\src/js/includes/common.inc:254
 msgid "Save unsuccessful"
 msgstr ""
 

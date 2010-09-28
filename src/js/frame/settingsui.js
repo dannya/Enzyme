@@ -42,7 +42,7 @@ function saveChanges() {
         if (typeof strings.change_personal_success != 'undefined') {
           alert(strings.change_personal_success);
         } else {
-          alert('Error: Password not changed');
+          alert('Your information has been changed');
         }
         
         // refresh if language has been changed
@@ -55,7 +55,7 @@ function saveChanges() {
         if (typeof strings.change_personal_failure != 'undefined') {
           alert(strings.change_personal_failure);
         } else {
-          alert('Error: Password not changed');
+          alert('Error: Personal information not changed');
         }
       }
     }
