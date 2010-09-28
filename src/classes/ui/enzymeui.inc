@@ -117,7 +117,7 @@ class EnzymeUi {
     $buf = null;
 
     foreach ($this->style as $style) {
-      $buf .= '<link rel="stylesheet" href="' . BASE_URL . $style . '" type="text/css" media="screen" />' . "\n";
+      $buf .= '<link rel="stylesheet" href="' . BASE_URL . $style . '?version=' . VERSION . '" type="text/css" media="screen" />' . "\n";
     }
 
     return $buf;
