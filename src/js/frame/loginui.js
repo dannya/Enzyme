@@ -14,11 +14,22 @@
 
 
 document.observe('dom:loaded', function() {
-	// focus username box
-  if ($('login-username')) {
-    $('login-username').focus();
-  }
-  
+	// check for location hash
+	var validJobs    = ['reviewer', 'classifier', 'editor', 'translator'];
+	var specifiedJob = location.hash.sub('#', '', 1);
+
+	if (!specifiedJob.empty() && (validJobs.indexOf(specifiedJob) != -1)) {
+		// show specified job
+		apply('', specifiedJob);
+
+	} else {
+	  // focus username box
+	  if ($('login-username')) {
+	    $('login-username').focus();
+	  }
+	}
+
+
 	// submit form on enter keypress
 	$('authenticate').observe('keydown', function(event) {
 	  if (event.keyCode === 13) {
@@ -29,7 +40,7 @@ document.observe('dom:loaded', function() {
 
 
 function forgotPassword(event) {
-	if (typeof event != 'undefined') {
+	if (typeof event == 'object') {
 		Event.stop(event);
 	}
 
@@ -38,7 +49,7 @@ function forgotPassword(event) {
 
 
 function apply(event, job) {
-  if (typeof event != 'undefined') {
+	if (typeof event == 'object') {
     Event.stop(event);
   }
 
