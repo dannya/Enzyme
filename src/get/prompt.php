@@ -18,6 +18,10 @@
 include($_SERVER['DOCUMENT_ROOT'] . '/autoload.inc');
 
 
+// setup language
+App::setLanguage();
+
+
 if (isset($_REQUEST['prompt']) && ($_REQUEST['prompt'] == 'stats')) {
   $string = _('Statistics for this issue need generating...');
 } else {

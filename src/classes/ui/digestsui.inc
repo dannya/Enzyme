@@ -345,7 +345,7 @@ class DigestsUi extends BaseUi {
 
     if (empty($this->data['stats'])) {
       // draw generation interface
-      $buf .=  '<iframe id="results" src="' . BASE_URL . '/get/prompt.php?prompt=stats"></iframe>';
+      $buf .=  '<iframe id="results" src="' . BASE_URL . '/get/prompt.php?language=' . LANGUAGE . '&prompt=stats"></iframe>';
 
     } else {
       // define general fields to show

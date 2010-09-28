@@ -175,7 +175,7 @@ class ToolsUi extends BaseUi {
               </form>
             </div>
 
-            <iframe id="result" src="' . BASE_URL . '/get/prompt.php"></iframe>';
+            <iframe id="result" src="' . BASE_URL . '/get/prompt.php?language=' . LANGUAGE . '"></iframe>';
 
     return $buf;
   }
