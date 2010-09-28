@@ -21,7 +21,11 @@ function addUser() {
     // clone new row, so we can keep adding new rows after this one
     var newRow = $('row-new-' + newRowCounter).innerHTML;
 
-    $('users').down('tbody').insert({ bottom:'<tr id="row-new-' + ++newRowCounter + '">' + newRow + '</tr>' });
+    // pre-increment before usage (messes with minifier)
+    ++newRowCounter;
+
+    // add new row to page
+    $('users').down('tbody').insert({ bottom:'<tr id="row-new-' + newRowCounter + '">' + newRow + '</tr>' });
   }
 }
 
@@ -36,7 +40,7 @@ function saveNewAccount(event) {
   var fields    = parentRow.select('input');
 
   // check that needed fields are filled
-  var theData         = { };
+  var theData         = {};
   var unfilled        = false;
   var neededFields    = ['username', 'email', 'firstname', 'lastname'];
   var optionalFields  = ['permission-admin', 'permission-editor', 'permission-reviewer', 'permission-classifier', 'permission-translator', 'paths'];

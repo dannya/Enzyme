@@ -91,7 +91,7 @@ class LoginUi {
                     <div class="row">
                       <div class="left">' . _('Paths') . '</div>
                       <div class="right">
-                        <input id="apply-paths" type="text" disabled="disabled" class="prompt" onfocus="inputPrompt(event);" onblur="inputPrompt(event);" value="' . sprintf(_('Optional. (e.g. %s)'), '/koffice/, /kdebase/') . '" />
+                        <input id="apply-paths" type="text" disabled="disabled" class="optional prompt" onfocus="inputPrompt(event);" onblur="inputPrompt(event);" value="' . sprintf(_('Optional. (e.g. %s)'), '/koffice/, /kdebase/') . '" />
                       </div>
                     </div>
                     <div class="row">

@@ -16,7 +16,7 @@
 function createNewDigest() {
   if ($('new-digest')) {
     // collect data
-    var theData = { };
+    var theData = {};
     var theDate = null;
     var skip    = false;
 
@@ -77,7 +77,7 @@ function saveSection(theDate, theContext, number) {
 
 
   // set data
-  var theValues = { };
+  var theValues = {};
 
   if (theContext == 'info') {
     theValues.id         = $('info-id').value;

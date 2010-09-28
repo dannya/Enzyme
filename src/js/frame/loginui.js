@@ -130,7 +130,7 @@ function submitApply(event) {
   var theData = {};
 
   $('apply-form').select('select, textarea, input[type="text"]').each(function(input) {
-  	if (!input.disabled && input.value.empty()) {
+  	if (!input.disabled && !input.hasClassName('optional') && input.value.empty()) {
   		input.addClassName('failure');
   		filled = false;
 
