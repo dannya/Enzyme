@@ -39,11 +39,24 @@ function saveChanges() {
 
       if ((typeof result.success != 'undefined') && result.success) {
         // success
-        alert('success');
+        if (typeof strings.change_personal_success != 'undefined') {
+          alert(strings.change_personal_success);
+        } else {
+          alert('Error: Password not changed');
+        }
+        
+        // refresh if language has been changed
+        if ((typeof result.languageChanged != 'undefined') && result.languageChanged) {
+        	location.reload(true);
+        }
 
       } else {
         // failure
-        alert('fail');
+        if (typeof strings.change_personal_failure != 'undefined') {
+          alert(strings.change_personal_failure);
+        } else {
+          alert('Error: Password not changed');
+        }
       }
     }
   });

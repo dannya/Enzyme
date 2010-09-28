@@ -18,6 +18,8 @@ var BASE_URL = '<?php echo BASE_URL; ?>';
 var strings  = {};
 strings.change_password_success = '<?php echo _('Your password has been changed') ?>';
 strings.change_password_failure = '<?php echo _('Error: Password not changed') ?>';
+strings.change_personal_success = '<?php echo _('Your information has been changed') ?>';
+strings.change_personal_failure = '<?php echo _('Error: Personal information not changed') ?>';
 
 
 function sprintf() {

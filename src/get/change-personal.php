@@ -36,9 +36,17 @@ if (empty($user->auth)) {
 $validFields = array('email', 'firstname', 'lastname', 'language');
 
 
-// change data
+// extract new data
 parse_str($_REQUEST['data'], $data);
 
+
+// check if language has been changed
+if (isset($data['language']) && ($data['language'] != $user->data['language'])) {
+  $json['languageChanged'] = true;
+}
+
+
+// change data
 foreach ($data as $key => $value) {
   if (in_array($key, $validFields)) {
     $user->data[$key] = $value;
