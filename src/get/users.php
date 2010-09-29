@@ -90,7 +90,7 @@ if (($_REQUEST['dataType'] == 'new-user') || ($_REQUEST['dataType'] == 'approve-
                 sprintf('To get started, please go to %s and login with the following details:', 'http://' . DOMAIN . '/') . "\n\n" .
                 sprintf('  Username: %s', $data['username']) . "\n" .
                 sprintf('  Password: %s', $tmpPassword) . "\n\n" .
-                'Be sure to change your password immediately after logging in by going to "Settings" at the top right.' . "\n" .
+                        'Be sure to change your password immediately after logging in by going to "Settings" at the top right.' . "\n" .
                 sprintf('If you have any questions, please contact %s', ADMIN_EMAIL) . "\n\n" .
                 sprintf('Thanks, the %s team', PROJECT_NAME);
 

@@ -23,9 +23,13 @@ document.observe('dom:loaded', function() {
 		apply('', specifiedJob);
 
 	} else {
-	  // focus username box
-	  if ($('login-username')) {
-	    $('login-username').focus();
+	  // focus username / password box
+	  if ($('login-username') && $('login-password')) {
+	  	if ($('login-username').value.empty()) {
+	      $('login-username').focus();
+	  	} else {
+	  	  $('login-password').focus();
+	  	}
 	  }
 	}
 

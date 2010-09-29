@@ -296,10 +296,9 @@ function information(theClass, message) {
 
 
 function checkScroll() {
-  if ($('result') &&
-      $('result').contentWindow.document.body &&
+  if ($('result') && $('result').contentWindow.document.body &&
       (typeof $('result').contentWindow.document.body.descendants == 'function') &&
-      $('result').contentWindow.document.body.descendants()) {
+      ($('result').contentWindow.document.body.descendants().size() > 0)) {
 
     $('result').contentWindow.document.body.descendants().last().scrollTo();
   }

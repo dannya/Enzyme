@@ -116,7 +116,7 @@ class Cache {
 
   public static function getMinJs($key, $script) {
     // output filename
-    $filename = '/js/min/' . $key . '.js?version=' . VERSION;
+    $filename = '/js/min/' . $key . '.js';
 
     if (!is_file(BASE_DIR . $filename)) {
       // minify script
@@ -141,11 +141,11 @@ class Cache {
       file_put_contents(BASE_DIR . $filename, $min);
 
       // return filename
-      return $filename;
+      return $filename . '?version=' . VERSION;
 
     } else {
       // already minified, return filename
-      return $filename;
+      return $filename . '?version=' . VERSION;
     }
   }
 

@@ -30,6 +30,13 @@ class LoginUi {
 
 
   public function draw() {
+    // prefill username if login attempt was unsuccessful
+    if (isset($_REQUEST['login-username'])) {
+      $username = $_REQUEST['login-username'];
+    } else {
+      $username = null;
+    }
+
     $buf   = '<div id="login-column-1">
                 <h2>' . _('Login') . '</h2>
 
@@ -38,7 +45,7 @@ class LoginUi {
                     <div class="row">
                       <div class="left">' . _('Username') . '</div>
                       <div class="right">
-                        <input id="login-username" type="text" class="ex" name="login-username" />
+                        <input id="login-username" type="text" class="ex" name="login-username" value="' . $username . '" />
                       </div>
                     </div>
                     <div class="row">
