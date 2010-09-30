@@ -18,12 +18,14 @@
 class ClassifyUi extends BaseUi {
   public $id      = 'classify';
 
+  private $user   = null;
 
-  public function __construct() {
+
+  public function __construct($user) {
+    $this->user = $user;
+
+    // set title
     $this->title = _('Classify');
-
-    // load user (so we can check permissions and paths)
-    $this->user = new User();
   }
 
 

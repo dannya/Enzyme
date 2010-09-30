@@ -21,11 +21,11 @@ class SettingsUi extends BaseUi {
   private $user   = null;
 
 
-  public function __construct() {
-    $this->title = _('Settings');
+  public function __construct($user) {
+    $this->user = $user;
 
-    // load user data
-    $this->user = new User();
+    // set title
+    $this->title = _('Settings');
   }
 
 

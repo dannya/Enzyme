@@ -26,11 +26,11 @@ class UsersUi extends BaseUi {
   private $applications         = array();
 
 
-  public function __construct() {
-    $this->title = _('Users');
+  public function __construct($user) {
+    $this->user = $user;
 
-    // get currently logged in user, so we can check permissions, and hide disastrous buttons!
-    $this->user = new User();
+    // set title
+    $this->title = _('Users');
 
     // load users, grouped by permission
     $this->users = Digest::getUsersByPermission(null, true, true);

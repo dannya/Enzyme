@@ -16,6 +16,9 @@
 
 
 class BaseUi {
+  public $title = null;
+
+
   public function drawSidebar() {
     // load user so we can check permissions
     $user = new User();

@@ -63,34 +63,31 @@ class EnzymeUi {
       } else {
         // logged in, initialise authorised UI
         if ($current == 'insert') {
-          $this->frame = new InsertUI();
+          $this->frame = new InsertUI($this->user);
 
         } else if ($current == 'review') {
-          $this->frame = new ReviewUI();
+          $this->frame = new ReviewUI($this->user);
 
         } else if ($current == 'classify') {
-          $this->frame = new ClassifyUI();
+          $this->frame = new ClassifyUI($this->user);
 
         } else if ($current == 'digests') {
-          $this->frame = new DigestsUI();
+          $this->frame = new DigestsUI($this->user);
 
         } else if ($current == 'tools') {
-          $this->frame = new ToolsUI();
-
-        } else if ($current == 'admin') {
-          $this->frame = new AdminUI();
+          $this->frame = new ToolsUI($this->user);
 
         } else if ($current == 'settings') {
-          $this->frame = new SettingsUI();
+          $this->frame = new SettingsUI($this->user);
 
         } else if ($current == 'setup') {
           $this->frame = new SetupUI();
 
         } else if ($current == 'users' || $current == 'error/HTTP_NOT_FOUND.html.var') {
-          $this->frame = new UsersUI();
+          $this->frame = new UsersUI($this->user);
 
         } else {
-          $this->frame = new HomeUi();
+          $this->frame = new HomeUi($this->user);
         }
       }
     }

@@ -18,12 +18,14 @@
 class ToolsUi extends BaseUi {
   public $id      = 'tools';
 
+  private $user   = null;
 
-  public function __construct() {
+
+  public function __construct($user) {
+    $this->user = $user;
+
+    // set title
     $this->title = _('Tools');
-
-    // load user (so we can check permissions and paths)
-    $this->user = new User();
   }
 
 

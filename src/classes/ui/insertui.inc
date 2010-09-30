@@ -18,12 +18,14 @@
 class InsertUi extends BaseUi {
   public $id      = 'insert';
 
+  private $user   = null;
 
-  public function __construct() {
+
+  public function __construct($user) {
+    $this->user = $user;
+
+    // set title
     $this->title = _('Insert');
-
-    // load user (so we can check permissions and paths)
-    $this->user = new User();
   }
 
 

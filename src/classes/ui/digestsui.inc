@@ -21,11 +21,11 @@ class DigestsUi extends BaseUi {
   private $data   = null;
 
 
-  public function __construct() {
-    $this->title = _('Digests');
+  public function __construct($user) {
+    $this->user = $user;
 
-    // load user (so we can check permissions and paths)
-    $this->user = new User();
+    // set title
+    $this->title = _('Digests');
   }
 
 

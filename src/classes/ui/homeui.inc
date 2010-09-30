@@ -17,10 +17,13 @@
 
 class HomeUi extends BaseUi {
   public $id      = 'home';
-  public $title   = null;
+
+  private $user   = null;
 
 
-  public function __construct() {
+  public function __construct($user) {
+    $this->user = $user;
+
     // set title
     $this->title = _('Home');
   }

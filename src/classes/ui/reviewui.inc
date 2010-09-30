@@ -21,11 +21,11 @@ class ReviewUi extends BaseUi {
   private $user   = null;
 
 
-  public function __construct() {
-    $this->title = _('Review');
+  public function __construct($user) {
+    $this->user = $user;
 
-    // load user (so we can check permissions and paths)
-    $this->user = new User();
+    // set title
+    $this->title = _('Review');
   }
 
 
