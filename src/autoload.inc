@@ -26,9 +26,9 @@ define('DB_DATABASE',       'enzyme');
 
 
 // define app constants
-define('APP_ID',    'enzyme');
-define('APP_NAME',  'Enzyme');
-define('VERSION',   '0.83');
+define('APP_ID',            'enzyme');
+define('APP_NAME',          'Enzyme');
+define('VERSION',           '0.83');
 
 
 // set initial values
