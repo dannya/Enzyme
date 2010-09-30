@@ -9,7 +9,7 @@ class Email {
   public $isHtml   = false;
 
 
-  public function __construct($to, $subject, $message, $isHtml = false, $from = null) {
+  public function __construct(array $to, $subject, $message, $isHtml = false, $from = null) {
     // check that a SMTP server has been set
     if (!defined('SMTP')) {
       trigger_error(_('SMTP mail server has not been set!'));

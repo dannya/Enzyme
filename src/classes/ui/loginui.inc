@@ -30,13 +30,21 @@ class LoginUi {
 
 
   public function draw() {
-    // prefill username if login attempt was unsuccessful
-    if (isset($_REQUEST['login-username'])) {
-      $username = $_REQUEST['login-username'];
+    // prefill username?
+    if (isset($_POST['login-username'])) {
+      // login attempt was unsuccessful
+      $username = $_POST['login-username'];
+
+    } else if (isset($_GET['username'])) {
+      // username passed in URL string
+      $username = $_GET['username'];
+
     } else {
       $username = null;
     }
 
+
+    // draw
     $buf   = '<div id="login-column-1">
                 <h2>' . _('Login') . '</h2>
 
@@ -57,7 +65,7 @@ class LoginUi {
 
                     <div class="row button">
                       <a href="#" onclick="forgotPassword(event);">' . _('Forgot password?') . '</a>
-                      <input type="button" onclick="$(\'authenticate\').submit();" value="' . _('Login') . '" />
+                      <input id="authenticate-button" type="button" onclick="login();" value="' . _('Login') . '" />
                     </div>
                   </div>
                 </form>

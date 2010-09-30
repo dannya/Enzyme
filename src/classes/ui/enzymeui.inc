@@ -35,8 +35,11 @@ class EnzymeUi {
 
     // determine current frame
     if (isset($_GET['page'])) {
-      $current = trim($_GET['page'], '/');
+      $request = explode('/', trim($_GET['page'], '/'));
+      $current = reset($request);
+
     } else {
+      $request = array();
       $current = null;
     }
 
@@ -47,8 +50,15 @@ class EnzymeUi {
 
     } else {
       if (empty($this->user->auth)) {
-        // not logged in, show prompt
-        $this->frame = new LoginUi();
+        // not logged in
+        if ($current == 'reset') {
+          // show password reset
+          $this->frame = new ResetUi();
+
+        } else {
+          // show login prompt
+          $this->frame = new LoginUi();
+        }
 
       } else {
         // logged in, initialise authorised UI

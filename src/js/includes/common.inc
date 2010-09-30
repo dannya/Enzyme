@@ -15,11 +15,23 @@
 
 var BASE_URL = '<?php echo BASE_URL; ?>';
 
+
+// define translatable strings
 var strings  = {};
-strings.change_password_success = '<?php echo _('Your password has been changed') ?>';
-strings.change_password_failure = '<?php echo _('Error: Password not changed') ?>';
-strings.change_personal_success = '<?php echo _('Your information has been changed') ?>';
-strings.change_personal_failure = '<?php echo _('Error: Personal information not changed') ?>';
+
+strings.failure                 = '<?php echo _("Error") ?>';
+
+strings.change_password_success = '<?php echo _("Your password has been changed") ?>';
+strings.change_password_failure = '<?php echo _("Error: Password not changed") ?>';
+
+strings.change_personal_success = '<?php echo _("Your information has been changed") ?>';
+strings.change_personal_failure = '<?php echo _("Error: Personal information not changed") ?>';
+
+strings.application_failure     = '<?php echo _("Error: Application failed") ?>';
+
+strings.settings_failure        = '<?php echo _("Failed to save settings") ?>';
+
+strings.reset_success           = '<?php echo _("Your password has been reset. Please check your registered email account for further instructions.") ?>';
 
 
 function sprintf() {

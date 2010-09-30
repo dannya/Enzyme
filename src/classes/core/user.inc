@@ -35,12 +35,17 @@ class User {
     }
 
     // set values
-    if (!$username || !$password) {
+    if (!$username && !$password) {
       if (isset($_POST[$this->userField]) && isset($_POST[$this->userField])) {
         // trim username, password
         $username = strtolower(trim($_POST[$this->userField]));
         $password = strtolower(trim($_POST[$this->passField]));
       }
+
+    } else if (!$password) {
+      // set up object so we can do a manual load
+      $this->data['username'] = $username;
+      return;
     }
 
     // has a logout been explicitly requested?
@@ -92,6 +97,11 @@ class User {
     // load user data
     $this->data = Db::load('users', array('username' => $username), 1);
 
+    // stop if no user data found
+    if (!$this->data) {
+      return false;
+    }
+
     // process arrays stored as strings
     if (!empty($this->data['paths'])) {
       $this->paths       = preg_split('/[\s,]+/', $this->data['paths']);
@@ -111,6 +121,9 @@ class User {
     if ($this->data['language'] != DEFAULT_LANGUAGE) {
       App::setLanguage($this->data['language']);
     }
+
+    // return successful load
+    return true;
   }
 
 
@@ -151,13 +164,17 @@ class User {
   }
 
 
-  public function changePassword($oldPassword, $newPassword) {
+  public function changePassword($oldPassword, $newPassword, $save = true) {
     if ($this->getHash(trim($oldPassword)) == $this->data['password']) {
       // change password
       $this->data['password'] = $this->getHash(trim($newPassword));
 
-      // save changes
-      return $this->save();
+      // save changes?
+      if ($save) {
+        return $this->save();
+      } else {
+        return true;
+      }
     }
 
     return false;
@@ -225,6 +242,11 @@ class User {
     } else {
       return date($formats[DEFAULT_LOCATION], $date);
     }
+  }
+
+
+  public function getName() {
+    return $this->data['firstname'] . ' ' . $this->data['lastname'];
   }
 
 

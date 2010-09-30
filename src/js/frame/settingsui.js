@@ -39,7 +39,7 @@ function saveChanges() {
 
       if ((typeof result.success != 'undefined') && result.success) {
         // success
-        if (typeof strings.change_personal_success != 'undefined') {
+        if (typeof strings.change_personal_success == 'string') {
           alert(strings.change_personal_success);
         } else {
           alert('Your information has been changed');
@@ -52,7 +52,7 @@ function saveChanges() {
 
       } else {
         // failure
-        if (typeof strings.change_personal_failure != 'undefined') {
+        if (typeof strings.change_personal_failure == 'string') {
           alert(strings.change_personal_failure);
         } else {
           alert('Error: Personal information not changed');
@@ -97,7 +97,7 @@ function changePassword(theUser) {
 
       if ((typeof result.success != 'undefined') && result.success) {
       	// success
-      	if (typeof strings.change_password_success != 'undefined') {
+      	if (typeof strings.change_password_success == 'string') {
       		$('data-oldpassword').clear();
       		$('data-newpassword').clear();
 
@@ -109,7 +109,7 @@ function changePassword(theUser) {
 
       } else {
       	// failure
-        if (typeof strings.change_password_failure != 'undefined') {
+        if (typeof strings.change_password_failure == 'string') {
           alert(strings.change_password_failure);
         } else {
           alert('Error: Password not changed');

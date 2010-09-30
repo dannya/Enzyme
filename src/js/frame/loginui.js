@@ -23,32 +23,119 @@ document.observe('dom:loaded', function() {
 		apply('', specifiedJob);
 
 	} else {
-	  // focus username / password box
 	  if ($('login-username') && $('login-password')) {
+	  	// focus username / password box
 	  	if ($('login-username').value.empty()) {
 	      $('login-username').focus();
 	  	} else {
 	  	  $('login-password').focus();
 	  	}
+
+	  } else if ($('reset-username')) {
+	    // focus username box (ResetUi)
+	    $('reset-username').focus();
 	  }
 	}
 
 
 	// submit form on enter keypress
-	$('authenticate').observe('keydown', function(event) {
-	  if (event.keyCode === 13) {
-	    $('authenticate').submit();
-	  }
-	});
+	if ($('authenticate')) {
+		$('authenticate').observe('keydown', function(event) {
+		  if (event.keyCode === 13) {
+		  	$('authenticate-button').onclick();
+		  }
+		});
+
+	} else if ($('reset')) {
+    $('reset').observe('keydown', function(event) {
+      if (event.keyCode === 13) {
+        $('reset-button').onclick();
+      }
+    });
+	}
 });
+
+
+function login() {
+	if (!$('login-username') || !$('login-password')) {
+		return false;
+	}
+
+	// check both fields are filled
+	if ($('login-username').value.empty()) {
+		$('login-username').addClassName('failure');
+		$('login-username').focus();
+		return false;
+
+	} else {
+	  $('login-username').removeClassName('failure');
+	}
+	
+  if ($('login-password').value.empty()) {
+    $('login-password').addClassName('failure');
+    $('login-password').focus();
+    return false;
+
+  } else {
+    $('login-password').removeClassName('failure');
+  }
+
+
+  // attempt login
+	$('authenticate').submit();
+}
 
 
 function forgotPassword(event) {
 	if (typeof event == 'object') {
 		Event.stop(event);
 	}
+	
+	if (!$('login-username')) {
+		return false;
+	}
 
-	alert('forgot password');
+
+  // ensure username field is filled
+	if ($('login-username').value.empty()) {
+		$('login-username').addClassName('failure');
+		$('login-username').focus();
+
+		return false;
+
+	} else {
+		// remove prompt
+		$('login-username').removeClassName('failure');
+	}
+
+
+  // send reset password request
+  new Ajax.Request(BASE_URL + '/get/reset-password.php', {
+    method: 'post',
+    parameters: {
+      username: $('login-username').value
+    },
+    onSuccess: function(transport) {
+      var result = transport.headerJSON;
+
+      if ((typeof result.success != 'undefined') && result.success) {
+        // success
+        if (typeof strings.reset_success == 'string') {
+          alert(strings.reset_success);
+        } else {
+          alert('Your password has been reset. Please check your registered email account for further instructions.');
+        }
+
+      } else {
+        // error
+        if (typeof strings.failure == 'string') {
+          alert(strings.failure);
+        } else {
+          alert('Error');
+        }
+      }
+    }
+  });
 }
 
 
@@ -167,9 +254,69 @@ function submitApply(event) {
 
 	      } else {
 	        // error
-	        alert('Application failed');      
+	        if (typeof strings.application_failure == 'string') {
+	          alert(strings.application_failure);
+	        } else {
+	          alert('Error: Application failed');
+	        }      
 	      }
 	    }
 	  });
   }
+}
+
+
+function resetPassword(theCode) {
+	if ((typeof theCode != 'string') ||
+	    !$('reset-username') || !$('reset-password')) {
+
+    return false;		
+	}
+	
+
+	// check both boxes are filled
+	if ($('reset-username').value.empty()) {
+	  $('reset-username').addClassName('failure');
+	  $('reset-username').focus();
+	  return false;
+
+	} else {
+		$('reset-username').removeClassName('failure');
+	}
+
+  if ($('reset-password').value.empty()) {
+    $('reset-password').addClassName('failure');
+    $('reset-password').focus();
+    return false;
+
+  } else {
+    $('reset-password').removeClassName('failure');
+  }
+
+
+	// send password change request
+  new Ajax.Request(BASE_URL + '/get/reset-password.php', {
+    method: 'post',
+    parameters: {
+      code:         theCode,
+      new_password: $('reset-password').value,
+      username:     $('reset-username').value
+    },
+    onSuccess: function(transport) {
+      var result = transport.headerJSON;
+
+      if ((typeof result.success != 'undefined') && result.success) {
+        // success, redirect to login page, specifying username
+			  location.href = BASE_URL + '/?username=' + $('reset-username').value;
+
+      } else {
+        // error
+        if (typeof strings.failure == 'string') {
+          alert(strings.failure);
+        } else {
+          alert('Error');
+        }
+      }
+    }
+  }); 
 }

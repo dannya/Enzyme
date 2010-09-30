@@ -44,7 +44,11 @@ function saveSetup() {
 
       } else {
         // error
-        alert('Failed to save settings');      
+        if (typeof strings.settings_failure == 'string') {
+          alert(strings.settings_failure);
+        } else {
+          alert('Failed to save settings');
+        }
       }
     }
   });

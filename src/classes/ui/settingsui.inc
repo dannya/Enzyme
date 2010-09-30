@@ -135,13 +135,13 @@ class SettingsUi extends BaseUi {
                 <tr>
                   <td class="label">' . _('Old password') . '</td>
                   <td class="value">
-                    <input id="data-oldpassword" type="text" value="" />
+                    <input id="data-oldpassword" type="password" value="" />
                   </td>
                 </tr>
                 <tr>
                   <td class="label">' . _('New password') . '</td>
                   <td class="value">
-                    <input id="data-newpassword" type="text" value="" />
+                    <input id="data-newpassword" type="password" value="" />
                   </td>
                 </tr>
               </tbody>
