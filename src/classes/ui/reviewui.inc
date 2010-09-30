@@ -21,8 +21,13 @@ class ReviewUi extends BaseUi {
   private $user   = null;
 
 
-  public function __construct($user) {
-    $this->user = $user;
+  public function __construct($user = null) {
+    if ($user) {
+      $this->user = $user;
+    } else {
+      // load user
+      $this->user = new User();
+    }
 
     // set title
     $this->title = _('Review');

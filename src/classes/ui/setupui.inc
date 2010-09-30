@@ -47,7 +47,7 @@ class SetupUi extends BaseUi {
 
   public function drawPage() {
     $buf = '<div id="header">
-              <div id="logo">&nbsp;</div>
+              <a id="logo">&nbsp;</a>
               <h1 id="header-title">' . _('Setup') . '</h1>
             </div>
 

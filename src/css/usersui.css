@@ -25,18 +25,20 @@ table#users tbody tr:nth-child(odd) {
   background:#fff;
 }
 
-table#users thead tr td {
+table#users thead tr th {
   width:120px;
   padding:0 8px;
   
+  text-align:left;
+  font-weight:normal;
   font-style:italic;
   font-size:14px;
   color:#666;
 }
-table#users thead tr td:first-child {
+table#users thead tr th:first-child {
   width:auto;
 }
-table#users thead tr td.permission {
+table#users thead tr th.permission {
   width:16px;
   text-align:center;
 }

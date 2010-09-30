@@ -1,3 +1,16 @@
 div#content {
   left:208px;
 }
+
+
+
+
+table thead tr th {
+  padding:0 22px 0 0;
+  
+  text-align:left;
+  font-weight:normal;
+  font-style:italic;
+  font-size:14px;
+  color:#666;
+}

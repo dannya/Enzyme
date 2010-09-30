@@ -81,6 +81,9 @@ class User {
     } else {
       // user has been authenticated, check user type
       $this->load($_SESSION[APP_ID . '_user']);
+
+      // add user to logged in status
+      Track::user($this->data['username']);
     }
   }
 

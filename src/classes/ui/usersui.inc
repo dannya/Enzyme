@@ -61,20 +61,20 @@ class UsersUi extends BaseUi {
             <table id="users">
               <thead>
                 <tr>
-                  <td>&nbsp;</td>
-                  <td>' . _('Username') . '</td>
-                  <td>' . _('Email') . '</td>
-                  <td>' . _('First name') . '</td>
-                  <td class="padding">' . _('Last name') . '</td>';
+                  <th>&nbsp;</th>
+                  <th>' . _('Username') . '</th>
+                  <th>' . _('Email') . '</th>
+                  <th>' . _('First name') . '</th>
+                  <th class="padding">' . _('Last name') . '</th>';
 
     // draw columns for permissions
     foreach ($this->availablePermissions as $permission => $permissionData) {
-      $buf .=  '<td class="permission" title="' . $permissionData['title'] . '">' .
+      $buf .=  '<th class="permission" title="' . $permissionData['title'] . '">' .
                   $permissionData['string'] .
-               '</td>';
+               '</th>';
     }
 
-    $buf .=  '    <td>' . _('Paths') . '</td>
+    $buf .=  '    <th>' . _('Paths') . '</th>
                 </tr>
               </thead>
 

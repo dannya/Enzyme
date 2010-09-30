@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Enzyme\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-09-28 01:26-0000\n"
-"PO-Revision-Date: 2010-09-28 01:26-0000\n"
+"POT-Creation-Date: 2010-09-30 02:09-0000\n"
+"PO-Revision-Date: 2010-09-30 02:09-0000\n"
 "Last-Translator: Danny Allen <dannya40uk@yahoo.co.uk>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -31,12 +31,44 @@ msgstr ""
 msgid "Must be logged in!"
 msgstr ""
 
-#: C:\www\enzyme\src/get/prompt.php:22
+#: C:\www\enzyme\src/get/prompt.php:26
 msgid "Statistics for this issue need generating..."
 msgstr ""
 
-#: C:\www\enzyme\src/get/prompt.php:24
+#: C:\www\enzyme\src/get/prompt.php:28
 msgid "Select settings and submit to start processing..."
+msgstr ""
+
+#: C:\www\enzyme\src/get/reset-password.php:72
+#, php-format
+msgid "%s, someone at the IP address %s has requested a password reset on your account."
+msgstr ""
+
+#: C:\www\enzyme\src/get/reset-password.php:73
+#, php-format
+msgid "If you have requested the password reset, please go to %s"
+msgstr ""
+
+#: C:\www\enzyme\src/get/reset-password.php:74
+msgid "This link is valid for 6 hours, and one password change only."
+msgstr ""
+
+#: C:\www\enzyme\src/get/reset-password.php:75
+msgid "Be sure to change your password immediately after logging in by going to \"Settings\" at the top right."
+msgstr ""
+
+#: C:\www\enzyme\src/get/reset-password.php:76
+msgid "If you have not requested the password reset, please ignore this email."
+msgstr ""
+
+#: C:\www\enzyme\src/get/reset-password.php:77
+#, php-format
+msgid "If you get any more unrequested reset messages, please contact %s"
+msgstr ""
+
+#: C:\www\enzyme\src/get/reset-password.php:78
+#, php-format
+msgid "Thanks, the %s team"
 msgstr ""
 
 #: C:\www\enzyme\src/tool/digest-commits.php:181
@@ -545,44 +577,42 @@ msgstr ""
 msgid "Version %.2f"
 msgstr ""
 
-#: C:\www\enzyme\src/classes/ui/baseui.inc:25
-#: C:\www\enzyme\src/classes/ui/insertui.inc:23
+#: C:\www\enzyme\src/classes/ui/baseui.inc:28
+#: C:\www\enzyme\src/classes/ui/insertui.inc:28
 msgid "Insert"
 msgstr ""
 
-#: C:\www\enzyme\src/classes/ui/baseui.inc:29
-#: C:\www\enzyme\src/classes/ui/reviewui.inc:25
+#: C:\www\enzyme\src/classes/ui/baseui.inc:32
 msgid "Review"
 msgstr ""
 
-#: C:\www\enzyme\src/classes/ui/baseui.inc:33
-#: C:\www\enzyme\src/classes/ui/classifyui.inc:23
+#: C:\www\enzyme\src/classes/ui/baseui.inc:36
+#: C:\www\enzyme\src/classes/ui/classifyui.inc:33
 msgid "Classify"
 msgstr ""
 
-#: C:\www\enzyme\src/classes/ui/baseui.inc:37
-#: C:\www\enzyme\src/classes/ui/digestsui.inc:25
+#: C:\www\enzyme\src/classes/ui/baseui.inc:40
+#: C:\www\enzyme\src/classes/ui/digestsui.inc:28
 msgid "Digests"
 msgstr ""
 
-#: C:\www\enzyme\src/classes/ui/baseui.inc:41
+#: C:\www\enzyme\src/classes/ui/baseui.inc:44
 msgid "Tools"
 msgstr ""
 
-#: C:\www\enzyme\src/classes/ui/baseui.inc:45
+#: C:\www\enzyme\src/classes/ui/baseui.inc:48
 msgid "Users"
 msgstr ""
 
-#: C:\www\enzyme\src/classes/ui/classifyui.inc:43
-#: C:\www\enzyme\src/classes/ui/reviewui.inc:48
+#: C:\www\enzyme\src/classes/ui/classifyui.inc:50
 msgid "No revisions available"
 msgstr ""
 
-#: C:\www\enzyme\src/classes/ui/classifyui.inc:107
+#: C:\www\enzyme\src/classes/ui/classifyui.inc:114
 msgid "Areas"
 msgstr ""
 
-#: C:\www\enzyme\src/classes/ui/classifyui.inc:108
+#: C:\www\enzyme\src/classes/ui/classifyui.inc:115
 msgid "Types"
 msgstr ""
 
@@ -684,7 +714,7 @@ msgid "No introduction sections found"
 msgstr ""
 
 #: C:\www\enzyme\src/classes/ui/digestsui.inc:312
-#: C:\www\enzyme\src/classes/ui/loginui.inc:116
+#: C:\www\enzyme\src/classes/ui/loginui.inc:131
 msgid "Message"
 msgstr ""
 
@@ -816,35 +846,64 @@ msgstr ""
 msgid "No commits reviewed and classified!"
 msgstr ""
 
-#: C:\www\enzyme\src/classes/ui/enzymeui.inc:184
+#: C:\www\enzyme\src/classes/ui/enzymeui.inc:191
 msgid "Logout"
 msgstr ""
 
-#: C:\www\enzyme\src/classes/ui/enzymeui.inc:186
+#: C:\www\enzyme\src/classes/ui/enzymeui.inc:193
 msgid "Settings"
 msgstr ""
 
-#: C:\www\enzyme\src/classes/ui/homeui.inc:25
+#: C:\www\enzyme\src/classes/ui/homeui.inc:28
 msgid "Home"
 msgstr ""
 
-#: C:\www\enzyme\src/classes/ui/homeui.inc:30
+#: C:\www\enzyme\src/classes/ui/homeui.inc:36
 msgid "Welcome to Enzyme!"
 msgstr ""
 
-#: C:\www\enzyme\src/classes/ui/insertui.inc:59
+#: C:\www\enzyme\src/classes/ui/homeui.inc:60
+msgid "Review Status"
+msgstr ""
+
+#: C:\www\enzyme\src/classes/ui/homeui.inc:67
+msgid "Active Users"
+msgstr ""
+
+#: C:\www\enzyme\src/classes/ui/homeui.inc:76
+#: C:\www\enzyme\src/classes/ui/loginui.inc:54
+msgid "Username"
+msgstr ""
+
+#: C:\www\enzyme\src/classes/ui/homeui.inc:77
+msgid "IP"
+msgstr ""
+
+#: C:\www\enzyme\src/classes/ui/homeui.inc:78
+msgid "Page"
+msgstr ""
+
+#: C:\www\enzyme\src/classes/ui/homeui.inc:79
+msgid "Time"
+msgstr ""
+
+#: C:\www\enzyme\src/classes/ui/homeui.inc:102
+msgid "Enzyme Updates"
+msgstr ""
+
+#: C:\www\enzyme\src/classes/ui/insertui.inc:61
 msgid "Start"
 msgstr ""
 
-#: C:\www\enzyme\src/classes/ui/insertui.inc:62
+#: C:\www\enzyme\src/classes/ui/insertui.inc:64
 msgid "End"
 msgstr ""
 
-#: C:\www\enzyme\src/classes/ui/insertui.inc:65
+#: C:\www\enzyme\src/classes/ui/insertui.inc:67
 msgid "Show Skipped?"
 msgstr ""
 
-#: C:\www\enzyme\src/classes/ui/insertui.inc:68
+#: C:\www\enzyme\src/classes/ui/insertui.inc:70
 msgid "Insert commits"
 msgstr ""
 
@@ -853,67 +912,80 @@ msgstr ""
 msgid "Welcome to Enzyme @ %s"
 msgstr ""
 
-#: C:\www\enzyme\src/classes/ui/loginui.inc:34
-#: C:\www\enzyme\src/classes/ui/loginui.inc:53
+#: C:\www\enzyme\src/classes/ui/loginui.inc:49
+#: C:\www\enzyme\src/classes/ui/loginui.inc:68
 msgid "Login"
 msgstr ""
 
-#: C:\www\enzyme\src/classes/ui/loginui.inc:39
-msgid "Username"
-msgstr ""
-
-#: C:\www\enzyme\src/classes/ui/loginui.inc:45
+#: C:\www\enzyme\src/classes/ui/loginui.inc:60
 msgid "Password"
 msgstr ""
 
-#: C:\www\enzyme\src/classes/ui/loginui.inc:52
+#: C:\www\enzyme\src/classes/ui/loginui.inc:67
 msgid "Forgot password?"
 msgstr ""
 
-#: C:\www\enzyme\src/classes/ui/loginui.inc:60
+#: C:\www\enzyme\src/classes/ui/loginui.inc:75
 msgid "Volunteer"
 msgstr ""
 
-#: C:\www\enzyme\src/classes/ui/loginui.inc:67
-#: C:\www\enzyme\src/classes/ui/loginui.inc:124
+#: C:\www\enzyme\src/classes/ui/loginui.inc:82
+#: C:\www\enzyme\src/classes/ui/loginui.inc:139
 msgid "Apply!"
 msgstr ""
 
-#: C:\www\enzyme\src/classes/ui/loginui.inc:86
+#: C:\www\enzyme\src/classes/ui/loginui.inc:101
 msgid "Job"
 msgstr ""
 
-#: C:\www\enzyme\src/classes/ui/loginui.inc:92
+#: C:\www\enzyme\src/classes/ui/loginui.inc:107
 msgid "Paths"
 msgstr ""
 
-#: C:\www\enzyme\src/classes/ui/loginui.inc:94
+#: C:\www\enzyme\src/classes/ui/loginui.inc:109
 #, php-format
 msgid "Optional. (e.g. %s)"
 msgstr ""
 
-#: C:\www\enzyme\src/classes/ui/loginui.inc:98
+#: C:\www\enzyme\src/classes/ui/loginui.inc:113
 msgid "First name"
 msgstr ""
 
-#: C:\www\enzyme\src/classes/ui/loginui.inc:104
+#: C:\www\enzyme\src/classes/ui/loginui.inc:119
 msgid "Last name"
 msgstr ""
 
-#: C:\www\enzyme\src/classes/ui/loginui.inc:110
+#: C:\www\enzyme\src/classes/ui/loginui.inc:125
 msgid "Email"
 msgstr ""
 
-#: C:\www\enzyme\src/classes/ui/loginui.inc:123
+#: C:\www\enzyme\src/classes/ui/loginui.inc:138
 msgid "Cancel"
 msgstr ""
 
-#: C:\www\enzyme\src/classes/ui/loginui.inc:130
+#: C:\www\enzyme\src/classes/ui/loginui.inc:145
 msgid "Thanks for your application!"
 msgstr ""
 
-#: C:\www\enzyme\src/classes/ui/loginui.inc:131
+#: C:\www\enzyme\src/classes/ui/loginui.inc:146
 msgid "The administrator will email you at the address provided when your application has been reviewed."
+msgstr ""
+
+#: C:\www\enzyme\src/classes/ui/resetui.inc:26
+msgid "Reset Password"
+msgstr ""
+
+#: C:\www\enzyme\src/classes/ui/resetui.inc:49
+msgid "Invalid reset code provided"
+msgstr ""
+
+#: C:\www\enzyme\src/classes/ui/resetui.inc:61
+#: C:\www\enzyme\src/classes/ui/settingsui.inc:142
+msgid "New password"
+msgstr ""
+
+#: C:\www\enzyme\src/classes/ui/resetui.inc:68
+msgid "Reset password"
 msgstr ""
 
 #: C:\www\enzyme\src/classes/ui/settingsui.inc:56
@@ -937,63 +1009,59 @@ msgstr ""
 msgid "Old password"
 msgstr ""
 
-#: C:\www\enzyme\src/classes/ui/settingsui.inc:142
-msgid "New password"
-msgstr ""
-
-#: C:\www\enzyme\src/classes/ui/toolsui.inc:87
+#: C:\www\enzyme\src/classes/ui/toolsui.inc:89
 msgid "Parse Authors Data"
 msgstr ""
 
-#: C:\www\enzyme\src/classes/ui/toolsui.inc:92
+#: C:\www\enzyme\src/classes/ui/toolsui.inc:94
 msgid "Parse I18n Teams"
 msgstr ""
 
-#: C:\www\enzyme\src/classes/ui/toolsui.inc:98
+#: C:\www\enzyme\src/classes/ui/toolsui.inc:100
 msgid "Legacy Migration"
 msgstr ""
 
-#: C:\www\enzyme\src/classes/ui/toolsui.inc:103
+#: C:\www\enzyme\src/classes/ui/toolsui.inc:105
 msgid "Import Digest Intro (Issues)"
 msgstr ""
 
-#: C:\www\enzyme\src/classes/ui/toolsui.inc:108
+#: C:\www\enzyme\src/classes/ui/toolsui.inc:110
 msgid "Import Digest Intro (Archive)"
 msgstr ""
 
-#: C:\www\enzyme\src/classes/ui/toolsui.inc:114
+#: C:\www\enzyme\src/classes/ui/toolsui.inc:116
 msgid "Import Digest Stats (Issues)"
 msgstr ""
 
-#: C:\www\enzyme\src/classes/ui/toolsui.inc:119
+#: C:\www\enzyme\src/classes/ui/toolsui.inc:121
 msgid "Import Digest Stats (Archive)"
 msgstr ""
 
-#: C:\www\enzyme\src/classes/ui/toolsui.inc:125
+#: C:\www\enzyme\src/classes/ui/toolsui.inc:127
 msgid "Import Digest Commits"
 msgstr ""
 
-#: C:\www\enzyme\src/classes/ui/toolsui.inc:131
+#: C:\www\enzyme\src/classes/ui/toolsui.inc:133
 msgid "Legacy Import"
 msgstr ""
 
-#: C:\www\enzyme\src/classes/ui/toolsui.inc:136
+#: C:\www\enzyme\src/classes/ui/toolsui.inc:138
 msgid "Parse Bugfixers"
 msgstr ""
 
-#: C:\www\enzyme\src/classes/ui/toolsui.inc:141
+#: C:\www\enzyme\src/classes/ui/toolsui.inc:143
 msgid "Parse Countries"
 msgstr ""
 
-#: C:\www\enzyme\src/classes/ui/toolsui.inc:146
+#: C:\www\enzyme\src/classes/ui/toolsui.inc:148
 msgid "Parse Filetypes"
 msgstr ""
 
-#: C:\www\enzyme\src/classes/ui/toolsui.inc:151
+#: C:\www\enzyme\src/classes/ui/toolsui.inc:153
 msgid "Parse People"
 msgstr ""
 
-#: C:\www\enzyme\src/classes/ui/toolsui.inc:174
+#: C:\www\enzyme\src/classes/ui/toolsui.inc:176
 msgid "Parse authors"
 msgstr ""
 
@@ -1025,29 +1093,45 @@ msgstr ""
 msgid "Approve"
 msgstr ""
 
-#: C:\www\enzyme\src/js/includes/common.inc:19
+#: C:\www\enzyme\src/js/includes/common.inc:22
+msgid "Error"
+msgstr ""
+
+#: C:\www\enzyme\src/js/includes/common.inc:24
 msgid "Your password has been changed"
 msgstr ""
 
-#: C:\www\enzyme\src/js/includes/common.inc:20
+#: C:\www\enzyme\src/js/includes/common.inc:25
 msgid "Error: Password not changed"
 msgstr ""
 
-#: C:\www\enzyme\src/js/includes/common.inc:21
+#: C:\www\enzyme\src/js/includes/common.inc:27
 msgid "Your information has been changed"
 msgstr ""
 
-#: C:\www\enzyme\src/js/includes/common.inc:22
+#: C:\www\enzyme\src/js/includes/common.inc:28
 msgid "Error: Personal information not changed"
 msgstr ""
 
-#: C:\www\enzyme\src/js/includes/common.inc:238
+#: C:\www\enzyme\src/js/includes/common.inc:30
+msgid "Error: Application failed"
+msgstr ""
+
+#: C:\www\enzyme\src/js/includes/common.inc:32
+msgid "Failed to save settings"
+msgstr ""
+
+#: C:\www\enzyme\src/js/includes/common.inc:34
+msgid "Your password has been reset. Please check your registered email account for further instructions."
+msgstr ""
+
+#: C:\www\enzyme\src/js/includes/common.inc:250
 #, php-format
 msgid "Saved %d commits"
 msgstr ""
 
-#: C:\www\enzyme\src/js/includes/common.inc:248
-#: C:\www\enzyme\src/js/includes/common.inc:254
+#: C:\www\enzyme\src/js/includes/common.inc:260
+#: C:\www\enzyme\src/js/includes/common.inc:266
 msgid "Save unsuccessful"
 msgstr ""
 

@@ -25,6 +25,12 @@ define('DB_DATABASE',       'enzyme');
 // ------- YOU SHOULDN'T NEED TO MODIFY BELOW HERE --------
 
 
+// define app constants
+define('APP_ID',    'enzyme');
+define('APP_NAME',  'Enzyme');
+define('VERSION',   '0.83');
+
+
 // set initial values
 if (empty($_SERVER['DOCUMENT_ROOT'])) {
   define('COMMAND_LINE',    true);
@@ -63,12 +69,6 @@ if (COMMAND_LINE) {
     }
   }
 }
-
-
-// define app constants
-define('APP_ID',    'enzyme');
-define('APP_NAME',  'Enzyme');
-define('VERSION',   '0.82');
 
 
 // connect to database
