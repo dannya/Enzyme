@@ -37,9 +37,14 @@ class HomeUi extends BaseUi {
 
     } else {
       // draw admin information panels
-      $buf .= $this->panelReviewStatus() .
-              $this->panelActiveUsers() .
-              $this->panelEnzymeUpdates();
+      $buf  .= '<div id="column-left">' .
+                  $this->panelReviewStatus() .
+                  $this->panelActiveUsers() .
+               '</div>
+
+                <div id="column-right">' .
+                  $this->panelEnzymeUpdates() .
+               '</div>';
     }
 
     return $buf;
@@ -47,7 +52,7 @@ class HomeUi extends BaseUi {
 
 
   public function getScript() {
-    return array();
+    return array('/js/frame/homeui.js');
   }
 
 
@@ -57,20 +62,25 @@ class HomeUi extends BaseUi {
 
 
   private function panelReviewStatus() {
-    $buf = '<h3>' . _('Review Status') . '</h3>';
+    $buf = '<h3>' . _('Review Status') . '</h3>
+
+            <div class="container r">
+            </div>';
 
     return $buf;
   }
 
 
   private function panelActiveUsers() {
-    $buf = '<h3>' . _('Active Users') . '</h3>';
-
     // get currently active users
     $users = Track::getUsers(true);
 
-    // draw data as a table
-    $buf  .= '<table>
+
+    // draw
+    $buf = '<h3>' . _('Active Users') . '</h3>
+
+            <div class="container r">
+              <table id="active-users">
                 <thead>
                   <tr>
                     <th>' . _('Username') . '</th>
@@ -91,15 +101,53 @@ class HomeUi extends BaseUi {
                 </tr>';
     }
 
-    $buf  .= '  </tbody>
-              </table>';
+    $buf  .= '    </tbody>
+                </table>
+              </div>';
 
     return $buf;
   }
 
 
   private function panelEnzymeUpdates() {
-    $buf = '<h3>' . _('Enzyme Updates') . '</h3>';
+      // check for updates
+    $updates = json_decode(Cache::loadSave('updates', 'file_get_contents', array('http://enzyme-project.org/get/update.php?project=' . urlencode(PROJECT_NAME) . '&version=' . VERSION . '&url=' . BASE_URL)));
+
+    // set message
+    if (!empty($updates->available)) {
+      // process changelog
+      $changelog = explode('*', $updates->releases[0]->description);
+
+      foreach ($changelog as $key => &$item) {
+        if (empty($item)) {
+          unset($changelog[$key]);
+        } else {
+          $item = trim($item);
+        }
+      }
+
+      $msg = sprintf(_('There is an update for Enzyme available, version %.2f (released %s).'), $updates->releases[0]->version, Date::ago($updates->releases[0]->date)) . '<br /><br />' .
+                     '<a href="#" onclick="changelog(event);">' . _('Changelog') . '</a> | <a href="' . $updates->releases[0]->download . '">' . _('Download') . '</a>' .
+
+             '<div id="changelog" style="display:none;">
+                <ul>
+                  <li>' .
+                    implode('</li><li>', $changelog) .
+             '    </li>
+                </ul>
+              </div>';
+
+    } else {
+      $msg = sprintf(_('You are running the latest version of Enzyme (version %.2f).'), VERSION);
+    }
+
+
+    // draw
+    $buf = '<h3>' . _('Enzyme Updates') . '</h3>
+
+            <div class="container r">' .
+              $msg .
+           '</div>';
 
     return $buf;
   }

@@ -94,66 +94,68 @@ class ToolsUi extends BaseUi {
                   _('Parse I18n Teams') .
            '    </a>
               </li>
-            </ul>
-
-
-            <h3>' . _('Legacy Migration') . '</h3>
-
-            <ul>
-              <li>
-                <a href="' . BASE_URL . '/tools/digest-intro/issues/">' .
-                  _('Import Digest Intro (Issues)') .
-           '    </a>
-              </li>
-              <li>
-                <a href="' . BASE_URL . '/tools/digest-intro/archive/">' .
-                  _('Import Digest Intro (Archive)') .
-           '    </a>
-              </li>
-
-              <li>
-                <a href="' . BASE_URL . '/tools/digest-stats/issues/">' .
-                  _('Import Digest Stats (Issues)') .
-           '    </a>
-              </li>
-              <li>
-                <a href="' . BASE_URL . '/tools/digest-stats/archive/">' .
-                  _('Import Digest Stats (Archive)') .
-           '    </a>
-              </li>
-
-              <li>
-                <a href="' . BASE_URL . '/tools/digest-commits/">' .
-                  _('Import Digest Commits') .
-           '    </a>
-              </li>
-            </ul>
-
-
-            <h3>' . _('Legacy Import') . '</h3>
-
-            <ul>
-              <li>
-                <a href="' . BASE_URL . '/tools/parse-bugfixers/">' .
-                  _('Parse Bugfixers') .
-           '    </a>
-              </li>
-              <li>
-                <a href="' . BASE_URL . '/tools/parse-countries/">' .
-                  _('Parse Countries') .
-           '    </a>
-              </li>
-              <li>
-                <a href="' . BASE_URL . '/tools/parse-filetypes/">' .
-                  _('Parse Filetypes') .
-           '    </a>
-              </li>
-              <li>
-                <a href="' . BASE_URL . '/tools/parse-people/">' .
-                  _('Parse People') .
-           '    </a>
-              </li>
             </ul>';
+
+    // show legacy tools?
+    if (ENABLE_LEGACY) {
+      $buf  .= '<h3>' . _('Legacy Migration') . '</h3>
+
+                <ul>
+                  <li>
+                    <a href="' . BASE_URL . '/tools/digest-intro/issues/">' .
+                      _('Import Digest Intro (Issues)') .
+               '    </a>
+                  </li>
+                  <li>
+                    <a href="' . BASE_URL . '/tools/digest-intro/archive/">' .
+                      _('Import Digest Intro (Archive)') .
+               '    </a>
+                  </li>
+
+                  <li>
+                    <a href="' . BASE_URL . '/tools/digest-stats/issues/">' .
+                      _('Import Digest Stats (Issues)') .
+               '    </a>
+                  </li>
+                  <li>
+                    <a href="' . BASE_URL . '/tools/digest-stats/archive/">' .
+                      _('Import Digest Stats (Archive)') .
+               '    </a>
+                  </li>
+
+                  <li>
+                    <a href="' . BASE_URL . '/tools/digest-commits/">' .
+                      _('Import Digest Commits') .
+               '    </a>
+                  </li>
+                </ul>
+
+
+                <h3>' . _('Legacy Import') . '</h3>
+
+                <ul>
+                  <li>
+                    <a href="' . BASE_URL . '/tools/parse-bugfixers/">' .
+                      _('Parse Bugfixers') .
+               '    </a>
+                  </li>
+                  <li>
+                    <a href="' . BASE_URL . '/tools/parse-countries/">' .
+                      _('Parse Countries') .
+               '    </a>
+                  </li>
+                  <li>
+                    <a href="' . BASE_URL . '/tools/parse-filetypes/">' .
+                      _('Parse Filetypes') .
+               '    </a>
+                  </li>
+                  <li>
+                    <a href="' . BASE_URL . '/tools/parse-people/">' .
+                      _('Parse People') .
+               '    </a>
+                  </li>
+                </ul>';
+    }
 
     return $buf;
   }

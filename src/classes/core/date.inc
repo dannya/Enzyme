@@ -16,28 +16,6 @@
 
 
 class Date {
-  public static function load($key = null) {
-    if (!$key) {
-      $key = date('Y-m');
-    }
-
-    // attempt to load time data from cache
-    $time = Cache::load('time_' . $key);
-
-    if (empty($time)) {
-      // get needed times
-      $time['year']                = date('Y');
-      $time['today']               = date(DATE_FORMAT);
-
-      // store in cache until end of day!
-      $endDay = strtotime('Tomorrow') - time();
-      Cache::store('_time_' . $key, $time, false, $endDay);
-    }
-
-    return $time;
-  }
-
-
   public static function get($type, $date) {
     if ($type == 'full') {
       $format = 'jS F Y';
@@ -49,60 +27,39 @@ class Date {
   }
 
 
-  public static function getInterval($rawDate1, $rawDate2 = null, $extended = false) {
-    // get time
-    $time = self::load();
-    $now  = time();
+  public static function ago($timestamp, $comparison = null) {
+    // set periods and lengths of the periods
+    $periods  = array(_('%d seconds ago'),
+                      _('%d minutes ago'),
+                      _('%d hours ago'),
+                      _('%d days ago'),
+                      _('%d weeks ago'),
+                      _('%d months ago'),
+                      _('%d years ago'));
 
-    // process and set dates
-    if (!is_int($rawDate1)) {
-      $date1 = strtotime($rawDate1);
-    } else {
-      // timestamp given
-      $date1 = $rawDate1;
+    $lengths  = array(60, 60, 24, 7, 4.35, 12);
+
+    // process input?
+    if (!is_int($timestamp)) {
+      $timestamp = strtotime($timestamp);
     }
 
-    if ($rawDate2) {
-      if (!is_int($rawDate2)) {
-        $date2 = strtotime($rawDate2);
-      } else {
-        // timestamp given
-        $date2 = $rawDate2;
-      }
-
-    } else {
-      $date2    = $now;
-      $rawDate2 = $time['today'];
-    }
-
-
-    // determine past / future
-    if ($rawDate1 == $rawDate2) {
-      $past = false;
-      $string = _('today');
-
-    } else if ($date1 < $now) {
-      // past
-      $past = true;
-      $string = _('%d days ago');
-
-    } else {
-      // future
-      $past = false;
-      $string = _('in %d days');
+    // set comparison to now if not provided
+    if (!$comparison) {
+      $comparison = time();
     }
 
     // do calculation
-    $sum = $date1 - $date2;
+    $difference = $comparison - $timestamp;
 
-
-    // return result
-    if (!$extended) {
-      return sprintf($string, abs($sum / 86400));
-    } else {
-      return array('past' => $past,
-                   'string' => sprintf($string, abs($sum / 86400)));
+    // find correct period
+    for ($j = 0; $difference >= $lengths[$j]; $j++) {
+      $difference /= $lengths[$j];
     }
+
+    $difference = round($difference);
+
+    return sprintf($periods[$j], $difference);
   }
 }
 

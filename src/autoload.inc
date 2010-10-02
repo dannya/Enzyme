@@ -28,7 +28,7 @@ define('DB_DATABASE',       'enzyme');
 // define app constants
 define('APP_ID',            'enzyme');
 define('APP_NAME',          'Enzyme');
-define('VERSION',           '0.83');
+define('VERSION',           '0.90');
 
 
 // set initial values
@@ -74,8 +74,13 @@ if (COMMAND_LINE) {
 // connect to database
 $databaseExists = Db::connect();
 
-if (($_SERVER['SCRIPT_URL'] == '/js/index.php') || ($_SERVER['SCRIPT_URL'] == '/get/setup.php')) {
+if (($_SERVER['SCRIPT_URL'] == '/js/index.php') ||
+    ($_SERVER['SCRIPT_URL'] == '/get/setup.php') ||
+    ($_SERVER['SCRIPT_URL'] == '/get/setup-database.php') ||
+    ($_SERVER['SCRIPT_URL'] == '/get/setup-user.php')) {
+
   // common script and setup handler need to bypass database check (used in setup!)
+  define('DEFAULT_LANGUAGE', 'en_US');
   define('DEFAULT_TIMEZONE', 'Europe/London');
 
 } else {

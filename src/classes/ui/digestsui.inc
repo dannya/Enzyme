@@ -66,29 +66,7 @@ class DigestsUi extends BaseUi {
 
 
   private function drawMenu() {
-    // sort by year, split into two columns
-    foreach ($this->data as $digest) {
-      // is issue published?
-      if (empty($digest['published'])) {
-        $digest['published'] = 'true';
-        $digest['class']     = 'indicator-failure';
-        $digest['string']    = sprintf(_('Publish %s...'), $digest['date']);
-
-      } else {
-        $digest['published'] = 'false';
-        $digest['class']     = 'indicator-success';
-        $digest['string']    = sprintf(_('Unpublish %s...'), $digest['date']);
-      }
-
-      // unset unneeded elements
-      unset($digest['synopsis']);
-
-      // add into date-sorted array
-      $digests[substr($digest['date'], 0, 4)][] = $digest;
-    }
-
-
-    // draw
+    // draw "create a new digest" form
     $buf = '<h3>' .
               _('Create a New Digest') .
            '  <div>
@@ -124,46 +102,70 @@ class DigestsUi extends BaseUi {
            '        </td>
                 </tr>
               </tbody>
-            </table>
+            </table>';
 
 
-            <h3>' . _('Manage Digests') . '</h3>
-            <p>' . _('Select a digest to manage...') . '</p>';
+    // show list of existing digests?
+    if ($this->data) {
+      // sort by year, split into two columns
+      foreach ($this->data as $digest) {
+        // is issue published?
+        if (empty($digest['published'])) {
+          $digest['published'] = 'true';
+          $digest['class']     = 'indicator-failure';
+          $digest['string']    = sprintf(_('Publish %s...'), $digest['date']);
 
-    foreach ($digests as $year => $theDigests) {
-      // start new section
-      $buf .=  '<h4>' . $year . '</h4>
-
-                <div class="digests-container">
-                  <ul class="digests">';
-
-      // draw list
-      $counter    = 0;
-      $numDigests = count($theDigests);
-
-      foreach ($theDigests as $digest) {
-        // draw new list
-        if (($numDigests > 10) && (++$counter == round(($numDigests / 2) + 1))) {
-          $buf .=  '</ul>
-                    <ul class="digests digests-right">';
+        } else {
+          $digest['published'] = 'false';
+          $digest['class']     = 'indicator-success';
+          $digest['string']    = sprintf(_('Unpublish %s...'), $digest['date']);
         }
 
-        $buf .=  '<li>
-                    <div class="' . $digest['class'] . '" onclick="setPublished(this, \'' . $digest['date'] . '\', ' . $digest['published'] . ');" title="' . $digest['string'] . '">
-                      <div>&nbsp;</div>
-                    </div>
+        // unset unneeded elements
+        unset($digest['synopsis']);
 
-                    <a href="' . BASE_URL . '/digests/' . $digest['date'] . '/">' .
-                      sprintf(_('Issue %d: %s'), $digest['id'], Date::get('full', $digest['date'])) .
-                 '  </a>
-                  </li>';
+        // add into date-sorted array
+        $digests[substr($digest['date'], 0, 4)][] = $digest;
       }
 
-      $buf .=  '  </ul>
-                </div>';
+
+      // draw
+      $buf  .= '<h3>' . _('Manage Digests') . '</h3>
+                <p>' . _('Select a digest to manage...') . '</p>';
+
+      foreach ($digests as $year => $theDigests) {
+        // start new section
+        $buf .=  '<h4>' . $year . '</h4>
+
+                  <div class="digests-container">
+                    <ul class="digests">';
+
+        // draw list
+        $counter    = 0;
+        $numDigests = count($theDigests);
+
+        foreach ($theDigests as $digest) {
+          // draw new list
+          if (($numDigests > 10) && (++$counter == round(($numDigests / 2) + 1))) {
+            $buf .=  '</ul>
+                      <ul class="digests digests-right">';
+          }
+
+          $buf .=  '<li>
+                      <div class="' . $digest['class'] . '" onclick="setPublished(this, \'' . $digest['date'] . '\', ' . $digest['published'] . ');" title="' . $digest['string'] . '">
+                        <div>&nbsp;</div>
+                      </div>
+
+                      <a href="' . BASE_URL . '/digests/' . $digest['date'] . '/">' .
+                        sprintf(_('Issue %d: %s'), $digest['id'], Date::get('full', $digest['date'])) .
+                   '  </a>
+                    </li>';
+        }
+
+        $buf .=  '  </ul>
+                  </div>';
+      }
     }
-
-
 
     return $buf;
   }

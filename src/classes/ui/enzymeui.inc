@@ -113,8 +113,7 @@ class EnzymeUi {
             <meta name="viewport" content="width=device-width; initial-scale=1.0" />
 
             <link rel="shortcut icon" href="' . BASE_URL .'/favicon.ico" type="image/x-icon" />
-            <link rel="icon" href="' . BASE_URL . '/favicon.ico" type="image/x-icon" />
-            <link rel="alternate" type="application/rss+xml" title="" href="http://boo" />';
+            <link rel="icon" href="' . BASE_URL . '/favicon.ico" type="image/x-icon" />';
 
     return $buf;
   }

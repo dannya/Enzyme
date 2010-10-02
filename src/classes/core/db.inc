@@ -57,6 +57,20 @@ class Db {
   }
 
 
+  public static function create($databaseName = DB_DATABASE, $select = true) {
+    // create the database
+    $success = mysql_query('CREATE DATABASE ' . $databaseName) or trigger_error(sprintf(_('Query failed: %s'), mysql_error()));
+
+    // switch to the newly-created database?
+    if ($select) {
+      return mysql_select_db($databaseName);
+
+    } else {
+      return $success;
+    }
+  }
+
+
   public static function sanitise($string, $default = null) {
     if (($default != null) && ($string == $default)) {
       // if string is same as default, do not run through sanitise
@@ -229,6 +243,27 @@ class Db {
   }
 
 
+  public static function exists($table, $filter = false) {
+    // check if table is valid, and filter is provided
+    if (($filter !== false) && count($filter) == 0) {
+      return null;
+    }
+
+    if (!in_array($table, self::$tables)) {
+      return null;
+    }
+
+
+    // create appropriate select query
+    $selectQuery = 'SELECT * FROM ' . $table .
+                   ' WHERE ' . self::createFilter($table, $filter);
+
+    $query = mysql_query($selectQuery) or trigger_error(sprintf(_('Query failed: %s'), mysql_error()));
+
+    return (bool)mysql_num_rows($query);
+  }
+
+
   public static function getNextId($table, $field = 'id') {
     // check if table is valid
     if (!in_array($table, self::$tables)) {
@@ -382,7 +417,7 @@ class Db {
   }
 
 
-  public static function reindex($array, $key, $processKey = false) {
+  public static function reindex($array, $key, $processKey = false, $overwrite = true) {
     $data = array();
 
     if (empty($array)) {
@@ -396,7 +431,12 @@ class Db {
         $theKey = $item[$key];
       }
 
+      // overwrite values?
+      if ($overwrite) {
       $data[$theKey] = $item;
+      } else {
+        $data[$theKey][] = $item;
+      }
     }
 
     return $data;
@@ -420,11 +460,23 @@ class Db {
   }
 
 
-  public static function sql($sql, $index = false) {
+  public static function sql($sql, $index = false, $silentError = false) {
     $data  = array();
-    $query = mysql_query($sql) or trigger_error(sprintf(_('Query failed: %s'), mysql_error()));
 
-    // index data?
+    // determine how to handle errors
+    if ($silentError) {
+      $query = mysql_query($sql);
+
+      if (!$query) {
+        return false;
+      }
+
+    } else {
+      $query = mysql_query($sql) or trigger_error(sprintf(_('Query failed: %s'), mysql_error()));
+    }
+
+
+    // index and return data?
     if ($index) {
       if (mysql_num_rows($query) != 0) {
         while ($tmp = mysql_fetch_assoc($query)) {
@@ -433,6 +485,9 @@ class Db {
       }
 
       return $data;
+
+    } else {
+      return true;
     }
   }
 

@@ -38,20 +38,26 @@ class User {
     if (!$username && !$password) {
       if (isset($_POST[$this->userField]) && isset($_POST[$this->userField])) {
         // trim username, password
-        $username = strtolower(trim($_POST[$this->userField]));
-        $password = strtolower(trim($_POST[$this->passField]));
+        $username = trim($_POST[$this->userField]);
+        $password = trim($_POST[$this->passField]);
       }
 
     } else if (!$password) {
       // set up object so we can do a manual load
       $this->data['username'] = $username;
       return;
+
+    } else {
+      // trim input values
+      $username = trim($username);
+      $password = trim($password);
     }
 
     // has a logout been explicitly requested?
     if (isset($_REQUEST['logout'])) {
       $this->logout();
     }
+
 
     if (!isset($_SESSION[APP_ID . '_user'])) {
       // setup language
@@ -123,6 +129,8 @@ class User {
     // change language?
     if ($this->data['language'] != DEFAULT_LANGUAGE) {
       App::setLanguage($this->data['language']);
+    } else {
+      App::setLanguage();
     }
 
     // return successful load
@@ -225,43 +233,22 @@ class User {
   }
 
 
-  public function getDate($type, $date) {
-    if ($type == 'full') {
-      $formats = array('us' => 'F jS Y',
-                       'uk' => 'jS F Y');
-
-    } else if ($type == 'short') {
-      $formats = array('us' => 'm/d/Y',
-                       'uk' => 'd/m/Y');
-    }
-
-    // check if timestamp given
-    if (!is_int($date)) {
-      $date = strtotime($date);
-    }
-
-    if (isset($formats[$this->data['location']])) {
-      return date($formats[$this->data['location']], $date);
-    } else {
-      return date($formats[DEFAULT_LOCATION], $date);
-    }
-  }
-
-
   public function getName() {
     return $this->data['firstname'] . ' ' . $this->data['lastname'];
   }
 
 
-  public static function logout() {
+  public static function logout($redirect = true) {
     // unset variables, destroy session
     unset($_SESSION[APP_ID . '_user']);
 
-    session_unset();
-    session_destroy();
+    @session_unset();
+    @session_destroy();
 
-    // redirect to welcome page
-    Ui::redirect('/');
+    // redirect to welcome page?
+    if ($redirect) {
+      Ui::redirect('/');
+    }
   }
 }
 

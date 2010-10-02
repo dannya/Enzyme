@@ -32,11 +32,16 @@ table tr td.value {
 }
 
 
+table.settings tr td.label {
+  min-width:200px;
+}
+
+
 table tr td.value input {
-  width:390px;
+  width:350px;
 }
 table tr td.value select {
-  width:400px;
+  width:360px;
 }
 table tr td.value input.prompt { 
   color:#999;
@@ -45,4 +50,50 @@ table tr td.value input.prompt {
 
 input#setup-save {
   margin:16px 0 20px 0;
+}
+
+
+
+
+div#setup-database span {
+  display:block;
+  margin-bottom:22px;
+}
+
+table.setup-details {
+  margin:22px 0 !important;
+}
+
+table.setup-details tr.padding td {
+  padding-top:22px;
+}
+
+table.setup-details td.label {
+  text-align:right;
+  font-weight:bold;
+}
+table.setup-details td.value input {
+  width:230px !important;
+}
+
+
+div#setup-database-error {
+  padding-right:10px;
+  font-style:italic;
+  color:red;
+}
+
+
+div#setup-database-output {
+  height:136px;
+  margin-bottom:26px;
+  padding:10px;
+  border:2px solid #ccc;
+  overflow-y:auto;
+}
+
+div#setup-database-output i {
+  color:#666;
+}
+div#setup-database-output b {
 }

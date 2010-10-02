@@ -53,7 +53,25 @@ $validSettings  = Enzyme::getAvailableSettings();
 $settings       = array();
 
 foreach ($validSettings as $theSetting => $null) {
-  if (!empty($data[$theSetting])) {
+  if (isset($data[$theSetting])) {
+    $data[$theSetting] = trim($data[$theSetting]);
+
+    // process values to expected format...
+    if (($theSetting == 'DOMAIN') || ($theSetting == 'DISPLAY_URL')) {
+      // strip trailing slash
+      $data[$theSetting] = rtrim($data[$theSetting], '/');
+    }
+
+    if (($theSetting == 'DISPLAY_URL') && (strpos($data[$theSetting], 'http://') === false)) {
+      // prepend http://
+      $data[$theSetting] = 'http://' . $data[$theSetting];
+    } else if (($theSetting == 'DOMAIN') && (strpos($data[$theSetting], 'http://') !== false)) {
+      // remove http://
+      $data[$theSetting] = str_replace('http://', null, $data[$theSetting]);
+    }
+
+
+    // set setting
     $settings[] = array('setting' => $theSetting,
                         'value'   => $data[$theSetting]);
 

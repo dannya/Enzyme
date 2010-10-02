@@ -20,6 +20,9 @@ class App {
     if (defined('LANGUAGE')) {
       return false;
     }
+    if (!defined('DEFAULT_LANGUAGE')) {
+      define('DEFAULT_LANGUAGE', 'en_US');
+    }
 
     // set language
     if (isset($_GET['language'])) {
@@ -163,6 +166,43 @@ class App {
     }
 
     return $dirs;
+  }
+
+
+  public static function getFiles($path, $extension = false, $sort = true) {
+    if (!is_dir($path)) {
+      return false;
+    }
+
+    $dirHandle = opendir($path);
+
+    if (!$dirHandle) {
+      return false;
+    }
+
+    // look in directory for other files
+    $files = array();
+
+    while ($fileName = readdir($dirHandle)) {
+      if (($fileName != '.') && ($fileName != '..')) {
+        $thePath = $path . $fileName;
+
+        if (is_file($thePath)) {
+          if ($extension && ($tmp = explode('.', $thePath)) && (array_pop($tmp) != $extension)) {
+            continue;
+          }
+
+          $files[] = $thePath;
+        }
+      }
+    }
+
+    // sort?
+    if ($sort) {
+      sort($files);
+    }
+
+    return $files;
   }
 }
 

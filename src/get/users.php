@@ -65,7 +65,7 @@ if (($_REQUEST['dataType'] == 'new-user') || ($_REQUEST['dataType'] == 'approve-
   // generate and set a password?
   if ($_REQUEST['dataType'] == 'approve-application') {
     $tmpPassword      = App::randomString();
-    $data['password'] = Db::getHash($tmpPassword);
+    $data['password'] = Db::getHash(trim($tmpPassword));
   }
 
   // condense permissions into single db field

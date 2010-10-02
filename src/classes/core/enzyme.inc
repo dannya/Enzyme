@@ -98,90 +98,131 @@ class Enzyme {
 
 
   public static function getAvailableSettings() {
-    $settings['REPOSITORY_TYPE']   = array('title'   => _('Repository Type'),
-                                           'valid'   => array('svn' => _('Subversion')),
-                                           'default' => null,
-                                           'example' => null);
-    $settings['REPOSITORY']        = array('title'   => _('Repository URL'),
-                                           'valid'   => null,
-                                           'default' => null,
-                                           'example' => 'svn://anonsvn.kde.org/home/kde/');
-    $settings['ACCOUNTS_FILE']     = array('title'   => _('Accounts File'),
-                                           'valid'   => null,
-                                           'default' => null,
-                                           'example' => null);
-    $settings['EXISTING_ISSUES']   = array('title'   => _('Existing Issues'),
-                                           'valid'   => null,
-                                           'default' => null,
-                                           'example' => null);
-    $settings['EXISTING_ARCHIVE']  = array('title'   => _('Existing Archive'),
-                                           'valid'   => null,
-                                           'default' => null,
-                                           'example' => null);
-    $settings['EXISTING_DATA']     = array('title'   => _('Existing Data'),
-                                           'valid'   => null,
-                                           'default' => null,
-                                           'example' => null);
-    $settings['WEBSVN']            = array('title'   => _('Web Repository Viewer'),
-                                           'valid'   => null,
-                                           'default' => null,
-                                           'example' => null);
-    $settings['WEBBUG']            = array('title'   => _('Web Bug Tracker'),
-                                           'valid'   => null,
-                                           'default' => null,
-                                           'example' => null);
-    $settings['WEBBUG_XML']        = array('title'   => _('Web Bug Tracker XML'),
-                                           'valid'   => null,
-                                           'default' => null,
-                                           'example' => null);
-    $settings['I18N_STATS']        = array('title'   => _('I18n Stats URL'),
-                                           'valid'   => null,
-                                           'default' => null,
-                                           'example' => null);
-    $settings['I18N_TEAMS']        = array('title'   => _('I18n Teams URL'),
-                                           'valid'   => null,
-                                           'default' => null,
-                                           'example' => null);
-    $settings['BUG_STATS']         = array('title'   => _('Bug Stats URL'),
-                                           'valid'   => null,
-                                           'default' => null,
-                                           'example' => null);
-    $settings['DOMAIN']            = array('title'   => _('Enzyme URL'),
-                                           'valid'   => null,
-                                           'default' => null,
-                                           'example' => null);
-    $settings['SMTP']              = array('title'   => _('SMTP Mail Server'),
-                                           'valid'   => null,
-                                           'default' => null,
-                                           'example' => 'smtp.example.com');
-    $settings['PROJECT_NAME']      = array('title'   => _('Project Name'),
-                                           'valid'   => null,
-                                           'default' => null,
-                                           'example' => null);
-    $settings['ADMIN_EMAIL']       = array('title'   => _('Admin Email'),
-                                           'valid'   => null,
-                                           'default' => null,
-                                           'example' => 'admin@example.com');
-    $settings['DISPLAY_URL']       = array('title'   => _('Digest URL'),
-                                           'valid'   => null,
-                                           'default' => null,
-                                           'example' => null);
-    $settings['DEFAULT_LOCATION']  = array('title'   => _('Default Location'),
-                                           'valid'   => null,
-                                           'default' => null,
-                                           'example' => null);
-    $settings['DEFAULT_TIMEZONE']  = array('title'   => _('Default Timezone'),
-                                           'valid'   => null,
-                                           'default' => null,
-                                           'example' => null);
-    $settings['DEFAULT_LANGUAGE']  = array('title'   => _('Default Language'),
-                                           'valid'   => null,
-                                           'default' => null,
-                                           'example' => null);
-    $settings['DATE_FORMAT']       = array('title'   => _('Date Format'),
-                                           'valid'   => null,
-                                           'default' => null,
-                                           'example' => null);
+    // define each setting
+    $tmp['PROJECT_NAME']      = array('title'   => _('Project Name'),
+                                      'valid'   => null,
+                                      'default' => null,
+                                      'example' => 'My Project');
+    $tmp['ADMIN_EMAIL']       = array('title'   => _('Admin Email'),
+                                      'valid'   => null,
+                                      'default' => null,
+                                      'example' => 'admin@example.com');
+    $tmp['DOMAIN']            = array('title'   => _('Enzyme URL'),
+                                      'valid'   => null,
+                                      'default' => null,
+                                      'example' => 'http://enzyme.commit-digest.org/');
+    $tmp['DISPLAY_URL']       = array('title'   => _('Digest URL'),
+                                      'valid'   => null,
+                                      'default' => null,
+                                      'example' => 'http://commit-digest.org/');
+    $tmp['SMTP']              = array('title'   => _('SMTP Mail Server'),
+                                      'valid'   => null,
+                                      'default' => null,
+                                      'example' => 'smtp.example.com');
+
+    $tmp['REPOSITORY_TYPE']   = array('title'   => _('Repository Type'),
+                                      'valid'   => array('svn' => _('Subversion')),
+                                      'default' => 'svn',
+                                      'example' => null);
+    $tmp['REPOSITORY']        = array('title'   => _('Repository URL'),
+                                      'valid'   => null,
+                                      'default' => null,
+                                      'example' => 'svn://anonsvn.kde.org/home/kde/');
+    $tmp['ACCOUNTS_FILE']     = array('title'   => _('Accounts File'),
+                                      'valid'   => null,
+                                      'default' => null,
+                                      'example' => 'trunk/common/accounts.txt');
+
+    $tmp['WEBSVN']            = array('title'   => _('Web Repository Viewer'),
+                                      'valid'   => null,
+                                      'default' => null,
+                                      'example' => null);
+    $tmp['WEBBUG']            = array('title'   => _('Web Bug Tracker'),
+                                      'valid'   => null,
+                                      'default' => null,
+                                      'example' => null);
+    $tmp['WEBBUG_XML']        = array('title'   => _('Web Bug Tracker XML'),
+                                      'valid'   => null,
+                                      'default' => null,
+                                      'example' => null);
+    $tmp['I18N_STATS']        = array('title'   => _('I18n Stats URL'),
+                                      'valid'   => null,
+                                      'default' => null,
+                                      'example' => null);
+    $tmp['I18N_TEAMS']        = array('title'   => _('I18n Teams URL'),
+                                      'valid'   => null,
+                                      'default' => null,
+                                      'example' => null);
+    $tmp['BUG_STATS']         = array('title'   => _('Bug Stats URL'),
+                                      'valid'   => null,
+                                      'default' => null,
+                                      'example' => null);
+
+    $tmp['DEFAULT_TIMEZONE']  = array('title'   => _('Default Timezone'),
+                                      'valid'   => array('Europe/London' => 'Europe/London'),
+                                      'default' => 'Europe/London',
+                                      'example' => null);
+    $tmp['DEFAULT_LANGUAGE']  = array('title'   => _('Default Language'),
+                                      'valid'   => Digest::getLanguages(),
+                                      'default' => null,
+                                      'example' => null);
+
+    $tmp['ENABLE_LEGACY']     = array('title'   => _('Enable Legacy Import'),
+                                      'valid'   => array('0'  => _('No'),
+                                                         '1'  => _('Yes')),
+                                      'default' => '0',
+                                      'example' => null);
+    $tmp['EXISTING_ISSUES']   = array('title'   => _('Existing Issues'),
+                                      'valid'   => null,
+                                      'default' => null,
+                                      'example' => null);
+    $tmp['EXISTING_ARCHIVE']  = array('title'   => _('Existing Archive'),
+                                      'valid'   => null,
+                                      'default' => null,
+                                      'example' => null);
+    $tmp['EXISTING_DATA']     = array('title'   => _('Existing Data'),
+                                      'valid'   => null,
+                                      'default' => null,
+                                      'example' => null);
+
+    return $tmp;
+  }
+
+
+  public static function getGroupedSettings() {
+    // get available settings
+    $tmp = self::getAvailableSettings();
+
+    // order (array index), and classify into groups
+    $settings[] = array('title'     => _('Enzyme Settings'),
+                        'settings'  => array('PROJECT_NAME'           => $tmp['PROJECT_NAME'],
+                                             'ADMIN_EMAIL'            => $tmp['ADMIN_EMAIL'],
+                                             'DOMAIN'                 => $tmp['DOMAIN'],
+                                             'DISPLAY_URL'            => $tmp['DISPLAY_URL'],
+                                             'SMTP'                   => $tmp['SMTP']));
+
+    $settings[] = array('title'     => _('Repository'),
+                        'settings'  => array('REPOSITORY_TYPE'        => $tmp['REPOSITORY_TYPE'],
+                                             'REPOSITORY'             => $tmp['REPOSITORY'],
+                                             'ACCOUNTS_FILE'          => $tmp['ACCOUNTS_FILE']));
+
+    $settings[] = array('title'     => _('Data Locations'),
+                        'settings'  => array('WEBSVN'                 => $tmp['WEBSVN'],
+                                             'WEBBUG'                 => $tmp['WEBBUG'],
+                                             'WEBBUG_XML'             => $tmp['WEBBUG_XML'],
+                                             'I18N_STATS'             => $tmp['I18N_STATS'],
+                                             'I18N_TEAMS'             => $tmp['I18N_TEAMS'],
+                                             'BUG_STATS'              => $tmp['BUG_STATS']));
+
+    $settings[] = array('title'     => _('Display Defaults'),
+                        'settings'  => array('DEFAULT_TIMEZONE'       => $tmp['DEFAULT_TIMEZONE'],
+                                             'DEFAULT_LANGUAGE'       => $tmp['DEFAULT_LANGUAGE']));
+
+    $settings[] = array('title'     => _('Legacy Import'),
+                        'settings'  => array('ENABLE_LEGACY'          => $tmp['ENABLE_LEGACY'],
+                                             'EXISTING_ISSUES'        => $tmp['EXISTING_ISSUES'],
+                                             'EXISTING_ARCHIVE'       => $tmp['EXISTING_ARCHIVE'],
+                                             'EXISTING_DATA'          => $tmp['EXISTING_DATA']));
 
     return $settings;
   }

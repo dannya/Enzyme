@@ -4,7 +4,6 @@ div#content {
 
 
 
-
 table thead tr th {
   padding:0 22px 0 0;
   
@@ -13,4 +12,29 @@ table thead tr th {
   font-style:italic;
   font-size:14px;
   color:#666;
+}
+
+
+
+div#column-left {
+  position:absolute;
+  width:46%;
+}
+div#column-right {
+  position:absolute;
+  width:46%;
+  right:20px;
+}
+
+
+
+div.container {
+  border:2px solid #ccc;
+  padding:10px;
+}
+
+
+
+table#active-users {
+  width:100%;
 }
