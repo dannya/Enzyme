@@ -15,7 +15,7 @@
 +--------------------------------------------------------*/
 
 
-include($_SERVER['DOCUMENT_ROOT'] . '/autoload.inc');
+include($_SERVER['DOCUMENT_ROOT'] . '/autoload.php');
 
 
 // only allow user to be created if no users exist and settings are unset

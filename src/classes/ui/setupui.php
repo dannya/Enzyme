@@ -166,7 +166,7 @@ class SetupUi extends BaseUi {
   private function drawDatabaseSetup() {
     $buf = '<div id="setup-database">
               <div id="setup-database-details">' .
-                sprintf(_('Enzyme cannot find a compatible database at the location set at the top of %s:'), '<a href="file:///' . str_replace('\\', '/', BASE_DIR) . '/autoload.inc">' . BASE_DIR . '/autoload.inc</a>') .
+                sprintf(_('Enzyme cannot find a compatible database at the location set at the top of %s:'), '<a href="file:///' . str_replace('\\', '/', BASE_DIR) . '/autoload.php">' . BASE_DIR . '/autoload.php</a>') .
 
            '    <table class="setup-details">
                   <tbody>

@@ -15,7 +15,7 @@
 +--------------------------------------------------------*/
 
 
-include($_SERVER['DOCUMENT_ROOT'] . '/autoload.inc');
+include($_SERVER['DOCUMENT_ROOT'] . '/autoload.php');
 
 
 // only allow database to be created if it Enzyme has not yet been configured!

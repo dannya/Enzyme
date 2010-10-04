@@ -44,7 +44,7 @@ class Db {
 
   public static function connect() {
     // connect to database server
-    mysql_pconnect(DB_HOST, DB_USER, DB_PASSWORD) or trigger_error(sprintf(_("Couldn't connect to database: ensure you have set the correct values at the top of %s/autoload.inc"), BASE_DIR));
+    mysql_pconnect(DB_HOST, DB_USER, DB_PASSWORD) or trigger_error(sprintf(_("Couldn't connect to database: ensure you have set the correct values at the top of %s/autoload.php"), BASE_DIR));
 
     // select database
     $success = @mysql_select_db(DB_DATABASE);

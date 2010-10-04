@@ -28,7 +28,7 @@ define('DB_DATABASE',       'enzyme');
 // define app constants
 define('APP_ID',            'enzyme');
 define('APP_NAME',          'Enzyme');
-define('VERSION',           '0.90');
+define('VERSION',           '0.91');
 
 
 // set initial values
@@ -65,7 +65,7 @@ if (COMMAND_LINE) {
     }
 
     foreach ($classes as $class) {
-      include('classes/' . $class . '.inc');
+      include('classes/' . $class . '.php');
     }
   }
 }

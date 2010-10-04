@@ -15,7 +15,7 @@
 +--------------------------------------------------------*/
 
 
-include($_SERVER['DOCUMENT_ROOT'] . '/autoload.inc');
+include($_SERVER['DOCUMENT_ROOT'] . '/autoload.php');
 
 
 // setup language

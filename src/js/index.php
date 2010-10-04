@@ -15,7 +15,7 @@
 +--------------------------------------------------------*/
 
 
-include($_SERVER['DOCUMENT_ROOT'] . '/autoload.inc');
+include($_SERVER['DOCUMENT_ROOT'] . '/autoload.php');
 
 $validScript = array('common');
 
@@ -24,7 +24,7 @@ $validScript = array('common');
 if (isset($_GET['script']) && in_array($_GET['script'], $validScript)) {
   header('Content-type: application/javascript');
 
-  include_once(BASE_DIR . '/js/includes/' . $_GET['script'] . '.inc');
+  include_once(BASE_DIR . '/js/includes/' . $_GET['script'] . '.php');
 }
 
 ?>
