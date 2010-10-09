@@ -31,12 +31,6 @@ define('APP_NAME',          'Enzyme');
 define('VERSION',           '0.92');
 
 
-// add class dirs to include path
-$classDirs = array(BASE_DIR . '/classes/core/',
-                   BASE_DIR . '/classes/ext/',
-                   BASE_DIR . '/classes/ui/');
-
-
 // set initial values
 if (empty($_SERVER['DOCUMENT_ROOT'])) {
   define('COMMAND_LINE',    true);
@@ -47,6 +41,12 @@ if (empty($_SERVER['DOCUMENT_ROOT'])) {
   define('BASE_DIR',        rtrim($_SERVER['DOCUMENT_ROOT'], '/'));
   define('BASE_URL',        'http://' . $_SERVER['HTTP_HOST']);
 }
+
+
+// add class dirs to include path
+$classDirs = array(BASE_DIR . '/classes/core/',
+                   BASE_DIR . '/classes/ext/',
+                   BASE_DIR . '/classes/ui/');
 
 
 // setup autoloader

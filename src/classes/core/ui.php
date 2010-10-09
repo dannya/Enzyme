@@ -246,32 +246,48 @@ class Ui {
 
 
   public static function displayMsg($msg, $class = null) {
-    if ($class) {
-      $class = ' class="' . $class . '"';
+    if (COMMAND_LINE) {
+      // command-line, no need for fancy formatting!
+      if ($class) {
+        echo ' - ' . $msg . "\n";
+      } else {
+        echo $msg . "\n";
+      }
+
+    } else {
+      if ($class) {
+        $class = ' class="' . $class . '"';
+      }
+
+      echo '<span' . $class . '>' . $msg . "</span><br />\n";
+
+      @ob_flush();
+      @flush();
     }
-
-    echo '<span' . $class . '>' . $msg . "</span><br />\n";
-
-    @ob_flush();
-    @flush();
   }
 
 
   public static function processSummary($summary, $showTotal = false) {
     $total = null;
 
+    // define glue based on runtime environment
+    if (COMMAND_LINE) {
+      $glue = "\n";
+    } else {
+      $glue = "<br />\n";
+    }
+
+
     // pre-calculate totals
     foreach ($summary as $entry) {
       $total += $entry['value'];
     }
 
-    // draw
-    $buf = '<div class="summary_box">';
-
+    // process values
     foreach ($summary as $entry) {
       // show totals inline
-      $percent = round((($entry['value'] / $total) * 100), 1);
-      $buf .= sprintf($entry['title'] . _(' (%.1f percent of %d)') . "<br />\n", $entry['value'], $percent, $total);
+      $percent  = round((($entry['value'] / $total) * 100), 1);
+      $values[] = sprintf($entry['title'] . _(' (%.1f percent of %d)'), $entry['value'], $percent, $total);
 
       // add to total
       if (!$total) {
@@ -279,15 +295,32 @@ class Ui {
       }
     }
 
-    // finally, show total?
+
+    // draw
+    $buf = implode($glue, $values);
+
+    // show total?
     if ($showTotal) {
-      $buf .=  '<br />
-                <span class="bold">' . sprintf(_('Total: %d'), $total) . '</span>';
+      $buf .= $glue;
+
+      if (COMMAND_LINE) {
+        $buf .= sprintf(_('Total: %d'), $total);
+      } else {
+        $buf .= '<span class="bold">' . sprintf(_('Total: %d'), $total) . '</span>';
+      }
     }
 
-    $buf .= '</div>';
 
-    return $buf;
+    // wrap in markup?
+    if (COMMAND_LINE) {
+      return "-------------------------------------\n" .
+              $buf;
+
+    } else {
+      return '<div class="summary_box">' .
+                $buf .
+             '</div>';
+    }
   }
 }
 
