@@ -28,7 +28,13 @@ define('DB_DATABASE',       'enzyme');
 // define app constants
 define('APP_ID',            'enzyme');
 define('APP_NAME',          'Enzyme');
-define('VERSION',           '0.91');
+define('VERSION',           '0.92');
+
+
+// add class dirs to include path
+$classDirs = array(BASE_DIR . '/classes/core/',
+                   BASE_DIR . '/classes/ext/',
+                   BASE_DIR . '/classes/ui/');
 
 
 // set initial values
@@ -43,31 +49,26 @@ if (empty($_SERVER['DOCUMENT_ROOT'])) {
 }
 
 
-// add class dira to include path
-$classDirs = array(BASE_DIR . '/classes/core/',
-                   BASE_DIR . '/classes/ext/',
-                   BASE_DIR . '/classes/ui/');
-
-set_include_path(get_include_path() . PATH_SEPARATOR . implode(PATH_SEPARATOR, $classDirs));
-
-
-// define autoloader
-spl_autoload_register();
-
-
+// setup autoloader
 if (COMMAND_LINE) {
   ini_set('display_errors', true);
 
-  // autoload doesn't work in command-line
-  function autoload($classes) {
-    if (!is_array($classes)) {
-      $classes = array($classes);
-    }
+  function __autoload($class) {
+    global $classDirs;
 
-    foreach ($classes as $class) {
-      include('classes/' . $class . '.php');
+    foreach ($classDirs as $dir) {
+      if (is_file($dir . $class . '.php')) {
+        include($dir . $class . '.php');
+        break;
+      }
     }
   }
+
+} else {
+  set_include_path(get_include_path() . PATH_SEPARATOR . implode(PATH_SEPARATOR, $classDirs));
+
+  // define autoloader
+  spl_autoload_register();
 }
 
 
