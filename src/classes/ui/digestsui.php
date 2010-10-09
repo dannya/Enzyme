@@ -176,8 +176,10 @@ class DigestsUi extends BaseUi {
     $users         = Digest::getUsersByPermission();
     $contributors  = array();
 
-    foreach ($this->data['contributors'] as $contributor => $data) {
-      $contributors[] = $users[$data['name']];
+    if (isset($this->data['contributors'])) {
+      foreach ($this->data['contributors'] as $contributor => $data) {
+        $contributors[] = $users[$data['name']];
+      }
     }
 
 
@@ -342,7 +344,7 @@ class DigestsUi extends BaseUi {
 
     $buf = '<h2>' .
               _('Statistics') .
-              $button;
+              $button .
            '</h2>';
 
     if (empty($this->data['stats'])) {

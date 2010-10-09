@@ -35,6 +35,19 @@ div.container {
 
 
 
-table#active-users {
+table.display {
   width:100%;
+}
+table.display th {
+  vertical-align:bottom;
+}
+table.display th:first-child {
+  width:100px;
+}
+
+table.display td.label {
+  font-weight:normal;
+  font-style:italic;
+  font-size:14px;
+  color:#666; 
 }

@@ -238,6 +238,46 @@ class User {
   }
 
 
+  public function getStats() {
+    // set week date boundaries
+    $start  = date('Y-m-d', strtotime('Today - 1 week'));
+    $end    = date('Y-m-d');
+
+
+    // get number of reviewed (total)
+    $tmp   = Db::sql('SELECT COUNT(revision) AS count FROM commits_reviewed
+                      WHERE reviewer = "' . $this->data['username'] . '"', true);
+
+    $stats['reviewed']['total'] = $tmp[0]['count'];
+
+    // get number of reviewed (week)
+    $tmp   = Db::sql('SELECT COUNT(revision) AS count FROM commits_reviewed
+                      WHERE reviewer = "' . $this->data['username'] . '"
+                      AND reviewed > "' . $start . '"
+                      AND reviewed <= "' . $end . '"', true);
+
+    $stats['reviewed']['week'] = $tmp[0]['count'];
+
+
+    // get number of classified
+    $tmp   = Db::sql('SELECT COUNT(revision) AS count FROM commits_reviewed
+                      WHERE classifier = "' . $this->data['username'] . '"', true);
+
+    $stats['classified']['total'] = $tmp[0]['count'];
+
+    // get number of reviewed (week)
+    $tmp   = Db::sql('SELECT COUNT(revision) AS count FROM commits_reviewed
+                      WHERE classifier = "' . $this->data['username'] . '"
+                      AND classified > "' . $start . '"
+                      AND classified <= "' . $end . '"', true);
+
+    $stats['classified']['week'] = $tmp[0]['count'];
+
+
+    return $stats;
+  }
+
+
   public static function logout($redirect = true) {
     // unset variables, destroy session
     unset($_SESSION[APP_ID . '_user']);

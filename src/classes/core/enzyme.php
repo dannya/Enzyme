@@ -869,6 +869,77 @@ class Enzyme {
   }
 
 
+  public static function getParticipationStats() {
+    // set week date boundaries
+    $start  = date('Y-m-d', strtotime('Today - 1 week'));
+    $end    = date('Y-m-d');
+
+
+    // get number of reviewed / classified (total)
+    $tmp   = Db::sql('SELECT * FROM commits_reviewed', true);
+
+    foreach ($tmp as $item) {
+      // initialise values
+      if (!isset($stats[$item['reviewer']])) {
+        $stats[$item['reviewer']]['reviewed']['total']    = 0;
+        $stats[$item['reviewer']]['classified']['total']  = 0;
+        $stats[$item['reviewer']]['reviewed']['week']     = 0;
+        $stats[$item['reviewer']]['classified']['week']   = 0;
+      }
+
+      // reviewed
+      if (!isset($stats[$item['reviewer']]['reviewed']['total'])) {
+        $stats[$item['reviewer']]['reviewed']['total'] = 1;
+      } else {
+        ++$stats[$item['reviewer']]['reviewed']['total'];
+      }
+
+      // classified?
+      if (!empty($item['classifier'])) {
+        if (!isset($stats[$item['classifier']]['classified']['total'])) {
+          $stats[$item['classifier']]['classified']['total'] = 1;
+        } else {
+          ++$stats[$item['classifier']]['classified']['total'];
+        }
+      }
+    }
+
+
+    // get number of reviewed (week)
+    $tmp   = Db::sql('SELECT * FROM commits_reviewed
+                      WHERE reviewed > "' . $start . '"
+                      AND reviewed <= "' . $end . '"', true);
+
+    foreach ($tmp as $item) {
+      // reviewed
+      if (!isset($stats[$item['reviewer']]['reviewed']['week'])) {
+        $stats[$item['reviewer']]['reviewed']['week'] = 1;
+      } else {
+        ++$stats[$item['reviewer']]['reviewed']['week'];
+      }
+    }
+
+
+    // get number of classified (week)
+    $tmp   = Db::sql('SELECT * FROM commits_reviewed
+                      WHERE classified IS NOT NULL
+                      AND classified > "' . $start . '"
+                      AND classified <= "' . $end . '"', true);
+
+    foreach ($tmp as $item) {
+      // classified
+      if (!isset($stats[$item['classifier']]['classified']['week'])) {
+        $stats[$item['classifier']]['classified']['week'] = 1;
+      } else {
+        ++$stats[$item['classifier']]['classified']['week'];
+      }
+    }
+
+
+    return $stats;
+  }
+
+
   public static function processCommitMsg($revision, $msg) {
     // remove email addresses
     $msg = preg_replace('/[a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}/', null, $msg);

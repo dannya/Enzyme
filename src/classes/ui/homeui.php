@@ -39,6 +39,8 @@ class HomeUi extends BaseUi {
       // draw admin information panels
       $buf  .= '<div id="column-left">' .
                   $this->panelReviewStatus() .
+                  $this->panelMyStats() .
+                  $this->panelLeaderBoard() .
                   $this->panelActiveUsers() .
                '</div>
 
@@ -67,6 +69,83 @@ class HomeUi extends BaseUi {
             <div class="container r">
             </div>';
 
+    //return $buf;
+  }
+
+
+  private function panelMyStats() {
+    // get participation stats
+    $stats = $this->user->getStats();
+
+
+    // draw
+    $buf = '<h3>' . _('My Stats') . '</h3>
+
+            <div class="container r">
+              <table class="display">
+                <thead>
+                  <tr>
+                    <th>&nbsp;</th>
+                    <th>' . _('Past Week') . '</th>
+                    <th>' . _('Total') . '</th>
+                  </tr>
+                </thead>
+
+                <tbody>
+                  <tr>
+                    <td class="label">' . _('Reviewed') . '</td>
+                    <td>' . $stats['reviewed']['week'] . '</td>
+                    <td>' . $stats['reviewed']['total'] . '</td>
+                  </tr>
+                  <tr>
+                    <td class="label">' . _('Classified') . '</td>
+                    <td>' . $stats['classified']['week'] . '</td>
+                    <td>' . $stats['classified']['total'] . '</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>';
+
+    return $buf;
+  }
+
+
+  private function panelLeaderBoard() {
+    // get participation stats
+    $stats = Enzyme::getParticipationStats();
+
+
+    // draw
+    $buf = '<h3>' . _('Leaderboard') . '</h3>
+
+            <div class="container r">
+              <table class="display">
+                <thead>
+                  <tr>
+                    <th>' . _('Username') . '</th>
+                    <th>' . _('Reviewed (Week)') . '</th>
+                    <th>' . _('Reviewed (Total)') . '</th>
+                    <th>' . _('Classified (Week)') . '</th>
+                    <th>' . _('Classified (Total)') . '</th>
+                  </tr>
+                </thead>
+
+                <tbody>';
+
+    foreach ($stats as $person => $row) {
+      $buf  .= '<tr>
+                  <td>' . $person . '</td>
+                  <td>' . $row['reviewed']['week'] . '</td>
+                  <td>' . $row['reviewed']['total'] . '</td>
+                  <td>' . $row['classified']['week'] . '</td>
+                  <td>' . $row['classified']['total'] . '</td>
+                </tr>';
+    }
+
+    $buf  .= '  </tbody>
+              </table>
+            </div>';
+
     return $buf;
   }
 
@@ -80,7 +159,7 @@ class HomeUi extends BaseUi {
     $buf = '<h3>' . _('Active Users') . '</h3>
 
             <div class="container r">
-              <table id="active-users">
+              <table class="display">
                 <thead>
                   <tr>
                     <th>' . _('Username') . '</th>
