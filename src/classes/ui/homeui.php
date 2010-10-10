@@ -41,11 +41,11 @@ class HomeUi extends BaseUi {
                   $this->panelReviewStatus() .
                   $this->panelMyStats() .
                   $this->panelLeaderBoard() .
-                  $this->panelActiveUsers() .
                '</div>
 
                 <div id="column-right">' .
                   $this->panelEnzymeUpdates() .
+                  $this->panelActiveUsers() .
                '</div>';
     }
 
