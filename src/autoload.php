@@ -56,6 +56,9 @@ if (COMMAND_LINE) {
   function __autoload($class) {
     global $classDirs;
 
+    // assist case-sensitive filesystems
+    $class = strtolower($class);
+
     foreach ($classDirs as $dir) {
       if (is_file($dir . $class . '.php')) {
         include($dir . $class . '.php');
