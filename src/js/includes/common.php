@@ -253,7 +253,7 @@ function save(theType) {
         buttonState("review-save", "disabled");
 
         // refresh page to show updated data
-        loadPage(theType);
+        loadPage(theType, true);
 
       } else {
         // show error message
@@ -269,7 +269,7 @@ function save(theType) {
 }
 
 
-function loadPage(thePage) {
+function loadPage(thePage, scroll) {
   if (typeof thePage == 'undefined' || !$('content')) {
     return false;
   }
@@ -281,6 +281,11 @@ function loadPage(thePage) {
     },
     onSuccess: function(transport) {
       $('content').update(transport.responseText);
+
+      // scroll to top of page?
+      if ((typeof scroll == 'undefined') && scroll) {
+        $('content').scrollTop = 0;
+      }
     }
   });
 }
