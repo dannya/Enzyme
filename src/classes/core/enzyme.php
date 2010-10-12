@@ -510,15 +510,13 @@ class Enzyme {
       // set data into useful data structure
       unset($commit);
 
+      // get commit revision
       $commit['revision']   = (int)$entry->attributes()->revision;
-      $commit['date']       = date('Y-m-d H:i:s', strtotime((string)$entry->date));
-      $commit['author']     = (string)$entry->author;
-      $commit['msg']        = self::processCommitMsg($commit['revision'], (string)$entry->msg);
 
 
+      // check if revision has already been processed
       if (isset($processedRevisions[$commit['revision']])) {
-        // revision has already been processed
-        if (!empty($_POST['show_skipped'])) {
+        if (COMMAND_LINE || !empty($_POST['show_skipped'])) {
           Ui::displayMsg(sprintf(_('Skipping revision %d'), $commit['revision']), 'msg_skip');
         }
 
@@ -529,26 +527,33 @@ class Enzyme {
       }
 
 
+      // get additional commit data
+      $commit['date']       = date('Y-m-d H:i:s', strtotime((string)$entry->date));
+      $commit['author']     = (string)$entry->author;
+      $commit['msg']        = self::processCommitMsg($commit['revision'], (string)$entry->msg);
+
+
       // insert commit files into database
       if (!empty($entry->paths->path[0])) {
         $commitFile['revision'] = $commit['revision'];
 
         foreach ($entry->paths->path as $path) {
-          $commitFile['path'] = $path;
+          $commitFile['path']       = (string)$path;
+          $commitFile['operation']  = (string)$path->attributes()->action;
 
           Db::insert('commit_files', $commitFile, true);
 
           // save data to enable base path calculation below
-          $tmpPaths[] = explode('/', $path);
+          $tmpPaths[] = $commitFile['path'];
         }
       }
 
 
       // determine base commit path
-      if (count($entry->paths->path) == 1) {
+      if (!isset($entry->paths->path[1])) {
         $commit['basepath'] = $commitFile['path'];
       } else {
-        $commit['basepath'] = self::getBasePath($entry->paths->path);
+        $commit['basepath'] = self::getBasePath($tmpPaths);
       }
 
 
@@ -975,12 +980,21 @@ class Enzyme {
 
   public static function getBasePath($tmpPaths, $depth = null) {
     // if only one file provided, return input (otherwise we'll be locked in an infinite loop!)
-    if (count($tmpPaths) == 1) {
+    if (!isset($tmpPaths[1])) {
       return array_pop($tmpPaths);
+
+    } else {
+      // explode paths?
+      foreach ($tmpPaths as $key => $value) {
+        if (!is_array($value)) {
+          $tmpPaths[$key] = explode('/', $value);
+        }
+      }
     }
 
-    $basepath  = null;
 
+    // process
+    $basepath  = null;
     $stop      = false;
     $i         = 1;
 
@@ -988,18 +1002,17 @@ class Enzyme {
       $last = null;
 
       foreach ($tmpPaths as $path) {
-        if (!is_array($path)) {
-          $path = explode('/', $path);
-        }
-
         if (!$last) {
           // set comparison
           if (isset($path[$i])) {
             $last = $path[$i];
+          } else {
+            $stop = true;
           }
 
         } else {
-          if (isset($path[$i]) && ($path[$i] != $last)) {
+          // compare paths
+          if (!isset($path[$i]) || ($path[$i] != $last)) {
             // stop now
             $stop = true;
             break;
