@@ -525,7 +525,7 @@ class Digest {
 
     // create links
     for ($i = 0; $i < $limit; $i++) {
-      $buf[] = '<a class="n" href="' . WEBSVN . '' . $commit['diff'][$i]['path'] . '?r1=' . ($commit['diff'][$i]['revision'] - 1) . '&amp;r2=' . $commit['diff'][$i]['revision'] . '">' . ($i + 1) . '</a>';
+      $buf[] = '<a class="n" href="' . WEBSVN . $commit['diff'][$i]['path'] . '?r1=' . ($commit['diff'][$i]['revision'] - 1) . '&amp;r2=' . $commit['diff'][$i]['revision'] . '">' . ($i + 1) . '</a>';
     }
 
     // join string

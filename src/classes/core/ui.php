@@ -166,11 +166,23 @@ class Ui {
 
 
   public static function displayRevision($type, $id, $data, &$authors, &$classifications = null) {
+    // show date?
+    if ($type == 'review') {
+      $date = '<div>' .
+                 $data['date'] .
+              '</div>';
+    } else {
+      $date = null;
+    }
+
+
+    // draw commit
     $buf = '<div id="' . $id . '" class="item normal">
               <div class="commit-title">
-                Commit <span class="revision">' . $data['revision'] . '</span> by <span>' . Enzyme::getAuthorInfo('name', $data['author']) . '</span> (<span>' . $data['author'] . '</span>)
+                Commit <a class="revision" href="' . WEBSVN . '?view=revision&revision=' . $data['revision'] . '" target="_blank">' . $data['revision'] . '</a> by <span>' . Enzyme::getAuthorInfo('name', $data['author']) . '</span> (<span>' . $data['author'] . '</span>)
                 <br />' .
                 $data['basepath'] .
+                $date .
            '  </div>
               <div class="commit-msg">' .
                 Enzyme::formatMsg($data['msg']) .

@@ -133,6 +133,9 @@ function selectItem(direction) {
 
       currentItem   = $(itemClass + '-' + selection);
       newItem       = $(itemClass + '-' + (itemCounter + 1));
+      
+      console.debug(currentItem);
+      console.debug(newItem);
 
       ++itemCounter;
     }
@@ -254,6 +257,21 @@ function save(theType) {
 
         // refresh page to show updated data
         loadPage(theType, true);
+        
+        // reset counters
+        readCommits   = [];
+        markedCommits = [];
+        itemCounter   = 0;
+        commitCounter = 0;
+        
+        // reset displays
+			  if ($('commit-selected')) {
+			    $('commit-selected').update(markedCommits.size());
+			  }
+			  if ($('commit-total')) {
+			    $('commit-total').update($$('div.item').size());
+			  }
+			  $('commit-counter').update(commitCounter);
 
       } else {
         // show error message
@@ -283,7 +301,7 @@ function loadPage(thePage, scroll) {
       $('content').update(transport.responseText);
 
       // scroll to top of page?
-      if ((typeof scroll == 'undefined') && scroll) {
+      if ((typeof scroll != 'undefined') && scroll) {
         $('content').scrollTop = 0;
       }
     }

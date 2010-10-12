@@ -49,10 +49,10 @@ Hotkey.add(['RIGHT'], function(event) {
       (commitCounter > $('commit-counter').innerHTML) &&
       (commitCounter <= $('commit-total').innerHTML)) {
 
-    $('commit-counter').innerHTML = commitCounter;
+    $('commit-counter').update(commitCounter);
 
     // add commit to read array
-    revision = newItem.down('span.revision').innerHTML;
+    revision = newItem.down('a.revision').innerHTML;
 
     if (readCommits.indexOf(revision) == -1) {
       readCommits.push(revision);
