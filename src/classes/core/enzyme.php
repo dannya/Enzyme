@@ -890,6 +890,8 @@ class Enzyme {
         if (!isset($stats[$item['reviewer']])) {
           $stats[$item['reviewer']]['reviewed']['total']    = 0;
           $stats[$item['reviewer']]['reviewed']['week']     = 0;
+          $stats[$item['reviewer']]['classified']['total']  = 0;
+          $stats[$item['reviewer']]['classified']['week']   = 0;
         }
 
         // increment
@@ -905,6 +907,8 @@ class Enzyme {
       if (!empty($item['classifier'])) {
         // initialise values
         if (!isset($stats[$item['classifier']])) {
+          $stats[$item['classifier']]['reviewed']['total']    = 0;
+          $stats[$item['classifier']]['reviewed']['week']     = 0;
           $stats[$item['classifier']]['classified']['total']  = 0;
           $stats[$item['classifier']]['classified']['week']   = 0;
         }
