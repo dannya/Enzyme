@@ -884,23 +884,32 @@ class Enzyme {
     $tmp   = Db::sql('SELECT * FROM commits_reviewed', true);
 
     foreach ($tmp as $item) {
-      // initialise values
-      if (!isset($stats[$item['reviewer']])) {
-        $stats[$item['reviewer']]['reviewed']['total']    = 0;
-        $stats[$item['reviewer']]['classified']['total']  = 0;
-        $stats[$item['reviewer']]['reviewed']['week']     = 0;
-        $stats[$item['reviewer']]['classified']['week']   = 0;
-      }
-
       // reviewed
-      if (!isset($stats[$item['reviewer']]['reviewed']['total'])) {
-        $stats[$item['reviewer']]['reviewed']['total'] = 1;
-      } else {
-        ++$stats[$item['reviewer']]['reviewed']['total'];
+      if (!empty($item['reviewer'])) {
+        // initialise values
+        if (!isset($stats[$item['reviewer']])) {
+          $stats[$item['reviewer']]['reviewed']['total']    = 0;
+          $stats[$item['reviewer']]['reviewed']['week']     = 0;
+        }
+
+        // increment
+        if (!isset($stats[$item['reviewer']]['reviewed']['total'])) {
+          $stats[$item['reviewer']]['reviewed']['total'] = 1;
+        } else {
+          ++$stats[$item['reviewer']]['reviewed']['total'];
+        }
       }
 
-      // classified?
+
+      // classified
       if (!empty($item['classifier'])) {
+        // initialise values
+        if (!isset($stats[$item['classifier']])) {
+          $stats[$item['classifier']]['classified']['total']  = 0;
+          $stats[$item['classifier']]['classified']['week']   = 0;
+        }
+
+        // increment
         if (!isset($stats[$item['classifier']]['classified']['total'])) {
           $stats[$item['classifier']]['classified']['total'] = 1;
         } else {
