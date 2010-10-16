@@ -54,9 +54,6 @@ class ReviewUi extends BaseUi {
              '</p>';
 
     } else {
-      // get globally-ignored paths
-      $ignorePaths  = Enzyme::getIgnoredPaths();
-
       $buf          = null;
       $counter      = 1;
 
@@ -68,16 +65,6 @@ class ReviewUi extends BaseUi {
 
         // filter by path?
         if (!empty($revision['basepath'])) {
-          // filter by globally-ignored paths
-          $pathIgnored = false;
-
-          foreach ($ignorePaths as $ignorePath) {
-            if (strpos($revision['basepath'], $ignorePath) !== false) {
-              $pathIgnored = true;
-              break;
-            }
-          }
-
           // filter commits by user review areas?
           if (!empty($this->user->paths)) {
             $pathUserIgnored = true;
@@ -91,7 +78,7 @@ class ReviewUi extends BaseUi {
           }
 
           // don't show this commit if in global ignore path, or not in user path
-          if ($pathIgnored || (isset($pathUserIgnored) && $pathUserIgnored)) {
+          if (isset($pathUserIgnored) && $pathUserIgnored) {
             continue;
           }
         }
