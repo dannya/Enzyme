@@ -1031,7 +1031,7 @@ class Enzyme {
 
   public static function getBasePath($tmpPaths, $depth = null) {
     // if only one file provided, return input (otherwise we'll be locked in an infinite loop!)
-    if (is_a($tmpPaths, 'SimpleXMLElement')) {
+    if ($tmpPaths instanceof SimpleXMLElement) {
       // SimpleXML data structure (eg. from SVN)
       if (!isset($tmpPaths[1])) {
         return strip_tags($tmpPaths->asXML());
