@@ -277,6 +277,7 @@ class Enzyme {
       $filter .= ' AND revision IN (' . implode(',', $revisions) . ')';
     }
 
+
     // exclude accounts?
     if ($exclude) {
       if ($exclude === true) {
@@ -286,6 +287,27 @@ class Enzyme {
 
       $filter .= ' AND author NOT IN ("' . implode('","', $exclude) . '")';
     }
+
+
+    // exclude paths?
+    $ignorePaths = self::getIgnoredPaths();
+
+    if ($ignorePaths) {
+      foreach ($ignorePaths as $path) {
+        $filter .= ' AND basepath NOT LIKE ' . Db::quote('%' . $path . '%');
+      }
+    }
+
+
+    // exclude message fragments? (ie. SVN_SILENT)
+    $ignoreFragments = self::getIgnoredFragments();
+
+    if ($ignoreFragments) {
+      foreach ($ignoreFragments as $fragment) {
+        $filter .= ' AND msg NOT LIKE ' . Db::quote('%' . $fragment . '%');
+      }
+    }
+
 
     // only get commits at specific review stage?
     if ($type == 'unreviewed') {
@@ -318,6 +340,8 @@ class Enzyme {
 
     // execute query
     $selectQuery  = 'SELECT ' . $fields . ' FROM ' . $table . $filter . $limit;
+    echo $selectQuery;
+    exit;
     $q            = mysql_query($selectQuery) or trigger_error(sprintf(_('Query failed: %s'), mysql_error()));
 
     while ($row = mysql_fetch_assoc($q)) {
@@ -410,7 +434,16 @@ class Enzyme {
 
   public static function getIgnoredPaths() {
     // TODO: store this data in db, create management interface in Enzyme
-    $ignored  = array('/l10n-', '/www/');
+    $ignored  = array('/l10n-',
+                      '/www/');
+
+    return $ignored;
+  }
+
+
+  public static function getIgnoredFragments() {
+    // TODO: store this data in db, create management interface in Enzyme
+    $ignored  = array('SVN_SILENT');
 
     return $ignored;
   }
