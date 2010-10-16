@@ -180,16 +180,42 @@ class Ui {
     }
 
 
+    // set path
+    if (empty($data['basepath'])) {
+      $path = '/';
+    } else {
+      $path = $data['basepath'];
+    }
+
+
+    // show bugs (as icons) if available
+    if (isset($data['bug'])) {
+      $bugs = '<div class="bugs">';
+
+      foreach ($data['bug'] as $bug) {
+        $bugs  .= '<a href="' . WEBBUG . $bug['bug'] . '" target="_blank" class="n" title="' . sprintf(_('Bug %d: %s'), $bug['bug'], App::truncate(htmlentities($bug['title']), 90, true)) . '">
+                     &nbsp;
+                   </a>';
+      }
+
+      $bugs  .= '</div>';
+
+    } else {
+      $bugs = null;
+    }
+
+
     // draw commit
     $buf = '<div id="' . $id . '" class="item normal">
               <div class="commit-title">
                 Commit <a class="revision" href="' . WEBSVN . '?view=revision&revision=' . $data['revision'] . '" target="_blank">' . $data['revision'] . '</a> by <span>' . Enzyme::getAuthorInfo('name', $data['author']) . '</span> (<span>' . $data['author'] . '</span>)
                 <br />' .
-                $data['basepath'] .
+                $path .
                 $date .
            '  </div>
               <div class="commit-msg">' .
                 Enzyme::formatMsg($data['msg']) .
+                $bugs .
            '  </div>';
 
 

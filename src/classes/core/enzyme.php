@@ -66,6 +66,19 @@ class Enzyme {
   }
 
 
+  public static function getBugs(&$revisions) {
+    // load from db
+    $q = mysql_query('SELECT * FROM commit_bugs
+                      WHERE revision IN (' . implode(',', array_keys($revisions)) . ')') or trigger_error(sprintf(_('Query failed: %s'), mysql_error()));
+
+    while ($row = mysql_fetch_assoc($q)) {
+      $revisions[$row['revision']]['bug'][] = $row;
+    }
+
+    return $revisions;
+  }
+
+
   public static function getAreas() {
     $buf = array('accessibility'      => _('Accessibility'),
                  'development-tools'  => _('Development Tools'),

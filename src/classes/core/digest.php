@@ -370,17 +370,17 @@ class Digest {
     // (feature editors already added to top), exclude reviewers and
     // contributors with minimal contribution (< 1%)
     if (isset($contributors)) {
-    arsort($contributors, SORT_NUMERIC);
+      arsort($contributors, SORT_NUMERIC);
 
-    foreach ($contributors as $contributor => $value) {
-      $percent = round((($value / $totalContributions) * 100), 1);
+      foreach ($contributors as $contributor => $value) {
+        $percent = round((($value / $totalContributions) * 100), 1);
 
-      if ($percent > 1) {
-        $digest['contributors'][] = array('type'   => 'reviewer',
-                                          'name'   => $contributor,
-                                          'value'  => $percent);
+        if ($percent > 1) {
+          $digest['contributors'][] = array('type'   => 'reviewer',
+                                            'name'   => $contributor,
+                                            'value'  => $percent);
+        }
       }
-    }
     }
 
 
@@ -485,7 +485,7 @@ class Digest {
         $fixTime = floor(($commitDate - strtotime($bug['date'])) / 86400);
 
         $buf .= '<div class="bug">
-                   <a class="n" href="' . WEBBUG . $bug['bug'] . '" target="_blank">' . sprintf(_('Bug %d: %s'), $bug['bug'], App::truncate($bug['title'], 90, true)) . '</a>
+                   <a class="n" href="' . WEBBUG . $bug['bug'] . '" target="_blank">' . sprintf(_('Bug %d: %s'), $bug['bug'], App::truncate(htmlentities($bug['title']), 90, true)) . '</a>
 
                    <div>' .
                      $icon .

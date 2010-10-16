@@ -40,8 +40,13 @@ class ClassifyUi extends BaseUi {
       return $buf;
     }
 
+
     // get revision data
     $revisions = Enzyme::getProcessedRevisions('marked');
+
+    // attach bug data to revisions
+    Enzyme::getBugs($revisions);
+
 
     // display revisions
     if (!$revisions) {

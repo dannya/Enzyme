@@ -85,6 +85,28 @@ div.item div.commit-msg {
   padding-right:110px;
 }
 
+div.item div.commit-msg div.bugs {
+  position:absolute;
+  bottom:10px;
+  right:10px;
+}
+
+div.item div.commit-msg div.bugs a {
+  display:block;
+  float:right;
+  width:22px;
+  height:22px;
+
+  background:url(../img/sprite.png) no-repeat;
+  background-position:-66px -22px;
+  margin-left:6px;
+}
+div.item div.commit-msg div.bugs a:hover {
+  background-position:-66px -0;
+}
+
+
+
 div.item div.commit-classify {
   position:absolute;
   right:8px;

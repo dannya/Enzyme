@@ -170,6 +170,7 @@ a.n {
 }
 a.n:hover {
   color:#000;
+  margin-bottom:0;
   border-bottom:0;
 }
 
