@@ -166,11 +166,15 @@ class Ui {
 
 
   public static function displayRevision($type, $id, $data, &$authors, &$classifications = null) {
-    // show date?
+    // show date and buttons?
     if ($type == 'review') {
-      $date = '<div>' .
+      $date = '<div class="date">' .
                  $data['date'] .
-              '</div>';
+              '</div>
+               <div class="buttons">
+                 <div class="yes" onclick="actionSelect(event);">&nbsp;</div>
+                 <div class="no" onclick="actionNext(event);">&nbsp;</div>
+               </div>';
     } else {
       $date = null;
     }
@@ -326,7 +330,7 @@ class Ui {
     // wrap in markup?
     if (COMMAND_LINE) {
       return "-------------------------------------\n" .
-              $buf;
+              $buf . "\n";
 
     } else {
       return '<div class="summary_box">' .

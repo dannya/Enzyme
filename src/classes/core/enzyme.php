@@ -441,7 +441,8 @@ class Enzyme {
 
   public static function getIgnoredFragments() {
     // TODO: store this data in db, create management interface in Enzyme
-    $ignored  = array('SVN_SILENT');
+    $ignored  = array('SVN_SILENT',
+                      'via svnmerge');
 
     return $ignored;
   }

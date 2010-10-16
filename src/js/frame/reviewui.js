@@ -24,9 +24,9 @@ var itemClass       = 'commit-item';
 var commitCounter   = 0;
 
 
-// define keyboard shortcuts
-Hotkey.add(['LEFT'], function(event) {
-  // left key
+
+// define functions
+function actionPrev(event) {
   selectItem('prev');
 
   // decrement viewed counter
@@ -35,10 +35,9 @@ Hotkey.add(['LEFT'], function(event) {
   }
 
   Event.stop(event);
-}, 1);
+}
 
-Hotkey.add(['RIGHT'], function(event) {
-  // right key
+function actionNext(event) {
   newItem = selectItem('next');
 
   // increment viewed counter
@@ -62,10 +61,14 @@ Hotkey.add(['RIGHT'], function(event) {
   buttonState('review-save', 'enabled');
 
   Event.stop(event);
-}, 2);
+}
 
-Hotkey.add([' '], function(event) {
-  // SPACE key
+function actionSelect(event) {
+  if (event.type == 'click') {
+    // set clicked item as currentItem
+    itemCounter = parseInt(event.element().up('div.item').readAttribute('id').split('-')[2]);
+  }
+
   markCommit();
 
   // update display
@@ -75,8 +78,20 @@ Hotkey.add([' '], function(event) {
 
   buttonState('review-save', 'enabled');
 
+  if (event.type == 'click') {
+    // advance to next commit
+    actionNext(event); 
+  }
+
   Event.stop(event);
-}, 3);
+}
+
+
+
+// define keyboard shortcuts
+Hotkey.add(['LEFT'], function(event) { actionPrev(event); }, 1);
+Hotkey.add(['RIGHT'], function(event) { actionNext(event); }, 2);
+Hotkey.add([' '], function(event) { actionSelect(event); }, 3);
 
 
 

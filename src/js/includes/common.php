@@ -133,21 +133,17 @@ function selectItem(direction) {
 
       currentItem   = $(itemClass + '-' + selection);
       newItem       = $(itemClass + '-' + (itemCounter + 1));
-      
-      console.debug(currentItem);
-      console.debug(newItem);
 
       ++itemCounter;
     }
-
-
+    
     if (typeof newItem != 'undefined') {
       // scroll to new item
       scrollItem(newItem);
 
       // set style of items?
       if (!currentItem.hasClassName('marked')) {
-        currentItem.className = 'item normal';
+        currentItem.className = 'item normal read';
       }
 
       if (!newItem.hasClassName('marked')) {
@@ -170,7 +166,7 @@ function scrollItem(id) {
 function markCommit() {
   // get currently-selected commit item
   currentItem   = $(itemClass + '-' + itemCounter);
-  revision      = currentItem.down('span.revision').innerHTML;
+  revision      = currentItem.down('a.revision').innerHTML;
 
   if (!currentItem.hasClassName('marked')) {
     // set commit as marked
@@ -228,7 +224,7 @@ function save(theType) {
 
     $$('div.item').each(function(item) {
       if (!$(item.id + '-type').value.empty() || !$(item.id + '-area').value.empty()) {
-        theData.push({ 'r':$(item).down('span.revision').innerHTML,
+        theData.push({ 'r':$(item).down('a.revision').innerHTML,
                        't':$(item.id + '-type').value,
                        'a':$(item.id + '-area').value });
       }

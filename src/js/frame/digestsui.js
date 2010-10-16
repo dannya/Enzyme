@@ -66,7 +66,7 @@ function createNewDigest() {
 
 
 function addIntroSection() {
-  console.debug('add intro section');
+  alert('add intro section');
 }
 
 

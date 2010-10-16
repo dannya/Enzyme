@@ -22,14 +22,15 @@ div.item:last-child {
 
 div.item div.commit-title {
   border-bottom:2px dotted #999;
-  margin-bottom:6px;
-  padding-bottom:4px;
+  margin-bottom:8px;
+  padding-bottom:8px;
 }
 div.item div.commit-title a,
 div.item div.commit-title span {
   font-weight:bold;
 }
-div.item div.commit-title div {
+
+div.item div.commit-title div.date {
   position:absolute;
   right:12px;
   top:8px;
@@ -37,6 +38,48 @@ div.item div.commit-title div {
   font-style:italic;
   color:#666;
 }
+
+
+
+div.item div.commit-title div.buttons {
+  position:absolute;
+  right:12px;
+  top:34px;
+}
+div.item div.commit-title div.buttons div {
+  float:left;
+  width:22px;
+  height:22px;
+
+  background:url(../img/sprite.png) repeat scroll 0 0 transparent;
+  cursor:pointer;
+}
+
+div.item div.commit-title div.buttons div.yes {
+  margin-right:6px;
+  background-position:-22px -0px;
+}
+div.item div.commit-title div.buttons div.yes:hover {
+  background-position:-22px -44px;
+}
+div.item div.commit-title div.buttons div.no {
+  background-position:-44px -0px;
+}
+div.item div.commit-title div.buttons div.no:hover {
+  background-position:-44px -44px;
+}
+
+
+
+
+div.marked div.yes {
+  background-position:-22px -44px !important;
+}
+div.read div.no {
+  background-position:-44px -44px !important;
+}
+
+
 
 div.item div.commit-msg {
   padding-right:110px;

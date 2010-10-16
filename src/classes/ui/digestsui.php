@@ -423,35 +423,37 @@ class DigestsUi extends BaseUi {
 
 
       // draw module stats
-      $counter = 0;
+      if (!empty($this->data['stats']['module'])) {
+        $counter = 0;
 
-      $buf .=  '<h3 class="sub">' . _('Commit Summary') . '</h3>
+        $buf .=  '<h3 class="sub">' . _('Commit Summary') . '</h3>
 
-                <table id="stats-module" class="stats">
-                  <thead>
-                    <tr>
-                      <td>' . _('Module') . '</td>
-                      <td>' . _('Commits') . '</td>
-                    </tr>
-                  </thead>
+                  <table id="stats-module" class="stats">
+                    <thead>
+                      <tr>
+                        <td>' . _('Module') . '</td>
+                        <td>' . _('Commits') . '</td>
+                      </tr>
+                    </thead>
 
-                  <tbody>';
+                    <tbody>';
 
-      foreach ($this->data['stats']['module'] as $module => $value) {
-        $buf .=  '<tr>
-                    <td class="label">
-                      <input id="module-label-' . $counter . '" type="text" value="' . $module . '" />
-                    </td>
-                    <td class="value">
-                      <input id="module-value-' . $counter . '" type="text" value="' . $value . '" />
-                    </td>
-                  </tr>';
+        foreach ($this->data['stats']['module'] as $module => $value) {
+          $buf .=  '<tr>
+                      <td class="label">
+                        <input id="module-label-' . $counter . '" type="text" value="' . $module . '" />
+                      </td>
+                      <td class="value">
+                        <input id="module-value-' . $counter . '" type="text" value="' . $value . '" />
+                      </td>
+                    </tr>';
 
-        ++$counter;
+          ++$counter;
+        }
+
+        $buf .=  '  </tbody>
+                  </table>';
       }
-
-      $buf .=  '  </tbody>
-                </table>';
 
 
       // draw developer stats
