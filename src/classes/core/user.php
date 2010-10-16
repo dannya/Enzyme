@@ -234,7 +234,7 @@ class User {
 
 
   public function getName() {
-    return $this->data['firstname'] . ' ' . $this->data['lastname'];
+    return App::getName($this->data);
   }
 
 

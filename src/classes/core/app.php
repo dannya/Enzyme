@@ -204,6 +204,15 @@ class App {
 
     return $files;
   }
+
+
+  public static function getName($data) {
+    if (isset($data['firstname']) && $data['lastname']) {
+      return $data['firstname'] . ' ' . $data['lastname'];
+    } else {
+      return null;
+    }
+  }
 }
 
 ?>

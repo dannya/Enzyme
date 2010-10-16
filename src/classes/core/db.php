@@ -101,11 +101,7 @@ class Db {
   public static function load($table, $filter, $limit = null, $fields = '*', $explode = true, $order = null) {
     $data = null;
 
-    // check if table is valid, and filter is provided
-    if (($filter !== false) && count($filter) == 0) {
-      return null;
-    }
-
+    // ensure table(s) is valid
     if (is_array($table)) {
       foreach ($table as $theTable) {
         if (!in_array($theTable, self::$tables)) {
@@ -116,6 +112,11 @@ class Db {
       $table = implode(',', $table);
 
     } else if (!in_array($table, self::$tables)) {
+      return null;
+    }
+
+    // check if table is valid, and filter is provided
+    if (($filter !== false) && count($filter) == 0) {
       return null;
     }
 
@@ -157,6 +158,25 @@ class Db {
     }
 
     return $data;
+  }
+
+
+  public static function count($table, $filter) {
+    // ensure table is valid
+    if (!in_array($table, self::$tables)) {
+      return null;
+    }
+
+    // check if table is valid, and filter is provided
+    if (($filter !== false) && count($filter) == 0) {
+      return null;
+    }
+
+    // get and return count
+    $tmp  = self::sql('SELECT COUNT(*) AS count FROM ' . $table .
+                      ' WHERE ' . self::createFilter($table, $filter), true);
+
+    return $tmp[0]['count'];
   }
 
 

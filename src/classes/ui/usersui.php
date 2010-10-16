@@ -54,6 +54,9 @@ class UsersUi extends BaseUi {
     $buf = '<h3>' .
               _('Users') .
            '  <div>
+                <span id="num-users">' .
+                  sprintf(_('%d users'), Digest::getNumUsers()) .
+           '    </span>
                 <input type="button" title="' . _('Add new user') . '" value="' . _('Add new user') . '" onclick="addUser();" />
               </div>
             </h3>

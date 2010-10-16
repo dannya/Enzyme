@@ -6,6 +6,16 @@ div#content {
 h3 {
   position:relative;
 }
+h3 span#num-users {
+  display:block;
+  float:left;
+  margin:3px 6px 0 0;
+
+  font-size:16px;
+  font-weight:normal;
+  font-style:italic;
+  color:#999;
+}
 h3 div {
   position:absolute;
   right:0;
