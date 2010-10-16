@@ -40,6 +40,14 @@ if ($_REQUEST['user'] != $user->data['username']) {
 }
 
 
+// if repeat password provided, check that it matches new password!
+if (isset($_REQUEST['repeat_password']) &&
+    ($_REQUEST['new_password'] != $_REQUEST['repeat_password'])) {
+
+  App::returnHeaderJson(true, array('error' => true));
+}
+
+
 // change password
 $json['success'] = $user->changePassword($_REQUEST['old_password'], $_REQUEST['new_password']);
 

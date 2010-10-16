@@ -83,14 +83,22 @@ function changePassword(theUser) {
 	  $('data-newpassword').removeClassName('failure');
 	}
 	
+  if ($('data-repeatpassword').value.empty()) {
+    $('data-repeatpassword').addClassName('failure');
+    return false;
+  } else {
+    $('data-repeatpassword').removeClassName('failure');
+  }
+	
 
 	// send off data
   new Ajax.Request(BASE_URL + '/get/change-password.php', {
     method: 'post',
     parameters: { 
-      user:         theUser,
-      old_password: $('data-oldpassword').value,
-      new_password: $('data-newpassword').value
+      user:             theUser,
+      old_password:     $('data-oldpassword').value,
+      new_password:     $('data-newpassword').value,
+      repeat_password:  $('data-repeatpassword').value
     },
     onSuccess: function(transport) {
       var result = transport.headerJSON;
@@ -100,6 +108,7 @@ function changePassword(theUser) {
       	if (typeof strings.change_password_success == 'string') {
       		$('data-oldpassword').clear();
       		$('data-newpassword').clear();
+      		$('data-repeatpassword').clear();
 
           alert(strings.change_password_success);
 
