@@ -28,7 +28,7 @@ class Enzyme {
       $bug['bug'] = $bug;
     }
 
-    // sanity check
+    // TODO: sanity check
     if ($bug['bug'] == 0) {
       print_r($bug);
       exit;
@@ -537,7 +537,10 @@ class Enzyme {
       if (!empty($entry->paths->path[0])) {
         $commitFile['revision'] = $commit['revision'];
 
-        foreach ($entry->paths->path as $path) {
+        // hold in tmp variable to fix PHP memory issues
+        $paths = $entry->paths->path;
+
+        foreach ($paths as $path) {
           $commitFile['path']       = (string)$path;
           $commitFile['operation']  = (string)$path->attributes()->action;
 
@@ -617,11 +620,11 @@ class Enzyme {
 
 
     // process and store data
+    Ui::displayMsg(_('Parsing revision data...'));
+
     $totalFiles       = 0;
     $totalCommits     = $revision['end'] - $revision['start'];
     $excludedCommits  = 0;
-
-    Ui::displayMsg(_('Parsing revision data...'));
 
     foreach ($data as $entry) {
       // skip if an excluded account!
@@ -631,7 +634,6 @@ class Enzyme {
         ++$excludedCommits;
         continue;
       }
-
 
       // set data into useful data structure
       if (!isset($stats['person'][(string)$entry->author]['commits'])) {
@@ -653,6 +655,7 @@ class Enzyme {
       // extract module
       $basepath = self::getBasePath($entry->paths->path, 2);
 
+
       // increment module counter
       if (!isset($stats['module'][$basepath])) {
         $stats['module'][$basepath] = 1;
@@ -669,6 +672,7 @@ class Enzyme {
                         'num_commits'  => $data['commits'],
                         'num_files'    => $data['files']);
     }
+
 
     // insert into database
     Db::insert('digest_stats_developers', $insert, true);
@@ -687,6 +691,7 @@ class Enzyme {
                         'identifier'   => $module,
                         'value'        => $data);
     }
+
 
     // insert into database
     Db::insert('digest_stats_modules', $insert, true);
@@ -784,6 +789,7 @@ class Enzyme {
                           'value'       => round($value, 2));
       }
     }
+
 
     // insert into database
     Db::insert('digest_stats_extended', $insert, true);
@@ -993,16 +999,38 @@ class Enzyme {
 
   public static function getBasePath($tmpPaths, $depth = null) {
     // if only one file provided, return input (otherwise we'll be locked in an infinite loop!)
-    if (!isset($tmpPaths[1])) {
-      return array_pop($tmpPaths);
+    if (is_a($tmpPaths, 'SimpleXMLElement')) {
+      // SimpleXML data structure (eg. from SVN)
+      if (!isset($tmpPaths[1])) {
+        return strip_tags($tmpPaths->asXML());
 
-    } else {
-      // explode paths?
-      foreach ($tmpPaths as $key => $value) {
-        if (!is_array($value)) {
-          $tmpPaths[$key] = explode('/', $value);
+      } else {
+        $tmp = $tmpPaths;
+        unset($tmpPaths);
+
+        foreach ($tmp as $key => $value) {
+          if (!is_array($value)) {
+            $tmpPaths[$key] = explode('/', $value);
+          }
         }
       }
+
+    } else if (is_array($tmpPaths)) {
+      // array
+      if (count($tmpPaths) == 1) {
+        return array_pop($tmpPaths);
+
+      } else {
+        foreach ($tmpPaths as $key => $value) {
+          if (!is_array($value)) {
+            $tmpPaths[$key] = explode('/', $value);
+          }
+        }
+      }
+
+    } else {
+      trigger_error(sprintf(_('Invalid data type in %s'), 'getBasePath'));
+      return;
     }
 
 
@@ -1021,6 +1049,7 @@ class Enzyme {
             $last = $path[$i];
           } else {
             $stop = true;
+            break;
           }
 
         } else {
