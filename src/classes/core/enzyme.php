@@ -340,8 +340,6 @@ class Enzyme {
 
     // execute query
     $selectQuery  = 'SELECT ' . $fields . ' FROM ' . $table . $filter . $limit;
-    echo $selectQuery;
-    exit;
     $q            = mysql_query($selectQuery) or trigger_error(sprintf(_('Query failed: %s'), mysql_error()));
 
     while ($row = mysql_fetch_assoc($q)) {
