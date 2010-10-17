@@ -41,7 +41,7 @@ if (($_REQUEST['context'] != 'msg') && ($_REQUEST['context'] != 'type') && ($_RE
 // save change
 if ($_REQUEST['context'] == 'msg') {
   $filter = array('revision' => $_REQUEST['revision']);
-  $values = array($_REQUEST['context'] => str_replace("\n", null, $_REQUEST['value']));
+  $values = array($_REQUEST['context'] => $_REQUEST['value']);
 
   $json['success'] = Db::save('commits', $filter, $values);
 
