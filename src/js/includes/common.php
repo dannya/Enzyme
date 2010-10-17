@@ -249,7 +249,9 @@ function save(theType) {
         information('success', sprintf('<?php echo _('Saved %d commits'); ?>', result.saved));
 
         // disable save button
-        buttonState("review-save", "disabled");
+        if (theType == 'review') {
+          buttonState('review-save', 'disabled');
+        }
 
         // refresh page to show updated data
         loadPage(theType, true);
@@ -364,4 +366,34 @@ function inputPrompt(event) {
       element.addClassName('prompt');
     }
   }
+}
+
+
+function changeInterface(context) {
+  if ((typeof context != 'string') ||
+      ((context != 'mouse') && (context != 'keyboard'))) {
+
+  	return false;
+  }
+  
+  // warn of data loss
+  if (!confirm('<?php echo _('Any unsaved changes will be lost. Continue?'); ?>')) {
+    return false;
+  }
+
+  // send off data
+  new Ajax.Request(BASE_URL + '/get/change-personal.php', {
+    method: 'post',
+    parameters: { 
+      data: 'interface=' + context
+    },
+    onSuccess: function(transport) {
+      var result = transport.headerJSON;
+
+      if ((typeof result.success != 'undefined') && result.success) {
+        // refresh page to show 
+        location.reload(true);
+      }
+    }
+  });
 }

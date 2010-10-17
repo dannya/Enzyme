@@ -81,8 +81,12 @@ div.read div.no {
 
 
 
-div.item div.commit-msg {
+div.keyboard div.commit-msg {
   padding-right:110px;
+}
+div.mouse div.commit-msg {
+  padding-right:230px;
+  min-height:40px;
 }
 
 div.item div.commit-msg div.bugs {
@@ -91,8 +95,7 @@ div.item div.commit-msg div.bugs {
   right:10px;
 }
 
-div.item div.commit-msg div.bugs a {
-  display:block;
+div.item div.commit-msg div.bugs div {
   float:right;
   width:22px;
   height:22px;
@@ -100,8 +103,9 @@ div.item div.commit-msg div.bugs a {
   background:url(../img/sprite.png) no-repeat;
   background-position:-66px -22px;
   margin-left:6px;
+  cursor:pointer;
 }
-div.item div.commit-msg div.bugs a:hover {
+div.item div.commit-msg div.bugs div:hover {
   background-position:-66px -0;
 }
 
@@ -114,26 +118,42 @@ div.item div.commit-classify {
 
   background-color:#000;
   padding:6px;
+  font-size:13px;
   
   border-radius:3px;
   -moz-border-radius:3px;
   -webkit-border-radius:3px;
 }
-div.item div.unfilled {
-  background-color:#d40000;
-}
-div.item div.filled {
-  background-color:green;
-}
 
 div.item div.commit-classify label {
-  display:block;
+  
   text-align:right;
   color:#fff;
 }
 div.item div.commit-classify label:first-child {
   margin-bottom:3px;
 }
+
+
+div.item div.keyboard label {
+  display:block;
+}
+div.item div.mouse {
+  text-align:right;
+}
+div.item div.mouse select {
+  width:180px;
+  margin-left:6px;
+  font-size:13px;
+  border:1px solid #fff;
+  background-color:#000;
+  color:#fff; 
+}
+div.item div.mouse div:first-child {
+  margin-bottom:4px;
+}
+
+
 div.item div.commit-classify input {
   width:32px;
   border:1px solid #fff;
@@ -142,6 +162,16 @@ div.item div.commit-classify input {
   padding:1px 2px;
   margin-left:3px;
 }
+
+
+div.item div.unfilled {
+  background-color:#d40000;
+}
+div.item div.filled {
+  background-color:green;
+}
+
+
 
 
 div.normal {
@@ -203,4 +233,14 @@ div#classify-key-selector input[type="button"].selected {
   font-weight:bold;
   opacity:1;
   cursor:default;
+}
+
+
+div#interface-selector {
+  position:relative;
+  margin:8px auto 0 auto;
+  width:250px;
+
+  text-align:center;
+  color:#fff;
 }

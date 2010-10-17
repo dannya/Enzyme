@@ -3,8 +3,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Enzyme\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-10-16 01:43-0000\n"
-"PO-Revision-Date: 2010-10-16 01:43-0000\n"
+"POT-Creation-Date: 2010-10-17 02:40-0000\n"
+"PO-Revision-Date: 2010-10-17 02:40-0000\n"
 "Last-Translator: Danny Allen <dannya40uk@yahoo.co.uk>\n"
 "Language-Team: Brazilian Portuguese <anselmo.melo@openbossa.org>\n"
 "MIME-Version: 1.0\n"
@@ -70,15 +70,15 @@ msgid "Couldn't connect to database: ensure you have set the correct values at t
 msgstr "Não foi possível conectar ao banco de dados: certifique-se de que você atribuiu valores corretos no topo de %s/autoload.php"
 
 #: C:\www\enzyme\src/classes/core/db.php:62
-#: C:\www\enzyme\src/classes/core/db.php:145
-#: C:\www\enzyme\src/classes/core/db.php:174
-#: C:\www\enzyme\src/classes/core/db.php:197
-#: C:\www\enzyme\src/classes/core/db.php:221
-#: C:\www\enzyme\src/classes/core/db.php:242
-#: C:\www\enzyme\src/classes/core/db.php:261
-#: C:\www\enzyme\src/classes/core/db.php:275
-#: C:\www\enzyme\src/classes/core/db.php:457
-#: C:\www\enzyme\src/classes/core/db.php:475
+#: C:\www\enzyme\src/classes/core/db.php:146
+#: C:\www\enzyme\src/classes/core/db.php:194
+#: C:\www\enzyme\src/classes/core/db.php:217
+#: C:\www\enzyme\src/classes/core/db.php:241
+#: C:\www\enzyme\src/classes/core/db.php:262
+#: C:\www\enzyme\src/classes/core/db.php:281
+#: C:\www\enzyme\src/classes/core/db.php:295
+#: C:\www\enzyme\src/classes/core/db.php:477
+#: C:\www\enzyme\src/classes/core/db.php:495
 #: C:\www\enzyme\src/classes/core/digest.php:95
 #: C:\www\enzyme\src/classes/core/digest.php:127
 #: C:\www\enzyme\src/classes/core/digest.php:142
@@ -96,15 +96,16 @@ msgstr "Não foi possível conectar ao banco de dados: certifique-se de que voc�
 #: C:\www\enzyme\src/classes/core/digest.php:345
 #: C:\www\enzyme\src/classes/core/digest.php:391
 #: C:\www\enzyme\src/classes/core/digest.php:400
-#: C:\www\enzyme\src/classes/core/enzyme.php:321
-#: C:\www\enzyme\src/classes/core/enzyme.php:342
+#: C:\www\enzyme\src/classes/core/enzyme.php:73
 #: C:\www\enzyme\src/classes/core/enzyme.php:368
-#: C:\www\enzyme\src/classes/core/enzyme.php:442
+#: C:\www\enzyme\src/classes/core/enzyme.php:389
+#: C:\www\enzyme\src/classes/core/enzyme.php:415
+#: C:\www\enzyme\src/classes/core/enzyme.php:499
 #, php-format
 msgid "Query failed: %s"
 msgstr "Consulta falhou: %s"
 
-#: C:\www\enzyme\src/classes/core/db.php:334
+#: C:\www\enzyme\src/classes/core/db.php:354
 msgid "Query failed"
 msgstr "Consulta falhou"
 
@@ -117,14 +118,24 @@ msgid "Archive"
 msgstr "Arquivo"
 
 #: C:\www\enzyme\src/classes/core/digest.php:419
-#: C:\www\enzyme\src/classes/core/digest.php:423
 msgid "English"
 msgstr "English (Inglês)"
 
 #: C:\www\enzyme\src/classes/core/digest.php:420
-#: C:\www\enzyme\src/classes/core/digest.php:424
+msgid "Español (Spanish)"
+msgstr "Español (Espanhol)"
+
+#: C:\www\enzyme\src/classes/core/digest.php:421
 msgid "Italiano (Italian)"
 msgstr "Italiano (Italiano)"
+
+#: C:\www\enzyme\src/classes/core/digest.php:422
+msgid "Polski (Polish)"
+msgstr ""
+
+#: C:\www\enzyme\src/classes/core/digest.php:423
+msgid "Português Brasileiro (Brazilian Portuguese)"
+msgstr ""
 
 #: C:\www\enzyme\src/classes/core/digest.php:425
 msgid "Deutsch (German)"
@@ -135,65 +146,62 @@ msgid "Français (French)"
 msgstr "Français (Francês)"
 
 #: C:\www\enzyme\src/classes/core/digest.php:427
-msgid "Español (Spanish)"
-msgstr "Español (Espanhol)"
-
-#: C:\www\enzyme\src/classes/core/digest.php:428
 msgid "Nederlands (Dutch)"
 msgstr "Nederlands (Holandês)"
 
-#: C:\www\enzyme\src/classes/core/digest.php:429
+#: C:\www\enzyme\src/classes/core/digest.php:428
 msgid "Português (Portuguese)"
 msgstr "Português"
 
-#: C:\www\enzyme\src/classes/core/digest.php:443
+#: C:\www\enzyme\src/classes/core/digest.php:442
 #, php-format
 msgid "%s committed changes in %s:"
 msgstr "%s alterações enviadas em %s:"
 
-#: C:\www\enzyme\src/classes/core/digest.php:464
+#: C:\www\enzyme\src/classes/core/digest.php:463
 #, php-format
 msgid "Revision %d"
 msgstr "Revisão %d"
 
-#: C:\www\enzyme\src/classes/core/digest.php:490
+#: C:\www\enzyme\src/classes/core/digest.php:489
+#: C:\www\enzyme\src/classes/core/ui.php:196
 #, php-format
 msgid "Bug %d: %s"
 msgstr "bug %d: %s"
 
-#: C:\www\enzyme\src/classes/core/digest.php:494
+#: C:\www\enzyme\src/classes/core/digest.php:493
 #, php-format
 msgid "%d days"
 msgstr "%d dias"
 
-#: C:\www\enzyme\src/classes/core/digest.php:532
+#: C:\www\enzyme\src/classes/core/digest.php:531
 #, php-format
 msgid "Diffs: %s"
 msgstr "Diffs: %s"
 
-#: C:\www\enzyme\src/classes/core/digest.php:535
+#: C:\www\enzyme\src/classes/core/digest.php:534
 #, php-format
 msgid "(+ %d more)"
 msgstr "(+ mais %d)"
 
-#: C:\www\enzyme\src/classes/core/digest.php:544
+#: C:\www\enzyme\src/classes/core/digest.php:543
 msgid "Admin"
 msgstr "Administrador"
 
-#: C:\www\enzyme\src/classes/core/digest.php:546
+#: C:\www\enzyme\src/classes/core/digest.php:545
 msgid "Editor"
 msgstr "Editor"
 
-#: C:\www\enzyme\src/classes/core/digest.php:548
+#: C:\www\enzyme\src/classes/core/digest.php:547
 msgid "Reviewer"
 msgstr "Revisor"
 
-#: C:\www\enzyme\src/classes/core/digest.php:550
+#: C:\www\enzyme\src/classes/core/digest.php:549
 msgid "Classifier"
 msgstr "Classificador"
 
-#: C:\www\enzyme\src/classes/core/digest.php:552
-#: C:\www\enzyme\src/classes/core/enzyme.php:242
+#: C:\www\enzyme\src/classes/core/digest.php:551
+#: C:\www\enzyme\src/classes/core/enzyme.php:267
 msgid "Translator"
 msgstr "Tradutor"
 
@@ -206,288 +214,304 @@ msgstr "Serviror SMTP não foi configurado!"
 msgid "Fetched details for bug %d"
 msgstr "Obtidos detalhes do bug %d"
 
-#: C:\www\enzyme\src/classes/core/enzyme.php:70
+#: C:\www\enzyme\src/classes/core/enzyme.php:85
 msgid "Accessibility"
 msgstr "Acessibilidade"
 
-#: C:\www\enzyme\src/classes/core/enzyme.php:71
+#: C:\www\enzyme\src/classes/core/enzyme.php:86
 msgid "Development Tools"
 msgstr "Ferramentas de desenvolvimento"
 
-#: C:\www\enzyme\src/classes/core/enzyme.php:72
+#: C:\www\enzyme\src/classes/core/enzyme.php:87
 msgid "Educational"
 msgstr "Educacional"
 
-#: C:\www\enzyme\src/classes/core/enzyme.php:73
+#: C:\www\enzyme\src/classes/core/enzyme.php:88
 msgid "Graphics"
 msgstr "Gráficos"
 
-#: C:\www\enzyme\src/classes/core/enzyme.php:74
+#: C:\www\enzyme\src/classes/core/enzyme.php:89
 msgid "KDE Base"
 msgstr "KDE Base"
 
-#: C:\www\enzyme\src/classes/core/enzyme.php:75
+#: C:\www\enzyme\src/classes/core/enzyme.php:90
 msgid "KDE-PIM"
 msgstr "KDE-PIM"
 
-#: C:\www\enzyme\src/classes/core/enzyme.php:76
+#: C:\www\enzyme\src/classes/core/enzyme.php:91
 msgid "KOffice"
 msgstr "KOffice"
 
-#: C:\www\enzyme\src/classes/core/enzyme.php:77
+#: C:\www\enzyme\src/classes/core/enzyme.php:92
 msgid "Konqueror"
 msgstr "Konqueror"
 
-#: C:\www\enzyme\src/classes/core/enzyme.php:78
+#: C:\www\enzyme\src/classes/core/enzyme.php:93
 msgid "Multimedia"
 msgstr "Multimídia"
 
-#: C:\www\enzyme\src/classes/core/enzyme.php:79
+#: C:\www\enzyme\src/classes/core/enzyme.php:94
 msgid "Networking Tools"
 msgstr "Ferramentas de rede"
 
-#: C:\www\enzyme\src/classes/core/enzyme.php:80
+#: C:\www\enzyme\src/classes/core/enzyme.php:95
 msgid "User Interface"
 msgstr "Interface do usuário"
 
-#: C:\www\enzyme\src/classes/core/enzyme.php:81
+#: C:\www\enzyme\src/classes/core/enzyme.php:96
 msgid "Utilities"
 msgstr "Utilidades"
 
-#: C:\www\enzyme\src/classes/core/enzyme.php:82
+#: C:\www\enzyme\src/classes/core/enzyme.php:97
 msgid "Games"
 msgstr "Jogos"
 
-#: C:\www\enzyme\src/classes/core/enzyme.php:83
-#: C:\www\enzyme\src/classes/core/enzyme.php:94
+#: C:\www\enzyme\src/classes/core/enzyme.php:98
+#: C:\www\enzyme\src/classes/core/enzyme.php:114
 msgid "Other"
 msgstr "Outros"
 
-#: C:\www\enzyme\src/classes/core/enzyme.php:90
+#: C:\www\enzyme\src/classes/core/enzyme.php:110
 msgid "Bug Fixes"
 msgstr "Correções de bugs"
 
-#: C:\www\enzyme\src/classes/core/enzyme.php:91
+#: C:\www\enzyme\src/classes/core/enzyme.php:111
 msgid "Features"
 msgstr "Novos recursos"
 
-#: C:\www\enzyme\src/classes/core/enzyme.php:92
+#: C:\www\enzyme\src/classes/core/enzyme.php:112
 msgid "Optimize"
 msgstr "Otimizar"
 
-#: C:\www\enzyme\src/classes/core/enzyme.php:93
+#: C:\www\enzyme\src/classes/core/enzyme.php:113
 msgid "Security"
 msgstr "Segurança"
 
-#: C:\www\enzyme\src/classes/core/enzyme.php:102
+#: C:\www\enzyme\src/classes/core/enzyme.php:127
 msgid "Project Name"
 msgstr "Nome do Projeto"
 
-#: C:\www\enzyme\src/classes/core/enzyme.php:106
+#: C:\www\enzyme\src/classes/core/enzyme.php:131
 msgid "Admin Email"
 msgstr "e-mail do administrador"
 
-#: C:\www\enzyme\src/classes/core/enzyme.php:110
+#: C:\www\enzyme\src/classes/core/enzyme.php:135
 msgid "Enzyme URL"
 msgstr "URL do Enzyme"
 
-#: C:\www\enzyme\src/classes/core/enzyme.php:114
+#: C:\www\enzyme\src/classes/core/enzyme.php:139
 msgid "Digest URL"
 msgstr "URL do resumo"
 
-#: C:\www\enzyme\src/classes/core/enzyme.php:118
+#: C:\www\enzyme\src/classes/core/enzyme.php:143
 msgid "SMTP Mail Server"
 msgstr "Servidor SMTP"
 
-#: C:\www\enzyme\src/classes/core/enzyme.php:123
+#: C:\www\enzyme\src/classes/core/enzyme.php:148
 msgid "Repository Type"
 msgstr "Tipo de repositório"
 
-#: C:\www\enzyme\src/classes/core/enzyme.php:124
+#: C:\www\enzyme\src/classes/core/enzyme.php:149
 msgid "Subversion"
 msgstr "Subversion"
 
-#: C:\www\enzyme\src/classes/core/enzyme.php:127
+#: C:\www\enzyme\src/classes/core/enzyme.php:152
 msgid "Repository URL"
 msgstr "URL do repositório"
 
-#: C:\www\enzyme\src/classes/core/enzyme.php:131
+#: C:\www\enzyme\src/classes/core/enzyme.php:156
 msgid "Accounts File"
 msgstr "Arquivo de contas"
 
-#: C:\www\enzyme\src/classes/core/enzyme.php:136
+#: C:\www\enzyme\src/classes/core/enzyme.php:161
 msgid "Web Repository Viewer"
 msgstr "Visualizador Web do repositório"
 
-#: C:\www\enzyme\src/classes/core/enzyme.php:140
+#: C:\www\enzyme\src/classes/core/enzyme.php:165
 msgid "Web Bug Tracker"
 msgstr "Controle Web de bugs"
 
-#: C:\www\enzyme\src/classes/core/enzyme.php:144
+#: C:\www\enzyme\src/classes/core/enzyme.php:169
 msgid "Web Bug Tracker XML"
 msgstr "Controle Web de Bugs XML"
 
-#: C:\www\enzyme\src/classes/core/enzyme.php:148
+#: C:\www\enzyme\src/classes/core/enzyme.php:173
 msgid "I18n Stats URL"
 msgstr "URL estatísticas i18n"
 
-#: C:\www\enzyme\src/classes/core/enzyme.php:152
+#: C:\www\enzyme\src/classes/core/enzyme.php:177
 msgid "I18n Teams URL"
 msgstr "URL times i18n"
 
-#: C:\www\enzyme\src/classes/core/enzyme.php:156
+#: C:\www\enzyme\src/classes/core/enzyme.php:181
 msgid "Bug Stats URL"
 msgstr "URL estatísticas de bugs"
 
-#: C:\www\enzyme\src/classes/core/enzyme.php:161
+#: C:\www\enzyme\src/classes/core/enzyme.php:186
 msgid "Default Timezone"
 msgstr "Fuso horário padrão"
 
-#: C:\www\enzyme\src/classes/core/enzyme.php:165
+#: C:\www\enzyme\src/classes/core/enzyme.php:190
 msgid "Default Language"
 msgstr "Idioma padrão"
 
-#: C:\www\enzyme\src/classes/core/enzyme.php:170
+#: C:\www\enzyme\src/classes/core/enzyme.php:195
 msgid "Enable Legacy Import"
 msgstr "Habilitar importar legado"
 
-#: C:\www\enzyme\src/classes/core/enzyme.php:171
+#: C:\www\enzyme\src/classes/core/enzyme.php:196
 msgid "No"
 msgstr "Não"
 
-#: C:\www\enzyme\src/classes/core/enzyme.php:172
+#: C:\www\enzyme\src/classes/core/enzyme.php:197
 msgid "Yes"
 msgstr "Sim"
 
-#: C:\www\enzyme\src/classes/core/enzyme.php:175
+#: C:\www\enzyme\src/classes/core/enzyme.php:200
 msgid "Existing Issues"
 msgstr "Edições existentes"
 
-#: C:\www\enzyme\src/classes/core/enzyme.php:179
+#: C:\www\enzyme\src/classes/core/enzyme.php:204
 msgid "Existing Archive"
 msgstr "Arquivos existentes"
 
-#: C:\www\enzyme\src/classes/core/enzyme.php:183
+#: C:\www\enzyme\src/classes/core/enzyme.php:208
 msgid "Existing Data"
 msgstr "Dados existentes"
 
-#: C:\www\enzyme\src/classes/core/enzyme.php:197
+#: C:\www\enzyme\src/classes/core/enzyme.php:222
 msgid "Enzyme Settings"
 msgstr "Configurações do Enzyme"
 
-#: C:\www\enzyme\src/classes/core/enzyme.php:204
+#: C:\www\enzyme\src/classes/core/enzyme.php:229
 msgid "Repository"
 msgstr "Repositório"
 
-#: C:\www\enzyme\src/classes/core/enzyme.php:209
+#: C:\www\enzyme\src/classes/core/enzyme.php:234
 msgid "Data Locations"
 msgstr "Localização dos dados"
 
-#: C:\www\enzyme\src/classes/core/enzyme.php:217
+#: C:\www\enzyme\src/classes/core/enzyme.php:242
 msgid "Display Defaults"
 msgstr "Exibir padrões"
 
-#: C:\www\enzyme\src/classes/core/enzyme.php:221
+#: C:\www\enzyme\src/classes/core/enzyme.php:246
 msgid "Legacy Import"
 msgstr "Importar legado"
 
-#: C:\www\enzyme\src/classes/core/enzyme.php:233
+#: C:\www\enzyme\src/classes/core/enzyme.php:258
 msgid "Commit Reviewer"
 msgstr "Revisor de commits"
 
-#: C:\www\enzyme\src/classes/core/enzyme.php:234
+#: C:\www\enzyme\src/classes/core/enzyme.php:259
 msgid "Commit Reviewers look at all the recent commits, selecting those which are significant and interesting enough to be included into the weekly Commit-Digest."
 msgstr "Revisores de commit olham todos os commits recentes, selecionando aqueles que são mais significativos e interessantes o bastante para serem incluidos no Commit-Digest semanal."
 
-#: C:\www\enzyme\src/classes/core/enzyme.php:236
+#: C:\www\enzyme\src/classes/core/enzyme.php:261
 msgid "Commit Classifier"
 msgstr "Classificador de commits"
 
-#: C:\www\enzyme\src/classes/core/enzyme.php:237
+#: C:\www\enzyme\src/classes/core/enzyme.php:262
 msgid "Commit Classifiers sort the selected commits into areas (which is partly automated), and by type (such as bug fix, feature, etc)."
 msgstr "Classificadores de commit ordenam os commits selecionados em áreas (o que é parcialmente automatizado), e por tipo (tais como correção de bug, novos recursos, etc)."
 
-#: C:\www\enzyme\src/classes/core/enzyme.php:239
+#: C:\www\enzyme\src/classes/core/enzyme.php:264
 msgid "Feature Editor"
 msgstr "Editores de novos recursos"
 
-#: C:\www\enzyme\src/classes/core/enzyme.php:240
+#: C:\www\enzyme\src/classes/core/enzyme.php:265
 msgid "Feature Editors contact people working on interesting projects and assist them in writing original pieces which are presented in the introduction of each Commit-Digest."
 msgstr "Editores de novos recursos entram em contato com pessoas trabalhando em projetos interessantes e os auxiliam a escrever textos que serão apresentados na introducção de cada Commit-Digest."
 
-#: C:\www\enzyme\src/classes/core/enzyme.php:243
+#: C:\www\enzyme\src/classes/core/enzyme.php:268
 msgid "Translators increase the reach of the Commit-Digest and the work done across the project by making the weekly Commit-Digests (and the website interfaces) available in the native language of people around the world."
 msgstr "Tradutores expandem o alcance do Commit-Digest e do trabalho feito em todo o projeto fazendo o Commit-Digest semanal (e as interfaces do website) disponíveis nos idiomas nativos das pessoas ao redor do mundo."
 
-#: C:\www\enzyme\src/classes/core/enzyme.php:520
+#: C:\www\enzyme\src/classes/core/enzyme.php:577
 #, php-format
 msgid "Skipping revision %d"
 msgstr "Pulando revisão %d"
 
-#: C:\www\enzyme\src/classes/core/enzyme.php:567
+#: C:\www\enzyme\src/classes/core/enzyme.php:624
 #, php-format
 msgid "Processed revision %d"
 msgstr "Processada revisão %d"
 
-#: C:\www\enzyme\src/classes/core/enzyme.php:614
+#: C:\www\enzyme\src/classes/core/enzyme.php:671
 msgid "Getting revision data..."
 msgstr "Obtendo dados da revisão..."
 
-#: C:\www\enzyme\src/classes/core/enzyme.php:623
+#: C:\www\enzyme\src/classes/core/enzyme.php:680
 msgid "Parsing revision data..."
 msgstr "Analisando dados da revisão..."
 
-#: C:\www\enzyme\src/classes/core/enzyme.php:679
+#: C:\www\enzyme\src/classes/core/enzyme.php:736
 msgid "Inserted people stats"
 msgstr "Inseridas estatísticas de pessoas"
 
-#: C:\www\enzyme\src/classes/core/enzyme.php:698
+#: C:\www\enzyme\src/classes/core/enzyme.php:755
 msgid "Inserted module stats"
 msgstr "Inseridas estatísticas de módulos"
 
-#: C:\www\enzyme\src/classes/core/enzyme.php:707
+#: C:\www\enzyme\src/classes/core/enzyme.php:764
 msgid "Extracting extended statistics..."
 msgstr "Extraindo estatísticas estendidas..."
 
-#: C:\www\enzyme\src/classes/core/enzyme.php:800
+#: C:\www\enzyme\src/classes/core/enzyme.php:857
 msgid "Getting internationalization (i18n) stats..."
 msgstr "Obtendo estatísticas de internacionalização (i18n)..."
 
-#: C:\www\enzyme\src/classes/core/enzyme.php:824
+#: C:\www\enzyme\src/classes/core/enzyme.php:881
 msgid "Getting bug stats..."
 msgstr "Obtendo estatísticas de bugs..."
 
-#: C:\www\enzyme\src/classes/core/enzyme.php:879
+#: C:\www\enzyme\src/classes/core/enzyme.php:936
 msgid "Inserted general stats"
 msgstr "Inseridas estatísticas gerais"
 
-#: C:\www\enzyme\src/classes/core/enzyme.php:1032
+#: C:\www\enzyme\src/classes/core/enzyme.php:1089
 #, php-format
 msgid "Invalid data type in %s"
 msgstr ""
 
-#: C:\www\enzyme\src/classes/core/ui.php:235
+#: C:\www\enzyme\src/classes/core/ui.php:272
+msgid "Area"
+msgstr ""
+
+#: C:\www\enzyme\src/classes/core/ui.php:275
+msgid "Type"
+msgstr "Tipo"
+
+#: C:\www\enzyme\src/classes/core/ui.php:290
 #, php-format
 msgid "%s commits classified (%s total)"
 msgstr "%s commits classificados (%s total)"
 
-#: C:\www\enzyme\src/classes/core/ui.php:238
-#: C:\www\enzyme\src/classes/core/ui.php:245
+#: C:\www\enzyme\src/classes/core/ui.php:295
+msgid "Mouse"
+msgstr ""
+
+#: C:\www\enzyme\src/classes/core/ui.php:296
+msgid "Keyboard"
+msgstr ""
+
+#: C:\www\enzyme\src/classes/core/ui.php:315
+#: C:\www\enzyme\src/classes/core/ui.php:324
 msgid "Save"
 msgstr "Salvar"
 
-#: C:\www\enzyme\src/classes/core/ui.php:241
+#: C:\www\enzyme\src/classes/core/ui.php:318
 #, php-format
 msgid "Selected %s of %s commits reviewed (%s total)"
 msgstr "Selecionados %s de %s commits revisados (%s total)"
 
-#: C:\www\enzyme\src/classes/core/ui.php:306
+#: C:\www\enzyme\src/classes/core/ui.php:387
 #, php-format
 msgid " (%.1f percent of %d)"
 msgstr "(%.1f por cento de %d)"
 
-#: C:\www\enzyme\src/classes/core/ui.php:323
-#: C:\www\enzyme\src/classes/core/ui.php:325
+#: C:\www\enzyme\src/classes/core/ui.php:404
+#: C:\www\enzyme\src/classes/core/ui.php:406
 #, php-format
 msgid "Total: %d"
 msgstr "Total: %d"
@@ -533,16 +557,16 @@ msgstr "Ferramentas"
 msgid "Users"
 msgstr "Usuários"
 
-#: C:\www\enzyme\src/classes/ui/classifyui.php:50
-#: C:\www\enzyme\src/classes/ui/reviewui.php:53
+#: C:\www\enzyme\src/classes/ui/classifyui.php:55
+#: C:\www\enzyme\src/classes/ui/reviewui.php:58
 msgid "No revisions available"
 msgstr "Nenhuma revisão disponível"
 
-#: C:\www\enzyme\src/classes/ui/classifyui.php:114
+#: C:\www\enzyme\src/classes/ui/classifyui.php:123
 msgid "Areas"
 msgstr "Áreas"
 
-#: C:\www\enzyme\src/classes/ui/classifyui.php:115
+#: C:\www\enzyme\src/classes/ui/classifyui.php:124
 msgid "Types"
 msgstr "Tipos"
 
@@ -559,15 +583,10 @@ msgstr "Crirar novo resumo"
 msgid "Date"
 msgstr "Data"
 
-#: C:\www\enzyme\src/classes/ui/digestsui.php:87
-#: C:\www\enzyme\src/classes/ui/digestsui.php:210
-msgid "Type"
-msgstr "Tipo"
-
 #: C:\www\enzyme\src/classes/ui/digestsui.php:93
 #: C:\www\enzyme\src/classes/ui/digestsui.php:216
 #: C:\www\enzyme\src/classes/ui/digestsui.php:509
-#: C:\www\enzyme\src/classes/ui/settingsui.php:98
+#: C:\www\enzyme\src/classes/ui/settingsui.php:103
 msgid "Language"
 msgstr "Idioma"
 
@@ -601,7 +620,7 @@ msgstr "Informação do resumo"
 #: C:\www\enzyme\src/classes/ui/digestsui.php:191
 #: C:\www\enzyme\src/classes/ui/digestsui.php:258
 #: C:\www\enzyme\src/classes/ui/digestsui.php:311
-#: C:\www\enzyme\src/classes/ui/settingsui.php:65
+#: C:\www\enzyme\src/classes/ui/settingsui.php:70
 msgid "Save changes"
 msgstr "Salvar alterações"
 
@@ -639,7 +658,7 @@ msgstr "Nenhuma seção de introdução encontrada"
 
 #: C:\www\enzyme\src/classes/ui/digestsui.php:316
 #: C:\www\enzyme\src/classes/ui/loginui.php:131
-#: C:\www\enzyme\src/classes/ui/usersui.php:309
+#: C:\www\enzyme\src/classes/ui/usersui.php:312
 msgid "Message"
 msgstr "Mensagem"
 
@@ -773,7 +792,7 @@ msgstr "Nenhum commit revisado e classificado!"
 
 #: C:\www\enzyme\src/classes/ui/enzymeui.php:190
 msgid "Logout"
-msgstr "Logout"
+msgstr "Sair"
 
 #: C:\www\enzyme\src/classes/ui/enzymeui.php:192
 #: C:\www\enzyme\src/classes/ui/settingsui.php:28
@@ -820,12 +839,12 @@ msgstr "Tabela dos líderes"
 #: C:\www\enzyme\src/classes/ui/homeui.php:165
 #: C:\www\enzyme\src/classes/ui/loginui.php:54
 #: C:\www\enzyme\src/classes/ui/resetui.php:55
-#: C:\www\enzyme\src/classes/ui/settingsui.php:72
+#: C:\www\enzyme\src/classes/ui/settingsui.php:77
 #: C:\www\enzyme\src/classes/ui/setupui.php:211
-#: C:\www\enzyme\src/classes/ui/usersui.php:65
-#: C:\www\enzyme\src/classes/ui/usersui.php:275
+#: C:\www\enzyme\src/classes/ui/usersui.php:68
+#: C:\www\enzyme\src/classes/ui/usersui.php:278
 msgid "Username"
-msgstr "Nome de usuário"
+msgstr "Usuário"
 
 #: C:\www\enzyme\src/classes/ui/homeui.php:126
 msgid "Reviewed (Week)"
@@ -906,7 +925,7 @@ msgstr "Bem-vindo ao Enzyme @ %s"
 #: C:\www\enzyme\src/classes/ui/loginui.php:49
 #: C:\www\enzyme\src/classes/ui/loginui.php:68
 msgid "Login"
-msgstr "Login"
+msgstr "Entrar"
 
 #: C:\www\enzyme\src/classes/ui/loginui.php:60
 #: C:\www\enzyme\src/classes/ui/setupui.php:217
@@ -927,14 +946,14 @@ msgid "Apply!"
 msgstr "Aplicar!"
 
 #: C:\www\enzyme\src/classes/ui/loginui.php:101
-#: C:\www\enzyme\src/classes/ui/usersui.php:299
+#: C:\www\enzyme\src/classes/ui/usersui.php:302
 msgid "Job"
 msgstr "Ocupação"
 
 #: C:\www\enzyme\src/classes/ui/loginui.php:107
-#: C:\www\enzyme\src/classes/ui/settingsui.php:116
-#: C:\www\enzyme\src/classes/ui/usersui.php:77
-#: C:\www\enzyme\src/classes/ui/usersui.php:303
+#: C:\www\enzyme\src/classes/ui/settingsui.php:128
+#: C:\www\enzyme\src/classes/ui/usersui.php:80
+#: C:\www\enzyme\src/classes/ui/usersui.php:306
 msgid "Paths"
 msgstr "Caminhos"
 
@@ -944,26 +963,26 @@ msgid "Optional. (e.g. %s)"
 msgstr "Opcional. (ex. %s)"
 
 #: C:\www\enzyme\src/classes/ui/loginui.php:113
-#: C:\www\enzyme\src/classes/ui/settingsui.php:85
+#: C:\www\enzyme\src/classes/ui/settingsui.php:90
 #: C:\www\enzyme\src/classes/ui/setupui.php:224
-#: C:\www\enzyme\src/classes/ui/usersui.php:67
-#: C:\www\enzyme\src/classes/ui/usersui.php:281
+#: C:\www\enzyme\src/classes/ui/usersui.php:70
+#: C:\www\enzyme\src/classes/ui/usersui.php:284
 msgid "First name"
 msgstr "Nome"
 
 #: C:\www\enzyme\src/classes/ui/loginui.php:119
-#: C:\www\enzyme\src/classes/ui/settingsui.php:91
+#: C:\www\enzyme\src/classes/ui/settingsui.php:96
 #: C:\www\enzyme\src/classes/ui/setupui.php:230
-#: C:\www\enzyme\src/classes/ui/usersui.php:68
-#: C:\www\enzyme\src/classes/ui/usersui.php:287
+#: C:\www\enzyme\src/classes/ui/usersui.php:71
+#: C:\www\enzyme\src/classes/ui/usersui.php:290
 msgid "Last name"
 msgstr "Sobrenome"
 
 #: C:\www\enzyme\src/classes/ui/loginui.php:125
-#: C:\www\enzyme\src/classes/ui/settingsui.php:78
+#: C:\www\enzyme\src/classes/ui/settingsui.php:83
 #: C:\www\enzyme\src/classes/ui/setupui.php:236
-#: C:\www\enzyme\src/classes/ui/usersui.php:66
-#: C:\www\enzyme\src/classes/ui/usersui.php:293
+#: C:\www\enzyme\src/classes/ui/usersui.php:69
+#: C:\www\enzyme\src/classes/ui/usersui.php:296
 msgid "Email"
 msgstr "E-mail"
 
@@ -988,7 +1007,7 @@ msgid "Invalid reset code provided"
 msgstr "O código de redefinição fornecido é inválido"
 
 #: C:\www\enzyme\src/classes/ui/resetui.php:61
-#: C:\www\enzyme\src/classes/ui/settingsui.php:142
+#: C:\www\enzyme\src/classes/ui/settingsui.php:154
 msgid "New password"
 msgstr "Nova senha"
 
@@ -1000,22 +1019,30 @@ msgstr "Redefinir senha"
 msgid "All"
 msgstr "Todos"
 
-#: C:\www\enzyme\src/classes/ui/settingsui.php:62
+#: C:\www\enzyme\src/classes/ui/settingsui.php:67
 msgid "Personal"
 msgstr "Pessoal"
 
-#: C:\www\enzyme\src/classes/ui/settingsui.php:109
+#: C:\www\enzyme\src/classes/ui/settingsui.php:110
+msgid "Interface"
+msgstr ""
+
+#: C:\www\enzyme\src/classes/ui/settingsui.php:121
 msgid "Permissions"
 msgstr "Permissões"
 
-#: C:\www\enzyme\src/classes/ui/settingsui.php:126
-#: C:\www\enzyme\src/classes/ui/settingsui.php:129
+#: C:\www\enzyme\src/classes/ui/settingsui.php:138
+#: C:\www\enzyme\src/classes/ui/settingsui.php:141
 msgid "Change password"
 msgstr "Alterar senha"
 
-#: C:\www\enzyme\src/classes/ui/settingsui.php:136
+#: C:\www\enzyme\src/classes/ui/settingsui.php:148
 msgid "Old password"
 msgstr "Senha antiga"
+
+#: C:\www\enzyme\src/classes/ui/settingsui.php:160
+msgid "Repeat password"
+msgstr ""
 
 #: C:\www\enzyme\src/classes/ui/setupui.php:66
 #: C:\www\enzyme\src/classes/ui/setupui.php:74
@@ -1113,31 +1140,36 @@ msgstr "Analisar pessoas"
 msgid "Parse authors"
 msgstr "Analisar autores"
 
-#: C:\www\enzyme\src/classes/ui/usersui.php:57
+#: C:\www\enzyme\src/classes/ui/usersui.php:58
+#, php-format
+msgid "%d users"
+msgstr ""
+
+#: C:\www\enzyme\src/classes/ui/usersui.php:60
 msgid "Add new user"
 msgstr "Adicionar novo usuário"
 
-#: C:\www\enzyme\src/classes/ui/usersui.php:106
+#: C:\www\enzyme\src/classes/ui/usersui.php:109
 msgid "Applications"
 msgstr "Aplicações"
 
-#: C:\www\enzyme\src/classes/ui/usersui.php:139
+#: C:\www\enzyme\src/classes/ui/usersui.php:142
 msgid "Make this user inactive?"
 msgstr "Tornar este usuário inativo?"
 
-#: C:\www\enzyme\src/classes/ui/usersui.php:145
+#: C:\www\enzyme\src/classes/ui/usersui.php:148
 msgid "Make this user active?"
 msgstr "Tornar este usuário ativo?"
 
-#: C:\www\enzyme\src/classes/ui/usersui.php:202
+#: C:\www\enzyme\src/classes/ui/usersui.php:205
 msgid "Save new account?"
 msgstr "Salvar nova conta?"
 
-#: C:\www\enzyme\src/classes/ui/usersui.php:316
+#: C:\www\enzyme\src/classes/ui/usersui.php:319
 msgid "Decline"
 msgstr "Reprovar"
 
-#: C:\www\enzyme\src/classes/ui/usersui.php:317
+#: C:\www\enzyme\src/classes/ui/usersui.php:320
 msgid "Approve"
 msgstr "Aprovar"
 
@@ -1256,10 +1288,14 @@ msgstr "Sua senha foi redefinida. Por favor verifique seu e-mail registrado para
 msgid "Saved %d commits"
 msgstr "%d commits salvos"
 
-#: C:\www\enzyme\src/js/includes/common.php:274
-#: C:\www\enzyme\src/js/includes/common.php:280
+#: C:\www\enzyme\src/js/includes/common.php:276
+#: C:\www\enzyme\src/js/includes/common.php:282
 msgid "Save unsuccessful"
 msgstr "Salvar mal sucedido"
+
+#: C:\www\enzyme\src/js/includes/common.php:380
+msgid "Any unsaved changes will be lost. Continue?"
+msgstr ""
 
 #: C:\www\enzyme\src/tool/digest-commits.php:181
 #: C:\www\enzyme\src/tool/digest-intro.php:156

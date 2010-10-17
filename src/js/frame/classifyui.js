@@ -18,19 +18,28 @@ function setCurrentItem(id) {
     return null;
   }
 
-  if (!$(id + '-type').value.empty() &&
-      !$(id + '-area').value.empty()) {
+  if (!$(id + '-type').value.empty() && ($(id + '-type').value != 0) &&
+      !$(id + '-area').value.empty() && ($(id + '-area').value != 0)) {
 
     // both filled
-    $(id).className = 'item marked';
-    $(id).down('div.commit-classify').className = 'commit-classify filled';
+    $(id).removeClassName('selected');
+    $(id).addClassName('marked');
+
+    var element = $(id).down('div.commit-classify');
+    element.removeClassName('unfilled');
+    element.addClassName('filled');
 
   } else {
     // none filled
-    $(id).className = 'item selected';
-    $(id).down('div.commit-classify').className = 'commit-classify unfilled';
+    $(id).removeClassName('marked');
+    $(id).addClassName('selected');
+
+    var element = $(id).down('div.commit-classify');
+    element.removeClassName('filled');
+    element.addClassName('unfilled');
   }
   
+  // update classifed number in statusbar
   updateCounter();
 }
 
@@ -40,11 +49,11 @@ function updateCounter() {
   commitCounter = 0;
 
   $$('div.item').each(function(item) {
-    if ($(item.id + '-type') && !$(item.id + '-type').value.empty() &&
-        $(item.id + '-area') && !$(item.id + '-area').value.empty()) {
+    if ($(item.id + '-type') && !$(item.id + '-type').value.empty() && ($(item.id + '-type').value != 0) &&
+        $(item.id + '-area') && !$(item.id + '-area').value.empty() && ($(item.id + '-area').value != 0)) {
 
       // only increment counter when both 'type' and 'area' are filled
-      commitCounter++;
+      ++commitCounter;
     }
   });
 
@@ -93,9 +102,14 @@ function changeKey(theType) {
 
 
 // onload...
-document.observe("dom:loaded", function() {
+document.observe('dom:loaded', function() {
   // write counter total
-  if ($("commit-total")) {
-    $("commit-total").update($$("div.item").size());
+  if ($('commit-total')) {
+    $('commit-total').update($$('div.item').size());
+  }
+  
+  // focus first box
+  if ($('commit-item-1-area')) {
+  	$('commit-item-1-area').focus();
   }
 });

@@ -57,6 +57,11 @@ class SettingsUi extends BaseUi {
     }
 
 
+    // define available interfaces
+    $interface = array('mouse'    => _('Mouse'),
+                       'keyboard' => _('Keyboard'));
+
+
     // draw settings
     $buf = '<h3>' .
               _('Personal') .
@@ -98,6 +103,13 @@ class SettingsUi extends BaseUi {
                   <td class="label">' . _('Language') . '</td>
                   <td class="value">' .
                     Ui::htmlSelector('language', Digest::getLanguages(), $this->user->data['language']) .
+           '      </td>
+                </tr>
+
+                <tr class="padding">
+                  <td class="label">' . _('Interface') . '</td>
+                  <td class="value">' .
+                    Ui::htmlSelector('interface', $interface, $this->user->data['interface']) .
            '      </td>
                 </tr>
               </tbody>

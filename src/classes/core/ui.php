@@ -165,7 +165,7 @@ class Ui {
   }
 
 
-  public static function displayRevision($type, $id, $data, &$authors, &$classifications = null) {
+  public static function displayRevision($type, $id, $data, &$authors, &$user = null, &$classifications = null) {
     // show date and buttons?
     if ($type == 'review') {
       $date = '<div class="date">' .
@@ -193,9 +193,9 @@ class Ui {
       $bugs = '<div class="bugs">';
 
       foreach ($data['bug'] as $bug) {
-        $bugs  .= '<a href="' . WEBBUG . $bug['bug'] . '" target="_blank" class="n" title="' . sprintf(_('Bug %d: %s'), $bug['bug'], App::truncate(htmlentities($bug['title']), 90, true)) . '">
+        $bugs  .= '<div onclick="window.open(\'' . WEBBUG . $bug['bug'] . '\');" title="' . sprintf(_('Bug %d: %s'), $bug['bug'], App::truncate(htmlentities($bug['title']), 90, true)) . '">
                      &nbsp;
-                   </a>';
+                   </div>';
       }
 
       $bugs  .= '</div>';
@@ -205,10 +205,18 @@ class Ui {
     }
 
 
+    // set item class
+    if ($user && ($user->data['interface'] == 'mouse')) {
+      $itemClass = 'mouse';
+    } else {
+      $itemClass = 'keyboard';
+    }
+
+
     // draw commit
-    $buf = '<div id="' . $id . '" class="item normal">
+    $buf = '<div id="' . $id . '" class="item normal ' . $itemClass . '">
               <div class="commit-title">
-                Commit <a class="revision" href="' . WEBSVN . '?view=revision&revision=' . $data['revision'] . '" target="_blank">' . $data['revision'] . '</a> by <span>' . Enzyme::getAuthorInfo('name', $data['author']) . '</span> (<span>' . $data['author'] . '</span>)
+                Commit <a class="revision" tabindex="-1" href="' . WEBSVN . '?view=revision&amp;revision=' . $data['revision'] . '" target="_blank">' . $data['revision'] . '</a> by <span>' . Enzyme::getAuthorInfo('name', $data['author']) . '</span> (<span>' . $data['author'] . '</span>)
                 <br />' .
                 $path .
                 $date .
@@ -239,14 +247,35 @@ class Ui {
         $data['type'] = null;
       }
 
-      $buf .=  '<div class="commit-classify">
-                  <label>
-                    Area <input id="' . $id . '-area" type="text" onblur="setCurrentItem(\'' . $id . '\');" onfocus="scrollItem(\'' . $id . '\');" value="' . $data['area'] . '" />
-                  </label>
-                  <label>
-                    Type <input id="' . $id . '-type" type="text" onblur="setCurrentItem(\'' . $id . '\');" onfocus="scrollItem(\'' . $id . '\');" value="' . $data['type'] . '" />
-                  </label>
-                </div>';
+
+      // use mouse-oriented or keyboard-oriented interface?
+      if ($user && ($user->data['interface'] == 'mouse')) {
+        // mouse
+        $areas = array_values(Enzyme::getAreas(true));
+        $types = array_values(Enzyme::getTypes(true));
+
+        $buf  .= '<div class="commit-classify mouse">
+                    <div>
+                      <label>Area</label>' .
+                      Ui::htmlSelector($id . '-area', $areas, $data['area'], 'setCurrentItem(\'' . $id . '\');') .
+                 '  </div>
+                    <div>
+                      <label>Type</label>' .
+                      Ui::htmlSelector($id . '-type', $types, $data['type'], 'setCurrentItem(\'' . $id . '\');') .
+                 '  </div>
+                  </div>';
+
+      } else {
+        // keyboard
+        $buf  .= '<div class="commit-classify keyboard">
+                    <label>' .
+                      _('Area') . ' <input id="' . $id . '-area" type="text" onblur="setCurrentItem(\'' . $id . '\');" onfocus="scrollItem(\'' . $id . '\');" value="' . $data['area'] . '" />
+                    </label>
+                    <label>' .
+                      _('Type') . ' <input id="' . $id . '-type" type="text" onblur="setCurrentItem(\'' . $id . '\');" onfocus="scrollItem(\'' . $id . '\');" value="' . $data['type'] . '" />
+                    </label>
+                  </div>';
+      }
     }
 
     $buf .=  '</div>';
@@ -255,12 +284,34 @@ class Ui {
   }
 
 
-  public static function statusArea($type) {
-    // determine display string
+  public static function statusArea($type, $user = null) {
+    // determine interface elements
     if ($type == 'classify') {
       $display = sprintf(_('%s commits classified (%s total)'),
                          '<span id="commit-counter">0</span>',
                          '<span id="commit-total">0</span>');
+
+      // interface selector
+      $interface = array('mouse'    => _('Mouse'),
+                         'keyboard' => _('Keyboard'));
+
+      $interfaceSelector = '<div id="interface-selector">';
+
+      foreach ($interface as $key => $value) {
+        if ($user && ($user->data['interface'] == $key)) {
+          $selected = ' checked="checked"';
+        } else {
+          $selected = null;
+        }
+
+        $interfaceSelector  .= '<label>
+                                  <input id="interface-' . $key . '" name="interface" value="' . $key . '" type="radio" onclick="changeInterface(\'' . $key . '\');"' . $selected . ' /> ' . $value .
+                                '</label>';
+      }
+
+      $interfaceSelector .= '</div>';
+
+      // buttons
       $buttons = '<input id="review-save" type="button" onclick="save(\'' . $type . '\');" value="' . _('Save') . '" title="' . _('Save') . '" />';
 
     } else if ($type == 'review') {
@@ -268,16 +319,20 @@ class Ui {
                          '<span id="commit-selected">0</span></span>',
                          '<span id="commit-counter">0</span>',
                          '<span id="commit-total">0</span>');
+
+      $interfaceSelector = null;
       $buttons = '<input id="review-save" type="button" disabled="disabled" onclick="save(\'' . $type . '\');" value="' . _('Save') . '" title="' . _('Save') . '" />';
     }
 
 
+    // draw
     $buf = '<div id="status-area">
               <div id="status-area-text">' .
                 $display .
                 '<input type="button" style="visibility:hidden;" />
-              </div>
-              <div id="status-area-actions">
+              </div>' .
+              $interfaceSelector .
+           '  <div id="status-area-actions">
                 <div id="status-area-info" style="display:none;"></div>' .
                 $buttons .
              '</div>

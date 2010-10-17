@@ -89,7 +89,7 @@ class ReviewUi extends BaseUi {
         }
 
         $key = 'commit-item-' . $counter++;
-        $buf .= Ui::displayRevision('review', $key, $revision, $authors);
+        $buf .= Ui::displayRevision('review', $key, $revision, $authors, $this->user);
       }
     }
 

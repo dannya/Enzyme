@@ -67,19 +67,21 @@ class Enzyme {
 
 
   public static function getBugs(&$revisions) {
-    // load from db
-    $q = mysql_query('SELECT * FROM commit_bugs
-                      WHERE revision IN (' . implode(',', array_keys($revisions)) . ')') or trigger_error(sprintf(_('Query failed: %s'), mysql_error()));
+    if ($revisions) {
+      // load from db
+      $q = mysql_query('SELECT * FROM commit_bugs
+                        WHERE revision IN (' . implode(',', array_keys($revisions)) . ')') or trigger_error(sprintf(_('Query failed: %s'), mysql_error()));
 
-    while ($row = mysql_fetch_assoc($q)) {
-      $revisions[$row['revision']]['bug'][] = $row;
+      while ($row = mysql_fetch_assoc($q)) {
+        $revisions[$row['revision']]['bug'][] = $row;
+      }
+
+      return $revisions;
     }
-
-    return $revisions;
   }
 
 
-  public static function getAreas() {
+  public static function getAreas($spacer = false) {
     $buf = array('accessibility'      => _('Accessibility'),
                  'development-tools'  => _('Development Tools'),
                  'educational'        => _('Educational'),
@@ -95,16 +97,26 @@ class Enzyme {
                  'games'              => _('Games'),
                  'other'              => _('Other'));
 
+    // add a blank spacer entry at the start?
+    if ($spacer) {
+      array_unshift($buf, '');
+    }
+
     return $buf;
   }
 
 
-  public static function getTypes() {
+  public static function getTypes($spacer = false) {
     $buf = array('bug-fixes'  => _('Bug Fixes'),
                  'features'   => _('Features'),
                  'optimize'   => _('Optimize'),
                  'security'   => _('Security'),
                  'other'      => _('Other'));
+
+    // add a blank spacer entry at the start?
+    if ($spacer) {
+      array_unshift($buf, '');
+    }
 
     return $buf;
   }

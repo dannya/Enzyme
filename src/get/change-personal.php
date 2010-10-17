@@ -33,7 +33,7 @@ if (empty($user->auth)) {
 
 
 // set valid fields
-$validFields = array('email', 'firstname', 'lastname', 'language');
+$validFields = array('email', 'firstname', 'lastname', 'language', 'interface');
 
 
 // extract new data
