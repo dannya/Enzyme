@@ -1244,11 +1244,9 @@ msgstr "Erro ao criar tabela \"%s\""
 msgid "Successfully imported data into table \"%s\""
 msgstr "Dados importados com sucesso para tabela \"%s\""
 
-# -inporting
-# +importing
 #: C:\www\enzyme\src/get/setup-database.php:78
 #, php-format
-msgid "Error inporting data into table \"%s\""
+msgid "Error importing data into table \"%s\""
 msgstr "Erro importando dados para tabela \"%s\""
 
 #: C:\www\enzyme\src/js/includes/common.php:22

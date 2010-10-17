@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Enzyme\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-10-17 02:41-0000\n"
-"PO-Revision-Date: 2010-10-17 02:41-0000\n"
+"POT-Creation-Date: 2010-10-17 16:47-0000\n"
+"PO-Revision-Date: 2010-10-17 16:47-0000\n"
 "Last-Translator: Danny Allen <dannya40uk@yahoo.co.uk>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -161,7 +161,7 @@ msgid "Revision %d"
 msgstr ""
 
 #: C:\www\enzyme\src/classes/core/digest.php:489
-#: C:\www\enzyme\src/classes/core/ui.php:196
+#: C:\www\enzyme\src/classes/core/ui.php:192
 #, php-format
 msgid "Bug %d: %s"
 msgstr ""
@@ -471,44 +471,44 @@ msgstr ""
 msgid "Invalid data type in %s"
 msgstr ""
 
-#: C:\www\enzyme\src/classes/core/ui.php:272
+#: C:\www\enzyme\src/classes/core/ui.php:268
 msgid "Area"
 msgstr ""
 
-#: C:\www\enzyme\src/classes/core/ui.php:275
+#: C:\www\enzyme\src/classes/core/ui.php:271
 msgid "Type"
 msgstr ""
 
-#: C:\www\enzyme\src/classes/core/ui.php:290
+#: C:\www\enzyme\src/classes/core/ui.php:286
 #, php-format
 msgid "%s commits classified (%s total)"
 msgstr ""
 
-#: C:\www\enzyme\src/classes/core/ui.php:295
+#: C:\www\enzyme\src/classes/core/ui.php:291
 msgid "Mouse"
 msgstr ""
 
-#: C:\www\enzyme\src/classes/core/ui.php:296
+#: C:\www\enzyme\src/classes/core/ui.php:292
 msgid "Keyboard"
 msgstr ""
 
-#: C:\www\enzyme\src/classes/core/ui.php:315
-#: C:\www\enzyme\src/classes/core/ui.php:324
+#: C:\www\enzyme\src/classes/core/ui.php:311
+#: C:\www\enzyme\src/classes/core/ui.php:320
 msgid "Save"
 msgstr ""
 
-#: C:\www\enzyme\src/classes/core/ui.php:318
+#: C:\www\enzyme\src/classes/core/ui.php:314
 #, php-format
 msgid "Selected %s of %s commits reviewed (%s total)"
 msgstr ""
 
-#: C:\www\enzyme\src/classes/core/ui.php:387
+#: C:\www\enzyme\src/classes/core/ui.php:383
 #, php-format
 msgid " (%.1f percent of %d)"
 msgstr ""
 
-#: C:\www\enzyme\src/classes/core/ui.php:404
-#: C:\www\enzyme\src/classes/core/ui.php:406
+#: C:\www\enzyme\src/classes/core/ui.php:400
+#: C:\www\enzyme\src/classes/core/ui.php:402
 #, php-format
 msgid "Total: %d"
 msgstr ""
@@ -1242,7 +1242,7 @@ msgstr ""
 
 #: C:\www\enzyme\src/get/setup-database.php:78
 #, php-format
-msgid "Error inporting data into table \"%s\""
+msgid "Error importing data into table \"%s\""
 msgstr ""
 
 #: C:\www\enzyme\src/js/includes/common.php:22
@@ -1277,17 +1277,17 @@ msgstr ""
 msgid "Your password has been reset. Please check your registered email account for further instructions."
 msgstr ""
 
-#: C:\www\enzyme\src/js/includes/common.php:249
+#: C:\www\enzyme\src/js/includes/common.php:251
 #, php-format
 msgid "Saved %d commits"
 msgstr ""
 
-#: C:\www\enzyme\src/js/includes/common.php:276
-#: C:\www\enzyme\src/js/includes/common.php:282
+#: C:\www\enzyme\src/js/includes/common.php:278
+#: C:\www\enzyme\src/js/includes/common.php:284
 msgid "Save unsuccessful"
 msgstr ""
 
-#: C:\www\enzyme\src/js/includes/common.php:380
+#: C:\www\enzyme\src/js/includes/common.php:382
 msgid "Any unsaved changes will be lost. Continue?"
 msgstr ""
 

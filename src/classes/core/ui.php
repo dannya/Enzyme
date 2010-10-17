@@ -214,7 +214,7 @@ class Ui {
               <div class="commit-title">
                 Commit <a class="revision" tabindex="-1" href="' . WEBSVN . '?view=revision&amp;revision=' . $data['revision'] . '" target="_blank">' . $data['revision'] . '</a> by <span>' . Enzyme::getAuthorInfo('name', $data['author']) . '</span> (<span>' . $data['author'] . '</span>)
                 <br />' .
-                $path .
+                Enzyme::drawBasePath($data['basepath']) .
                 $date .
            '  </div>
               <div class="commit-msg">' .

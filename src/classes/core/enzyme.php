@@ -592,6 +592,7 @@ class Enzyme {
 
       // insert commit files into database
       if (!empty($entry->paths->path[0])) {
+        $tmpPaths               = array();
         $commitFile['revision'] = $commit['revision'];
 
         // hold in tmp variable to fix PHP memory issues
@@ -606,13 +607,8 @@ class Enzyme {
           // save data to enable base path calculation below
           $tmpPaths[] = $commitFile['path'];
         }
-      }
 
-
-      // determine base commit path
-      if (!isset($entry->paths->path[1])) {
-        $commit['basepath'] = $commitFile['path'];
-      } else {
+        // determine base commit path
         $commit['basepath'] = self::getBasePath($tmpPaths);
       }
 
