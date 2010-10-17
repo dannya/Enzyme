@@ -80,13 +80,14 @@ div.read div.no {
 }
 
 
-
+div.item div.commit-msg {
+  min-height:40px;
+}
 div.keyboard div.commit-msg {
   padding-right:110px;
 }
 div.mouse div.commit-msg {
   padding-right:230px;
-  min-height:40px;
 }
 
 div.item div.commit-msg div.bugs {
