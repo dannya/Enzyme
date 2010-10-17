@@ -693,11 +693,18 @@ class DigestsUi extends BaseUi {
       // estimate number of rows to display
       $rows = ceil(strlen($commit['msg']) / 120) + substr_count($commit['msg'], '<br />');
 
+      // set path
+      if (!empty($commit['basepath'])) {
+        $path = $commit['basepath'];
+      } else {
+        $path = '/';
+      }
+
       $buf .=  '<div class="commit">
                   <div class="intro">' .
                     sprintf(_('%s committed changes in %s:'),
                     '<a class="n" href="http://cia.vc/stats/author/' . $commit['author'] . '/">' . $commit['name'] . '</a>',
-                    $commit['basepath']) .
+                    $path) .
                '  </div>
                   <div class="selectors">' .
                     Ui::htmlSelector('type-' . $commit['revision'], $numericTypes, $commit['type'], 'changeValue(\'type\', ' . $commit['revision'] . ');') .

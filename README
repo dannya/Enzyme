@@ -2,3 +2,5 @@ Enzyme
 ------
 A project-independent (and eventually SCM-agnostic) tool for creating regular project reports 
 and assisting interesting statistical analysis.
+
+See http://enzyme-project.org/
