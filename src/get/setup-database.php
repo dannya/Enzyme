@@ -75,7 +75,7 @@ foreach ($data as $file) {
   if ($success) {
     $output[]         = '<i>' . sprintf(_('Successfully imported data into table "%s"'), $table) . '</i>';
   } else {
-    $output[]         = '<b>' . sprintf(_('Error inporting data into table "%s"'), $table) . '</b>';
+    $output[]         = '<b>' . sprintf(_('Error importing data into table "%s"'), $table) . '</b>';
     $json['success']  = false;
   }
 }
