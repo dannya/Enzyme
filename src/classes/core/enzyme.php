@@ -1028,7 +1028,7 @@ class Enzyme {
 
     // extract bugs
     do {
-      preg_match('/(BUG|CCBUG|FEATURE)[:]?[ ]?[0-9]{4,6}/', $msg, $matches);
+      preg_match('/(BUG|BUGS|CCBUG|FEATURE)[:]?[ ]?[0-9]{4,6}/', $msg, $matches);
 
       if (isset($matches[0])) {
         // remove bug from msg
@@ -1134,6 +1134,15 @@ class Enzyme {
     }
 
     return $basepath;
+  }
+
+
+  public static function drawBasePath($basepath) {
+    if (!empty($basepath)) {
+      return $basepath;
+    } else {
+      return '/';
+    }
   }
 }
 

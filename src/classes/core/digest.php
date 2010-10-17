@@ -441,7 +441,7 @@ class Digest {
               <span class="intro">' .
                 sprintf(_('%s committed changes in %s:'),
                 '<a class="n" href="http://cia.vc/stats/author/' . $commit['author'] . '/">' . $commit['name'] . '</a>',
-                $commit['basepath']) .
+                Enzyme::drawBasePath($commit['basepath'])) .
            '  </span>
 
               <div class="details">

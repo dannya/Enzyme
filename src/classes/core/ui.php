@@ -181,11 +181,7 @@ class Ui {
 
 
     // set path
-    if (empty($data['basepath'])) {
-      $path = '/';
-    } else {
-      $path = $data['basepath'];
-    }
+    $data['basepath'] = Enzyme::drawBasePath($data['basepath']);
 
 
     // show bugs (as icons) if available
