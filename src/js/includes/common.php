@@ -223,7 +223,9 @@ function save(theType) {
     var theData = [];
 
     $$('div.item').each(function(item) {
-      if (!$(item.id + '-type').value.empty() || !$(item.id + '-area').value.empty()) {
+      if ((!$(item.id + '-type').value.empty() && ($(item.id + '-type').value != 0)) || 
+          (!$(item.id + '-area').value.empty() && ($(item.id + '-area').value != 0))) {
+
         theData.push({ 'r':$(item).down('a.revision').innerHTML,
                        't':$(item.id + '-type').value,
                        'a':$(item.id + '-area').value });
