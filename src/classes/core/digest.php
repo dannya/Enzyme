@@ -446,7 +446,7 @@ class Digest {
 
               <div class="details">
                 <p class="msg">' .
-                  htmlentities(Enzyme::formatMsg($commit['msg'])) .
+                  Enzyme::formatMsg($commit['msg']) .
            '    </p>';
 
     // show diff / bug box?

@@ -283,7 +283,7 @@ class Enzyme {
 
 
   public static function formatMsg($msg) {
-    return str_ireplace(array('<br>', "\n"), '<br />', $msg);
+    return str_ireplace(array('<br>', "\n", '&'), array('<br />', '<br />', '&amp;'), $msg);
   }
 
 
