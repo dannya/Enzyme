@@ -392,34 +392,37 @@ class DigestsUi extends BaseUi {
         }
       }
 
-      // draw general stats
-      $buf .=  '<h3 class="sub">' . _('General') . '</h3>
 
-                <table id="stats-general" class="stats">
-                  <tbody>';
+      // draw general stats?
+      if (!empty($theFields)) {
+        $buf .=  '<h3 class="sub">' . _('General') . '</h3>
 
-      foreach ($theFields as $column => $data) {
-        $current = reset($data[0]);
+                  <table id="stats-general" class="stats">
+                    <tbody>';
 
-        $buf .=  '<tr>
-                    <td class="label">' . $current['string'] . '</td>
-                    <td class="value">
-                      <input id="' . key($data[0]) . '" type="text" value="' . $current['value'] . '" />
-                    </td>';
+        foreach ($theFields as $column => $data) {
+          $current = reset($data[0]);
 
-        if (isset($data[1])) {
-          $current = reset($data[1]);
-
-          $buf .=  '  <td class="label labelRight">' . $current['string'] . '</td>
+          $buf .=  '<tr>
+                      <td class="label">' . $current['string'] . '</td>
                       <td class="value">
-                        <input id="' . key($data[1]) . '" type="text" value="' . $current['value'] . '" />
-                      </td>
-                    </tr>';
-        }
-      }
+                        <input id="' . key($data[0]) . '" type="text" value="' . $current['value'] . '" />
+                      </td>';
 
-      $buf .=  '  </tbody>
-                </table>';
+          if (isset($data[1])) {
+            $current = reset($data[1]);
+
+            $buf .=  '  <td class="label labelRight">' . $current['string'] . '</td>
+                        <td class="value">
+                          <input id="' . key($data[1]) . '" type="text" value="' . $current['value'] . '" />
+                        </td>
+                      </tr>';
+          }
+        }
+
+        $buf .=  '  </tbody>
+                  </table>';
+      }
 
 
       // draw module stats
