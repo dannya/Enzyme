@@ -299,7 +299,7 @@ class Enzyme {
         $revisions[] = $start++;
       }
 
-      $filter .= ' AND revision IN (' . implode(',', $revisions) . ')';
+      $filter .= ' AND commits.revision IN (' . implode(',', $revisions) . ')';
     }
 
 
@@ -310,7 +310,7 @@ class Enzyme {
         $exclude = self::excludedAccounts();
       }
 
-      $filter .= ' AND author NOT IN ("' . implode('","', $exclude) . '")';
+      $filter .= ' AND commits.author NOT IN ("' . implode('","', $exclude) . '")';
     }
 
 
@@ -319,7 +319,7 @@ class Enzyme {
 
     if ($ignorePaths) {
       foreach ($ignorePaths as $path) {
-        $filter .= ' AND basepath NOT LIKE ' . Db::quote('%' . $path . '%');
+        $filter .= ' AND commits.basepath NOT LIKE ' . Db::quote('%' . $path . '%');
       }
     }
 
@@ -329,9 +329,13 @@ class Enzyme {
 
     if ($ignoreFragments) {
       foreach ($ignoreFragments as $fragment) {
-        $filter .= ' AND msg NOT LIKE ' . Db::quote('%' . $fragment . '%');
+        $filter .= ' AND commits.msg NOT LIKE ' . Db::quote('%' . $fragment . '%');
       }
     }
+
+
+    // don't get commits with no msg written
+    $filter .= ' AND commits.msg != ""';
 
 
     // only get commits at specific review stage?
@@ -346,13 +350,13 @@ class Enzyme {
       $table    = 'commits_reviewed, commits';
 
       if ($type == 'unmarked') {
-        $filter .= ' AND marked = 0';
+        $filter .= ' AND commits_reviewed.marked = 0';
       } else if ($type == 'marked') {
-        $filter .= ' AND marked = 1
-                     AND (type IS NULL
-                          OR area IS NULL
-                          OR type = 0
-                          OR area = 0)';
+        $filter .= ' AND commits_reviewed.marked = 1
+                     AND (commits_reviewed.type IS NULL
+                          OR commits_reviewed.area IS NULL
+                          OR commits_reviewed.type = 0
+                          OR commits_reviewed.area = 0)';
       }
 
       // do join to get commit authors
