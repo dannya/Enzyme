@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Enzyme\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-10-17 16:47-0000\n"
-"PO-Revision-Date: 2010-10-17 16:47-0000\n"
+"POT-Creation-Date: 2010-10-18 18:53-0000\n"
+"PO-Revision-Date: 2010-10-18 18:53-0000\n"
 "Last-Translator: Danny Allen <dannya40uk@yahoo.co.uk>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -429,44 +429,44 @@ msgstr ""
 msgid "Skipping revision %d"
 msgstr ""
 
-#: C:\www\enzyme\src/classes/core/enzyme.php:624
+#: C:\www\enzyme\src/classes/core/enzyme.php:620
 #, php-format
 msgid "Processed revision %d"
 msgstr ""
 
-#: C:\www\enzyme\src/classes/core/enzyme.php:671
+#: C:\www\enzyme\src/classes/core/enzyme.php:667
 msgid "Getting revision data..."
 msgstr ""
 
-#: C:\www\enzyme\src/classes/core/enzyme.php:680
+#: C:\www\enzyme\src/classes/core/enzyme.php:676
 msgid "Parsing revision data..."
 msgstr ""
 
-#: C:\www\enzyme\src/classes/core/enzyme.php:736
+#: C:\www\enzyme\src/classes/core/enzyme.php:732
 msgid "Inserted people stats"
 msgstr ""
 
-#: C:\www\enzyme\src/classes/core/enzyme.php:755
+#: C:\www\enzyme\src/classes/core/enzyme.php:751
 msgid "Inserted module stats"
 msgstr ""
 
-#: C:\www\enzyme\src/classes/core/enzyme.php:764
+#: C:\www\enzyme\src/classes/core/enzyme.php:760
 msgid "Extracting extended statistics..."
 msgstr ""
 
-#: C:\www\enzyme\src/classes/core/enzyme.php:857
+#: C:\www\enzyme\src/classes/core/enzyme.php:853
 msgid "Getting internationalization (i18n) stats..."
 msgstr ""
 
-#: C:\www\enzyme\src/classes/core/enzyme.php:881
+#: C:\www\enzyme\src/classes/core/enzyme.php:877
 msgid "Getting bug stats..."
 msgstr ""
 
-#: C:\www\enzyme\src/classes/core/enzyme.php:936
+#: C:\www\enzyme\src/classes/core/enzyme.php:932
 msgid "Inserted general stats"
 msgstr ""
 
-#: C:\www\enzyme\src/classes/core/enzyme.php:1089
+#: C:\www\enzyme\src/classes/core/enzyme.php:1085
 #, php-format
 msgid "Invalid data type in %s"
 msgstr ""
@@ -582,7 +582,7 @@ msgstr ""
 
 #: C:\www\enzyme\src/classes/ui/digestsui.php:93
 #: C:\www\enzyme\src/classes/ui/digestsui.php:216
-#: C:\www\enzyme\src/classes/ui/digestsui.php:509
+#: C:\www\enzyme\src/classes/ui/digestsui.php:512
 #: C:\www\enzyme\src/classes/ui/settingsui.php:103
 msgid "Language"
 msgstr ""
@@ -715,75 +715,75 @@ msgstr ""
 msgid "Wishes Closed"
 msgstr ""
 
-#: C:\www\enzyme\src/classes/ui/digestsui.php:396
+#: C:\www\enzyme\src/classes/ui/digestsui.php:398
 msgid "General"
 msgstr ""
 
-#: C:\www\enzyme\src/classes/ui/digestsui.php:429
+#: C:\www\enzyme\src/classes/ui/digestsui.php:432
 msgid "Commit Summary"
 msgstr ""
 
-#: C:\www\enzyme\src/classes/ui/digestsui.php:434
+#: C:\www\enzyme\src/classes/ui/digestsui.php:437
 msgid "Module"
 msgstr ""
 
-#: C:\www\enzyme\src/classes/ui/digestsui.php:435
-#: C:\www\enzyme\src/classes/ui/digestsui.php:475
+#: C:\www\enzyme\src/classes/ui/digestsui.php:438
+#: C:\www\enzyme\src/classes/ui/digestsui.php:478
 msgid "Commits"
 msgstr ""
 
-#: C:\www\enzyme\src/classes/ui/digestsui.php:461
+#: C:\www\enzyme\src/classes/ui/digestsui.php:464
 msgid "Files"
 msgstr ""
 
-#: C:\www\enzyme\src/classes/ui/digestsui.php:464
+#: C:\www\enzyme\src/classes/ui/digestsui.php:467
 msgid "Lines"
 msgstr ""
 
-#: C:\www\enzyme\src/classes/ui/digestsui.php:473
+#: C:\www\enzyme\src/classes/ui/digestsui.php:476
 msgid "Account"
 msgstr ""
 
-#: C:\www\enzyme\src/classes/ui/digestsui.php:504
+#: C:\www\enzyme\src/classes/ui/digestsui.php:507
 msgid "Internationalisation (i18n) and Bug Killers"
 msgstr ""
 
-#: C:\www\enzyme\src/classes/ui/digestsui.php:510
+#: C:\www\enzyme\src/classes/ui/digestsui.php:513
 msgid "Percent (%)"
 msgstr ""
 
-#: C:\www\enzyme\src/classes/ui/digestsui.php:539
-#: C:\www\enzyme\src/classes/ui/digestsui.php:607
+#: C:\www\enzyme\src/classes/ui/digestsui.php:542
+#: C:\www\enzyme\src/classes/ui/digestsui.php:610
 msgid "Person"
 msgstr ""
 
-#: C:\www\enzyme\src/classes/ui/digestsui.php:540
+#: C:\www\enzyme\src/classes/ui/digestsui.php:543
 msgid "Bugs"
 msgstr ""
 
-#: C:\www\enzyme\src/classes/ui/digestsui.php:567
-#: C:\www\enzyme\src/classes/ui/digestsui.php:573
-#: C:\www\enzyme\src/classes/ui/digestsui.php:608
+#: C:\www\enzyme\src/classes/ui/digestsui.php:570
+#: C:\www\enzyme\src/classes/ui/digestsui.php:576
+#: C:\www\enzyme\src/classes/ui/digestsui.php:611
 msgid "Buzz"
 msgstr ""
 
-#: C:\www\enzyme\src/classes/ui/digestsui.php:572
+#: C:\www\enzyme\src/classes/ui/digestsui.php:575
 msgid "Program"
 msgstr ""
 
-#: C:\www\enzyme\src/classes/ui/digestsui.php:644
+#: C:\www\enzyme\src/classes/ui/digestsui.php:647
 msgid "Selected Commits"
 msgstr ""
 
-#: C:\www\enzyme\src/classes/ui/digestsui.php:646
+#: C:\www\enzyme\src/classes/ui/digestsui.php:649
 msgid "Review commits..."
 msgstr ""
 
-#: C:\www\enzyme\src/classes/ui/digestsui.php:647
+#: C:\www\enzyme\src/classes/ui/digestsui.php:650
 msgid "Classify commits..."
 msgstr ""
 
-#: C:\www\enzyme\src/classes/ui/digestsui.php:652
+#: C:\www\enzyme\src/classes/ui/digestsui.php:655
 msgid "No commits reviewed and classified!"
 msgstr ""
 

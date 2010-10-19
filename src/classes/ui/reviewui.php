@@ -63,11 +63,6 @@ class ReviewUi extends BaseUi {
       $counter      = 1;
 
       foreach ($revisions as $revision) {
-        // skip this commit?
-        if (empty($revision['msg'])) {
-          continue;
-        }
-
         // filter by path?
         if (!empty($revision['basepath'])) {
           // filter commits by user review areas?
