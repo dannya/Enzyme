@@ -23,7 +23,7 @@ class Email {
     if ($from) {
       $this->from   = $from;
     } else {
-      $this->from   = 'no-reply@' . DOMAIN;
+      $this->from   = 'no-reply@' . str_replace('http://', null, ENZYME_URL);
     }
 
     $this->subject  = $subject;
@@ -34,7 +34,7 @@ class Email {
     // setup SMTP server
     ini_set('SMTP',           SMTP);
     ini_set('sendmail_from',  $this->from);
-    ini_set('smtp_port',      '25');
+    ini_set('smtp_port',      25);
 
 
     // process address(es)

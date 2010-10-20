@@ -132,14 +132,18 @@ class Enzyme {
                                       'valid'   => null,
                                       'default' => null,
                                       'example' => 'admin@example.com');
-    $tmp['DOMAIN']            = array('title'   => _('Enzyme URL'),
+    $tmp['ENZYME_URL']        = array('title'   => _('Enzyme URL'),
                                       'valid'   => null,
                                       'default' => null,
                                       'example' => 'http://enzyme.commit-digest.org/');
-    $tmp['DISPLAY_URL']       = array('title'   => _('Digest URL'),
+    $tmp['DIGEST_URL']        = array('title'   => _('Digest URL'),
                                       'valid'   => null,
                                       'default' => null,
                                       'example' => 'http://commit-digest.org/');
+    $tmp['HELP_URL']          = array('title'   => _('Help URL'),
+                                      'valid'   => null,
+                                      'default' => null,
+                                      'example' => 'http://github.com/dannyakakong/Enzyme/wiki');
     $tmp['SMTP']              = array('title'   => _('SMTP Mail Server'),
                                       'valid'   => null,
                                       'default' => null,
@@ -222,8 +226,8 @@ class Enzyme {
     $settings[] = array('title'     => _('Enzyme Settings'),
                         'settings'  => array('PROJECT_NAME'           => $tmp['PROJECT_NAME'],
                                              'ADMIN_EMAIL'            => $tmp['ADMIN_EMAIL'],
-                                             'DOMAIN'                 => $tmp['DOMAIN'],
-                                             'DISPLAY_URL'            => $tmp['DISPLAY_URL'],
+                                             'ENZYME_URL'             => $tmp['ENZYME_URL'],
+                                             'DIGEST_URL'             => $tmp['DIGEST_URL'],
                                              'SMTP'                   => $tmp['SMTP']));
 
     $settings[] = array('title'     => _('Repository'),

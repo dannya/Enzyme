@@ -80,6 +80,9 @@ class EnzymeUi {
         } else if ($current == 'settings') {
           $this->frame = new SettingsUI($this->user);
 
+        } else if ($current == 'help') {
+          $this->frame = new HelpUI($this->user);
+
         } else if ($current == 'setup') {
           $this->frame = new SetupUI();
 
@@ -187,10 +190,12 @@ class EnzymeUi {
       // draw header
       $user =  '<div id="header-user">
                   <span>' . $this->user->data['firstname'] . ' ' . $this->user->data['lastname'] . '</span>
-                  <input id="button_logout" type="button" title="' . _('Logout') . '" value="' . _('Logout') . '" onclick="top.location=\'?logout\';" />' .
+                  <input id="button_logout" type="button" title="' . _('Logout') . '" value="' . _('Logout') . '" onclick="top.location=\'?logout\';" />
+                  <input id="button_help" class="padding' . $settingsSelected . '" type="button" title="' . _('Help') . '" value="' . _('Help') . '" onclick="top.location=\'' . BASE_URL . '/help/\';" />' .
                   $setupButton .
                '  <input id="button_settings" class="padding' . $settingsSelected . '" type="button" title="' . _('Settings') . '" value="' . _('Settings') . '" onclick="top.location=\'' . BASE_URL . '/settings/\';" />
                 </div>';
+
     } else {
       $user = null;
     }

@@ -112,12 +112,22 @@ div.item div.commit-msg div.bugs div:hover {
 }
 
 
-
-div.item div.commit-classify {
+div.item div.commit-panel {
   position:absolute;
   right:8px;
   top:8px;
+}
 
+div.item div.commit-panel div.commit-blame {
+  float:left;
+  margin:2px 64px 0 0;
+  font-style:italic;
+  font-size:16px;
+  color:#666;
+}
+
+div.item div.commit-panel div.commit-classify {
+  float:right;
   background-color:#000;
   padding:6px;
   font-size:13px;
@@ -128,7 +138,6 @@ div.item div.commit-classify {
 }
 
 div.item div.commit-classify label {
-  
   text-align:right;
   color:#fff;
 }

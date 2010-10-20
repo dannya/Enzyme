@@ -250,15 +250,20 @@ class Ui {
         $areas = array_values(Enzyme::getAreas(true));
         $types = array_values(Enzyme::getTypes(true));
 
-        $buf  .= '<div class="commit-classify mouse">
-                    <div>
-                      <label>Area</label>' .
-                      Ui::htmlSelector($id . '-area', $areas, $data['area'], 'setCurrentItem(\'' . $id . '\');') .
+        $buf  .= '<div class="commit-panel">
+                    <div class="commit-blame">' .
+                      sprintf(_('Reviewed by %s'), $data['reviewer']) .
                  '  </div>
-                    <div>
-                      <label>Type</label>' .
-                      Ui::htmlSelector($id . '-type', $types, $data['type'], 'setCurrentItem(\'' . $id . '\');') .
-                 '  </div>
+                    <div class="commit-classify mouse">
+                      <div>
+                        <label>Area</label>' .
+                        Ui::htmlSelector($id . '-area', $areas, $data['area'], 'setCurrentItem(\'' . $id . '\');') .
+                   '  </div>
+                      <div>
+                        <label>Type</label>' .
+                        Ui::htmlSelector($id . '-type', $types, $data['type'], 'setCurrentItem(\'' . $id . '\');') .
+                   '  </div>
+                    </div>
                   </div>';
 
       } else {

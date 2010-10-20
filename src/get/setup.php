@@ -57,17 +57,16 @@ foreach ($validSettings as $theSetting => $null) {
     $data[$theSetting] = trim($data[$theSetting]);
 
     // process values to expected format...
-    if (($theSetting == 'DOMAIN') || ($theSetting == 'DISPLAY_URL')) {
+    if (($theSetting == 'ENZYME_URL') || ($theSetting == 'DIGEST_URL')) {
       // strip trailing slash
       $data[$theSetting] = rtrim($data[$theSetting], '/');
     }
 
-    if (($theSetting == 'DISPLAY_URL') && (strpos($data[$theSetting], 'http://') === false)) {
+    if ((($theSetting == 'ENZYME_URL') || ($theSetting == 'DIGEST_URL')) &&
+        (strpos($data[$theSetting], 'http://') === false)) {
+
       // prepend http://
       $data[$theSetting] = 'http://' . $data[$theSetting];
-    } else if (($theSetting == 'DOMAIN') && (strpos($data[$theSetting], 'http://') !== false)) {
-      // remove http://
-      $data[$theSetting] = str_replace('http://', null, $data[$theSetting]);
     }
 
 

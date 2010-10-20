@@ -87,7 +87,7 @@ if (($_REQUEST['dataType'] == 'new-user') || ($_REQUEST['dataType'] == 'approve-
     $to       = array('name'    => $data['firstname'] . ' ' . $data['lastname'],
                       'address' => $data['email']);
     $message  = sprintf('%s, your application for %s has been successful!', $data['firstname'], $data['permissions']) . "\n" .
-                sprintf('To get started, please go to %s and login with the following details:', 'http://' . DOMAIN . '/') . "\n\n" .
+                sprintf('To get started, please go to %s and login with the following details:', ENZYME_URL . '/') . "\n\n" .
                 sprintf('  Username: %s', $data['username']) . "\n" .
                 sprintf('  Password: %s', $tmpPassword) . "\n\n" .
                         'Be sure to change your password immediately after logging in by going to "Settings" at the top right.' . "\n" .

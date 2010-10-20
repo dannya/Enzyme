@@ -1,0 +1,21 @@
+div#content {
+  left:208px;
+}
+
+
+h3 {
+  position:relative;
+}
+h3 span {
+  display:block;
+  float:right;
+  margin:3px 6px 0 0;
+
+  font-size:16px;
+  font-weight:normal;
+  font-style:italic;
+  color:#999;
+}
+h3 span a {
+  color:#999;
+}

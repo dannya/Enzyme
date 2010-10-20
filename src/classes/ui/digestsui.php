@@ -719,7 +719,7 @@ class DigestsUi extends BaseUi {
                '      <span class="d">' .
                         Digest::drawDiffs($commit, $this->data['date']) .
                '      </span>
-                      <a class="r n" href="' . DISPLAY_URL . '/issues/' . $this->data['date'] . '/moreinfo/' . $commit['revision'] . '/" target="_blank">' .
+                      <a class="r n" href="' . DIGEST_URL . '/issues/' . $this->data['date'] . '/moreinfo/' . $commit['revision'] . '/" target="_blank">' .
                         sprintf(_('Revision %d'), $commit['revision']) .
                      '</a>
                     </div>
