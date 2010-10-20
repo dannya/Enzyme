@@ -19,11 +19,13 @@ table thead tr th {
 div#column-left {
   position:absolute;
   width:46%;
+  padding-bottom:22px;
 }
 div#column-right {
   position:absolute;
   width:46%;
   right:20px;
+  padding-bottom:22px;
 }
 
 

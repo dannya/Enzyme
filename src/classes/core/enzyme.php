@@ -941,7 +941,7 @@ class Enzyme {
   }
 
 
-  public static function getParticipationStats() {
+  public static function getParticipationStats($sort = true) {
     // set week date boundaries
     $start  = date('Y-m-d', strtotime('Today - 1 week'));
     $end    = date('Y-m-d');
@@ -1021,7 +1021,26 @@ class Enzyme {
     }
 
 
+    // sort?
+    if ($sort) {
+      uasort($stats, array('Enzyme', 'sortParticipationStats'));
+    }
+
+
     return $stats;
+  }
+
+
+  public static function sortParticipationStats($a, $b) {
+    if (isset($a['classified']['week']) && isset($a['classified']['week'])) {
+      // use both reviewed and classified weekly values
+      // (weight classify 5 times greater than review)
+      return ($a['reviewed']['week'] + ($a['classified']['week'] * 5)) < ($b['reviewed']['week'] + ($b['classified']['week'] * 5));
+
+    } else {
+      // only use reviewed values
+      return $a['reviewed']['week'] < $b['reviewed']['week'];
+    }
   }
 
 
