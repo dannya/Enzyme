@@ -183,15 +183,23 @@ class EnzymeUi {
         }
 
         $setupButton = '<input id="button_setup" class="padding' . $setupSelected . '" type="button" title="' . _('Setup') . '" value="' . _('Setup') . '" onclick="top.location=\'' . BASE_URL . '/setup/\';" />';
+
       } else {
         $setupButton = null;
+      }
+
+      // select "help" button?
+      if ($this->frame->id == 'help') {
+        $helpSelected = ' selected';
+      } else {
+        $helpSelected = null;
       }
 
       // draw header
       $user =  '<div id="header-user">
                   <span>' . $this->user->data['firstname'] . ' ' . $this->user->data['lastname'] . '</span>
                   <input id="button_logout" type="button" title="' . _('Logout') . '" value="' . _('Logout') . '" onclick="top.location=\'?logout\';" />
-                  <input id="button_help" class="padding' . $settingsSelected . '" type="button" title="' . _('Help') . '" value="' . _('Help') . '" onclick="top.location=\'' . BASE_URL . '/help/\';" />' .
+                  <input id="button_help" class="padding' . $helpSelected . '" type="button" title="' . _('Help') . '" value="' . _('Help') . '" onclick="top.location=\'' . BASE_URL . '/help/\';" />' .
                   $setupButton .
                '  <input id="button_settings" class="padding' . $settingsSelected . '" type="button" title="' . _('Settings') . '" value="' . _('Settings') . '" onclick="top.location=\'' . BASE_URL . '/settings/\';" />
                 </div>';
