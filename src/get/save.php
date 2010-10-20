@@ -51,8 +51,13 @@ if ($_REQUEST['type'] == 'review') {
 
 
   // insert data
-  $json['saved']   = count($values);
-  $json['success'] = Db::insert('commits_reviewed', $values, true);
+  if (isset($values)) {
+    $json['saved']   = count($values);
+    $json['success'] = Db::insert('commits_reviewed', $values, true);
+  } else {
+    $json['saved']   = 0;
+    $json['success'] = false;
+  }
 
   // report success
   App::returnHeaderJson();
@@ -81,8 +86,13 @@ if ($_REQUEST['type'] == 'review') {
 
 
     // save data
-    $json['saved']   = count($values);
-    $json['success'] = Db::saveMulti('commits_reviewed', $values);
+    if (isset($values)) {
+      $json['saved']   = count($values);
+      $json['success'] = Db::saveMulti('commits_reviewed', $values);
+    } else {
+      $json['saved']   = 0;
+      $json['success'] = false;
+    }
 
   } else {
     $json['saved']   = 0;
