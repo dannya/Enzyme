@@ -54,7 +54,7 @@ class UsersUi extends BaseUi {
     $buf = '<h3>' .
               _('Users') .
            '  <div>
-                <span id="num-users">' .
+                <span class="status">' .
                   sprintf(_('%d users'), Digest::getNumUsers()) .
            '    </span>
                 <input type="button" title="' . _('Add new user') . '" value="' . _('Add new user') . '" onclick="addUser();" />
@@ -107,7 +107,13 @@ class UsersUi extends BaseUi {
     if ($this->applications) {
       $buf  .= '<h3>' .
                 _('Applications') .
-               '</h3>' .
+               '  <div>
+                    <span class="status">' .
+                      sprintf(_('%d applications'), count($this->applications)) .
+               '    </span>
+                  </div>
+                </h3>' .
+
                $this->drawApplications();
     }
 

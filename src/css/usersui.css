@@ -6,7 +6,7 @@ div#content {
 h3 {
   position:relative;
 }
-h3 span#num-users {
+h3 span.status {
   display:block;
   float:left;
   margin:3px 6px 0 0;
@@ -26,6 +26,7 @@ h3 div {
 table#users {
   margin:40px auto 0 auto;
   border-collapse:collapse;
+  margin-bottom:22px;
 }
 
 table#users tbody tr:nth-child(even) {
