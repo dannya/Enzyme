@@ -52,8 +52,9 @@ function createNewDigest() {
             showIndicator('new-digest', 'indicator-success');
 
             // wait for user to acknowledge change, then redirect
-            sleep(2);
-            top.location = BASE_URL + '/issues/' + theDate + '/';
+            window.setTimeout(function() {
+            	                  top.location = BASE_URL + '/digests/' + theDate + '/'; 
+                              }, 1000);
 
           } else {
             showIndicator('new-digest', 'indicator-failure');
