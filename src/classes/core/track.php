@@ -21,6 +21,11 @@ class Track {
 
 
   public static function user($username) {
+    // only track useful pages
+    if ($_SERVER['SCRIPT_URL'] == '/get/page.php') {
+      return false;
+    }
+
     // set important tracking information
     $data = array('time'  => time(),
                   'page'  => $_SERVER['SCRIPT_URL'],
