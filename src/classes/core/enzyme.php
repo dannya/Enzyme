@@ -1034,8 +1034,8 @@ class Enzyme {
   public static function sortParticipationStats($a, $b) {
     if (isset($a['classified']['week']) && isset($a['classified']['week'])) {
       // use both reviewed and classified weekly values
-      // (weight classify 5 times greater than review)
-      return ($a['reviewed']['week'] + ($a['classified']['week'] * 5)) < ($b['reviewed']['week'] + ($b['classified']['week'] * 5));
+      // (weight classify 3 times greater than review)
+      return ($a['reviewed']['week'] + ($a['classified']['week'] * 3)) < ($b['reviewed']['week'] + ($b['classified']['week'] * 3));
 
     } else {
       // only use reviewed values
