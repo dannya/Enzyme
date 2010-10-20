@@ -10,8 +10,8 @@ div#login-footer {
 div#login-footer a {
   display:block;
   position:absolute;
-  right:0px;
-  top:0px;
+  right:0;
+  top:0;
 
   width:307px;
   height:35px;

@@ -16,6 +16,12 @@ body#body-iframe {
   height:auto;
   padding:10px;
 }
+body#body-iframe p:first-child {
+  margin-top:0;
+}
+body#body-iframe p:last-child {
+  margin-bottom:0;
+}
 
 
 iframe {
@@ -226,7 +232,7 @@ div#header div#header-user input {
 div#content {
   position:absolute;
   top:38px;
-  left:0px;
+  left:0;
   right:0;
   bottom:0;
   padding:16px 20px;
