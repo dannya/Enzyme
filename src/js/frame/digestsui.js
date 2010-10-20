@@ -213,6 +213,29 @@ function generateStats(start, end) {
   if ($('results')) {
     $('results').src = BASE_URL + '/get/statistics.php?start=' + start + '&end=' + end;
   }
+  
+  // change buttons
+  if ($('generate-stats') && $('delete-stats')) {
+    $('generate-stats').hide();
+    $('delete-stats').show();
+  }
+}
+
+
+function deleteStats(theDate) {
+  if ((typeof theDate == 'undefined')) {
+    return false;
+  }
+
+  // alert
+  alert(theDate);
+  return
+  
+  // change buttons
+  if ($('generate-stats') && $('delete-stats')) {
+  	$('delete-stats').hide();
+    $('generate-stats').show();
+  }
 }
 
 

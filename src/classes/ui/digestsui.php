@@ -334,24 +334,30 @@ class DigestsUi extends BaseUi {
   private function drawStats() {
     // draw 'generate' button?
     if (empty($this->data['stats'])) {
-      $button =  '<div>
-                    <div id="indicator-stats"><div>&nbsp;</div></div>
-                    <input id="generate-stats" type="button" value="' . _('Generate statistics') . '" title="' . _('Generate statistics') . '" onclick="generateStats(\'' . $this->data['date'] . '\', \'' . date('Y-m-d', strtotime($this->data['date'] . ' -1 week')) . '\');" />
-                  </div>';
+      $deleteStyle    = ' style="display:none;"';
+      $generateStyle  = null;
+      $resultsStyle   = null;
+
     } else {
-      $button = null;
+      $deleteStyle    = null;
+      $generateStyle  = ' style="display:none;"';
+      $resultsStyle   = ' style="display:none;"';
     }
 
     $buf = '<h2>' .
               _('Statistics') .
-              $button .
-           '</h2>';
+           '  <div>
+                <div id="indicator-stats"><div>&nbsp;</div></div>
+                <input id="generate-stats" type="button" value="' . _('Generate statistics') . '" title="' . _('Generate statistics') . '" onclick="generateStats(\'' . $this->data['date'] . '\', \'' . date('Y-m-d', strtotime($this->data['date'] . ' -1 week')) . '\');"' . $generateStyle . ' />
+                <input id="delete-stats" type="button" value="' . _('Delete statistics') . '" title="' . _('Delete statistics') . '" onclick="deleteStats(\'' . $this->data['date'] . '\');"' . $deleteStyle . ' />
+              </div>
+            </h2>
 
-    if (empty($this->data['stats'])) {
-      // draw generation interface
-      $buf .=  '<iframe id="results" src="' . BASE_URL . '/get/prompt.php?language=' . LANGUAGE . '&prompt=stats"></iframe>';
+            <iframe id="results" src="' . BASE_URL . '/get/prompt.php?language=' . LANGUAGE . '&prompt=stats"' . $resultsStyle . '></iframe>';
 
-    } else {
+
+    // show generated stats if available
+    if (!empty($this->data['stats'])) {
       // define general fields to show
       $fields = array('total_commits'     => _('Total Commits'),
                       'total_lines'       => _('Total Lines'),
@@ -656,6 +662,7 @@ class DigestsUi extends BaseUi {
              '</p>';
     }
 
+
     // initialise areas and types
     $types        = Enzyme::getTypes();
     $areas        = Enzyme::getAreas();
@@ -672,7 +679,9 @@ class DigestsUi extends BaseUi {
 
 
     // draw
-    $buf = null;
+    $buf = '<div id="num-commits">' .
+              sprintf(_('There are %d selections this week'), count($this->data['commits'])) .
+           '</div>';
 
     foreach ($this->data['commits'] as $commit) {
       // draw new header (type)?
@@ -703,7 +712,9 @@ class DigestsUi extends BaseUi {
                     '<a class="n" href="http://cia.vc/stats/author/' . $commit['author'] . '/">' . $commit['name'] . '</a>',
                     Enzyme::drawBasePath($commit['basepath'])) .
                '  </div>
-                  <div class="selectors">' .
+                  <div class="selectors">
+                    <div class="reviewer" title="' . sprintf(_('Reviewed by %s'), $commit['reviewer']) . '">&nbsp;</div>
+                    <div class="classifier" title="' . sprintf(_('Classified by %s'), $commit['classifier']) . '">&nbsp;</div>' .
                     Ui::htmlSelector('type-' . $commit['revision'], $numericTypes, $commit['type'], 'changeValue(\'type\', ' . $commit['revision'] . ');') .
                     Ui::htmlSelector('area-' . $commit['revision'], $numericAreas, $commit['area'], 'changeValue(\'area\', ' . $commit['revision'] . ');') .
                '  </div>

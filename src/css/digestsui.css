@@ -290,7 +290,7 @@ div.commit {
 }
 
 div.commit div.intro {
-  width:700px;
+  width:670px;
   margin-bottom:9px;
 }
 
@@ -303,9 +303,34 @@ div.commit div.selectors select {
   display:inline;
   width:auto;
   border-width:1px !important;
+  margin-right:6px;
 }
-div.commit div.selectors select:first-child {
-  margin-right:4px;
+div.commit div.selectors select:last-child {
+  margin-right:0;
+}
+
+div.commit div.selectors div.reviewer,
+div.commit div.selectors div.classifier {
+  float:left;
+  margin:4px 6px 0 0;
+  width:22px;
+  height:22px;
+
+  background-color:#666;
+  background:url('../img/sprite.png') no-repeat;
+  cursor:pointer;
+}
+div.commit div.selectors div.reviewer {
+  background-position:-110px -22px;
+}
+div.commit div.selectors div.reviewer:hover {
+  background-position:-110px -0;
+}
+div.commit div.selectors div.classifier {
+  background-position:-132px -22px;
+}
+div.commit div.selectors div.classifier:hover {
+  background-position:-132px -0;
 }
 
 div.commit div.details {
@@ -335,19 +360,31 @@ div.commit div.details div.info div.b div.bug div {
 }
 div.commit div.details div.info div.b div.bug div div {
   float:left;
-  margin:2px 6px 0 0;
+  margin:1px 6px 0 0;
 
-  width:20px;
-  height:20px;
+  width:22px;
+  height:22px;
   background:url('../img/sprite.png') no-repeat;
-  background-position:-100px -40px;
+  background-position:-88px -22px;
 }
 div.commit div.details div.info div.b div.bug div span {
   float:right;
   font-style:italic;
-  color:#999;
+  color:#666;
 }
 
 div.commit div.details div.info a.r {
   float:right;
+}
+
+
+
+
+div#num-commits {
+  margin:64px 0 0 0;
+
+  color:#ccc;
+  font-style:italic;
+  font-size:22px;
+  text-align:center;
 }
