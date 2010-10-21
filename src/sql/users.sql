@@ -1,6 +1,6 @@
 CREATE TABLE IF NOT EXISTS `users` (
   `username` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
-  `password` varchar(40) COLLATE utf8_unicode_ci NOT NULL,
+  `password` varchar(40) COLLATE utf8_unicode_ci DEFAULT NULL,
   `email` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
   `firstname` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
   `lastname` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
