@@ -82,10 +82,10 @@ if (COMMAND_LINE) {
 // connect to database
 $databaseExists = Db::connect();
 
-if (($_SERVER['SCRIPT_URL'] == '/js/index.php') ||
-    ($_SERVER['SCRIPT_URL'] == '/get/setup.php') ||
-    ($_SERVER['SCRIPT_URL'] == '/get/setup-database.php') ||
-    ($_SERVER['SCRIPT_URL'] == '/get/setup-user.php')) {
+if (($_SERVER['SCRIPT_NAME'] == '/js/index.php') ||
+    ($_SERVER['SCRIPT_NAME'] == '/get/setup.php') ||
+    ($_SERVER['SCRIPT_NAME'] == '/get/setup-database.php') ||
+    ($_SERVER['SCRIPT_NAME'] == '/get/setup-user.php')) {
 
   // common script and setup handler need to bypass database check (used in setup!)
   define('DEFAULT_LANGUAGE', 'en_US');
