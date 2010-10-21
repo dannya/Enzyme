@@ -7,7 +7,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `active` tinyint(1) NOT NULL,
   `language` varchar(5) COLLATE utf8_unicode_ci NOT NULL DEFAULT 'en_US',
   `permissions` varchar(200) COLLATE utf8_unicode_ci NOT NULL,
-  `paths` text COLLATE utf8_unicode_ci NOT NULL,
+  `paths` text COLLATE utf8_unicode_ci DEFAULT NULL,
   `interface` enum('keyboard','mouse') COLLATE utf8_unicode_ci NOT NULL DEFAULT 'mouse',
   `reset_ip` varchar(15) COLLATE utf8_unicode_ci DEFAULT NULL,
   `reset_code` varchar(20) COLLATE utf8_unicode_ci DEFAULT NULL,
