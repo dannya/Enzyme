@@ -67,11 +67,26 @@ if ($_REQUEST['context'] == 'new-digest') {
   $table   = 'digest_intro_sections';
   $filter  = array('date'      => $_REQUEST['date'],
                    'number'    => $values['number']);
-  $data    = array('intro'     => $values['intro'],
-                   'type'      => $values['type']);
+  $data    = array('type'      => $values['type']);
 
+  // set optional values
+  if (isset($values['intro'])) {
+    $data['intro'] = $values['intro'];
+  }
   if (isset($values['body'])) {
     $data['body'] = $values['body'];
+  }
+
+  // insert?
+  if (isset($_REQUEST['insert']) && ($_REQUEST['insert'] == 'true')) {
+    // add additional fields
+    $data['date']   = $_REQUEST['date'];
+    $data['number'] = $values['number'];
+    $data['author'] = $user->data['username'];
+
+    // insert
+    $json['success']  = Db::insert($table, $data);
+    $skip             = true;
   }
 
 } else {

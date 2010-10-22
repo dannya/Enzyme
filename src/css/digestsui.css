@@ -388,3 +388,55 @@ div#num-commits {
   font-size:22px;
   text-align:center;
 }
+
+
+
+
+
+
+
+
+
+
+table#people {
+  border-collapse:collapse;
+  margin-bottom:22px;
+  top:20px;
+}
+
+table#people tbody tr:nth-child(even) {
+  background:#E1EAF3;
+}
+table#people tbody tr:nth-child(odd) {
+  background:#fff;
+}
+
+table#people thead tr th {
+  width:120px;
+  height:22px;
+  padding:0 8px;
+  
+  text-align:left;
+  font-weight:normal;
+  font-style:italic;
+  font-size:14px;
+  color:#666;
+}
+table#people thead tr th:first-child {
+  width:auto;
+}
+table#people thead tr th.permission {
+  width:16px;
+  text-align:center;
+}
+
+table#people tbody tr td {
+  padding:4px;
+}
+table#people tbody tr td:last-child {
+  width:200px;
+}
+
+table#people td.padding {
+  padding-right:18px;
+}

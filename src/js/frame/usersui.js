@@ -25,7 +25,7 @@ function addUser() {
     ++newRowCounter;
 
     // add new row to page
-    $('users').down('tbody').insert({ bottom:'<tr id="row-new-' + newRowCounter + '">' + newRow + '</tr>' });
+    $('users').down('tbody').insert({ bottom: '<tr id="row-new-' + newRowCounter + '">' + newRow + '</tr>' });
   }
 }
 

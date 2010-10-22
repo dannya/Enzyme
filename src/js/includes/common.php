@@ -20,6 +20,9 @@ var BASE_URL = '<?php echo BASE_URL; ?>';
 var strings  = {};
 
 strings.failure                 = '<?php echo _("Error") ?>';
+strings.close                   = '<?php echo _("Close") ?>';
+strings.loading                 = '<?php echo _("Loading") ?>';
+strings.cancel                  = '<?php echo _("Cancel") ?>';
 
 strings.change_password_success = '<?php echo _("Your password has been changed") ?>';
 strings.change_password_failure = '<?php echo _("Error: Password not changed") ?>';
@@ -32,6 +35,8 @@ strings.application_failure     = '<?php echo _("Error: Application failed") ?>'
 strings.settings_failure        = '<?php echo _("Failed to save settings") ?>';
 
 strings.reset_success           = '<?php echo _("Your password has been reset. Please check your registered email account for further instructions.") ?>';
+
+strings.people_references       = '<?php echo _("People References") ?>';
 
 
 function sprintf() {

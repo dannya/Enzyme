@@ -13,6 +13,60 @@
 +--------------------------------------------------------*/
 
 
+function addIntroSection() {
+  if ($('sections') && $('intro-section-new')) {
+	  // hide prompt
+	  if ($('sections-prompt')) {
+	    $('sections-prompt').hide();
+	  }
+
+    // clone new row, so we can keep adding new rows after this one
+    var newRow = $('intro-section-new').innerHTML;
+
+    // count number of sections
+    var newCounter = $('sections').select('div.section').size();
+
+    // change id's and actions of new (visible) row
+    $('save-introduction-new').writeAttribute('onclick', $('save-introduction-new').readAttribute('onclick').sub('new', newCounter));
+    $('save-introduction-new').id  = $('save-introduction-new').id.sub('-new', '-' + newCounter);
+    
+    $('button-message-new').writeAttribute('onclick', $('button-message-new').readAttribute('onclick').sub('new', newCounter));
+    $('button-message-new').id     = $('button-message-new').id.sub('-new', '-' + newCounter);
+
+    $('button-comment-new').writeAttribute('onclick', $('button-comment-new').readAttribute('onclick').sub('new', newCounter));
+    $('button-comment-new').id     = $('button-comment-new').id.sub('-new', '-' + newCounter);
+
+    $('intro-new').id              = $('intro-new').id.sub('-new', '-' + newCounter);
+    $('body-new').id               = $('body-new').id.sub('-new', '-' + newCounter);
+
+    $('section-counter-new').update(newCounter);
+    $('section-counter-new').id    = $('section-counter-new').id.sub('-new', '-' + newCounter);
+    
+    // make new row visible
+    $('intro-section-new').id      = $('intro-section-new').id.sub('-new', '-' + newCounter);
+    $('intro-section-' + newCounter).show();
+
+    // add new row to page
+    $('sections').insert({ bottom: '<div id="intro-section-new" class="section" style="display:none;">' + newRow + '</div>' });
+  }
+}
+
+
+function peopleReferences(theDate) {
+	if (typeof theDate == 'undefined') {
+	  return false;
+	}
+
+	// load in lightbox
+	myLightWindow.activateWindow({
+	  href:    BASE_URL + '/get/people-references.php?date=' + theDate, 
+	  title:   strings.people_references,
+	  width:   500,
+	  height:  500
+	});
+}
+
+
 function createNewDigest() {
   if ($('new-digest')) {
     // collect data
@@ -66,14 +120,28 @@ function createNewDigest() {
 }
 
 
-function addIntroSection() {
-  alert('add intro section');
+function insertSection(event, theDate, theContext, number) {
+  var success = saveSection(theDate, theContext, number, true);
+
+  // change onclick action
+  if (success) {
+  	var button = event.element().up('div.save-introduction');
+
+  	button.writeAttribute('onclick', "saveSection('" + theDate + "', '" + theContext + "', " + number + ");");
+  }
 }
 
 
-function saveSection(theDate, theContext, number) {
+function saveSection(theDate, theContext, number, theInsert) {
   if ((typeof theDate == 'undefined') || (typeof theContext == 'undefined')) {
     return false;
+  }
+  
+  // insert, or save?
+  if ((typeof theInsert != 'undefined') && theInsert) {
+  	var theInsert = true;
+  } else {
+  	var theInsert = false;
   }
 
 
@@ -117,7 +185,8 @@ function saveSection(theDate, theContext, number) {
     parameters: { 
       date:    theDate,
       context: theContext,
-      values:  Object.toQueryString(theValues)
+      values:  Object.toQueryString(theValues),
+      insert:  theInsert
     },
     onSuccess: function(transport) {
       var result = transport.headerJSON;
@@ -127,8 +196,15 @@ function saveSection(theDate, theContext, number) {
       } else {
         showIndicator(theContext, 'indicator-failure');
       }
-    }
+
+      return true;
+    },
+    onFailure: function() {
+    	return false;
+    },
   });
+
+  return true;
 }
 
 
@@ -166,19 +242,54 @@ function setPublished(element, date, state) {
 }
 
 
-function changeItemType(number, type) {
-  if (!$('button-message-' + number) || !$('button-comment-' + number)) {
+function changeItemType(theDate, theNumber, theType) {
+  if ((typeof theDate == 'undefined') || 
+      !$('button-message-' + theNumber) || !$('button-comment-' + theNumber)) {
+
     return false;
   }
-  
-  if (type == 'message') {
-    $('button-message-' + number).writeAttribute('class', 'selected');
-    $('button-comment-' + number).writeAttribute('class', 'unselected');
 
-  } else if (type == 'comment') {
-    $('button-message-' + number).writeAttribute('class', 'unselected');
-    $('button-comment-' + number).writeAttribute('class', 'selected');
+
+  // collect data
+  var theData = {};
+  theData['number'] = theNumber;
+  theData['type']   = theType;
+  
+  // blank message field when changing to comment
+  if (theType == 'comment') {
+    theData['body'] = '';	
   }
+
+  // send off change
+  new Ajax.Request(BASE_URL + '/get/section.php', {
+    method: 'post',
+    parameters: {
+      date:    theDate,
+      context: 'introduction',
+      values:  Object.toQueryString(theData)
+    },
+    onSuccess: function(transport) {
+      var result = transport.headerJSON;
+
+      if ((typeof result.success != 'undefined') && result.success) {
+			  // hide / show textarea, change styling
+			  if (theType == 'message') {
+			    $('body-' + theNumber).show();
+			    $('intro-' + theNumber).writeAttribute('class', 'intro-message');
+
+			    $('button-message-' + theNumber).writeAttribute('class', 'selected');
+			    $('button-comment-' + theNumber).writeAttribute('class', 'unselected');
+
+			  } else if (theType == 'comment') {
+			    $('body-' + theNumber).hide();
+			    $('intro-' + theNumber).writeAttribute('class', 'intro-comment');
+
+			    $('button-message-' + theNumber).writeAttribute('class', 'unselected');
+			    $('button-comment-' + theNumber).writeAttribute('class', 'selected');
+			  }
+      }
+    }
+  });
 }
 
 

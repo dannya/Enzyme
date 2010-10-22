@@ -134,13 +134,13 @@ input[type="submit"].selected {
   background-color:#464D7A;
 }
 
-div#content input[type="button"],
-div#content input[type="submit"] {
+#content input[type="button"],
+#content input[type="submit"] {
   background:url("../img/bgd.png") repeat scroll 0 0 transparent;
   color:#000;
 }
-div#content input[type="button"]:hover,
-div#content input[type="submit"]:hover {
+#content input[type="button"]:hover,
+#content input[type="submit"]:hover {
   color:#fff;
   background-color:#464D7A;
 }
@@ -363,7 +363,7 @@ div#console {
 
 
 p.prompt {
-  margin:200px 0;
+  margin:200px 0 !important;
 
   color:#ccc;
   font-style:italic;

@@ -169,13 +169,15 @@ class Digest {
       $digest['sections'][$row['number']] = $row;
 
       // record section authors to track contributors to this issue
-      if (!isset($digest['contributors'][$row['author']])) {
-        $digest['contributors'][$row['author']] = array('type'   => 'editor',
-                                                        'name'   => $row['author'],
-                                                        'value'  => 1);
-      } else {
-        // increment value
-        ++$digest['contributors'][$row['author']]['value'];
+      if ($row['type'] != 'comment') {
+        if (!isset($digest['contributors'][$row['author']])) {
+          $digest['contributors'][$row['author']] = array('type'   => 'editor',
+                                                          'name'   => $row['author'],
+                                                          'value'  => 1);
+        } else {
+          // increment value
+          ++$digest['contributors'][$row['author']]['value'];
+        }
       }
     }
 
@@ -409,6 +411,26 @@ class Digest {
   }
 
 
+  public static function getPeopleReferences($date) {
+    // load digest issue people references
+    $q = mysql_query('SELECT number, name, account
+                      FROM digest_intro_people
+                      WHERE date = \'' . $date . '\'') or trigger_error(sprintf(_('Query failed: %s'), mysql_error()));
+
+    $digest = array();
+
+    while ($row = mysql_fetch_assoc($q)) {
+      // derive short name
+      $tmp = explode(' ', $row['name']);
+      $row['short_name'] = array_shift($tmp);
+
+      $digest['people'][$row['number']] = $row;
+    }
+
+    return $digest;
+  }
+
+
   public static function getTypes() {
     return array('issue'    => _('Issue'),
                  'archive'  => _('Archive'));
@@ -418,13 +440,13 @@ class Digest {
   public static function getLanguages() {
     return array('en_US'  => _('English'),
                  'de_DE'  => _('Deutsch (German)'),
+                 'fr_FR'  => _('Français (French)'),
                  'es_ES'  => _('Español (Spanish)'),
                  'it_IT'  => _('Italiano (Italian)'),
                  'pl_PL'  => _('Polski (Polish)'),
                  'pt_BR'  => _('Português Brasileiro (Brazilian Portuguese)'));
 
-    return array('fr_FR'  => _('Français (French)'),
-                 'nl_NL'  => _('Nederlands (Dutch)'),
+    return array('nl_NL'  => _('Nederlands (Dutch)'),
                  'pt_PT'  => _('Português (Portuguese)'),
                  'sv_SE'  => _('Svenska (Swedish)'));
   }

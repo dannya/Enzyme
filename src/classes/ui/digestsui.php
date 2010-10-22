@@ -56,12 +56,14 @@ class DigestsUi extends BaseUi {
 
 
   public function getScript() {
-    return array('/js/frame/digestsui.js');
+    return array('/js/lightwindow.js',
+                 '/js/frame/digestsui.js');
   }
 
 
   public function getStyle() {
-    return array('/css/digestsui.css');
+    return array('/css/lightwindow.css',
+                 '/css/digestsui.css');
   }
 
 
@@ -279,53 +281,93 @@ class DigestsUi extends BaseUi {
            '  <div>
                 <div id="indicator-introduction"><div>&nbsp;</div></div>
                 <input id="add-introduction" type="button" value="' . _('Add section') . '" title="' . _('Add section') . '" onclick="addIntroSection();" />
+                <input id="people-references" type="button" value="' . _('People references') . '" title="' . _('People references') . '" onclick="peopleReferences(\'' . $this->data['date'] . '\');" />
               </div>
             </h2>';
 
+    // show prompt?
     if (empty($this->data['sections'])) {
-      $buf .=  '<p class="prompt">' .
+      $buf .=  '<p id="sections-prompt" class="prompt">' .
                   _('No introduction sections found') .
                 '</p>';
+    }
 
-    } else {
-      $buf .=  '<div id="sections">';
 
+    // draw sections
+    $buf .=  '<div id="sections">';
+
+    if (!empty($this->data['sections'])) {
       foreach ($this->data['sections'] as $section) {
-        // set button states
-        if ($section['type'] == 'message') {
-          $body         = '<textarea id="body-' . $section['number'] . '" class="body" rows="8">' . $section['body'] . '</textarea>';
+        $buf  .= $this->drawSection($section);
+      }
+    }
 
-          $messageClass = 'selected';
-          $commentClass = 'unselected';
 
-        } else if ($section['type'] == 'comment') {
-          $body         = null;
+    // draw additional empty section, to allow adding new sections
+    $buf .= $this->drawSection(null);
 
-          $messageClass = 'unselected';
-          $commentClass = 'selected';
-        }
+    $buf  .= '</div>';
 
-        // draw
-        $buf .=  '<div id="intro-section-' . $section['number'] . '" class="section">
-                    <span>' . $section['number'] . '</span>
-                    <div id="save-introduction-' . $section['number'] . '" class="save-introduction" title="' . _('Save changes') . '" onclick="saveSection(\'' . $this->data['date'] . '\', \'introduction\', ' . $section['number'] . ');">
-                      <div>&nbsp;</div>
-                    </div>
+    return $buf;
+  }
 
-                    <div class="section-container">
-                      <input id="button-message-' . $section['number'] . '" type="button" value="m" title="' . _('Message') . '" class="' . $messageClass . '" onclick="changeItemType(' . $section['number'] . ', \'message\');" />
-                      <input id="button-comment-' . $section['number'] . '" type="button" value="c" title="' . _('Comment') . '" class="' . $commentClass . '" onclick="changeItemType(' . $section['number'] . ', \'comment\');" />
 
-                      <textarea id="intro-' . $section['number'] . '" class="intro-' . $section['type'] . '" rows="1">' .
-                        $section['intro'] .
-                   '  </textarea>' .
-                      $body .
-                 '  </div>
-                  </div>';
+  private function drawSection($section = null) {
+    // set button states
+    if ($section) {
+      $rowStyle       = null;
+      $textareaClass  = 'intro-' . $section['type'];
+
+      $number         = $section['number'];
+      $rowId          = 'intro-section-' . $number;
+
+      if ($section['type'] == 'message') {
+        $bodyStyle    = null;
+        $messageClass = 'selected';
+        $commentClass = 'unselected';
+
+      } else if ($section['type'] == 'comment') {
+        $bodyStyle    = ' style="display:none;"';
+        $messageClass = 'unselected';
+        $commentClass = 'selected';
       }
 
-      $buf .=  '</div>';
+      $body         = '<textarea id="body-' . $section['number'] . '" class="body" rows="8"' . $bodyStyle . '>' .
+                         $section['body'] .
+                      '</textarea>';
+      $saveAction   = 'saveSection(\'' . $this->data['date'] . '\', \'introduction\', ' . $number . ');';
+
+    } else {
+      // blank row
+      $number         = 'new';
+      $rowId          = 'intro-section-new';
+
+      $messageClass   = 'selected';
+      $commentClass   = 'unselected';
+      $textareaClass  = 'intro-message';
+
+      $body           = '<textarea id="body-' . $number . '" class="body" rows="8"></textarea>';
+      $rowStyle       = ' style="display:none;"';
+
+      $saveAction     = 'insertSection(event, \'' . $this->data['date'] . '\', \'introduction\', ' . $number . ');';
     }
+
+
+    // draw
+    $buf = '<div id="' . $rowId . '" class="section"' . $rowStyle . '>
+              <span id="section-counter-' . $number . '">' . $number . '</span>
+              <div id="save-introduction-' . $number . '" class="save-introduction" title="' . _('Save changes') . '" onclick="' . $saveAction .'">
+                <div>&nbsp;</div>
+              </div>
+
+              <div class="section-container">
+                <input id="button-message-' . $number . '" type="button" value="m" title="' . _('Message') . '" class="' . $messageClass . '" onclick="changeItemType(\'' . $this->data['date'] . '\', ' . $number . ', \'message\');" />
+                <input id="button-comment-' . $number . '" type="button" value="c" title="' . _('Comment') . '" class="' . $commentClass . '" onclick="changeItemType(\'' . $this->data['date'] . '\', ' . $number . ', \'comment\');" />
+
+                <textarea id="intro-' . $number . '" class="' . $textareaClass . '" rows="1">' . $section['intro'] . '</textarea>' .
+                $body .
+           '  </div>
+            </div>';
 
     return $buf;
   }
