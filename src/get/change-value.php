@@ -33,8 +33,20 @@ if (empty($user->auth)) {
 
 
 // check for sanity
-if (($_REQUEST['context'] != 'msg') && ($_REQUEST['context'] != 'type') && ($_REQUEST['context'] != 'area')) {
+if (($_REQUEST['context'] != 'msg') &&
+    ($_REQUEST['context'] != 'type') &&
+    ($_REQUEST['context'] != 'area') &&
+    ($_REQUEST['context'] != 'remove')) {
+
   App::returnHeaderJson(true, array('error' => true));
+}
+
+
+// ensure user has privileges
+if (($_REQUEST['context'] == 'msg') || ($_REQUEST['context'] == 'remove') &&
+    (!$user->hasPermission('admin') && !$user->hasPermission('editor'))) {
+
+  App::returnHeaderJson(true, array('permission' => false));
 }
 
 
@@ -44,6 +56,16 @@ if ($_REQUEST['context'] == 'msg') {
   $values = array($_REQUEST['context'] => $_REQUEST['value']);
 
   $json['success'] = Db::save('commits', $filter, $values);
+
+} else if ($_REQUEST['context'] == 'remove') {
+  $filter = array('revision' => $_REQUEST['revision']);
+  $values = array('marked'      => 0,
+                  'type'        => null,
+                  'area'        => null,
+                  'classifier'  => null,
+                  'classified'  => null);
+
+  $json['success'] = Db::save('commits_reviewed', $filter, $values);
 
 } else {
   $filter = array('revision' => $_REQUEST['revision']);

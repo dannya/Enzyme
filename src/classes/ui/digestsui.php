@@ -748,7 +748,7 @@ class DigestsUi extends BaseUi {
       $rows = ceil(strlen($commit['msg']) / 120) + substr_count($commit['msg'], '<br />');
 
       // draw
-      $buf .=  '<div class="commit">
+      $buf .=  '<div id="commit-' . $commit['revision'] . '" class="commit">
                   <div class="intro">' .
                     sprintf(_('%s committed changes in %s:'),
                     '<a class="n" href="http://cia.vc/stats/author/' . $commit['author'] . '/">' . $commit['name'] . '</a>',
@@ -756,7 +756,8 @@ class DigestsUi extends BaseUi {
                '  </div>
                   <div class="selectors">
                     <div class="reviewer" title="' . sprintf(_('Reviewed by %s'), $commit['reviewer']) . '">&nbsp;</div>
-                    <div class="classifier" title="' . sprintf(_('Classified by %s'), $commit['classifier']) . '">&nbsp;</div>' .
+                    <div class="classifier" title="' . sprintf(_('Classified by %s'), $commit['classifier']) . '">&nbsp;</div>
+                    <div class="remove" title="' . _('Remove commit from this digest?') . '" onclick="removeCommit(' . $commit['revision'] . ');">&nbsp;</div>' .
                     Ui::htmlSelector('type-' . $commit['revision'], $numericTypes, $commit['type'], 'changeValue(\'type\', ' . $commit['revision'] . ');') .
                     Ui::htmlSelector('area-' . $commit['revision'], $numericAreas, $commit['area'], 'changeValue(\'area\', ' . $commit['revision'] . ');') .
                '  </div>

@@ -365,21 +365,28 @@ class Db {
 
     // iterate
     foreach ($values as $key => $tmpValue) {
-      if (is_array($tmpValue)) {
-        $value = array();
-
-        foreach ($tmpValue as $tmp) {
-          // add quotes?
-          $value[] = self::quote($tmp);
-        }
+      if ($tmpValue === null) {
+        $value = null;
 
       } else {
-        $value = self::quote($tmpValue);
+        if (is_array($tmpValue)) {
+          $value = array();
+
+          foreach ($tmpValue as $tmp) {
+            // add quotes?
+            $value[] = self::quote($tmp);
+          }
+
+        } else {
+          $value = self::quote($tmpValue);
+        }
       }
 
 
       if (($context == 'update') || ($context == 'delete')) {
-        if (is_array($value)) {
+        if ($value === null) {
+          $query[] = $key . ' = NULL';
+        } else if (is_array($value)) {
           $query[] = $key . ' IN (' . implode(',', $value) . ')';
         } else {
           $query[] = $key . ' = ' . $value;

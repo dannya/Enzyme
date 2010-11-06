@@ -290,7 +290,7 @@ div.commit {
 }
 
 div.commit div.intro {
-  width:670px;
+  width:600px;
   margin-bottom:9px;
 }
 
@@ -309,6 +309,7 @@ div.commit div.selectors select:last-child {
   margin-right:0;
 }
 
+div.commit div.selectors div.remove,
 div.commit div.selectors div.reviewer,
 div.commit div.selectors div.classifier {
   float:left;
@@ -320,17 +321,24 @@ div.commit div.selectors div.classifier {
   background:url('../img/sprite.png') no-repeat;
   cursor:pointer;
 }
-div.commit div.selectors div.reviewer {
-  background-position:-110px -22px;
+div.commit div.selectors div.remove {
+  background-position:-44px -66px;
 }
-div.commit div.selectors div.reviewer:hover {
-  background-position:-110px -0;
+div.commit div.selectors div.remove:hover {
+  background-position:-44px -44px;
 }
 div.commit div.selectors div.classifier {
   background-position:-132px -22px;
+  margin-right:22px;
 }
 div.commit div.selectors div.classifier:hover {
   background-position:-132px -0;
+}
+div.commit div.selectors div.reviewer {
+  background-position:-110px -22px; 
+}
+div.commit div.selectors div.reviewer:hover {
+  background-position:-110px -0;
 }
 
 div.commit div.details {

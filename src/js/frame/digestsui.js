@@ -377,3 +377,47 @@ function changeValue(theContext, theRevision) {
     }
   });
 }
+
+
+function removeCommit(theRevision) {
+  if (typeof theRevision == 'undefined') {
+    return false;
+  }
+  
+  // ask first!
+  if (!confirm(strings.remove_commit)) {
+  	return false;
+  }
+
+  new Ajax.Request(BASE_URL + '/get/change-value.php', {
+    method: 'post',
+    parameters: {
+      'context':  'remove',
+      'revision': theRevision,
+      'value':    true
+    },
+    onSuccess: function(transport) {
+      var result = transport.headerJSON;
+
+      // remove unneeded subheaders
+      if ((typeof result.success != 'undefined') && result.success) {
+        if ($('commit-' + theRevision)) {
+        	var subheader = $('commit-' + theRevision).previous('h3');
+
+        	// remove commit from page
+        	$('commit-' + theRevision).remove();
+
+        	// check if subheader has more items, if not, also remove
+        	if (!subheader.next() || (subheader.next().tagName != 'DIV')) {
+        		subheader.remove();
+        	}
+        }
+      }
+      
+      // fix total display
+      if ($('num-commits')) {
+      	$('num-commits').update($('num-commits').innerHTML.replace(/[0-9]/g, $('content').select('div.commit').size()));
+      }
+    }
+  }); 
+}

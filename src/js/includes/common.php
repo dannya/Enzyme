@@ -38,6 +38,8 @@ strings.reset_success           = '<?php echo _("Your password has been reset. P
 
 strings.people_references       = '<?php echo _("People References") ?>';
 
+strings.remove_commit           = '<?php echo _("Are you sure you want to remove this commit?") ?>';
+
 
 function sprintf() {
   if (!arguments || (arguments.length < 1) || !RegExp) {
