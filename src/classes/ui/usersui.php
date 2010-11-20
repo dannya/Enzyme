@@ -39,6 +39,9 @@ class UsersUi extends BaseUi {
     // set available permissions
     $this->availablePermissions = Digest::getPermissions();
 
+    // get available jobs
+    $this->availableJobs = Enzyme::getAvailableJobs();
+
     // load applications
     $this->applications = Db::load('applications', false, null, '*', false);
   }
@@ -101,6 +104,25 @@ class UsersUi extends BaseUi {
 
     $buf  .= '  </tbody>
               </table>';
+
+
+    // draw available jobs
+    $buf  .= '<h3>' .
+              _('Available Jobs') .
+             '</h3>
+
+              <div id="available-jobs">';
+
+    foreach ($this->availableJobs as $job => $jobData) {
+      $buf  .= '<label>
+                  <input type="checkbox" checked="checked" />' . $jobData['title'] .
+               '  <span>' .
+                    $jobData['description'] .
+               '  </span>
+                </label>';
+    }
+
+    $buf  .= '</div>';
 
 
     // draw job applications?

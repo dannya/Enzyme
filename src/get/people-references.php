@@ -45,8 +45,10 @@ $buf = '<h3>' .
           <tbody id="users-body">';
 
 // draw references
-foreach ($digest['people'] as $person) {
-  $buf  .= drawRow($person);
+if (!empty($digest['people'])) {
+  foreach ($digest['people'] as $person) {
+    $buf  .= drawRow($person);
+  }
 }
 
 // draw hidden row, to allow creation of new users
@@ -58,6 +60,7 @@ $buf  .= '  </tbody>
 
 // output
 echo $buf;
+
 
 
 // utility functions

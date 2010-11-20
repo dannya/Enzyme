@@ -258,22 +258,42 @@ class Enzyme {
 
 
   public static function getAvailableJobs() {
+    $permissions = array('admin'       => array('string' => 'A',
+                                                'title'  => _('Admin')),
+                         'editor'      => array('string' => 'E',
+                                                'title'  => _('Editor')),
+                         'reviewer'    => array('string' => 'R',
+                                                'title'  => _('Reviewer')),
+                         'classifier'  => array('string' => 'C',
+                                                'title'  => _('Classifier')),
+                         'translator'  => array('string' => 'T',
+                                                'title'  => _('Translator')));
+
     // define available jobs / i18n strings
-    $possible['reviewer']   = array('title'       => _('Commit Reviewer'),
+    $possible['admin']      = array('string'      => _('Admin'),
+                                    'title'       => _('Enzyme Administrator'),
+                                    'description' => _('Enzyme Administrators '));
+
+    $possible['reviewer']   = array('string'      => _('Reviewer'),
+                                    'title'       => _('Commit Reviewer'),
                                     'description' => _('Commit Reviewers look at all the recent commits, selecting those which are significant and interesting enough to be included into the weekly Commit-Digest.'));
 
-    $possible['classifier'] = array('title'       => _('Commit Classifier'),
+    $possible['classifier'] = array('string'      => _('Classifier'),
+                                    'title'       => _('Commit Classifier'),
                                     'description' => _('Commit Classifiers sort the selected commits into areas (which is partly automated), and by type (such as bug fix, feature, etc).'));
 
-    $possible['editor']     = array('title'       => _('Feature Editor'),
+    $possible['editor']     = array('string'      => _('Editor'),
+                                    'title'       => _('Feature Editor'),
                                     'description' => _('Feature Editors contact people working on interesting projects and assist them in writing original pieces which are presented in the introduction of each Commit-Digest.'));
 
-    $possible['translator'] = array('title'       => _('Translator'),
+    $possible['translator'] = array('string'      => _('Translator'),
+                                    'title'       => _('Translator'),
                                     'description' => _('Translators increase the reach of the Commit-Digest and the work done across the project by making the weekly Commit-Digests (and the website interfaces) available in the native language of people around the world.'));
 
 
     // TODO: store this data in db, create management interface in Enzyme
-    $available = array('reviewer', 'classifier', 'editor', 'translator');
+    //$available = array('reviewer', 'classifier', 'editor', 'translator');
+    $available = array('editor');
 
     // link up available jobs with i18n'd strings
     $jobs = array();

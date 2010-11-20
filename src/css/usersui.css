@@ -67,6 +67,27 @@ table#users td.padding {
 
 
 
+div#available-jobs {
+  margin-bottom:22px;
+}
+
+div#available-jobs label {
+  display:block;
+  margin-bottom:10px;
+  cursor:pointer;
+}
+div#available-jobs input {
+  margin-right:10px;
+}
+div#available-jobs span {
+  display:block;
+  font-style:italic;
+  color:#999;
+  margin-left:26px;
+}
+
+
+
 div.account-status {
   position:relative;
   float:left;

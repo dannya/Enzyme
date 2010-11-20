@@ -67,6 +67,11 @@ function peopleReferences(theDate) {
 }
 
 
+function addPerson() {
+	alert('Not yet implemented!');
+}
+
+
 function createNewDigest() {
   if ($('new-digest')) {
     // collect data
