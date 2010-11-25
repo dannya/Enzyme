@@ -506,7 +506,7 @@ class Digest {
 
       foreach ($commit['bug'] as $bug) {
         // work out time to fix (in days)
-        $fixTime = floor(($commitDate - strtotime($bug['date'])) / 86400);
+        $fixTime = floor((($commitDate + 3600) - strtotime($bug['date'])) / 86400);
 
         $buf .= '<div class="bug">
                    <a class="n" href="' . WEBBUG . $bug['bug'] . '" target="_blank">' . sprintf(_('Bug %d: %s'), $bug['bug'], App::truncate(htmlentities($bug['title']), 90, true)) . '</a>

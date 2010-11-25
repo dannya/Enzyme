@@ -22,13 +22,13 @@ class Track {
 
   public static function user($username) {
     // only track useful pages
-    if ($_SERVER['SCRIPT_URL'] == '/get/page.php') {
+    if ($_SERVER['SCRIPT_NAME'] == '/get/page.php') {
       return false;
     }
 
     // set important tracking information
     $data = array('time'  => time(),
-                  'page'  => $_SERVER['SCRIPT_URL'],
+                  'page'  => $_SERVER['SCRIPT_NAME'],
                   'ip'    => $_SERVER['REMOTE_ADDR']);
 
     // attempt to load existing tracking information from cache

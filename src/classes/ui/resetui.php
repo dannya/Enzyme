@@ -26,7 +26,7 @@ class ResetUi {
     $this->title = _('Reset Password');
 
     // extract code
-    $tmp        = explode('/', trim($_SERVER['SCRIPT_URL'], '/'));
+    $tmp        = explode('/', trim($_SERVER['SCRIPT_NAME'], '/'));
     $this->code = end($tmp);
 
     // check if code is valid

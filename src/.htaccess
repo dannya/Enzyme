@@ -1,3 +1,15 @@
 Options +FollowSymlinks
+
 RewriteEngine on
+
+RewriteCond %{DOCUMENT_ROOT}%{REQUEST_FILENAME} !-f
 RewriteRule ^([^.]+)$ index.php?page=$1
+
+RewriteCond %{SCRIPT_FILENAME} /digests/
+RewriteRule ^([^.]+)$ /index.php?page=digests&digest=$1
+
+RewriteCond %{SCRIPT_FILENAME} /tools/
+RewriteRule ^([^.]+)$ /index.php?page=tools&tool=$1
+
+RewriteCond %{SCRIPT_FILENAME} /reset/
+RewriteRule ^([^.]+)$ /index.php?page=reset&code=$1

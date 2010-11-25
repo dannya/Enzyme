@@ -43,7 +43,7 @@ if (($_REQUEST['context'] != 'msg') &&
 
 
 // ensure user has privileges
-if (($_REQUEST['context'] == 'msg') || ($_REQUEST['context'] == 'remove') &&
+if ((($_REQUEST['context'] == 'msg') || ($_REQUEST['context'] == 'remove')) &&
     (!$user->hasPermission('admin') && !$user->hasPermission('editor'))) {
 
   App::returnHeaderJson(true, array('permission' => false));
