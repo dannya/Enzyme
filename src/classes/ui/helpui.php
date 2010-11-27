@@ -31,21 +31,30 @@ class HelpUi extends BaseUi {
 
   public function draw() {
     // draw
-    $buf = '<h3>' .
-              _('Help') .
-           '  <span>' .
+    $buf = '<h3>
+              <b>' .
+                _('Help') .
+           '  </b>
+              <a id="button-refresh" class="button n" href="#" onclick="helpRefresh();" title="' . _('Refresh') . '">
+                &nbsp;
+              </a>
+              <a id="button-home" class="button n" href="#" onclick="helpHome();" title="' . _('Home') . '">
+                &nbsp;
+              </a>
+
+              <span>' .
                 sprintf(_('This help content is a Wiki: help improve it @ %s'), '<a href="' . HELP_URL . '" target="_blank">' . HELP_URL . '</a>') .
            '  </span>
             </h3>
 
-            <iframe src="' . BASE_URL . '/get/help.php"></iframe>';
+            <iframe id="help-content" src="' . BASE_URL . '/get/help.php"></iframe>';
 
     return $buf;
   }
 
 
   public function getScript() {
-    return array();
+    return array('/js/frame/helpui.js');
   }
 
 

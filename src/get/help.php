@@ -29,6 +29,12 @@ if (!empty($_REQUEST['page'])) {
 }
 
 
+// clear cache?
+if (!empty($_REQUEST['refresh'])) {
+  Cache::deletePartial('help_');
+}
+
+
 // check in cache first
 $content = Cache::load($cacheKey);
 

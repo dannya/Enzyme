@@ -57,13 +57,13 @@ div.item div.commit-title div.buttons div {
 
 div.item div.commit-title div.buttons div.yes {
   margin-right:6px;
-  background-position:-22px -0px;
+  background-position:-22px -0;
 }
 div.item div.commit-title div.buttons div.yes:hover {
   background-position:-22px -44px;
 }
 div.item div.commit-title div.buttons div.no {
-  background-position:-44px -0px;
+  background-position:-44px -0;
 }
 div.item div.commit-title div.buttons div.no:hover {
   background-position:-44px -44px;

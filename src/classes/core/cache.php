@@ -59,7 +59,12 @@ class Cache {
       $success = true;
 
       foreach ($key as $theKey) {
-        $tmpSuccess = apc_delete($baseKey . '_' . $theKey);
+        if ($baseKey === false) {
+          // sometimes, we can only pass the full key name
+          $tmpSuccess = apc_delete($theKey);
+        } else {
+          $tmpSuccess = apc_delete($baseKey . '_' . $theKey);
+        }
 
         // report any failures
         if (!$tmpSuccess) {
@@ -70,19 +75,26 @@ class Cache {
       return $success;
 
     } else {
-      return apc_delete($baseKey . '_' . $key);
+      if ($baseKey === false) {
+        // sometimes, we can only pass the full key name
+        return apc_delete($key);
+      } else {
+        return apc_delete($baseKey . '_' . $key);
+      }
     }
   }
 
 
-  public static function deletePartial($key) {
+  public static function deletePartial($key, $baseKey = APP_ID) {
     $deleted  = 0;
     $cache    = apc_cache_info('user');
 
     foreach ($cache['cache_list'] as $item) {
-      if (strpos($item['info'], $key) !== false) {
-        // partial key found, delete
-        self::delete($item['info']);
+      if ((strpos($item['info'], $baseKey . '_') !== false) &&
+          (strpos($item['info'], $key) !== false)) {
+
+        // partial key found (in app namespace!), delete
+        self::delete($item['info'], false);
         ++$deleted;
       }
     }

@@ -18,7 +18,7 @@
 	visibility: hidden;
 	position: absolute;
 	z-index: 999;
-	line-height: 0px;
+	line-height: 0;
 	/* REQUIRED */
 }
 
@@ -53,8 +53,8 @@
 	/* REQUIRED */
 	height: 100%;
 	width: 100%;
-	top: 0px;
-	left: 0px;
+	top: 0;
+	left: 0;
 	z-index: 9999;
 	position: absolute;
 	/* REQUIRED */
@@ -64,9 +64,9 @@
 
 #lightwindow_loading_shim { 
 	display: none;
-	left: 0px; 
+	left: 0; 
 	position: absolute; 
-	top: 0px;
+	top: 0;
 	width: 100%; 
 	height: 100%;
 }
@@ -107,8 +107,8 @@
 #lightwindow_navigation {
 	/* REQUIRED */
 	position: absolute;
-	top: 0px;
-	left: 0px;
+	top: 0;
+	left: 0;
 	display: none;
 	/* REQUIRED */
 }
@@ -117,9 +117,9 @@
 #lightwindow_navigation_shim { 
 	/* REQUIRED */
 	display: none;
-	left: 0px; 
+	left: 0; 
 	position: absolute; 
-	top: 0px;
+	top: 0;
 	width: 100%; 
 	height: 100%;
 	/* REQUIRED */
@@ -145,12 +145,12 @@
 
 #lightwindow_previous { 
 	float: left;
-	left: 0px;
+	left: 0;
 }
 
 #lightwindow_next { 
 	float: right;
-	right: 0px;
+	right: 0;
 }
 
 #lightwindow_previous:hover, 
@@ -175,13 +175,13 @@
 	display: none;
 	overflow: hidden;
 	margin: 0 0 0 10px;
-	bottom: 0px;
-	left: 0px;
+	bottom: 0;
+	left: 0;
 }
 
 #lightwindow_galleries_tab_container {
 	width: 100%;
-	height: 0px;
+	height: 0;
 	overflow: hidden;
 }
 
@@ -235,7 +235,7 @@ a:active#lightwindow_galleries_tab {
 #lightwindow_galleries_list {
 	background: url(../images/black-70.png) repeat 0 0 transparent;
 	overflow: hidden;
-	height: 0px;
+	height: 0;
 }
 
 * html #lightwindow_galleries_list {
