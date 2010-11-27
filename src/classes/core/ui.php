@@ -212,7 +212,7 @@ class Ui {
     // draw commit
     $buf = '<div id="' . $id . '" class="item normal ' . $itemClass . '">
               <div class="commit-title">
-                Commit <a class="revision" tabindex="-1" href="' . WEBSVN . '?view=revision&amp;revision=' . $data['revision'] . '" target="_blank">' . $data['revision'] . '</a> by <span>' . Enzyme::getAuthorInfo('name', $data['author']) . '</span> (<span>' . $data['author'] . '</span>)
+                Commit <a class="revision" tabindex="0" href="' . WEBSVN . '?view=revision&amp;revision=' . $data['revision'] . '" target="_blank">' . $data['revision'] . '</a> by <span>' . Enzyme::getAuthorInfo('name', $data['author']) . '</span> (<span>' . $data['author'] . '</span>)
                 <br />' .
                 Enzyme::drawBasePath($data['basepath']) .
                 $date .

@@ -56,12 +56,12 @@ class UsersUi extends BaseUi {
     // draw
     $buf = '<h3>' .
               _('Users') .
-           '  <div>
+           '  <span>
                 <span class="status">' .
                   sprintf(_('%d users'), Digest::getNumUsers()) .
            '    </span>
                 <input type="button" title="' . _('Add new user') . '" value="' . _('Add new user') . '" onclick="addUser();" />
-              </div>
+              </span>
             </h3>
 
             <table id="users">

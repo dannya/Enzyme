@@ -6,20 +6,23 @@ div#content {
 h3 {
   position:relative;
 }
+h3 span {
+  position:absolute;
+  right:0;
+  top:-3px;
+}
 h3 span.status {
+  position:relative;
   display:block;
   float:left;
+  top:auto;
+  right:auto;
   margin:3px 6px 0 0;
 
   font-size:16px;
   font-weight:normal;
   font-style:italic;
   color:#999;
-}
-h3 div {
-  position:absolute;
-  right:0;
-  top:-3px;
 }
 
 

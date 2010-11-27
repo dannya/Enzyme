@@ -71,10 +71,10 @@ class DigestsUi extends BaseUi {
     // draw "create a new digest" form
     $buf = '<h3>' .
               _('Create a New Digest') .
-           '  <div>
-                <div id="indicator-new-digest"><div>&nbsp;</div></div>
+           '  <span>
+                <span id="indicator-new-digest"><span>&nbsp;</span></span>
                 <input type="button" onclick="createNewDigest();" value="' . _('Create new digest') . '" title="' . _('Create new digest') . '" />
-              </div>
+              </span>
             </h3>
 
             <table id="new-digest">
@@ -188,10 +188,10 @@ class DigestsUi extends BaseUi {
     // draw row
     $buf = '<h2>' .
               _('Digest Information') .
-           '  <div>
-                <div id="indicator-info"><div>&nbsp;</div></div>
+           '  <span>
+                <span id="indicator-info"><span>&nbsp;</span></span>
                 <input id="save-info" type="button" value="' . _('Save changes') . '" title="' . _('Save changes') . '" onclick="saveSection(\'' . $this->data['date'] . '\', \'info\');" />
-              </div>
+              </span>
             </h2>
 
             <table id="info">
@@ -255,10 +255,10 @@ class DigestsUi extends BaseUi {
 
             <h2>' .
               _('Synopsis') .
-           '  <div>
-                <div id="indicator-synopsis"><div>&nbsp;</div></div>
+           '  <span>
+                <span id="indicator-synopsis"><span>&nbsp;</span></span>
                 <input id="save-synopsis" type="button" value="' . _('Save changes') . '" title="' . _('Save changes') . '" onclick="saveSection(\'' . $this->data['date'] . '\', \'synopsis\');" />
-              </div>
+              </span>
             </h2>
 
             <textarea id="synopsis">' .
@@ -278,11 +278,11 @@ class DigestsUi extends BaseUi {
   private function drawIntro() {
     $buf = '<h2>' .
               _('Introduction') .
-           '  <div>
-                <div id="indicator-introduction"><div>&nbsp;</div></div>
+           '  <span>
+                <span id="indicator-introduction"><span>&nbsp;</span></span>
                 <input id="add-introduction" type="button" value="' . _('Add section') . '" title="' . _('Add section') . '" onclick="addIntroSection();" />
                 <input id="people-references" type="button" value="' . _('People references') . '" title="' . _('People references') . '" onclick="peopleReferences(\'' . $this->data['date'] . '\');" />
-              </div>
+              </span>
             </h2>';
 
     // show prompt?
@@ -388,14 +388,14 @@ class DigestsUi extends BaseUi {
 
     $buf = '<h2>' .
               _('Statistics') .
-           '  <div>
-                <div id="indicator-stats"><div>&nbsp;</div></div>
+           '  <span>
+                <span id="indicator-stats"><span>&nbsp;</span></span>
                 <input id="generate-stats" type="button" value="' . _('Generate statistics') . '" title="' . _('Generate statistics') . '" onclick="generateStats(\'' . $this->data['date'] . '\', \'' . date('Y-m-d', strtotime($this->data['date'] . ' -1 week')) . '\');"' . $generateStyle . ' />
                 <input id="delete-stats" type="button" value="' . _('Delete statistics') . '" title="' . _('Delete statistics') . '" onclick="deleteStats(\'' . $this->data['date'] . '\');"' . $deleteStyle . ' />
-              </div>
+              </span>
             </h2>
 
-            <iframe id="results" src="' . BASE_URL . '/get/prompt.php?language=' . LANGUAGE . '&prompt=stats"' . $resultsStyle . '></iframe>';
+            <iframe id="results" src="' . BASE_URL . '/get/prompt.php?language=' . LANGUAGE . '&amp;prompt=stats"' . $resultsStyle . '></iframe>';
 
 
     // show generated stats if available
@@ -693,10 +693,10 @@ class DigestsUi extends BaseUi {
     if (empty($this->data['commits'])) {
       return '<h2>' .
                 _('Selected Commits') .
-             '  <div>
+             '  <span>
                   <input type="button" value="' . _('Review commits...') . '" title="' . _('Review commits...') . '" onclick="top.location=\'' . BASE_URL . '/review/\';" />
                   <input type="button" value="' . _('Classify commits...') . '" title="' . _('Classify commits...') . '" onclick="top.location=\'' . BASE_URL . '/classify/\';" />
-                </div>
+                </span>
               </h2>
 
               <p class="prompt">' .

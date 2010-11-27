@@ -420,8 +420,8 @@ div.contents h2,
 div.contents h3 {
   position:relative;
 }
-div.contents h2 div,
-div.contents h3 div {
+div.contents h2 span,
+div.contents h3 span {
   position:absolute;
   right:0;
   top:-12px;

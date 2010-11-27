@@ -20,9 +20,10 @@ h2,
 h3 {
   position:relative;
 }
-h2 div,
-h3 div {
+h2 span,
+h3 span {
   position:absolute;
+  display:block;
   right:0;
   top:-3px;
 }

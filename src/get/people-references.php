@@ -28,9 +28,9 @@ $digest = Digest::getPeopleReferences($_REQUEST['date']);
 // draw
 $buf = '<h3>' .
           _('People References') .
-       '  <div>
+       '  <span>
             <input type="button" title="' . _('Add person') . '" value="' . _('Add person') . '" onclick="addPerson();" />
-          </div>
+          </span>
         </h3>
 
         <table id="people">
