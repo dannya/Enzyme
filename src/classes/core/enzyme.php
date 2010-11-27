@@ -257,22 +257,11 @@ class Enzyme {
   }
 
 
-  public static function getAvailableJobs() {
-    $permissions = array('admin'       => array('string' => 'A',
-                                                'title'  => _('Admin')),
-                         'editor'      => array('string' => 'E',
-                                                'title'  => _('Editor')),
-                         'reviewer'    => array('string' => 'R',
-                                                'title'  => _('Reviewer')),
-                         'classifier'  => array('string' => 'C',
-                                                'title'  => _('Classifier')),
-                         'translator'  => array('string' => 'T',
-                                                'title'  => _('Translator')));
-
+  public static function getAllJobs() {
     // define available jobs / i18n strings
     $possible['admin']      = array('string'      => _('Admin'),
                                     'title'       => _('Enzyme Administrator'),
-                                    'description' => _('Enzyme Administrators '));
+                                    'description' => _('Enzyme Administrators can manage all aspects of the system, including various import tools and user accounts.'));
 
     $possible['reviewer']   = array('string'      => _('Reviewer'),
                                     'title'       => _('Commit Reviewer'),
@@ -290,12 +279,16 @@ class Enzyme {
                                     'title'       => _('Translator'),
                                     'description' => _('Translators increase the reach of the Commit-Digest and the work done across the project by making the weekly Commit-Digests (and the website interfaces) available in the native language of people around the world.'));
 
+    return $possible;
+  }
 
-    // TODO: store this data in db, create management interface in Enzyme
-    //$available = array('reviewer', 'classifier', 'editor', 'translator');
-    $available = array('editor');
 
-    // link up available jobs with i18n'd strings
+  public static function getAvailableJobs() {
+    // get strings of all jobs, and list of available roles
+    $possible   = self::getAllJobs();
+    $available  = self::getAvailableJobsList();
+
+    // link up available roles with i18n'd strings
     $jobs = array();
 
     foreach ($available as $theJob) {
@@ -303,6 +296,15 @@ class Enzyme {
     }
 
     return $jobs;
+  }
+
+
+  public static function getAvailableJobsList() {
+    // TODO: store this data in db, create management interface in Enzyme
+    //$available = array('reviewer', 'classifier', 'editor', 'translator');
+    $available = array('editor');
+
+    return $available;
   }
 
 
