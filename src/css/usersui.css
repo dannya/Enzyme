@@ -76,7 +76,8 @@ div#available-jobs {
 
 div#available-jobs label {
   display:block;
-  margin-bottom:10px;
+  padding:4px;
+  margin-bottom:6px;
   cursor:pointer;
 }
 div#available-jobs input {

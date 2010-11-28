@@ -275,3 +275,36 @@ function manageApplication(context, number) {
     }
   });
 }
+
+
+function availableJob(event, theJob) {
+  if ((typeof event == 'undefined') || (typeof theJob == 'undefined')) {
+    return false;
+  }
+
+  var element = event.element();
+
+  // send off change
+  new Ajax.Request(BASE_URL + '/get/available-jobs.php', {
+    method: 'post',
+    parameters: {
+    	job:    theJob,
+      active: element.checked
+    },
+    onSuccess: function(transport) {
+      var result = transport.headerJSON;
+
+      if ((typeof result.success != 'undefined') && result.success) {
+        // show success
+        new Effect.Highlight(element.up('label'), {
+        	startcolor: '#d0f1c0',
+        	restorecolor: '#fff',
+        	duration: 3
+        });
+
+      } else {
+        // error      
+      }
+    }
+  });
+}

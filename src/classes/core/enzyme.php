@@ -122,6 +122,42 @@ class Enzyme {
   }
 
 
+  public static function loadSettings($getKey = false) {
+    // load settings (from cache if possible)
+    $existingSettings = Cache::load('settings');
+    if (!$existingSettings) {
+      $existingSettings = Db::load('settings', false);
+    }
+
+
+    // escape and return if no settings found
+    if (!$existingSettings) {
+      return false;
+    }
+
+
+    // reindex
+    $existingSettings = Db::reindex($existingSettings, 'setting');
+
+
+    // return settings
+    if ($getKey) {
+      // return specified setting key
+      if (isset($existingSettings[$getKey])) {
+        return $existingSettings[$getKey];
+      } else {
+        return false;
+      }
+
+    } else {
+      // return all settings
+      return $existingSettings;
+    }
+    print_R();
+    exit;
+  }
+
+
   public static function getAvailableSettings() {
     // define each setting
     $tmp['PROJECT_NAME']      = array('title'   => _('Project Name'),
@@ -291,8 +327,12 @@ class Enzyme {
     // link up available roles with i18n'd strings
     $jobs = array();
 
-    foreach ($available as $theJob) {
-      $jobs[$theJob] = $possible[$theJob];
+    foreach ($possible as $theJob => $null) {
+      // iterate through all 'possible' (we could just iterate through all 'available')
+      // to keep role hierarchy intact (admin > editor ... translator)
+      if (in_array($theJob, $available)) {
+        $jobs[$theJob] = $possible[$theJob];
+      }
     }
 
     return $jobs;
@@ -300,11 +340,13 @@ class Enzyme {
 
 
   public static function getAvailableJobsList() {
-    // TODO: store this data in db, create management interface in Enzyme
-    //$available = array('reviewer', 'classifier', 'editor', 'translator');
-    $available = array('editor');
+    // load "available jobs" setting
+    $available = self::loadSettings('AVAILABLE_JOBS');
 
-    return $available;
+    // split into array
+    $availableJobs = App::splitCommaList($available['value']);
+
+    return $availableJobs;
   }
 
 

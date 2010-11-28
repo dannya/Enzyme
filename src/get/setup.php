@@ -26,10 +26,8 @@ if (empty($_REQUEST['data'])) {
 
 // only allow setup without being an authenticated user
 // when there is no data in the settings table (ie. first run)
-$existingSettings = Cache::load('settings');
-if (!$existingSettings) {
-  $existingSettings = Db::load('settings', false);
-}
+$existingSettings = Enzyme::loadSettings();
+
 
 if ($existingSettings) {
   // settings exist, authenticate

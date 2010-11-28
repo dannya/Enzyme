@@ -113,10 +113,10 @@ class User {
 
     // process arrays stored as strings
     if (!empty($this->data['paths'])) {
-      $this->paths       = preg_split('/[\s,]+/', $this->data['paths']);
+      $this->paths       = App::splitCommaList($this->data['paths']);
     }
     if (!empty($this->data['permissions'])) {
-      $this->permissions = preg_split('/[\s,]+/', $this->data['permissions']);
+      $this->permissions = App::splitCommaList($this->data['permissions']);
     }
 
     // set if authenticated
@@ -145,10 +145,10 @@ class User {
 
     // serialise arrays as strings for storage
     if (!empty($this->paths)) {
-      $this->data['paths']        = implode(', ', $this->paths);
+      $this->data['paths']        = App::combineCommaList($this->paths);
     }
     if (!empty($this->permissions)) {
-      $this->data['permissions']  = implode(', ', $this->permissions);
+      $this->data['permissions']  = App::combineCommaList($this->permissions);
     }
 
     // save changes in database
@@ -210,18 +210,14 @@ class User {
     }
 
     // make permission change
-    $this->permissions = array_flip($this->permissions);
-
     if ($state == true) {
       // add permission
-      $this->permissions[$permission] = $permission;
+      $this->permissions = App::addToCommaList($this->permissions, $permission);
 
     } else {
       // remove permission
-      unset($this->permissions[$permission]);
+      $this->permissions = App::removeFromCommaList($this->permissions, $permission);
     }
-
-    $this->permissions = array_flip($this->permissions);
 
     // save
     return $this->save();

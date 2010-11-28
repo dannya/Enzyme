@@ -607,7 +607,7 @@ class Digest {
         if (!$permission) {
           if ($group) {
             // group by permission
-            $tmpPermissions = preg_split('/[\s,]+/', $item['permissions']);
+            $tmpPermissions = App::splitCommaList($item['permissions']);
 
             foreach ($tmpPermissions as $thePermission) {
               if ($extended) {

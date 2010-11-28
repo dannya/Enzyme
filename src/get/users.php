@@ -69,7 +69,7 @@ if (($_REQUEST['dataType'] == 'new-user') || ($_REQUEST['dataType'] == 'approve-
   }
 
   // condense permissions into single db field
-  $data['permissions'] = implode(', ', $permissions);
+  $data['permissions'] = App::combineCommaList($permissions);
 
   // set account as active
   $data['active'] = true;

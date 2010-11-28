@@ -213,6 +213,50 @@ class App {
       return null;
     }
   }
+
+
+  public static function splitCommaList($string) {
+    return preg_split('/[\s,]+/', $string);
+  }
+
+
+  public static function combineCommaList($array) {
+    return implode(', ', $array);
+  }
+
+
+  public static function addToCommaList($commaList, $value) {
+    if (is_array($commaList)) {
+      // array-based list...
+      if (!isset($commaList[$value]) && !in_array($value, $commaList)) {
+        // add value
+        $commaList[] = $value;
+      }
+
+    } else {
+      // string-based list...
+    }
+
+    return $commaList;
+  }
+
+
+  public static function removeFromCommaList($commaList, $value) {
+    if (is_array($commaList)) {
+      // array-based list...
+      $commaList = array_flip($commaList);
+
+      // remove value
+      unset($commaList[$value]);
+
+      $commaList = array_flip($commaList);
+
+    } else {
+      // string-based list...
+    }
+
+    return $commaList;
+  }
 }
 
 ?>

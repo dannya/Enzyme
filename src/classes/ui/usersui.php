@@ -123,7 +123,7 @@ class UsersUi extends BaseUi {
       }
 
       $buf  .= '<label>
-                  <input type="checkbox"' . $checked . '/>' . $jobData['title'] .
+                  <input type="checkbox" onchange="availableJob(event, \'' . $job . '\');"' . $checked . '/>' . $jobData['title'] .
                '  <span>' .
                     $jobData['description'] .
                '  </span>
@@ -186,7 +186,7 @@ class UsersUi extends BaseUi {
 
 
       // draw permissions
-      $userPermissions      = array_flip(preg_split('/[\s,]+/', $user['data']['permissions']));
+      $userPermissions      = array_flip(App::splitCommaList($user['data']['permissions']));
       $permissionsString    = null;
 
       foreach ($this->availablePermissions as $permission => $permissionData) {
