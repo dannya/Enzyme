@@ -26,7 +26,7 @@ if (empty($_REQUEST['data'])) {
 
 // only allow setup without being an authenticated user
 // when there is no data in the settings table (ie. first run)
-$existingSettings = Enzyme::loadSettings();
+$existingSettings = Enzyme::loadSettings(false);
 
 
 if ($existingSettings) {

@@ -104,10 +104,7 @@ if (($_SERVER['SCRIPT_NAME'] == '/js/index.php') ||
 
   } else {
     // load Enzyme settings
-    $settings = Cache::load('settings');
-    if (!$settings) {
-      $settings = Db::load('settings', false);
-    }
+    $settings = Enzyme::loadSettings(true);
 
     if (!$settings) {
       // run setup
@@ -120,9 +117,6 @@ if (($_SERVER['SCRIPT_NAME'] == '/js/index.php') ||
       exit;
 
     } else {
-      // save settings in cache
-      Cache::save('settings', $settings);
-
       // define settings for app access
       foreach ($settings as $setting) {
         define($setting['setting'], $setting['value']);

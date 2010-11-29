@@ -122,11 +122,17 @@ class Enzyme {
   }
 
 
-  public static function loadSettings($getKey = false) {
+  public static function loadSettings($cacheIfEmpty = true, $getKey = false) {
     // load settings (from cache if possible)
     $existingSettings = Cache::load('settings');
     if (!$existingSettings) {
-      $existingSettings = Db::load('settings', false);
+      // load from db and reindex
+      $existingSettings = Db::reindex(Db::load('settings', false), setting);
+
+      if ($cacheIfEmpty) {
+        // cache settings
+        Cache::save('settings', $existingSettings);
+      }
     }
 
 
@@ -136,8 +142,10 @@ class Enzyme {
     }
 
 
-    // reindex
-    $existingSettings = Db::reindex($existingSettings, 'setting');
+    // set defaults if unset
+    if (empty($existingSettings['HELP_URL']['value'])) {
+      $existingSettings['HELP_URL']['value'] = 'http://github.com/dannyakakong/Enzyme/wiki';
+    }
 
 
     // return settings
@@ -153,8 +161,6 @@ class Enzyme {
       // return all settings
       return $existingSettings;
     }
-    print_R();
-    exit;
   }
 
 
@@ -264,6 +270,7 @@ class Enzyme {
                                              'ADMIN_EMAIL'            => $tmp['ADMIN_EMAIL'],
                                              'ENZYME_URL'             => $tmp['ENZYME_URL'],
                                              'DIGEST_URL'             => $tmp['DIGEST_URL'],
+                                             'HELP_URL'               => $tmp['HELP_URL'],
                                              'SMTP'                   => $tmp['SMTP']));
 
     $settings[] = array('title'     => _('Repository'),
@@ -341,7 +348,7 @@ class Enzyme {
 
   public static function getAvailableJobsList() {
     // load "available jobs" setting
-    $available = self::loadSettings('AVAILABLE_JOBS');
+    $available = self::loadSettings(true, 'AVAILABLE_JOBS');
 
     // split into array
     $availableJobs = App::splitCommaList($available['value']);

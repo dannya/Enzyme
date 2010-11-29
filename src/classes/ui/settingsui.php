@@ -65,10 +65,10 @@ class SettingsUi extends BaseUi {
     // draw settings
     $buf = '<h3>' .
               _('Personal') .
-           '  <div>
-                <div id="indicator-personal"><div>&nbsp;</div></div>
+           '  <span>
+                <span id="indicator-personal"><span>&nbsp;</span></span>
                 <input type="button" onclick="saveChanges();" value="' . _('Save changes') . '" title="' . _('Save changes') . '" />
-              </div>
+              </span>
             </h3>
 
             <table id="personal">
@@ -136,10 +136,10 @@ class SettingsUi extends BaseUi {
 
             <h3>' .
               _('Change password') .
-           '  <div>
-                <div id="indicator-change-password"><div>&nbsp;</div></div>
+           '  <span>
+                <span id="indicator-change-password"><span>&nbsp;</span></span>
                 <input type="button" onclick="changePassword(\'' . $this->user->data['username'] . '\');" value="' . _('Change password') . '" title="' . _('Change password') . '" />
-              </div>
+              </span>
             </h3>
 
             <table id="change-password">
