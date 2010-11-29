@@ -137,11 +137,11 @@ class UsersUi extends BaseUi {
     if ($this->applications) {
       $buf  .= '<h3>' .
                 _('Applications') .
-               '  <div>
+               '  <span>
                     <span class="status">' .
                       sprintf(_('%d applications'), count($this->applications)) .
                '    </span>
-                  </div>
+                  </span>
                 </h3>' .
 
                $this->drawApplications();

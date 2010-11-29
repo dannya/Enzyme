@@ -191,6 +191,7 @@ class DigestsUi extends BaseUi {
            '  <span>
                 <span id="indicator-info"><span>&nbsp;</span></span>
                 <input id="save-info" type="button" value="' . _('Save changes') . '" title="' . _('Save changes') . '" onclick="saveSection(\'' . $this->data['date'] . '\', \'info\');" />
+                <input id="preview" type="button" value="' . _('Preview') . '" title="' . _('Preview') . '" onclick="window.open(\'' . DIGEST_URL . '/issues/' . $this->data['date'] . '/?review\');" />
               </span>
             </h2>
 

@@ -127,7 +127,7 @@ class Enzyme {
     $existingSettings = Cache::load('settings');
     if (!$existingSettings) {
       // load from db and reindex
-      $existingSettings = Db::reindex(Db::load('settings', false), setting);
+      $existingSettings = Db::reindex(Db::load('settings', false), 'setting');
 
       if ($cacheIfEmpty) {
         // cache settings

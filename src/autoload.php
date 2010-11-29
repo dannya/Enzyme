@@ -18,7 +18,7 @@
 // define database settings
 define('DB_HOST',           'localhost');
 define('DB_USER',           'root');
-define('DB_PASSWORD',       'hello1');
+define('DB_PASSWORD',       'password');
 define('DB_DATABASE',       'enzyme');
 
 
@@ -28,7 +28,7 @@ define('DB_DATABASE',       'enzyme');
 // define app constants
 define('APP_ID',            'enzyme');
 define('APP_NAME',          'Enzyme');
-define('VERSION',           '0.97');
+define('VERSION',           '0.98');
 
 
 // set initial values

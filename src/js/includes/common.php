@@ -13,7 +13,8 @@
 +--------------------------------------------------------*/
 
 
-var BASE_URL = '<?php echo BASE_URL; ?>';
+var BASE_URL    = '<?php echo BASE_URL; ?>';
+var DIGEST_URL  = '<?php echo DIGEST_URL; ?>';
 
 
 // define translatable strings
