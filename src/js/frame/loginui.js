@@ -320,3 +320,16 @@ function resetPassword(theCode) {
     }
   }); 
 }
+
+
+function changeLanguage(event) {
+  if (typeof event == 'undefined') {
+    return false;
+  }
+  
+  var element   = event.element();
+  var language  = element.options[element.selectedIndex].value;
+
+  // change location with language set
+  top.location = BASE_URL + '/?language=' + language;
+}

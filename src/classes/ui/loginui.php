@@ -78,9 +78,9 @@ class LoginUi {
     foreach ($this->jobs as $job => $jobData) {
       $buf  .= '<h3>' .
                   $jobData['title'] .
-               '  <div>
+               '  <span>
                     <input type="button" onclick="apply(event, \'' . $job . '\');" value="' . _('Apply!') . '" />
-                  </div>
+                  </span>
                 </h3>
                 <p>' .
                   $jobData['description'] .

@@ -6,7 +6,7 @@ div#content {
 h3 {
   position:relative;
 }
-h3 div {
+h3 span {
   position:absolute;
   right:0;
   top:-3px;

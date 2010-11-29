@@ -54,7 +54,7 @@ div#login-column-2 div#jobs h3 {
   position:relative;
   margin:0 0 10px 0;
 }
-div#login-column-2 div#jobs h3 div {
+div#login-column-2 div#jobs h3 span {
   position:absolute;
   right:0;
   top:-3px;

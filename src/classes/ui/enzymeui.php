@@ -165,7 +165,7 @@ class EnzymeUi {
       $title = null;
     }
 
-    // include user control?
+    // include user control buttons (only when logged in)?
     if (!empty($this->user->auth)) {
       // select "settings" button?
       if ($this->frame->id == 'settings') {
@@ -205,7 +205,15 @@ class EnzymeUi {
                 </div>';
 
     } else {
-      $user = null;
+      if (!empty($_REQUEST['language'])) {
+        $selectedLanguage = $_REQUEST['language'];
+      } else {
+        $selectedLanguage = 'en_US';
+      }
+
+      $user =  '<div id="header-login">' .
+                  Ui::htmlSelector('language', Digest::getLanguages(), $selectedLanguage, 'changeLanguage(event);') .
+               '</div>';
     }
 
     $buf = '<div id="header">

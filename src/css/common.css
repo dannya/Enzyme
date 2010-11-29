@@ -228,6 +228,16 @@ div#header div#header-user input {
   margin:4px 4px 0 5px;
 }
 
+div#header div#header-login {
+  position:absolute;
+  right:5px;
+  top:5px;
+}
+div#header div#header-login select {
+  border:1px solid #222;
+  font-size:13px;
+}
+
 
 div#content {
   position:absolute;
