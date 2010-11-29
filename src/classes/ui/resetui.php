@@ -25,9 +25,12 @@ class ResetUi {
   public function __construct() {
     $this->title = _('Reset Password');
 
-    // extract code
-    $tmp        = explode('/', trim($_SERVER['SCRIPT_NAME'], '/'));
-    $this->code = end($tmp);
+    // get code
+    if (!empty($_REQUEST['code'])) {
+      $this->code = $_REQUEST['code'];
+    } else {
+      $this->code = null;
+    }
 
     // check if code is valid
     if (empty($this->code) || (strlen($this->code) != 20)) {

@@ -44,10 +44,7 @@ class DigestsUi extends BaseUi {
 
     } else {
       // load digest data
-      $date       = explode('/', rtrim($_REQUEST['digest'], '/'));
-      $date       = end($date);
-
-      $this->data = Digest::loadDigest($date);
+      $this->data = Digest::loadDigest($_REQUEST['digest']);
 
       // draw issue management UI
       return $this->drawManagement();

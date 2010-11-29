@@ -35,11 +35,8 @@ class EnzymeUi {
 
     // determine current frame
     if (isset($_GET['page'])) {
-      $request = explode('/', trim($_GET['page'], '/'));
-      $current = reset($request);
-
+      $current = trim($_GET['page'], '/');
     } else {
-      $request = array();
       $current = null;
     }
 
@@ -86,7 +83,7 @@ class EnzymeUi {
         } else if ($current == 'setup') {
           $this->frame = new SetupUI();
 
-        } else if ($current == 'users' || $current == 'error') {
+        } else if ($current == 'users') {
           $this->frame = new UsersUI($this->user);
 
         } else {

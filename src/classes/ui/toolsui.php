@@ -41,27 +41,27 @@ class ToolsUi extends BaseUi {
 
     } else {
       // show a specific tool
-      if ($_REQUEST['tool'] == '/tools/parse-authors/') {
+      if ($_REQUEST['tool'] == 'parse-authors') {
         $buf = $this->parseAuthors();
-      } else if ($_REQUEST['tool'] == '/tools/parse-i18n-teams/') {
+      } else if ($_REQUEST['tool'] == 'parse-i18n-teams') {
         $buf = $this->parseI18n();
-      } else if ($_REQUEST['tool'] == '/tools/parse-people/') {
+      } else if ($_REQUEST['tool'] == 'parse-people') {
         $buf = $this->parsePeople();
-      } else if ($_REQUEST['tool'] == '/tools/parse-bugfixers/') {
+      } else if ($_REQUEST['tool'] == 'parse-bugfixers') {
         $buf = $this->parseBugfixers();
-      } else if ($_REQUEST['tool'] == '/tools/parse-countries/') {
+      } else if ($_REQUEST['tool'] == 'parse-countries') {
         $buf = $this->parseCountries();
-      } else if ($_REQUEST['tool'] == '/tools/parse-filetypes/') {
+      } else if ($_REQUEST['tool'] == 'parse-filetypes') {
         $buf = $this->parseFiletypes();
-      } else if ($_REQUEST['tool'] == '/tools/digest-intro/issues/') {
+      } else if ($_REQUEST['tool'] == 'digest-intro/issues') {
         $buf = $this->digestIntro('issue');
-      } else if ($_REQUEST['tool'] == '/tools/digest-intro/archive/') {
+      } else if ($_REQUEST['tool'] == 'digest-intro/archive') {
         $buf = $this->digestIntro('archive');
-      } else if ($_REQUEST['tool'] == '/tools/digest-stats/issues/') {
+      } else if ($_REQUEST['tool'] == 'digest-stats/issues') {
         $buf = $this->digestStats('issue');
-      } else if ($_REQUEST['tool'] == '/tools/digest-stats/archive/') {
+      } else if ($_REQUEST['tool'] == 'digest-stats/archive') {
         $buf = $this->digestStats('archive');
-      } else if ($_REQUEST['tool'] == '/tools/digest-commits/') {
+      } else if ($_REQUEST['tool'] == 'digest-commits') {
         $buf = $this->digestCommits();
       }
     }

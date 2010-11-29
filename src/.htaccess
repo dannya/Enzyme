@@ -1,15 +1,21 @@
 Options +FollowSymlinks
 
+ErrorDocument 404 /404.php
+
 RewriteEngine on
 
-RewriteCond %{DOCUMENT_ROOT}%{REQUEST_FILENAME} !-f
-RewriteRule ^([^.]+)$ index.php?page=$1
+RewriteRule ^digests/(.*)/ /index.php?page=digests&digest=$1 [QSA,L]
+RewriteRule ^tools/(.*)/ /index.php?page=tools&tool=$1 [QSA,L]
+RewriteRule ^reset/(.*)/ /index.php?page=reset&code=$1 [QSA,L]
 
-RewriteCond %{SCRIPT_FILENAME} /digests/
-RewriteRule ^([^.]+)$ /index.php?page=digests&digest=$1
-
-RewriteCond %{SCRIPT_FILENAME} /tools/
-RewriteRule ^([^.]+)$ /index.php?page=tools&tool=$1
-
-RewriteCond %{SCRIPT_FILENAME} /reset/
-RewriteRule ^([^.]+)$ /index.php?page=reset&code=$1
+RewriteCond %{REQUEST_URI} insert/ [OR]
+RewriteCond %{REQUEST_URI} review/ [OR]
+RewriteCond %{REQUEST_URI} classify/ [OR]
+RewriteCond %{REQUEST_URI} digests/ [OR]
+RewriteCond %{REQUEST_URI} tools/ [OR]
+RewriteCond %{REQUEST_URI} users/ [OR]
+RewriteCond %{REQUEST_URI} settings/ [OR]
+RewriteCond %{REQUEST_URI} setup/ [OR]
+RewriteCond %{REQUEST_URI} help/ [OR]
+RewriteCond %{REQUEST_URI} reset/
+RewriteRule (.*)/ /index.php?page=$1 [QSA,L]
