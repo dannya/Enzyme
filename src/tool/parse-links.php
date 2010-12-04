@@ -36,7 +36,7 @@ echo Ui::drawHtmlPageStart(null, array('/css/common.css'), array('/js/prototype.
 
 
 // load data
-$filename = 'people_kde.txt';
+$filename = 'links.txt';
 
 if (!is_file(EXISTING_DATA . '/' . $filename)) {
   Ui::displayMsg(sprintf(_('Cannot find %s'), EXISTING_DATA . '/' . $filename), 'error');
@@ -50,51 +50,36 @@ $data = @file(EXISTING_DATA . '/' . $filename);
 $numLines = count($data);
 
 for ($i = 0; $i < $numLines; $i++) {
-  if (isset($data[$i]) && (rtrim($data[$i]) == '[person]')) {
-    // assign data
-    $person['account']    = rtrim($data[$i + 2]);
-    $person['nickname']   = rtrim($data[$i + 3]);
-    $person['dob']        = rtrim($data[$i + 5]);
-    $person['gender']     = rtrim($data[$i + 6]);
-    $person['continent']  = rtrim($data[$i + 7]);
-    $person['country']    = rtrim($data[$i + 8]);
-    $person['location']   = rtrim($data[$i + 9]);
-    $person['latitude']   = rtrim($data[$i + 10]);
-    $person['longitude']  = rtrim($data[$i + 11]);
-    $person['motivation'] = rtrim($data[$i + 12]);
-    $person['employer']   = rtrim($data[$i + 13]);
-    $person['colour']     = rtrim($data[$i + 14]);
+  if (isset($data[$i]) && ($data[$i][0] == '[')) {
+    // get type header
+    $type = trim(rtrim($data[$i]), '][');
 
-    // process data
-    if ($person['gender'] == 'male') {
-      $person['gender'] = 'm';
-    } else if ($person['gender'] == 'female') {
-      $person['gender'] = 'f';
-    }
+    // extract data
+    if ($type == 'program') {
+      $link['type']  = $type;
+      $link['name']  = rtrim($data[++$i]);
+      $link['area']  = rtrim($data[++$i]);
+      $link['url']   = rtrim($data[++$i]);
 
-    if ($person['motivation'] == 'volunteer') {
-      $person['motivation'] = 1;
-    } else if ($person['motivation'] == 'commercial') {
-      $person['motivation'] = 2;
+    } else {
+      if ($type == 'external_link') {
+        $type = 'external';
+      }
+
+      $link['type']  = $type;
+      $link['name']  = rtrim($data[++$i]);
+      $link['url']   = rtrim($data[++$i]);
     }
 
     // insert into DB
-    Db::insert('people', $person, true);
+    Db::insert('links', $link, true);
 
     // report success
-    Ui::displayMsg(sprintf(_('Inserted %s'), $person['account']));
+    Ui::displayMsg(sprintf(_('Inserted %s (%s)'), $link['name'], $link['type']));
 
-    // increment to next person block
-    unset($person);
-    $i += 15;
-
-  } else {
-    // could not find person block
-    Ui::displayMsg(sprintf(_('Error detected on line %d'), $i), 'error');
-    ++$i;
+    unset($link);
   }
 }
-
 
 
 // draw html page end

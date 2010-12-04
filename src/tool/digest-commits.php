@@ -187,6 +187,10 @@ foreach ($dirs as $dir) {
 Cache::delete('bugs');
 
 
+// notify that script has finished output
+Ui::setProcessFinished();
+
+
 // draw html page end
 echo Ui::drawHtmlPageEnd();
 

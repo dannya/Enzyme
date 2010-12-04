@@ -13,7 +13,9 @@
 +--------------------------------------------------------*/
 
 
-var BASE_URL    = '<?php echo BASE_URL; ?>';
+// globally-available script variables
+var BASE_URL        = '<?php echo BASE_URL; ?>';
+var scrollFinished  = false;
 
 
 // define translatable strings
@@ -340,9 +342,21 @@ function information(theClass, message) {
 function checkScroll() {
   if ($('result') && $('result').contentWindow.document.body &&
       (typeof $('result').contentWindow.document.body.descendants == 'function') &&
-      ($('result').contentWindow.document.body.descendants().size() > 0)) {
+      ($('result').contentWindow.document.body.descendants().size() > 0) &&
+      !scrollFinished) {
 
-    $('result').contentWindow.document.body.descendants().last().scrollTo();
+    var last = $('result').contentWindow.document.body.descendants().last();
+    
+    // check whether we can finish observing scroll
+    if (last.id != 'finished') {
+      last.scrollTo();
+
+    } else {
+    	// found "finished" notification, but element is hidden, 
+    	// so use previous element as scroll anchor
+    	last.previous().scrollTo();
+      scrollFinished = true;	
+    }
   }
 }
 

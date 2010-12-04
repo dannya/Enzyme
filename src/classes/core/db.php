@@ -37,6 +37,7 @@ class Db {
                                   'digest_stats_modules',
                                   'filetypes',
                                   'languages',
+                                  'links',
                                   'people',
                                   'settings',
                                   'users');

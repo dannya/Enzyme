@@ -53,6 +53,8 @@ class ToolsUi extends BaseUi {
         $buf = $this->parseCountries();
       } else if ($_REQUEST['tool'] == 'parse-filetypes') {
         $buf = $this->parseFiletypes();
+      } else if ($_REQUEST['tool'] == 'parse-links') {
+        $buf = $this->parseLinks();
       } else if ($_REQUEST['tool'] == 'digest-intro/issues') {
         $buf = $this->digestIntro('issue');
       } else if ($_REQUEST['tool'] == 'digest-intro/archive') {
@@ -154,6 +156,11 @@ class ToolsUi extends BaseUi {
                       _('Parse People') .
                '    </a>
                   </li>
+                  <li>
+                    <a href="' . BASE_URL . '/tools/parse-links/">' .
+                      _('Parse Links') .
+               '    </a>
+                  </li>
                 </ul>';
     }
 
@@ -208,6 +215,13 @@ class ToolsUi extends BaseUi {
 
   private function parseFiletypes() {
     $buf = '<iframe id="result" src="' . BASE_URL . '/tool/parse-filetypes.php"></iframe>';
+
+    return $buf;
+  }
+
+
+  private function parseLinks() {
+    $buf = '<iframe id="result" src="' . BASE_URL . '/tool/parse-links.php"></iframe>';
 
     return $buf;
   }

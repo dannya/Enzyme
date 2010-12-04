@@ -72,10 +72,31 @@ class Ui {
   }
 
 
-  public static function drawHtmlPageEnd() {
+  public static function drawHtmlPageEnd($setFinished = true) {
+    $buf = null;
+
+    if ($setFinished) {
+      $buf .= self::setProcessFinished(false);
+    }
+
     // draw page end
-    $buf = '  </body>
-            </html>';
+    $buf .=  '  </body>
+              </html>';
+
+    return $buf;
+  }
+
+
+  public static function setProcessFinished($echo = true) {
+    // insert "finished" element which can be recognised by observing scripts
+    $buf = '<span id="finished">
+              &nbsp;
+            </span>';
+
+    // automatically add to page?
+    if ($echo) {
+      echo $buf;
+    }
 
     return $buf;
   }
