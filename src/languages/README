@@ -1,0 +1,12 @@
+Enzyme Language Translations
+----------------------------
+These language subdirectories only store the compiled .MO string files,
+which allows the Enzyme interface to be used by end users in different
+languages, but means that changes/additions to translation strings are 
+not able to be made from here.
+ 
+This is intentional.
+Translations for Enzyme are done in the KDE subversion repository, in
+/trunk/l10n-kde4/templates/messages/others/
+
+Please contact me at danny@commit-digest.org if you have any questions.
