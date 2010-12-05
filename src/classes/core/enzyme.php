@@ -625,7 +625,7 @@ class Enzyme {
     ini_set('memory_limit', '256M');
 
     // show cmd errors?
-    if (!$showErrors) {
+    if ($showErrors) {
       $showErrors = ' 2>&1';
     } else {
       $showErrors = null;
