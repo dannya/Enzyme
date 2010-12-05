@@ -136,9 +136,21 @@ class SetupUi extends BaseUi {
           $input = '<input id="' . $key . '" name="' . $key . '" type="text"' . $value . $class . ' />';
         }
 
+        // show per-setting comment?
+        if (!empty($data['comment'])) {
+          $comment = '<div class="comment">' .
+                        $data['comment'] .
+                     '</div>';
+        } else {
+          $comment = null;
+        }
+
+        // draw row
         $buf  .= '<tr>
                     <td class="label">' . $data['title'] . '</td>
-                    <td class="value">' . $input . '</td>
+                    <td class="value">
+                      <div>' . $input . $comment . '</div>
+                    </td>
                   </tr>';
       }
 

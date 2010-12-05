@@ -34,8 +34,27 @@ table tr td.value {
 
 table.settings tr td.label {
   min-width:200px;
+  vertical-align:top;
+  padding-top:4px;
 }
 
+
+table tr td.value > div {
+  position:relative;
+}
+
+table tr td.value div.comment {
+  position:absolute;
+  top:0;
+  width:280px;
+  right:-300px;
+  
+  font-size:14px;
+  border:1px solid #999;
+  padding:3px 5px;
+  color:#666;
+  font-style:italic;
+}
 
 table tr td.value input {
   width:350px;
@@ -51,6 +70,9 @@ table tr td.value input.prompt {
 input#setup-save {
   margin:16px 0 20px 0;
 }
+
+
+
 
 
 

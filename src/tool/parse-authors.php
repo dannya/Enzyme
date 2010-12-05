@@ -49,7 +49,7 @@ $existingAuthors = Enzyme::getAuthors();
 
 
 // get fresh authors data
-$cmd    = 'svn cat ' . REPOSITORY . ACCOUNTS_FILE;
+$cmd    = 'svn cat --non-interactive ' . Enzyme::getRepoCmdAuth() . REPOSITORY . ACCOUNTS_FILE;
 $data   = shell_exec(escapeshellcmd($cmd));
 $data   = preg_split("/(\r?\n)/", $data);
 

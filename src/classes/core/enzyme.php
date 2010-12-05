@@ -199,6 +199,15 @@ class Enzyme {
                                       'valid'   => null,
                                       'default' => null,
                                       'example' => 'svn://anonsvn.kde.org/home/kde/');
+    $tmp['REPOSITORY_USER']   = array('title'   => _('Repository Username'),
+                                      'valid'   => null,
+                                      'default' => null,
+                                      'example' => null,
+                                      'comment' => _('This password will be stored as plaintext. Consider setting up a separate, read-only repository user if security is important.'));
+    $tmp['REPOSITORY_PASS']   = array('title'   => _('Repository Password'),
+                                      'valid'   => null,
+                                      'default' => null,
+                                      'example' => null);
     $tmp['ACCOUNTS_FILE']     = array('title'   => _('Accounts File'),
                                       'valid'   => null,
                                       'default' => null,
@@ -276,6 +285,8 @@ class Enzyme {
     $settings[] = array('title'     => _('Repository'),
                         'settings'  => array('REPOSITORY_TYPE'        => $tmp['REPOSITORY_TYPE'],
                                              'REPOSITORY'             => $tmp['REPOSITORY'],
+                                             'REPOSITORY_USER'        => $tmp['REPOSITORY_USER'],
+                                             'REPOSITORY_PASS'        => $tmp['REPOSITORY_PASS'],
                                              'ACCOUNTS_FILE'          => $tmp['ACCOUNTS_FILE']));
 
     $settings[] = array('title'     => _('Data Locations'),
@@ -637,7 +648,7 @@ class Enzyme {
 
       } else {
         // assume this is a date
-        $cmd    = 'svn log --xml -v -r {' . $value . '} ' . REPOSITORY;
+        $cmd    = 'svn log --non-interactive ' . self::getRepoCmdAuth() . '--xml -v -r {' . $value . '} ' . REPOSITORY;
         $data   = shell_exec(escapeshellcmd($cmd) . $showErrors);
         $data   = simplexml_load_string($data);
 
@@ -651,7 +662,7 @@ class Enzyme {
 
 
     // get revision information
-    $cmd    = 'svn log --xml -v -r ' . $revision['start'] . ':' . $revision['end'] . ' ' .
+    $cmd    = 'svn log --non-interactive ' . self::getRepoCmdAuth() . '--xml -v -r ' . $revision['start'] . ':' . $revision['end'] . ' ' .
               REPOSITORY;
     $data   = shell_exec(escapeshellcmd($cmd) . $showErrors);
     $data   = simplexml_load_string(utf8_encode($data));
@@ -756,7 +767,7 @@ class Enzyme {
 
       } else {
         // assume this is a date
-        $cmd    = 'svn log --xml -v -r {' . $value . '} ' . REPOSITORY;
+        $cmd    = 'svn log --non-interactive ' . self::getRepoCmdAuth() . '--xml -v -r {' . $value . '} ' . REPOSITORY;
         $data   = shell_exec(escapeshellcmd($cmd));
         $data   = simplexml_load_string($data);
 
@@ -768,7 +779,7 @@ class Enzyme {
     // get revision information
     Ui::displayMsg(_('Getting revision data...'));
 
-    $cmd    = 'svn log --xml -v -r ' . $revision['start'] . ':' . $revision['end'] . ' ' .
+    $cmd    = 'svn log --non-interactive ' . self::getRepoCmdAuth() . '--xml -v -r ' . $revision['start'] . ':' . $revision['end'] . ' ' .
               REPOSITORY;
     $data   = shell_exec(escapeshellcmd($cmd));
     $data   = simplexml_load_string(utf8_encode($data));
@@ -1259,6 +1270,13 @@ class Enzyme {
       return $basepath;
     } else {
       return '/';
+    }
+  }
+
+
+  public static function getRepoCmdAuth() {
+    if (((bool)REPOSITORY_USER) && ((bool)REPOSITORY_PASS)) {
+      return '--username ' . REPOSITORY_USER . ' --password ' . REPOSITORY_PASS . ' ';
     }
   }
 }
