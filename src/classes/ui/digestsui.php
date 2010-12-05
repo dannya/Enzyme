@@ -256,6 +256,7 @@ class DigestsUi extends BaseUi {
            '  <span>
                 <span id="indicator-synopsis"><span>&nbsp;</span></span>
                 <input id="save-synopsis" type="button" value="' . _('Save changes') . '" title="' . _('Save changes') . '" onclick="saveSection(\'' . $this->data['date'] . '\', \'synopsis\');" />
+                <input id="add-links" type="button" value="' . _('Add links') . '" title="' . _('Add links') . '" onclick="addDigestLinks(\'' . $this->data['date'] . '\', \'synopsis\');" />
               </span>
             </h2>
 

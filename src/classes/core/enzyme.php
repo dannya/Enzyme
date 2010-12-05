@@ -320,7 +320,7 @@ class Enzyme {
 
     $possible['translator'] = array('string'      => _('Translator'),
                                     'title'       => _('Translator'),
-                                    'description' => _('Translators increase the reach of the Commit-Digest and the work done across the project by making the weekly Commit-Digests (and the website interfaces) available in the native language of people around the world.'));
+                                    'description' => _('Translators increase the reach of the Commit-Digest and the work done across the project by making the weekly Commit-Digests available in the native language of people around the world.'));
 
     return $possible;
   }
@@ -585,6 +585,26 @@ class Enzyme {
     }
 
     return $bugs;
+  }
+
+
+  public static function loadLinks($lowercase = false) {
+    $links = array();
+
+    // load from db
+    $q = mysql_query('SELECT * FROM links') or trigger_error(sprintf(_('Query failed: %s'), mysql_error()));
+
+    while ($row = mysql_fetch_assoc($q)) {
+      if ($lowercase) {
+        // lowercase word to aid comparisons
+        $links[strtolower($row['name'])] = $row;
+
+      } else {
+        $links[$row['name']] = $row;
+      }
+    }
+
+    return $links;
   }
 
 

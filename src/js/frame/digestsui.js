@@ -52,6 +52,38 @@ function addIntroSection() {
 }
 
 
+function addDigestLinks(theDate, contentBox) {
+	if ((typeof theDate == 'undefined') || 
+	    (typeof contentBox == 'undefined') || !$(contentBox)) {
+
+		return false;
+	}
+	
+
+  // send off content
+  new Ajax.Request(BASE_URL + '/get/add-links.php', {
+    method: 'post',
+    parameters: {
+    	date: theDate,
+      data: $(contentBox).value
+    },
+    onSuccess: function(transport) {
+      var result = transport.headerJSON;
+
+      if ((typeof result.success != 'undefined') && result.success) {
+        showIndicator('new-digest', 'indicator-success');
+        
+        // put linked content back into content box
+        $(contentBox).value = result.data;
+
+      } else {
+        showIndicator('new-digest', 'indicator-failure');
+      }
+    }
+  });
+}
+
+
 function peopleReferences(theDate) {
 	if (typeof theDate == 'undefined') {
 	  return false;
