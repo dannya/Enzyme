@@ -155,9 +155,12 @@ class DigestsUi extends BaseUi {
                         <div>&nbsp;</div>
                       </div>
 
-                      <a href="' . BASE_URL . '/digests/' . $digest['date'] . '/">' .
+                      <a class="title" href="' . BASE_URL . '/digests/' . $digest['date'] . '/">' .
                         sprintf(_('Issue %d: %s'), $digest['id'], Date::get('full', $digest['date'])) .
                    '  </a>
+
+                      <a class="action" href="#" onclick="dotBlurb(\'' . $digest['date'] . '\');">' . ('Dot') . '</a>
+                      <a class="action" href="' . DIGEST_URL . '/issues/' . $digest['date'] . '/?review" target="_blank">' . ('Preview') . '</a>
                     </li>';
         }
 
@@ -256,7 +259,8 @@ class DigestsUi extends BaseUi {
            '  <span>
                 <span id="indicator-synopsis"><span>&nbsp;</span></span>
                 <input id="save-synopsis" type="button" value="' . _('Save changes') . '" title="' . _('Save changes') . '" onclick="saveSection(\'' . $this->data['date'] . '\', \'synopsis\');" />
-                <input id="add-links" type="button" value="' . _('Add links') . '" title="' . _('Add links') . '" onclick="addDigestLinks(\'' . $this->data['date'] . '\', \'synopsis\');" />
+                <input id="add-links" type="button" value="' . _('Add Links') . '" title="' . _('Add Links') . '" onclick="addDigestLinks(\'' . $this->data['date'] . '\', \'synopsis\');" />
+                <input id="dot-blurb" type="button" value="' . _('Dot Synopsis') . '" title="' . _('Dot Synopsis') . '" onclick="dotBlurb(\'' . $this->data['date'] . '\');" />
               </span>
             </h2>
 
@@ -744,14 +748,12 @@ class DigestsUi extends BaseUi {
       }
 
       // estimate number of rows to display
-      $rows = ceil(strlen($commit['msg']) / 120) + substr_count($commit['msg'], '<br />');
+      $rows = ceil(strlen($commit['msg']) / 80) + substr_count($commit['msg'], '<br />');
 
       // draw
       $buf .=  '<div id="commit-' . $commit['revision'] . '" class="commit">
                   <div class="intro">' .
-                    sprintf(_('%s committed changes in %s:'),
-                    '<a class="n" href="http://cia.vc/stats/author/' . $commit['author'] . '/">' . $commit['name'] . '</a>',
-                    Enzyme::drawBasePath($commit['basepath'])) .
+                    Digest::getCommitTitle($commit) .
                '  </div>
                   <div class="selectors">
                     <div class="reviewer" title="' . sprintf(_('Reviewed by %s'), $commit['reviewer']) . '">&nbsp;</div>
@@ -762,9 +764,7 @@ class DigestsUi extends BaseUi {
                '  </div>
 
                   <div class="details">
-                    <textarea id="msg-' . $commit['revision'] . '" class="msg" rows="' . $rows . '" onchange="changeValue(\'msg\', ' . $commit['revision'] . ');">' .
-                      str_replace("<br />", "<br />\n", $commit['msg']) .
-               '    </textarea>
+                    <textarea id="msg-' . $commit['revision'] . '" class="msg" rows="' . $rows . '" onchange="changeValue(\'msg\', ' . $commit['revision'] . ');">' . str_replace("<br />", "<br />\n", $commit['msg']) . '</textarea>
 
                     <div class="info">' .
                       Digest::drawBugs($commit, 'b b-p') .
@@ -773,7 +773,7 @@ class DigestsUi extends BaseUi {
                         Digest::drawDiffs($commit, $this->data['date']) .
                '      </span>
                       <a class="r n" href="' . DIGEST_URL . '/issues/' . $this->data['date'] . '/moreinfo/' . $commit['revision'] . '/" target="_blank">' .
-                        sprintf(_('Revision %d'), $commit['revision']) .
+                        sprintf(_('Revision %s'), $commit['revision']) .
                      '</a>
                     </div>
                   </div>

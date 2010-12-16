@@ -70,7 +70,7 @@ class Enzyme {
     if ($revisions) {
       // load from db
       $q = mysql_query('SELECT * FROM commit_bugs
-                        WHERE revision IN (' . implode(',', array_keys($revisions)) . ')') or trigger_error(sprintf(_('Query failed: %s'), mysql_error()));
+                        WHERE revision IN ("' . implode('","', array_keys($revisions)) . '")') or trigger_error(sprintf(_('Query failed: %s'), mysql_error()));
 
       while ($row = mysql_fetch_assoc($q)) {
         $revisions[$row['revision']]['bug'][] = $row;
@@ -191,32 +191,32 @@ class Enzyme {
                                       'default' => null,
                                       'example' => 'smtp.example.com');
 
-    $tmp['REPOSITORY_TYPE']   = array('title'   => _('Repository Type'),
-                                      'valid'   => array('svn' => _('Subversion')),
-                                      'default' => 'svn',
-                                      'example' => null);
-    $tmp['REPOSITORY']        = array('title'   => _('Repository URL'),
-                                      'valid'   => null,
-                                      'default' => null,
-                                      'example' => 'svn://anonsvn.kde.org/home/kde/');
-    $tmp['REPOSITORY_USER']   = array('title'   => _('Repository Username'),
-                                      'valid'   => null,
-                                      'default' => null,
-                                      'example' => null,
-                                      'comment' => _('This password will be stored as plaintext. Consider setting up a separate, read-only repository user if security is important.'));
-    $tmp['REPOSITORY_PASS']   = array('title'   => _('Repository Password'),
-                                      'valid'   => null,
-                                      'default' => null,
-                                      'example' => null);
-    $tmp['ACCOUNTS_FILE']     = array('title'   => _('Accounts File'),
-                                      'valid'   => null,
-                                      'default' => null,
-                                      'example' => 'trunk/common/accounts.txt');
+//    $tmp['REPOSITORY_TYPE']   = array('title'   => _('Repository Type'),
+//                                      'valid'   => array('svn' => _('Subversion')),
+//                                      'default' => 'svn',
+//                                      'example' => null);
+//    $tmp['REPOSITORY']        = array('title'   => _('Repository URL'),
+//                                      'valid'   => null,
+//                                      'default' => null,
+//                                      'example' => 'svn://anonsvn.kde.org/home/kde/');
+//    $tmp['REPOSITORY_USER']   = array('title'   => _('Repository Username'),
+//                                      'valid'   => null,
+//                                      'default' => null,
+//                                      'example' => null,
+//                                      'comment' => _('This password will be stored as plaintext. Consider setting up a separate, read-only repository user if security is important.'));
+//    $tmp['REPOSITORY_PASS']   = array('title'   => _('Repository Password'),
+//                                      'valid'   => null,
+//                                      'default' => null,
+//                                      'example' => null);
+//    $tmp['ACCOUNTS_FILE']     = array('title'   => _('Accounts File'),
+//                                      'valid'   => null,
+//                                      'default' => null,
+//                                      'example' => 'trunk/common/accounts.txt');
 
-    $tmp['WEBSVN']            = array('title'   => _('Web Repository Viewer'),
-                                      'valid'   => null,
-                                      'default' => null,
-                                      'example' => null);
+//    $tmp['WEBSVN']            = array('title'   => _('Web Repository Viewer'),
+//                                      'valid'   => null,
+//                                      'default' => null,
+//                                      'example' => null);
     $tmp['WEBBUG']            = array('title'   => _('Web Bug Tracker'),
                                       'valid'   => null,
                                       'default' => null,
@@ -282,16 +282,15 @@ class Enzyme {
                                              'HELP_URL'               => $tmp['HELP_URL'],
                                              'SMTP'                   => $tmp['SMTP']));
 
-    $settings[] = array('title'     => _('Repository'),
-                        'settings'  => array('REPOSITORY_TYPE'        => $tmp['REPOSITORY_TYPE'],
-                                             'REPOSITORY'             => $tmp['REPOSITORY'],
-                                             'REPOSITORY_USER'        => $tmp['REPOSITORY_USER'],
-                                             'REPOSITORY_PASS'        => $tmp['REPOSITORY_PASS'],
-                                             'ACCOUNTS_FILE'          => $tmp['ACCOUNTS_FILE']));
+//    $settings[] = array('title'     => _('Repository'),
+//                        'settings'  => array('REPOSITORY_TYPE'        => $tmp['REPOSITORY_TYPE'],
+//                                             'REPOSITORY'             => $tmp['REPOSITORY'],
+//                                             'REPOSITORY_USER'        => $tmp['REPOSITORY_USER'],
+//                                             'REPOSITORY_PASS'        => $tmp['REPOSITORY_PASS'],
+//                                             'ACCOUNTS_FILE'          => $tmp['ACCOUNTS_FILE']));
 
     $settings[] = array('title'     => _('Data Locations'),
-                        'settings'  => array('WEBSVN'                 => $tmp['WEBSVN'],
-                                             'WEBBUG'                 => $tmp['WEBBUG'],
+                        'settings'  => array('WEBBUG'                 => $tmp['WEBBUG'],
                                              'WEBBUG_XML'             => $tmp['WEBBUG_XML'],
                                              'I18N_STATS'             => $tmp['I18N_STATS'],
                                              'I18N_TEAMS'             => $tmp['I18N_TEAMS'],
@@ -373,21 +372,10 @@ class Enzyme {
   }
 
 
-  public static function getProcessedRevisions($type = null, $start = null, $end = null,
-                                               $exclude = null, $limit = ' LIMIT 100') {
+  public static function getProcessedRevisions($type = null, $exclude = null, $limit = ' LIMIT 100') {
     $filter             = ' WHERE 1';
     $revisions          = null;
     $existingRevisions  = null;
-
-    // get specified range of revisions?
-    if ($start && $end) {
-      while ($start <= $end) {
-        $revisions[] = $start++;
-      }
-
-      $filter .= ' AND commits.revision IN (' . implode(',', $revisions) . ')';
-    }
-
 
     // exclude accounts?
     if ($exclude) {
@@ -465,17 +453,11 @@ class Enzyme {
   }
 
 
-  public static function getProcessedRevisionsList($start, $end) {
-    $revisions         = array();
+  public static function getProcessedRevisionsList() {
     $existingRevisions = array();
 
-    // compile array of revisions between start and end
-    while ($start <= $end) {
-      $revisions[] = $start++;
-    }
-
     // search
-    $query = 'SELECT revision FROM commits WHERE revision IN (' . implode(',', $revisions) . ')';
+    $query = 'SELECT revision FROM commits';
     $q     = mysql_query($query) or trigger_error(sprintf(_('Query failed: %s'), mysql_error()));
 
     // reindex
@@ -487,7 +469,7 @@ class Enzyme {
   }
 
 
-  public static function getAuthors($revisions = null) {
+  public static function getAuthors($revisions = null, $index = 'account') {
     $filter       = null;
     $accountData  = array();
 
@@ -505,7 +487,7 @@ class Enzyme {
     $q = mysql_query('SELECT * FROM authors' . $filter) or trigger_error(sprintf(_('Query failed: %s'), mysql_error()));
 
     while ($row = mysql_fetch_assoc($q)) {
-      $accountData[$row['account']] = $row;
+      $accountData[$row[$index]] = $row;
     }
 
     return $accountData;
@@ -566,19 +548,19 @@ class Enzyme {
   }
 
 
-  public static function getAuthorInfo($type, $key) {
+  public static function getAuthorInfo($type, $key, $index = 'account') {
     global $authors;
 
     $string = null;
 
     // if authors are not available, load
-    if (!$authors) {
-      $authors = self::getAuthors();
+    if (!isset($authors[$index])) {
+      $authors[$index] = self::getAuthors(null, $index);
     }
 
     // if field is available, return
-    if (!empty($authors[$key][$type])) {
-      $string = $authors[$key][$type];
+    if (!empty($authors[$index][$key][$type])) {
+      $string = $authors[$index][$key][$type];
     }
 
     return $string;
@@ -619,7 +601,7 @@ class Enzyme {
   }
 
 
-  public static function insertRevisions($start, $end, $showErrors = true) {
+  public static function insertRevisions($start = null, $end = null, $showErrors = true) {
     // ensure script doesn't reach execution limits
     set_time_limit(0);
     ini_set('memory_limit', '256M');
@@ -631,120 +613,134 @@ class Enzyme {
       $showErrors = null;
     }
 
-    // allow start and end to be passed in any order
-    if ($start < $end) {
-      $boundaries['start']  = $start;
-      $boundaries['end']    = $end;
-    } else {
-      $boundaries['start']  = $end;
-      $boundaries['end']    = $start;
-    }
 
-    // get start and end revision numbers
-    foreach ($boundaries as $boundary => $value) {
-      if (is_numeric($value)) {
-        // assume this is a revision number
-        $revision[$boundary] = $value;
+    // load list of defined repositories
+    $repos = Connector::getRepositories();
 
-      } else {
-        // assume this is a date
-        $cmd    = 'svn log --non-interactive ' . self::getRepoCmdAuth() . '--xml -v -r {' . $value . '} ' . REPOSITORY;
-        $data   = shell_exec(escapeshellcmd($cmd) . $showErrors);
-        $data   = simplexml_load_string($data);
+    foreach ($repos as $repo) {
+      if ($repo['type'] == 'svn') {
+        $repository = new Svn($repo);
+        $repository->setupInsertRevisions($start, $end, $showErrors);
 
-        $revision[$boundary] = (int)$data->logentry->attributes()->revision;
-      }
-    }
-
-
-    // get list of processed commits so we don't fetch twice
-    $processedRevisions = self::getProcessedRevisionsList($revision['start'], $revision['end']);
-
-
-    // get revision information
-    $cmd    = 'svn log --non-interactive ' . self::getRepoCmdAuth() . '--xml -v -r ' . $revision['start'] . ':' . $revision['end'] . ' ' .
-              REPOSITORY;
-    $data   = shell_exec(escapeshellcmd($cmd) . $showErrors);
-    $data   = simplexml_load_string(utf8_encode($data));
-
-
-    // initialise summary
-    $summary['skipped']['title']    = 'Skipped: %d';
-    $summary['skipped']['value']    = 0;
-    $summary['processed']['title']  = 'Processed: %d';
-    $summary['processed']['value']  = 0;
-
-
-    // process and store data
-    foreach ($data as $entry) {
-      // set data into useful data structure
-      unset($commit);
-
-      // get commit revision
-      $commit['revision']   = (int)$entry->attributes()->revision;
-
-
-      // check if revision has already been processed
-      if (isset($processedRevisions[$commit['revision']])) {
-        if (COMMAND_LINE || !empty($_POST['show_skipped'])) {
-          Ui::displayMsg(sprintf(_('Skipping revision %d'), $commit['revision']), 'msg_skip');
-        }
-
-        // increment summary counter
-        ++$summary['skipped']['value'];
-
-        continue;
+      } else if ($repo['type'] == 'imap') {
+        $repository = new Imap($repo);
+        $repository->setupInsertRevisions();
       }
 
+      // display name (type) of repository insert
+      Ui::displayMsg(sprintf(_('Retrieving from %s (%s)...'), $repo['id'], $repo['type']), 'msg_title');
 
-      // get additional commit data
-      $commit['date']       = date('Y-m-d H:i:s', strtotime((string)$entry->date));
-      $commit['author']     = (string)$entry->author;
-      $commit['msg']        = self::processCommitMsg($commit['revision'], (string)$entry->msg);
-
-
-      // insert commit files into database
-      if (!empty($entry->paths->path[0])) {
-        $tmpPaths               = array();
-        $commitFile['revision'] = $commit['revision'];
-
-        // hold in tmp variable to fix PHP memory issues
-        $paths = $entry->paths->path;
-
-        foreach ($paths as $path) {
-          $commitFile['path']       = (string)$path;
-          $commitFile['operation']  = (string)$path->attributes()->action;
-
-          Db::insert('commit_files', $commitFile, true);
-
-          // save data to enable base path calculation below
-          $tmpPaths[] = $commitFile['path'];
-        }
-
-        // determine base commit path
-        $commit['basepath'] = self::getBasePath($tmpPaths);
-      }
-
-
-      // insert commit into database
-      Db::insert('commits', $commit, true);
-
-      // report successful process/insertion
-      Ui::displayMsg(sprintf(_('Processed revision %d'), $commit['revision']));
-
-      // increment summary counter
-      ++$summary['processed']['value'];
+      // do insert
+      $repository->insertRevisions();
     }
+
 
     // display summary
-    echo Ui::processSummary($summary, true);
+    echo Ui::processSummary($repository->summary, true);
 
     // clear bugs list cache
     Cache::delete('bugs');
   }
 
 
-  public static function generateStats($start, $end) {
+//  public static function generateStatsFromSvn($start, $end, $repoId) {
+//    // ensure script doesn't reach execution limits
+//    set_time_limit(0);
+//    ini_set('memory_limit', '256M');
+//
+//    // allow start and end to be passed in any order
+//    if ($start < $end) {
+//      $boundaries['start']  = $start;
+//      $boundaries['end']    = $end;
+//
+//    } else {
+//      $boundaries['start']  = $end;
+//      $boundaries['end']    = $start;
+//    }
+//
+//
+//    // get start and end revision numbers
+//    foreach ($boundaries as $boundary => $value) {
+//      if (is_numeric($value)) {
+//        // assume this is a revision number
+//        $revision[$boundary] = $value;
+//
+//      } else {
+//        // assume this is a date
+//        $cmd    = 'svn log --non-interactive ' . self::getRepoCmdAuth() . '--xml -v -r {' . $value . '} ' . REPOSITORY;
+//        $data   = shell_exec(escapeshellcmd($cmd));
+//        $data   = simplexml_load_string($data);
+//
+//        $revision[$boundary] = (int)$data->logentry->attributes()->revision;
+//      }
+//    }
+//
+//
+//    // get revision information
+//    Ui::displayMsg(_('Getting revision data...'));
+//
+//    $cmd    = 'svn log --non-interactive ' . self::getRepoCmdAuth() . '--xml -v -r ' . $revision['start'] . ':' . $revision['end'] . ' ' .
+//              REPOSITORY;
+//    $data   = shell_exec(escapeshellcmd($cmd));
+//    $data   = simplexml_load_string(utf8_encode($data));
+//
+//
+//    // initialise totals
+//    $stats                      = array();
+//    $stats['totalFiles']        = 0;
+//    $stats['totalCommits']      = 0;
+//    $stats['excludedCommits']   = 0;
+//    $stats['excludedAccounts']  = self::excludedAccounts();
+//
+//
+//    // process and store data
+//    Ui::displayMsg(_('Parsing revision data...'));
+//
+//    foreach ($data as $entry) {
+//      ++$stats['totalCommits'];
+//
+//      // skip if an excluded account!
+//      if (in_array((string)$entry->author, $stats['excludedAccounts'])) {
+//        ++$stats['excludedCommits'];
+//        continue;
+//      }
+//
+//      // set data into useful data structure
+//      if (!isset($stats['person'][(string)$entry->author]['commits'])) {
+//        // initialise counters
+//        $stats['person'][(string)$entry->author]['commits']  = 0;
+//        $stats['person'][(string)$entry->author]['files']    = 0;
+//      }
+//
+//      // increment commit counter
+//      ++$stats['person'][(string)$entry->author]['commits'];
+//
+//      // increment files counter
+//      $numFiles             = count($entry->paths->path);
+//      $stats['totalFiles'] += $numFiles;
+//
+//      $stats['person'][(string)$entry->author]['files'] += $numFiles;
+//
+//
+//      // extract module
+//      $basepath = self::getBasePath($entry->paths->path, 2);
+//
+//
+//      // increment module counter
+//      if (!isset($stats['module'][$basepath])) {
+//        $stats['module'][$basepath] = 1;
+//      } else {
+//        ++$stats['module'][$basepath];
+//      }
+//    }
+//
+//
+//    // process data into extended statistics
+//    self::processExtendedStats($boundaries['end'], $stats, $revision);
+//  }
+
+
+  public static function generateStatsFromDb($start, $end) {
     // ensure script doesn't reach execution limits
     set_time_limit(0);
     ini_set('memory_limit', '256M');
@@ -753,73 +749,100 @@ class Enzyme {
     if ($start < $end) {
       $boundaries['start']  = $start;
       $boundaries['end']    = $end;
+
     } else {
       $boundaries['start']  = $end;
       $boundaries['end']    = $start;
     }
 
 
-    // get start and end revision numbers
-    foreach ($boundaries as $boundary => $value) {
-      if (is_numeric($value)) {
-        // assume this is a revision number
-        $revision[$boundary] = $value;
+    // ensure enough data has been collected to survey provided date period
+    $enoughData  = Db::load('commits',
+                            array('date' => array('type'  => 'gt',
+                                                  'value' => date('Y-m-d H:i:s', strtotime($boundaries['end'] . ' 1 day')))),
+                            1,
+                            'date',
+                            false,
+                            'date ASC');
 
-      } else {
-        // assume this is a date
-        $cmd    = 'svn log --non-interactive ' . self::getRepoCmdAuth() . '--xml -v -r {' . $value . '} ' . REPOSITORY;
-        $data   = shell_exec(escapeshellcmd($cmd));
-        $data   = simplexml_load_string($data);
-
-        $revision[$boundary] = (int)$data->logentry->attributes()->revision;
-      }
+    if (!$enoughData) {
+      Ui::displayMsg(sprintf(_('Commit data past %s has not been collected yet.'), $boundaries['end']));
+      return false;
     }
 
 
-    // get revision information
+    // get revision information (from database)
     Ui::displayMsg(_('Getting revision data...'));
 
-    $cmd    = 'svn log --non-interactive ' . self::getRepoCmdAuth() . '--xml -v -r ' . $revision['start'] . ':' . $revision['end'] . ' ' .
-              REPOSITORY;
-    $data   = shell_exec(escapeshellcmd($cmd));
-    $data   = simplexml_load_string(utf8_encode($data));
+    $data  = Db::load('commits',
+                      array('date' => array('type' => 'range',
+                                            'args' => array($boundaries['start'], $boundaries['end']))),
+                      null,
+                      '*',
+                      true,
+                      'date ASC');
 
 
-    // process and store data
-    Ui::displayMsg(_('Parsing revision data...'));
+    // set revision boundaries
+    $tmp                = end($data);
+    $revision['end']    = $tmp['revision'];
 
-    $totalFiles       = 0;
-    $totalCommits     = $revision['end'] - $revision['start'];
-    $excludedCommits  = 0;
+    $tmp                = reset($data);
+    $revision['start']  = $tmp['revision'];
+
+
+    // get all files linked to commits within data range
+    $revisionsList      = array();
 
     foreach ($data as $entry) {
-      // skip if an excluded account!
-      $excludedAccounts = self::excludedAccounts();
+      $revisionsList[]  = $entry['revision'];
+    }
 
-      if (in_array((string)$entry->author, $excludedAccounts)) {
-        ++$excludedCommits;
+    $commitFiles        = Db::reindex(Db::load('commit_files', array('revision' => $revisionsList)),
+                                      'revision',
+                                      false,
+                                      false);
+
+
+    // initialise totals
+    $stats                      = array();
+    $stats['totalFiles']        = 0;
+    $stats['totalCommits']      = 0;
+    $stats['excludedCommits']   = 0;
+    $stats['excludedAccounts']  = self::excludedAccounts();
+
+
+    Ui::displayMsg(_('Parsing revision data...'));
+
+    // process main data
+    foreach ($data as $entry) {
+      ++$stats['totalCommits'];
+
+      // skip if an excluded account!
+      if (in_array($entry['author'], $stats['excludedAccounts'])) {
+        ++$stats['excludedCommits'];
         continue;
       }
 
       // set data into useful data structure
-      if (!isset($stats['person'][(string)$entry->author]['commits'])) {
+      if (!isset($stats['person'][$entry['author']]['commits'])) {
         // initialise counters
-        $stats['person'][(string)$entry->author]['commits']  = 0;
-        $stats['person'][(string)$entry->author]['files']    = 0;
+        $stats['person'][$entry['author']]['commits']  = 0;
+        $stats['person'][$entry['author']]['files']    = 0;
       }
 
       // increment commit counter
-      ++$stats['person'][(string)$entry->author]['commits'];
+      ++$stats['person'][$entry['author']]['commits'];
 
       // increment files counter
-      $numFiles    = count($entry->paths->path);
-      $totalFiles += $numFiles;
+      $numFiles             = count($commitFiles[$entry['revision']]);
+      $stats['totalFiles'] += $numFiles;
 
-      $stats['person'][(string)$entry->author]['files'] += $numFiles;
+      $stats['person'][$entry['author']]['files'] += $numFiles;
 
 
       // extract module
-      $basepath = self::getBasePath($entry->paths->path, 2);
+      $basepath = self::getBasePath($entry['basepath'], 2);
 
 
       // increment module counter
@@ -831,9 +854,15 @@ class Enzyme {
     }
 
 
+    // process data into extended statistics
+    self::processExtendedStats($boundaries['end'], $stats, $revision);
+  }
+
+
+  public static function processExtendedStats($date, array $stats, array $revision) {
     // process / insert people stats
     foreach ($stats['person'] as $person => $data) {
-      $insert[] = array('date'         => $boundaries['end'],
+      $insert[] = array('date'         => $date,
                         'identifier'   => $person,
                         'num_commits'  => $data['commits'],
                         'num_files'    => $data['files']);
@@ -853,7 +882,7 @@ class Enzyme {
         continue;
       }
 
-      $insert[] = array('date'         => $boundaries['end'],
+      $insert[] = array('date'         => $date,
                         'identifier'   => $module,
                         'value'        => $data);
     }
@@ -873,7 +902,7 @@ class Enzyme {
     Ui::displayMsg(_('Extracting extended statistics...'));
 
     $keys                               = array('gender', 'dob', 'country', 'motivation', 'colour');
-    $percentagePerCommit                = 100 / ($totalCommits - $excludedCommits);
+    $percentagePerCommit                = 100 / ($stats['totalCommits'] - $stats['excludedCommits']);
 
     foreach ($stats['person'] as $person => $data) {
       // extract each field
@@ -949,7 +978,7 @@ class Enzyme {
           $value = 100;
         }
 
-        $insert[] = array('date'        => $boundaries['end'],
+        $insert[] = array('date'        => $date,
                           'type'        => $type,
                           'identifier'  => $key,
                           'value'       => round($value, 2));
@@ -971,7 +1000,7 @@ class Enzyme {
         if (isset($row->children[1]->children[0]->attr) && isset($row->children[3])) {
           $link = explode('/', trim(strip_tags($row->children[1]->children[0]->attr['href']), '/'));
 
-          $i18n[] = array('date'        => $boundaries['end'],
+          $i18n[] = array('date'        => $date,
                           'identifier'  => end($link),
                           'value'       => trim(str_replace('%', null, strip_tags($row->children[3]->innertext))));
         }
@@ -1004,7 +1033,7 @@ class Enzyme {
             $identifier = $knownBugfixers[$identifier]['account'];
           }
 
-          $bugs[] = array('date'        => $boundaries['end'],
+          $bugs[] = array('date'        => $date,
                           'identifier'  => $identifier,
                           'value'       => trim(strip_tags($row->children[1]->innertext)));
         }
@@ -1027,11 +1056,11 @@ class Enzyme {
 
 
     // get general stats
-    $stats['general']['date']               = $boundaries['end'];
+    $stats['general']['date']               = $date;
     $stats['general']['revision_start']     = $revision['start'];
     $stats['general']['revision_end']       = $revision['end'];
-    $stats['general']['total_commits']      = $totalCommits;
-    $stats['general']['total_files']        = $totalFiles;
+    $stats['general']['total_commits']      = $stats['totalCommits'];
+    $stats['general']['total_files']        = $stats['totalFiles'];
     $stats['general']['active_developers']  = count($stats['person']);
     $stats['general']['open_bugs']          = $totalBugs[0];
     $stats['general']['open_wishes']        = $totalBugs[1];
@@ -1100,35 +1129,41 @@ class Enzyme {
                       WHERE reviewed > "' . $start . '"
                       AND reviewed <= "' . $end . '"', true);
 
-    foreach ($tmp as $item) {
-      // reviewed
-      if (!isset($stats[$item['reviewer']]['reviewed']['week'])) {
-        $stats[$item['reviewer']]['reviewed']['week'] = 1;
-      } else {
-        ++$stats[$item['reviewer']]['reviewed']['week'];
+    if ($tmp) {
+      foreach ($tmp as $item) {
+        // reviewed
+        if (!isset($stats[$item['reviewer']]['reviewed']['week'])) {
+          $stats[$item['reviewer']]['reviewed']['week'] = 1;
+        } else {
+          ++$stats[$item['reviewer']]['reviewed']['week'];
+        }
       }
-    }
 
 
-    // get number of classified (week)
-    $tmp   = Db::sql('SELECT * FROM commits_reviewed
-                      WHERE classified IS NOT NULL
-                      AND classified > "' . $start . '"
-                      AND classified <= "' . $end . '"', true);
+      // get number of classified (week)
+      $tmp   = Db::sql('SELECT * FROM commits_reviewed
+                        WHERE classified IS NOT NULL
+                        AND classified > "' . $start . '"
+                        AND classified <= "' . $end . '"', true);
 
-    foreach ($tmp as $item) {
-      // classified
-      if (!isset($stats[$item['classifier']]['classified']['week'])) {
-        $stats[$item['classifier']]['classified']['week'] = 1;
-      } else {
-        ++$stats[$item['classifier']]['classified']['week'];
+      foreach ($tmp as $item) {
+        // classified
+        if (!isset($stats[$item['classifier']]['classified']['week'])) {
+          $stats[$item['classifier']]['classified']['week'] = 1;
+        } else {
+          ++$stats[$item['classifier']]['classified']['week'];
+        }
       }
-    }
 
 
-    // sort?
-    if ($sort) {
-      uasort($stats, array('Enzyme', 'sortParticipationStats'));
+      // sort?
+      if ($sort && $stats) {
+        uasort($stats, array('Enzyme', 'sortParticipationStats'));
+      }
+
+    } else {
+      // no stats found
+      $stats = array();
     }
 
 
@@ -1183,6 +1218,8 @@ class Enzyme {
 
 
   public static function getBasePath($tmpPaths, $depth = null) {
+    $pathSeparator = '/';
+
     // if only one file provided, return input (otherwise we'll be locked in an infinite loop!)
     if ($tmpPaths instanceof SimpleXMLElement) {
       // SimpleXML data structure (eg. from SVN)
@@ -1195,23 +1232,34 @@ class Enzyme {
 
         foreach ($tmp as $key => $value) {
           if (!is_array($value)) {
-            $tmpPaths[$key] = explode('/', $value);
+            $tmpPaths[$key] = explode($pathSeparator, $value);
           }
         }
       }
 
     } else if (is_array($tmpPaths)) {
       // array
-      if (count($tmpPaths) == 1) {
+      if (!$tmpPaths) {
+        // empty
+        return '';
+
+      } else if (count($tmpPaths) == 1) {
+        // return first element
         return array_pop($tmpPaths);
 
       } else {
         foreach ($tmpPaths as $key => $value) {
           if (!is_array($value)) {
-            $tmpPaths[$key] = explode('/', $value);
+            $tmpPaths[$key] = explode($pathSeparator, $value);
           }
         }
       }
+
+    } else if (is_string($tmpPaths) && $depth) {
+      // only a single path represented by a string, and needs to be stripped down
+      $tmpPaths = explode($pathSeparator, trim($tmpPaths, $pathSeparator));
+
+      return $pathSeparator . implode($pathSeparator, array_slice($tmpPaths, 0, $depth));
 
     } else {
       trigger_error(sprintf(_('Invalid data type in %s'), 'getBasePath'));
@@ -1220,7 +1268,7 @@ class Enzyme {
 
 
     // process
-    $basepath  = null;
+    $basepath  = '';
     $stop      = false;
     $i         = 1;
 
@@ -1249,7 +1297,7 @@ class Enzyme {
 
       // add to common string?
       if (!$stop) {
-        $basepath .= '/' . $last;
+        $basepath .= $pathSeparator . $last;
       }
 
       // stop at specified depth?
@@ -1274,9 +1322,32 @@ class Enzyme {
   }
 
 
-  public static function getRepoCmdAuth() {
-    if (((bool)REPOSITORY_USER) && ((bool)REPOSITORY_PASS)) {
-      return '--username ' . REPOSITORY_USER . ' --password ' . REPOSITORY_PASS . ' ';
+  public static function getDotBlurb($date) {
+    // load digest
+    $digest = Digest::loadDigest($_REQUEST['date']);
+
+    // split synopsis into bullet list
+    if (!empty($digest['synopsis'])) {
+      $digest['synopsis'] = preg_split('/\.\s+/', $digest['synopsis']);
+
+      // combine blurb text
+      $buf = 'In <a href="' . DIGEST_URL . '/issues/' . $date . '/">this week\'s KDE Commit-Digest</a>:
+
+              <ul>';
+
+      foreach ($digest['synopsis'] as $item) {
+        $buf  .= '<li>' . $item . '</li>' . "\n";
+      }
+
+      $buf  .= '</ul>
+
+                <a href="' . DIGEST_URL . '/issues/' . $date . '/">Read the rest of the Digest here</a>.';
+
+      return $buf;
+
+    } else {
+      // no digest / synopsis found
+      return false;
     }
   }
 }

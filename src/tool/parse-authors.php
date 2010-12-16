@@ -35,95 +35,32 @@ ob_start();
 echo Ui::drawHtmlPageStart(null, array('/css/common.css'), array('/js/prototype.js'));
 
 
-// initialise summary
-$summary['skipped']['title']    = _('Skipped: %d');
-$summary['skipped']['value']    = 0;
-$summary['added']['title']      = _('Added: %d');
-$summary['added']['value']      = 0;
-$summary['malformed']['title']  = _('Malformed: %d');
-$summary['malformed']['value']  = 0;
-
-
 // get existing authors data from db
 $existingAuthors = Enzyme::getAuthors();
 
 
-// get fresh authors data
-$cmd    = 'svn cat --non-interactive ' . Enzyme::getRepoCmdAuth() . REPOSITORY . ACCOUNTS_FILE;
-$data   = shell_exec(escapeshellcmd($cmd));
-$data   = preg_split("/(\r?\n)/", $data);
+// load list of defined repositories
+$repos = Connector::getRepositories();
 
+foreach ($repos as $repo) {
+  if (!empty($repo['accounts_file'])) {
+    if ($repo['type'] == 'svn') {
+      $repository = new Svn($repo);
 
-// append accounts (if file present)
-if (is_file(BASE_DIR . '/data/append_accounts.txt')) {
-  $data = array_merge(file(BASE_DIR . '/data/append_accounts.txt'), $data);
-}
-
-
-// iterate through file line-by-line, inserting into database where not present
-foreach ($data as $theAuthor) {
-  if (empty($theAuthor)) {
-    continue;
-  }
-
-
-  // split into parts by 2 or more spaces
-  $elements = preg_split('/[ ][ ]+/', $theAuthor);
-
-
-  if (empty($elements[2]) && !empty($elements[1])) {
-    // split first field again on first space,
-    // account names can't contain spaces anyway!
-    $tmpAccount  = explode(' ', $elements[0]);
-    $tmpAccount  = reset($tmpAccount);
-    $elements[0] = str_replace($tmpAccount . ' ', null, $elements[0]);
-
-    array_unshift($elements, $tmpAccount);
-  }
-
-
-  // check all elements are present
-  if (count($elements) != 3) {
-    // report malformed entry
-    Ui::displayMsg(sprintf(_('Entry "%s" malformed, not added'), $theAuthor), 'error');
-
-    // increment summary counter
-    ++$summary['malformed']['value'];
-    continue;
-  }
-
-
-  // set data
-  $author['account']  = $elements[0];
-  $author['name']     = $elements[1];
-  $author['email']    = $elements[2];
-
-
-  // check if author has already been processed
-  if (isset($existingAuthors[$author['account']])) {
-    if (!empty($_POST['show_skipped'])) {
-      Ui::displayMsg(sprintf(_('Skipping: %s'), $theAuthor));
+    } else {
+      // not implemented
+      break;
     }
 
-    // increment summary counter
-    ++$summary['skipped']['value'];
-    continue;
+    // parse authors from set accounts file in defined repository
+    $repository->setupParseAuthors();
+    $repository->parseAuthors();
   }
-
-
-  // insert into database
-  Db::insert('authors', $author, true);
-
-  // report success
-  Ui::displayMsg(sprintf(_('Added %s (%s) to authors table'), $author['name'], $author['account']));
-
-  // increment summary counter
-  ++$summary['added']['value'];
 }
 
 
 // display summary
-echo Ui::processSummary($summary, true);
+echo Ui::processSummary($repository->summary, true);
 
 
 // draw html page end

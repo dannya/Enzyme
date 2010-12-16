@@ -12,6 +12,15 @@ div#content {
 }
 
 
+h3 {
+  position:relative;
+}
+h3 span {
+  position:absolute;
+  right:0;
+  top:-3px;
+}
+
 
 div#setup-column {
   width:600px;
@@ -118,4 +127,136 @@ div#setup-database-output i {
   color:#666;
 }
 div#setup-database-output b {
+}
+
+
+
+
+
+
+table#repositories {
+  margin:20px auto 16px auto;
+  border-collapse:collapse;
+}
+
+span#repo-security-msg {
+  display:block;
+  margin-bottom:60px;
+  text-align:center;
+  font-style:italic;
+  color:#666;
+}
+
+
+table#repositories thead tr th {
+  padding:0 8px;
+  
+  text-align:left;
+  font-weight:normal;
+  font-style:italic;
+  font-size:14px;
+  color:#666;
+}
+table#repositories thead tr th:first-child {
+  width:auto;
+}
+
+
+table#repositories tbody tr:nth-child(even) {
+  background-color:#E1EAF3;
+}
+table#repositories tbody tr:nth-child(odd) {
+  background-color:#fff;
+}
+
+
+table#repositories tbody tr td {
+  padding:4px 2px;
+}
+
+table#repositories tbody tr td select {
+  padding:2px 2px 2px 0;
+}
+
+
+
+table#repositories tbody tr td.col-priority,
+table#repositories tbody tr td.col-priority input {
+  width:54px;
+}
+
+table#repositories tbody tr td.col-id,
+table#repositories tbody tr td.col-id input {
+  width:76px;
+}
+
+table#repositories tbody tr td.col-type,
+table#repositories tbody tr td.col-type select {
+  width:80px;
+}
+
+table#repositories tbody tr td.col-hostname,
+table#repositories tbody tr td.col-hostname input {
+  width:160px;
+}
+
+table#repositories tbody tr td.col-port,
+table#repositories tbody tr td.col-port input {
+  width:40px;
+}
+
+table#repositories tbody tr td.col-username,
+table#repositories tbody tr td.col-username input {
+  width:110px;
+}
+
+table#repositories tbody tr td.col-password,
+table#repositories tbody tr td.col-password input {
+  width:80px;
+}
+
+table#repositories tbody tr td.col-accounts-file,
+table#repositories tbody tr td.col-accounts-file input {
+  width:100px;
+}
+
+table#repositories tbody tr td.col-web-viewer,
+table#repositories tbody tr td.col-web-viewer input {
+  width:100px;
+}
+
+
+
+
+
+
+div.repository-status {
+  position:relative;
+  float:left;
+  padding:4px;
+  margin:0;
+
+  opacity:0.6;
+  cursor:pointer;
+
+  border-radius:5px;
+  -moz-border-radius:5px;
+  -webkit-border-radius:5px; 
+}
+div.repository-status:hover {
+  opacity:1;
+}
+div.repository-status div {
+  position:relative;
+  top:1px;
+  width:22px;
+  height:22px;
+  background:url("../img/sprite.png") repeat scroll 0 0 transparent;
+}
+
+div.active {
+  background-color:green;
+}
+div.active div {
+  background-position:-22px -22px;
 }

@@ -51,7 +51,7 @@ function actionNext(event) {
     $('commit-counter').update(commitCounter);
 
     // add commit to read array
-    revision = newItem.down('a.revision').innerHTML;
+    revision = newItem.down('.revision').readAttribute('id');
 
     if (readCommits.indexOf(revision) == -1) {
       readCommits.push(revision);

@@ -74,9 +74,20 @@ ul.digests li div {
 ul.digests li div div {
   margin:0 !important;
 }
-ul.digests li a {
+ul.digests li a.title {
   position:absolute;
   margin-top:4px;
+}
+
+ul.digests li a.action {
+  float:right;
+  margin:4px 0 0 10px;
+  color:#666;
+  font-weight:normal;
+  font-style:italic;
+}
+ul.digests li a.action:hover {
+  color:#000;
 }
 
 
@@ -448,4 +459,20 @@ table#people tbody tr td:last-child {
 
 table#people td.padding {
   padding-right:18px;
+}
+
+
+
+
+/* dot blurb lightbox */
+div#dot-blurb {
+  margin-top:22px;
+}
+div#dot-blurb input {
+  display:block;
+}
+div#dot-blurb textarea {
+  margin-top:10px;
+  width:484px;
+  height:410px;
 }

@@ -16,14 +16,15 @@
 
 
 class SetupUi extends BaseUi {
-  public $id                  = 'setup';
-  public $title               = null;
+  public $id                        = 'setup';
+  public $title                     = null;
 
-  private $setupDatabase      = false;
-  private $availableSettings  = false;
+  private $setupDatabase            = false;
+  private $configuredRepositories   = false;
+  private $availableSettings        = false;
 
-  private $users              = false;
-  private $settings           = false;
+  private $users                    = false;
+  private $settings                 = false;
 
 
   public function __construct($setupDatabase = false) {
@@ -47,8 +48,11 @@ class SetupUi extends BaseUi {
       }
     }
 
+    // define configured repositories
+    $this->configuredRepositories = Connector::getRepositories();
+
     // define available settings
-    $this->availableSettings = Enzyme::getGroupedSettings();
+    $this->availableSettings      = Enzyme::getGroupedSettings();
   }
 
 
@@ -93,7 +97,13 @@ class SetupUi extends BaseUi {
       return $buf;
     }
 
-    $buf = '<form id="setup-form" action="">';
+
+    // draw repositories management interface
+    $buf = $this->drawRepositories();
+
+
+    // draw other settings
+    $buf  .= '<form id="setup-form" action="">';
 
     foreach ($this->availableSettings as $settings) {
       // draw title
@@ -165,6 +175,52 @@ class SetupUi extends BaseUi {
   }
 
 
+  public function drawRepositories() {
+    // draw
+    $buf = '<h3>' .
+              _('Repositories') .
+           '<span>
+                <span class="status">' . sprintf(_('%d repositories'), count($this->configuredRepositories)) . '</span>
+                <input type="button" onclick="addRepository();" value="' . _('Add repository') . '" title="' . _('Add repository') . '" />
+              </span>
+            </h3>
+
+            <table id="repositories">
+              <thead>
+                <tr>
+                  <th>&nbsp;</th>
+                  <th class="col-priority">' . _('Priority') . '</th>
+                  <th class="col-id">' . _('ID') . '</th>
+                  <th class="col-type">' . _('Type') . '</th>
+                  <th class="col-hostname">' . _('Hostname') . '</th>
+                  <th class="col-port">' . _('Port') . '</th>
+                  <th class="col-username">' . _('Username') . '</th>
+                  <th class="col-password">' . _('Password') . '</th>
+                  <th class="col-accounts-file">' . _('Accounts file') . '</th>
+                  <th class="col-web-viewer">' . _('Web viewer') . '</th>
+                </tr>
+              </thead>
+
+              <tbody>';
+
+    foreach ($this->configuredRepositories as $repo) {
+      $buf .= $this->drawRow($repo);
+    }
+
+    // draw hidden row, to allow creation of new users
+    $buf  .= $this->drawRow(null);
+
+    $buf  .= '  </tbody>
+              </table>
+
+              <span id="repo-security-msg">' .
+                _('Repository passwords are stored as plaintext. Consider setting up a separate, read-only repository user if security is important.') .
+             '</span>';
+
+    return $buf;
+  }
+
+
   public function getScript() {
     return array('/js/frame/setupui.js');
   }
@@ -172,6 +228,76 @@ class SetupUi extends BaseUi {
 
   public function getStyle() {
     return array('/css/setupui.css');
+  }
+
+
+  private function drawRow($repo = null) {
+    if ($repo) {
+      $rowId    = 'row-' . $repo['id'];
+      $rowStyle = null;
+      $pathsId  = ' id="paths-' . $repo['id'] . '"';
+
+      // set onchange function
+      $onChange = ' onchange="saveChange(\'' . $repo['id'] . '\', event);"';
+
+      // set repo delete button
+      $buttonClass = 'active';
+      $buttonState = 'false';
+      $buttonTitle = _('Delete repository?');
+
+      $accountButton = '<div id="active-' . $repo['id'] . '" class="repository-status ' . $buttonClass . '" title="' . $buttonTitle . '" onclick="deleteRepository(\'' . $repo['id'] . '\');">
+                          <div>&nbsp;</div>
+                        </div>';
+
+    } else {
+      // draw a blank row
+      $rowId             = 'row-new-0';
+      $rowStyle          = ' style="display:none;"';
+      $pathsId           = null;
+      $onChange          = null;
+      $pathsState        = null;
+
+      $accountButton     = '<div class="repository-status" title="' . _('Save new repository?') . '" onclick="saveNewRepository(event);">
+                              <div>&nbsp;</div>
+                            </div>';
+    }
+
+
+    // draw row
+    $buf =   '<tr id="' . $rowId . '"' . $rowStyle . '>
+                <td>' .
+                  $accountButton .
+             '  </td>
+                <td class="col-priority">
+                  <input type="text" value="' . $repo['priority'] . '" name="priority"' . $onChange . ' />
+                </td>
+                <td class="col-id">
+                  <input type="text" value="' . $repo['id'] . '" name="id"' . $onChange . ' />
+                </td>
+                <td class="col-type">' .
+                  Ui::htmlSelector('repo-types-' . $rowId, Connector::getTypes(), $repo['type'], null, 'type') .
+             '  </td>
+                <td class="col-hostname">
+                  <input type="text" value="' . $repo['hostname'] . '" name="hostname"' . $onChange . ' />
+                </td>
+                <td class="col-port">
+                  <input type="text" value="' . $repo['port'] . '" name="port"' . $onChange . ' />
+                </td>
+                <td class="col-username">
+                  <input type="text" value="' . $repo['username'] . '" name="username"' . $onChange . ' />
+                </td>
+                <td class="col-password">
+                  <input type="text" value="' . $repo['password'] . '" name="password"' . $onChange . ' />
+                </td>
+                <td class="col-accounts-file">
+                  <input type="text" value="' . $repo['accounts_file'] . '" name="accounts_file"' . $onChange . ' />
+                </td>
+                <td class="col-web-viewer">
+                  <input type="text" value="' . $repo['web_viewer'] . '" name="web_viewer"' . $onChange . ' />
+                </td>
+              </tr>';
+
+    return $buf;
   }
 
 

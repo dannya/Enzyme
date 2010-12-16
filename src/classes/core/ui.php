@@ -119,13 +119,18 @@ class Ui {
   }
 
 
-  public static function htmlSelector($id, $items, $preselectKey = null, $onChange = null) {
+  public static function htmlSelector($id, $items, $preselectKey = null, $onChange = null, $name = null) {
     // set onchange?
     if ($onChange) {
       $onChange = ' onchange="' . $onChange . '"';
     }
 
-    $buf = '<select id="' . $id . '" name="' . $id . '"' . $onChange . '>';
+    // name specified?
+    if (!$name) {
+      $name = $id;
+    }
+
+    $buf = '<select id="' . $id . '" name="' . $name . '"' . $onChange . '>';
 
     foreach ($items as $key => $value) {
       if ($key == $preselectKey) {
@@ -230,12 +235,36 @@ class Ui {
     }
 
 
+    // show repository name? (for Git commits)
+    $repository = null;
+
+    if (!empty($data['format']) && ($data['format'] == 'git')) {
+      // Git
+      if (!empty($data['repository'])) {
+        $repository = self::formatRepositoryName($data['repository']);
+      }
+
+      $revisionLink  = '<i id="' . $data['revision'] . '" class="revision">' .
+                          Digest::getShortGitRevision($data['revision']) .
+                       '</i>';
+
+    } else {
+      // SVN
+      $revisionLink  = '<a id="' . $data['revision'] . '" class="revision" href="' . WEBSVN . '?view=revision&amp;revision=' . $data['revision'] . '" target="_blank" tabindex="0">' .
+                          $data['revision'] .
+                       '</a>';
+    }
+
+
     // draw commit
     $buf = '<div id="' . $id . '" class="item normal ' . $itemClass . '">
-              <div class="commit-title">
-                Commit <a class="revision" tabindex="0" href="' . WEBSVN . '?view=revision&amp;revision=' . $data['revision'] . '" target="_blank">' . $data['revision'] . '</a> by <span>' . Enzyme::getAuthorInfo('name', $data['author']) . '</span> (<span>' . $data['author'] . '</span>)
-                <br />' .
-                Enzyme::drawBasePath($data['basepath']) .
+              <div class="commit-title">' .
+                sprintf(_('Commit %s by %s (%s)'),
+                        $revisionLink,
+                        '<span>' . Enzyme::getAuthorInfo('name', $data['author']) . '</span>',
+                        '<span>' . $data['author'] . '</span>') .
+           '    <br />' .
+                $repository . Enzyme::drawBasePath($data['basepath']) .
                 $date .
            '  </div>
               <div class="commit-msg">' .
@@ -440,6 +469,21 @@ class Ui {
                 $buf .
              '</div>';
     }
+  }
+
+
+  public static function formatRepositoryName($repositoryName) {
+    return '[' . $repositoryName . '] ';
+  }
+
+
+  public static function displayEmailAddress($emailAddress) {
+    $pattern  = array('@',
+                      '.');
+    $replace  = array(' at ',
+                      ' dot ');
+
+    return str_replace($pattern, $replace, $emailAddress);
   }
 }
 

@@ -13,6 +13,183 @@
 +--------------------------------------------------------*/
 
 
+var newRowCounter = 0;
+
+
+function addRepository() {
+  if ($('repositories') && $('row-new-' + newRowCounter)) {
+    // clone new row, so we can keep adding new rows after this one
+    var newRow = $('row-new-' + newRowCounter).innerHTML;
+
+    // pre-increment before usage (messes with minifier)
+    ++newRowCounter;
+
+    // add new row to page
+    $('repositories').down('tbody').insert({ bottom: '<tr id="row-new-' + newRowCounter + '">' + newRow + '</tr>' });
+  }
+}
+
+
+function deleteRepository(repo) {
+  if (typeof repo == 'undefined') {
+    return false;
+  }
+
+  // send off data
+  new Ajax.Request(BASE_URL + '/get/repositories.php', {
+    method: 'post',
+    parameters: {
+      repository: repo, 
+      data:       null,
+      dataType:   'delete'
+    },
+    onSuccess: function(transport) {
+      var result = transport.headerJSON;
+
+      if ((typeof result.success != 'undefined') && result.success) {
+        // remove repository row from table
+        if ($('row-' + repo)) {
+        	$('row-' + repo).remove();
+        }
+      }
+    }
+  });
+}
+
+
+function saveNewRepository(event) {
+  if (typeof event == 'undefined') {
+    return false;
+  }
+
+  // get data fields
+  var parentRow = event.element().up('tr');
+  var fields    = parentRow.select('input, select');
+
+  // check that needed fields are filled
+  var theData         = {};
+  var unfilled        = false;
+  var neededFields    = ['priority', 'id', 'type', 'hostname'];
+  var optionalFields  = ['port', 'username', 'password', 'accounts-file', 'web-viewer'];
+
+  fields.each(function(field) {
+    if (neededFields.indexOf(field.readAttribute('name')) != -1) {
+      // check if filled
+      if (field.value.empty()) {
+        field.addClassName('failure');
+        unfilled = true;
+
+      } else {
+        field.removeClassName('failure');
+        theData[field.readAttribute('name')] = field.value;
+      }
+
+    } else {
+      // process optional fields
+      if (optionalFields.indexOf(field.readAttribute('name')) != -1) {
+        if (field.type == 'checkbox') {
+          theData[field.readAttribute('name')] = field.checked;
+        } else if (field.type == 'text') {
+          theData[field.readAttribute('name')] = field.value;
+        }
+      }
+    }
+  });
+
+  // if all needed filled, save data
+  if (!unfilled) {
+    new Ajax.Request(BASE_URL + '/get/repositories.php', {
+      method: 'post',
+      parameters: {
+        repository: null,
+        data:       Object.toQueryString(theData),
+        dataType:   'new-repo'
+      },
+      onSuccess: function(transport) {
+        var result = transport.headerJSON;
+
+        if ((typeof result.success != 'undefined') && result.success) {
+          var repo = parentRow.select('input[name="id"]').first().value;
+
+          // change save button to delete repository button
+          var accountButton = parentRow.select('div.repository-status').first();
+
+          accountButton.addClassName('active');
+          accountButton.writeAttribute('title', strings.button_repo);
+          accountButton.writeAttribute('onclick', "deleteRepository('" + repo + "');");
+
+          // change id of row
+          parentRow.writeAttribute('id', 'row-' + repo);
+
+          // add actions to fields
+          var onChange = "saveChange('" + repo + "', event);";
+
+          fields.each(function(field) {
+            field.writeAttribute('onchange', onChange);
+          });
+
+        } else {
+          // error      
+        }
+      }
+    });
+  }
+}
+
+
+function saveChange(repo, event) {
+  if ((typeof repo == 'undefined') || (typeof event == 'undefined')) {
+    return false;
+  }
+
+  var element     = event.element();
+
+  // get new data
+  var theDataType = element.readAttribute('name');
+  var theData     = element.value;
+
+  // send off data
+  new Ajax.Request(BASE_URL + '/get/repositories.php', {
+    method: 'post',
+    parameters: {
+      repository: repo, 
+      data:       theData,
+      dataType:   theDataType
+    },
+    onSuccess: function(transport) {
+      var result = transport.headerJSON;
+
+      if ((typeof result.success != 'undefined') && result.success) {       
+        // show success
+        element.addClassName('success');
+        
+        // if "id" (which is also the database identifier!) changes, update method calls and DOM
+        if (theDataType == 'id') {
+        	var repo       = element.value;
+        	var parentRow  = element.up('tr');
+        	var fields     = parentRow.select('input, select');
+
+          // update delete repository button
+          var repositoryButton = parentRow.select('div.repository-status').first();
+          repositoryButton.writeAttribute('id', "active-" + repo);
+          repositoryButton.writeAttribute('onclick', "deleteRepository('" + repo + "');");
+          
+          // change id of row
+          parentRow.writeAttribute('id', 'row-' + repo);
+
+          // add actions to fields
+          var onChange = "saveChange('" + repo + "', event);";
+
+          fields.each(function(field) {
+            field.writeAttribute('onchange', onChange);
+          });
+        }
+      }
+    }
+  });
+}
+
+
 function setupDatabase() {
 	if (!$('setup-database-details') || !$('setup-database-output')) {
     return false;	

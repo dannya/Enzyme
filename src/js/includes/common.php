@@ -39,8 +39,12 @@ strings.settings_failure        = '<?php echo _("Failed to save settings") ?>';
 strings.reset_success           = '<?php echo _("Your password has been reset. Please check your registered email account for further instructions.") ?>';
 
 strings.people_references       = '<?php echo _("People References") ?>';
+strings.dot_blurb               = '<?php echo _("Dot Synopsis") ?>';
 
 strings.remove_commit           = '<?php echo _("Are you sure you want to remove this commit?") ?>';
+
+strings.button_user             = '<?php echo _("Make this user inactive?") ?>';
+strings.button_repo             = '<?php echo _("Delete repository?") ?>';
 
 
 function sprintf() {
@@ -175,7 +179,7 @@ function scrollItem(id) {
 function markCommit() {
   // get currently-selected commit item
   currentItem   = $(itemClass + '-' + itemCounter);
-  revision      = currentItem.down('a.revision').innerHTML;
+  revision      = currentItem.down('.revision').readAttribute('id');
 
   if (!currentItem.hasClassName('marked')) {
     // set commit as marked
@@ -235,7 +239,7 @@ function save(theType) {
       if ((!$(item.id + '-type').value.empty() && ($(item.id + '-type').value != 0)) || 
           (!$(item.id + '-area').value.empty() && ($(item.id + '-area').value != 0))) {
 
-        theData.push({ 'r':$(item).down('a.revision').innerHTML,
+        theData.push({ 'r':$(item).down('.revision').readAttribute('id'),
                        't':$(item.id + '-type').value,
                        'a':$(item.id + '-area').value });
       }

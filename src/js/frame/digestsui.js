@@ -96,6 +96,25 @@ function peopleReferences(theDate) {
 	  width:   500,
 	  height:  500
 	});
+	
+	return false;
+}
+
+
+function dotBlurb(theDate) {
+  if (typeof theDate == 'undefined') {
+    return false;
+  }
+
+  // load in lightbox
+  myLightWindow.activateWindow({
+    href:    BASE_URL + '/get/dot-blurb.php?date=' + theDate, 
+    title:   strings.dot_blurb,
+    width:   500,
+    height:  500
+  });
+
+  return false;
 }
 
 

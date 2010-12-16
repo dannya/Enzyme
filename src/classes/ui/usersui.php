@@ -222,12 +222,16 @@ class UsersUi extends BaseUi {
 
 
       // don't allow user to disable their own account!
+      // (or change their username, would mess up logged in sessions)
       if ($user['data']['username'] == $this->user->data['username']) {
-        $accountButton = null;
+        $accountButton    = null;
+        $usernameOnChange = ' disabled="disabled"';
+
       } else {
-        $accountButton = '<div id="active-' . $user['data']['username'] . '" class="account-status ' . $buttonClass . '" title="' . $buttonTitle . '" onclick="setAccountActive(\'' . $user['data']['username'] . '\', ' . $buttonState . ');">
-                            <div>&nbsp;</div>
-                          </div>';
+        $accountButton    = '<div id="active-' . $user['data']['username'] . '" class="account-status ' . $buttonClass . '" title="' . $buttonTitle . '" onclick="setAccountActive(\'' . $user['data']['username'] . '\', ' . $buttonState . ');">
+                               <div>&nbsp;</div>
+                             </div>';
+        $usernameOnChange = $onChange;
       }
 
     } else {
@@ -236,6 +240,7 @@ class UsersUi extends BaseUi {
       $rowStyle          = ' style="display:none;"';
       $pathsId           = null;
       $onChange          = null;
+      $usernameOnChange  = null;
       $pathsState        = null;
 
       $accountButton     = '<div class="account-status" title="' . _('Save new account?') . '" onclick="saveNewAccount(event);">
@@ -258,7 +263,7 @@ class UsersUi extends BaseUi {
                   $accountButton .
              '  </td>
                 <td>
-                  <input type="text" value="' . $user['data']['username'] . '" name="username"' . $onChange . ' />
+                  <input type="text" value="' . $user['data']['username'] . '" name="username"' . $usernameOnChange . ' />
                 </td>
                 <td>
                   <input type="text" value="' . $user['data']['email'] . '" name="email"' . $onChange . ' />

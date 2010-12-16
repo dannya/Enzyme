@@ -15,7 +15,7 @@
 +--------------------------------------------------------*/
 
 
-class BaseUi {
+abstract class BaseUi {
   public $title = null;
 
 
@@ -30,7 +30,7 @@ class BaseUi {
 
                    'review'   => array('url'        => BASE_URL . '/review/',
                                        'string'     => _('Review'),
-                                        'permission' => 'reviewer'),
+                                       'permission' => 'reviewer'),
 
                    'classify' => array('url'        => BASE_URL . '/classify/',
                                        'string'     => _('Classify'),

@@ -21,8 +21,8 @@ class Db {
                                   'bugfixers',
                                   'commits',
                                   'commits_reviewed',
-                                  'commits_bugs',
-                                  'commits_files',
+                                  'commit_bugs',
+                                  'commit_files',
                                   'countries',
                                   'digests',
                                   'digest_intro_people',
@@ -39,6 +39,7 @@ class Db {
                                   'languages',
                                   'links',
                                   'people',
+                                  'repositories',
                                   'settings',
                                   'users');
 
@@ -319,10 +320,32 @@ class Db {
 
           $query[] = $key . ' IN (' . implode(',', $tmpValue) . ')';
 
-        } else if ($tmpValue['type'] == 'range') {
-          sort($tmpValue['args']);
+        } else if (isset($tmpValue['type'])) {
+          if ($tmpValue['type'] == 'gt') {
+            // greater than
+            $query[] = $key . ' > \'' . self::sanitise($tmpValue['value']) . '\'';
 
-          $query[] = $key . ' >= \'' . self::sanitise($tmpValue['args'][0]) . '\' AND ' . $key . ' <= \'' . self::sanitise($tmpValue['args'][1]) . '\'';
+          } else if ($tmpValue['type'] == 'gte') {
+            // greater than or equal to
+            $query[] = $key . ' >= \'' . self::sanitise($tmpValue['value']) . '\'';
+
+          } else if ($tmpValue['type'] == 'lt') {
+            // lower than
+            $query[] = $key . ' < \'' . self::sanitise($tmpValue['value']) . '\'';
+
+          } else if ($tmpValue['type'] == 'lte') {
+            // lower than or equal to
+            $query[] = $key . ' <= \'' . self::sanitise($tmpValue['value']) . '\'';
+
+          } else if ($tmpValue['type'] == 'range') {
+            // between two values
+            sort($tmpValue['args']);
+
+            $query[] = $key . ' >= \'' . self::sanitise($tmpValue['args'][0]) . '\' AND ' . $key . ' <= \'' . self::sanitise($tmpValue['args'][1]) . '\'';
+          }
+
+        } else {
+          return false;
         }
 
       } else if ($tmpValue === true) {

@@ -18,39 +18,32 @@
 include($_SERVER['DOCUMENT_ROOT'] . '/autoload.php');
 
 
-// ensure needed params are set
-if (!isset($_REQUEST['start'])) {
-  echo _('Please enter the start date!');
-  exit;
-}
-if (!isset($_REQUEST['end'])) {
-  echo _('Please enter the end date!');
+// ensure date is provided
+if (empty($_REQUEST['date'])) {
   exit;
 }
 
 
-// check authentication
-$user = new User();
+// get dot blurb
+$dotBlurb = Enzyme::getDotBlurb($_REQUEST['date']);
 
-if (empty($user->auth)) {
-  echo _('Must be logged in!');
+if (empty($dotBlurb)) {
   exit;
 }
 
 
-ob_start();
+// draw
+$buf = '<h3>' .
+          _('Dot Synopsis') .
+       '</h3>
+
+        <div id="dot-blurb">
+          <input type="text" value="' . sprintf(_('KDE Commit-Digest for %s'), date('jS F Y', strtotime($_REQUEST['date']))) . '" />
+          <textarea>' . $dotBlurb . '</textarea>
+        </div>';
 
 
-// draw html page start
-echo Ui::drawHtmlPageStart(null, array('/css/common.css'), array('/js/prototype.js'));
-
-
-// do insert
-Enzyme::generateStatsFromDb($_REQUEST['start'], $_REQUEST['end']);
-
-
-// draw html page end
-echo Ui::drawHtmlPageEnd();
-
+// output
+echo $buf;
 
 ?>

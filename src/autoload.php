@@ -28,7 +28,7 @@ define('DB_DATABASE',       'enzyme');
 // define app constants
 define('APP_ID',            'enzyme');
 define('APP_NAME',          'Enzyme');
-define('VERSION',           '0.98');
+define('VERSION',           '0.99');
 
 
 // set initial values
@@ -46,7 +46,8 @@ if (empty($_SERVER['DOCUMENT_ROOT'])) {
 // add class dirs to include path
 $classDirs = array(BASE_DIR . '/classes/core/',
                    BASE_DIR . '/classes/ext/',
-                   BASE_DIR . '/classes/ui/');
+                   BASE_DIR . '/classes/ui/',
+                   BASE_DIR . '/classes/connectors/');
 
 
 // stop APC cache slam errors

@@ -11,32 +11,18 @@ h3 span {
   right:0;
   top:-3px;
 }
-h3 span.status {
-  position:relative;
-  display:block;
-  float:left;
-  top:auto;
-  right:auto;
-  margin:3px 6px 0 0;
-
-  font-size:16px;
-  font-weight:normal;
-  font-style:italic;
-  color:#999;
-}
 
 
 table#users {
-  margin:40px auto 0 auto;
+  margin:40px auto 22px auto;
   border-collapse:collapse;
-  margin-bottom:22px;
 }
 
 table#users tbody tr:nth-child(even) {
-  background:#E1EAF3;
+  background-color:#E1EAF3;
 }
 table#users tbody tr:nth-child(odd) {
-  background:#fff;
+  background-color:#fff;
 }
 
 table#users thead tr th {

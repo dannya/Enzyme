@@ -27,7 +27,14 @@ function insertCommits(event) {
   if (!$('start') || !$('end') || !$('result')) {
     return false;
   }
+  
+  // show skipped?
+  if ($('show-skipped') && $('show-skipped').checked) {
+  	var showSkipped = '&show_skipped=true';
+  } else {
+  	var showSkipped = '';
+  }
 
   // change result iframe URL to start insert process (and show results!)
-  $('result').src = BASE_URL + '/get/insert.php?start=' + $('start').value + '&end=' + $('end').value;
+  $('result').src = BASE_URL + '/get/insert.php?start=' + $('start').value + '&end=' + $('end').value + showSkipped;
 }

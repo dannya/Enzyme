@@ -26,6 +26,12 @@ function addUser() {
 
     // add new row to page
     $('users').down('tbody').insert({ bottom: '<tr id="row-new-' + newRowCounter + '">' + newRow + '</tr>' });
+    
+    // scroll to and highlight new row
+    if ($('row-new-' + newRowCounter)) {
+    	$('row-new-' + newRowCounter).scrollTo();
+    	$('row-new-' + newRowCounter).highlight()
+    }
   }
 }
 
@@ -88,9 +94,9 @@ function saveNewAccount(event) {
           var accountButton = parentRow.select('div.account-status').first();
           accountButton.addClassName('active');
 
-          accountButton.writeAttribute('id', 'active-dkite');
-          accountButton.writeAttribute('title', '');
-          accountButton.writeAttribute('onclick', "setAccountActive('dkite', false);");
+          accountButton.writeAttribute('id', 'active-' + username);
+          accountButton.writeAttribute('title', strings.button_user);
+          accountButton.writeAttribute('onclick', "setAccountActive('" + username + "', false);");
 
           // change id of row
           parentRow.writeAttribute('id', 'row-' + username);
@@ -102,7 +108,7 @@ function saveNewAccount(event) {
             paths.writeAttribute('id', 'paths-' + username);
           }
 
-            // add id's to checkboxes
+          // add id's to checkboxes
           parentRow.select('input[type="checkbox"]').each(function(item) {
             item.writeAttribute('id', item.readAttribute('name') + '-' + username);
           });
@@ -184,7 +190,7 @@ function saveChange(user, event) {
   new Ajax.Request(BASE_URL + '/get/users.php', {
     method: 'post',
     parameters: {
-    username: user, 
+      username: user,
       data:     theData,
       dataType: theDataType
     },
@@ -195,6 +201,44 @@ function saveChange(user, event) {
         if ((theDataType == 'permission-reviewer') || (theDataType == 'permission-classifier')) {
           // show / hide
           managePaths(user, theData);
+        }
+
+        // show success
+        element.addClassName('success');
+        
+        // if "username" (which is also the database identifier!) changes, update method calls and DOM
+        if (theDataType == 'username') {
+        	alert('s');
+          var username   = element.value;
+          var parentRow  = element.up('tr');
+          var fields     = parentRow.select('input');
+    
+          // update account status button
+          var accountButton = parentRow.select('div.account-status').first();
+          accountButton.writeAttribute('id', "active-" + username);
+          accountButton.writeAttribute('onclick', "setAccountActive('" + username + "', " + accountButton.hasClassName('inactive') + ");");
+
+          // change id of row
+          parentRow.writeAttribute('id', 'row-' + username);
+
+          // change id of paths input (needed to show / hide)
+          var paths = parentRow.select('input[name="paths"]').first();
+
+          if (paths) {
+            paths.writeAttribute('id', 'paths-' + username);
+          }
+
+          // add id's to checkboxes
+          parentRow.select('input[type="checkbox"]').each(function(item) {
+            item.writeAttribute('id', item.readAttribute('name') + '-' + username);
+          });
+
+          // add actions to fields
+          var onChange = "saveChange('" + username + "', event);";
+
+          fields.each(function(field) {
+            field.writeAttribute('onchange', onChange);
+          });
         }
       }
     }

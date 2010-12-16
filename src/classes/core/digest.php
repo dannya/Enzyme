@@ -389,7 +389,7 @@ class Digest {
     // load commit files
     if (!empty($digest['commits'])) {
       $q = mysql_query('SELECT * FROM commit_files
-                        WHERE revision IN (' . implode(',', array_keys($digest['commits'])) . ')
+                        WHERE revision IN ("' . implode('","', array_keys($digest['commits'])) . '")
                         ORDER BY operation') or trigger_error(sprintf(_('Query failed: %s'), mysql_error()));
 
       while ($row = mysql_fetch_assoc($q)) {
@@ -399,7 +399,7 @@ class Digest {
 
       // load commit bugs
       $q = mysql_query('SELECT * FROM commit_bugs
-                        WHERE revision IN (' . implode(',', array_keys($digest['commits'])) . ')') or trigger_error(sprintf(_('Query failed: %s'), mysql_error()));
+                        WHERE revision IN ("' . implode('","', array_keys($digest['commits'])) . '")') or trigger_error(sprintf(_('Query failed: %s'), mysql_error()));
 
       while ($row = mysql_fetch_assoc($q)) {
         $digest['commits'][$row['revision']]['bug'][] = $row;
@@ -448,7 +448,8 @@ class Digest {
 
     return array('nl_NL'  => _('Nederlands (Dutch)'),
                  'pt_PT'  => _('Português (Portuguese)'),
-                 'sv_SE'  => _('Svenska (Swedish)'));
+                 'sv_SE'  => _('Svenska (Swedish)'),
+                 'uk_UA'  => _('Ukrainian (Ukrainian)'));
   }
 
 
@@ -460,11 +461,10 @@ class Digest {
       $class = 'b b-p';
     }
 
+    // draw
     $buf = '<div class="commit">
               <span class="intro">' .
-                sprintf(_('%s committed changes in %s:'),
-                '<a class="n" href="http://cia.vc/stats/author/' . $commit['author'] . '/">' . $commit['name'] . '</a>',
-                Enzyme::drawBasePath($commit['basepath'])) .
+                self::getCommitTitle($commit) .
            '  </span>
 
               <div class="details">
@@ -479,11 +479,19 @@ class Digest {
 
       // show diffs?
       if ($showDiffs) {
+        // shorten revision string if Git
+        if (empty($commit['format']) || ($commit['format'] == 'svn')) {
+          $revision = $commit['revision'];
+
+        } else if ($commit['format'] == 'git') {
+          $revision = Digest::getShortGitRevision($commit['revision']);
+        }
+
         $buf .=  '  <span class="d">' .
                       self::drawDiffs($commit, $issueDate) .
                  '  </span>
                     <a class="r n" href="' . BASE_URL . '/issues/' . $issueDate . '/moreinfo/' . $commit['revision'] . '/">' .
-                      sprintf(_('Revision %d'), $commit['revision']) .
+                      sprintf(_('Revision %s'), $revision) .
                  '  </a>';
       }
 
@@ -494,6 +502,36 @@ class Digest {
               </div>';
 
     return $buf;
+  }
+
+
+  public static function getCommitTitle($commit) {
+      if (empty($commit['format']) || ($commit['format'] == 'svn')) {
+      $title  = sprintf(_('%s committed changes in %s:'),
+                '<a class="n" href="http://cia.vc/stats/author/' . $commit['author'] . '/">' . $commit['name'] . '</a>',
+                Enzyme::drawBasePath($commit['basepath']));
+
+    } else if ($commit['format'] == 'git') {
+      // do we have the name of the committer?
+      if (!empty($commit['name'])) {
+        $committer = '<a class="n" href="http://cia.vc/stats/author/' . $commit['author'] . '/">' . $commit['name'] . '</a>';
+      } else {
+        $committer = Ui::displayEmailAddress($commit['author']);
+      }
+
+      // show name of repository?
+      if (!empty($commit['repository'])) {
+        $repository = Ui::formatRepositoryName($commit['repository']);
+      } else {
+        $repository = null;
+      }
+
+      $title  = sprintf(_('%s committed changes in %s:'),
+                $committer,
+                $repository . Enzyme::drawBasePath($commit['basepath']));
+    }
+
+    return $title;
   }
 
 
@@ -545,9 +583,16 @@ class Digest {
       $limit = self::$numDiffs;
     }
 
-    // create links
+    // draw items (create links?)
     for ($i = 0; $i < $limit; $i++) {
-      $buf[] = '<a class="n" href="' . WEBSVN . $commit['diff'][$i]['path'] . '?r1=' . ($commit['diff'][$i]['revision'] - 1) . '&amp;r2=' . $commit['diff'][$i]['revision'] . '">' . ($i + 1) . '</a>';
+      if (empty($commit['format']) || ($commit['format'] == 'svn')) {
+        // show links to the web repo viewer
+        $buf[] = '<a class="n" href="' . WEBSVN . $commit['diff'][$i]['path'] . '?r1=' . ($commit['diff'][$i]['revision'] - 1) . '&amp;r2=' . $commit['diff'][$i]['revision'] . '">' . ($i + 1) . '</a>';
+
+      } else {
+        // don't show links, we don't know the web repo viewer for Git links
+        $buf[] = '<i title="' . $commit['diff'][$i]['path'] . '">' . ($i + 1) . '</i>';
+      }
     }
 
     // join string
@@ -644,6 +689,11 @@ class Digest {
 
   public static function getNumUsers() {
     return Db::count('users', array('username' => true));
+  }
+
+
+  public static function getShortGitRevision($revision) {
+    return App::truncate($revision, 7, true);
   }
 
 

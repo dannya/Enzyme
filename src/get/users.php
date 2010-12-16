@@ -98,6 +98,7 @@ if (($_REQUEST['dataType'] == 'new-user') || ($_REQUEST['dataType'] == 'approve-
     $email->send();
   }
 
+
 } else if ($_REQUEST['dataType'] == 'decline-application') {
   // remove application
   if (!empty($data['email'])) {
@@ -115,6 +116,7 @@ if (($_REQUEST['dataType'] == 'new-user') || ($_REQUEST['dataType'] == 'approve-
     $email    = new Email($to, sprintf('%s Application Declined', PROJECT_NAME), $message);
     $email->send();
   }
+
 
 } else if (strpos($_REQUEST['dataType'], 'permission-') !== false) {
   // extract permission
