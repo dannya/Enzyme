@@ -54,6 +54,7 @@ if ($_REQUEST['type'] == 'review') {
   if (isset($values)) {
     $json['saved']   = count($values);
     $json['success'] = Db::insert('commits_reviewed', $values, true);
+
   } else {
     $json['saved']   = 0;
     $json['success'] = false;

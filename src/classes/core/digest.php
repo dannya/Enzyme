@@ -449,6 +449,8 @@ class Digest {
     return array('nl_NL'  => _('Nederlands (Dutch)'),
                  'pt_PT'  => _('Português (Portuguese)'),
                  'sv_SE'  => _('Svenska (Swedish)'),
+                 'nds'    => _('Low Saxon (Low Saxon)'),
+                 'hu_HU'  => _('Magyar (Hungarian)'),
                  'uk_UA'  => _('Ukrainian (Ukrainian)'));
   }
 

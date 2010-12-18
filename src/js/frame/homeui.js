@@ -28,3 +28,34 @@ function changelog(event) {
   	$('changelog').fade({ duration: 0.3 });
   }
 }
+
+
+function panelRefresh(theId) {
+  // clear cache, refresh frame
+  if ((typeof theId == 'undefined') || !$('panel-' + theId)) {
+    return false;
+  }
+
+  // get panel content
+  new Ajax.Request(BASE_URL + '/get/panel.php', {
+    method: 'post',
+    parameters: {
+      panel: theId
+    },
+    onSuccess: function(transport) {
+      var result = transport.headerJSON;
+
+      if ((typeof result.success != 'undefined') && result.success) {
+        // success
+        $('panel-' + theId).update(transport.responseText);
+        
+        // highlight container
+	      new Effect.Highlight($('panel-' + theId), {
+	        startcolor: '#d0f1c0',
+          endcolor: '#fff',
+	        duration: 0.5
+	      });
+      }
+    }
+  });
+}

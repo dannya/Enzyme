@@ -37,6 +37,12 @@ div.container {
 
 
 
+h3 a.button-refresh {
+  float:right;
+}
+
+
+
 table.display {
   width:100%;
 }

@@ -54,6 +54,18 @@ $classDirs = array(BASE_DIR . '/classes/core/',
 ini_set('apc.slam_defense', 'Off');
 
 
+// ensure get variables can always be accessed, even when provided in q= format
+if (isset($_REQUEST['q'])) {
+  $tmp = explode('=', $_REQUEST['q']);
+
+  if (isset($tmp[1])) {
+    $_REQUEST[$tmp[0]] = $tmp[1];
+  } else {
+    $_REQUEST[$tmp[0]] = true;
+  }
+}
+
+
 // setup autoloader
 if (COMMAND_LINE) {
   ini_set('display_errors', true);

@@ -12,30 +12,6 @@ h3 b {
   margin:0 14px 10px 0;
 }
 
-h3 a.button {
-  display:block;
-  float:left;
-  width:22px;
-  height:22px;
-  margin:2px 0 0 10px;
-
-  background:url('../img/sprite.png') no-repeat;
-}
-
-h3 a#button-home {
-  background-position:-176px -22px;
-}
-h3 a#button-home:hover {
-  background-position:-176px -0;
-}
-
-h3 a#button-refresh {
-  background-position:-154px -22px;
-}
-h3 a#button-refresh:hover {
-  background-position:-154px -0;
-}
-
 
 h3 span {
   display:block;

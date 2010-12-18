@@ -37,6 +37,7 @@ function actionPrev(event) {
   Event.stop(event);
 }
 
+
 function actionNext(event) {
   newItem = selectItem('next');
 
@@ -62,6 +63,7 @@ function actionNext(event) {
 
   Event.stop(event);
 }
+
 
 function actionSelect(event) {
   if (event.type == 'click') {

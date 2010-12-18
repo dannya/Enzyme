@@ -30,7 +30,12 @@ function addUser() {
     // scroll to and highlight new row
     if ($('row-new-' + newRowCounter)) {
     	$('row-new-' + newRowCounter).scrollTo();
-    	$('row-new-' + newRowCounter).highlight()
+    	
+      new Effect.Highlight($('row-new-' + newRowCounter), {
+        startcolor: '#d0f1c0',
+        endcolor: '#fff',
+        duration: 1
+      });
     }
   }
 }

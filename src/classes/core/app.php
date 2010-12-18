@@ -49,8 +49,8 @@ class App {
     // load language strings for set language
     putenv('LC_ALL=' . LANGUAGE);
     setlocale(LC_ALL, LANGUAGE . '.utf8');
-    bindtextdomain('messages', BASE_DIR . '/languages');
-    textdomain('messages');
+    bindtextdomain(APP_ID, BASE_DIR . '/languages');
+    textdomain(APP_ID);
   }
 
 
@@ -136,7 +136,7 @@ class App {
   }
 
 
-  public static function getDirs($path, $sort = true) {
+  public static function getDirs($path, $sort = true, $includeSrc = false) {
     if (!is_dir($path)) {
       return false;
     }
@@ -158,6 +158,11 @@ class App {
           $dirs[] = $thePath;
         }
       }
+    }
+
+    // append source directory to list?
+    if ($includeSrc) {
+      $dirs[] = rtrim($path, '/');
     }
 
     // sort?

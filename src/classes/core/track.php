@@ -22,7 +22,7 @@ class Track {
 
   public static function user($username) {
     // only track useful pages
-    if ($_SERVER['SCRIPT_NAME'] == '/get/page.php') {
+    if (strpos($_SERVER['SCRIPT_NAME'], '/get/') !== false) {
       return false;
     }
 

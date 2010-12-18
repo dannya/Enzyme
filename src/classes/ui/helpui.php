@@ -35,10 +35,10 @@ class HelpUi extends BaseUi {
               <b>' .
                 _('Help') .
            '  </b>
-              <a id="button-refresh" class="button n" href="#" onclick="helpRefresh();" title="' . _('Refresh') . '">
+              <a class="button-refresh button n" href="#" onclick="helpRefresh();" title="' . _('Refresh') . '">
                 &nbsp;
               </a>
-              <a id="button-home" class="button n" href="#" onclick="helpHome();" title="' . _('Home') . '">
+              <a class="button-home button n" href="#" onclick="helpHome();" title="' . _('Home') . '">
                 &nbsp;
               </a>
 
