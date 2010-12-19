@@ -244,13 +244,13 @@ class Ui {
         $repository = self::formatRepositoryName($data['repository']);
       }
 
-      $revisionLink  = '<i id="' . $data['revision'] . '" class="revision">' .
+      $revisionLink  = '<i id="r::' . $data['revision'] . '" class="revision">' .
                           Digest::getShortGitRevision($data['revision']) .
                        '</i>';
 
     } else {
       // SVN
-      $revisionLink  = '<a id="' . $data['revision'] . '" class="revision" href="' . WEBSVN . '?view=revision&amp;revision=' . $data['revision'] . '" target="_blank" tabindex="0">' .
+      $revisionLink  = '<a id="r::' . $data['revision'] . '" class="revision" href="' . WEBSVN . '?view=revision&amp;revision=' . $data['revision'] . '" target="_blank" tabindex="0">' .
                           $data['revision'] .
                        '</a>';
     }

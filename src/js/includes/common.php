@@ -179,7 +179,7 @@ function scrollItem(id) {
 function markCommit() {
   // get currently-selected commit item
   currentItem   = $(itemClass + '-' + itemCounter);
-  revision      = currentItem.down('.revision').readAttribute('id');
+  revision      = currentItem.down('.revision').readAttribute('id').sub('r::', '', 1);
 
   if (!currentItem.hasClassName('marked')) {
     // set commit as marked
@@ -239,7 +239,7 @@ function save(theType) {
       if ((!$(item.id + '-type').value.empty() && ($(item.id + '-type').value != 0)) || 
           (!$(item.id + '-area').value.empty() && ($(item.id + '-area').value != 0))) {
 
-        theData.push({ 'r':$(item).down('.revision').readAttribute('id'),
+        theData.push({ 'r':$(item).down('.revision').readAttribute('id').sub('r::', '', 1),
                        't':$(item.id + '-type').value,
                        'a':$(item.id + '-area').value });
       }
