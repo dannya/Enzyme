@@ -393,7 +393,7 @@ class Enzyme {
       if (is_array($classifiedBy)) {
         $filter .= ' AND commits_reviewed.reviewer IN ("' . implode('","', $classifiedBy) . '")';
       } else {
-        $filter .= ' AND commits_reviewed.reviewer = ' . Db::quote($classifiedBy . 's');
+        $filter .= ' AND commits_reviewed.reviewer = ' . Db::quote($classifiedBy);
       }
     }
 
