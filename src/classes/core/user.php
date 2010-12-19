@@ -236,8 +236,8 @@ class User {
 
   public function getStats() {
     // set week date boundaries
-    $start  = date('Y-m-d', strtotime('Today - 1 week'));
-    $end    = date('Y-m-d');
+    $start  = date('Y-m-d H:i:s', strtotime('Today - 1 week'));
+    $end    = date('Y-m-d H:i:s');
 
 
     // get number of reviewed (total)

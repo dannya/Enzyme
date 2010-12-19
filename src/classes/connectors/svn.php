@@ -48,6 +48,7 @@ class Svn extends Connector {
     if ($this->start < $this->end) {
       $boundaries['start']  = $this->start;
       $boundaries['end']    = $this->end;
+
     } else {
       $boundaries['start']  = $this->end;
       $boundaries['end']    = $this->start;
@@ -61,7 +62,7 @@ class Svn extends Connector {
 
       } else {
         // assume this is a date
-        $cmd    = 'svn log --non-interactive ' . $this->getRepoCmdAuth() . '--xml -v -r {' . $value . '} ' . REPOSITORY;
+        $cmd    = 'svn log --non-interactive ' . $this->getRepoCmdAuth() . '--xml -v -r {' . $value . '} ' . $this->repo['hostname'];
         $data   = shell_exec(escapeshellcmd($cmd) . $this->showErrors);
         $data   = simplexml_load_string($data);
 
@@ -75,8 +76,7 @@ class Svn extends Connector {
 
 
     // get revision information
-    $cmd    = 'svn log --non-interactive ' . $this->getRepoCmdAuth() . '--xml -v -r ' . $revision['start'] . ':' . $revision['end'] . ' ' .
-              REPOSITORY;
+    $cmd    = 'svn log --non-interactive ' . $this->getRepoCmdAuth() . '--xml -v -r ' . $revision['start'] . ':' . $revision['end'] . ' ' . $this->repo['hostname'];
     $data   = shell_exec(escapeshellcmd($cmd) . $this->showErrors);
     $data   = simplexml_load_string(utf8_encode($data));
 

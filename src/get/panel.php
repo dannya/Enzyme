@@ -38,7 +38,7 @@ $panels = new Panels($user);
 
 
 // get panel
-$panelContent = $panels->draw($_REQUEST['panel'], false);
+$panelContent = $panels->draw($_REQUEST['panel'], false, true);
 
 
 // return success

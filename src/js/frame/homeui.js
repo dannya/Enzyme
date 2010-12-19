@@ -52,7 +52,6 @@ function panelRefresh(theId) {
         // highlight container
 	      new Effect.Highlight($('panel-' + theId), {
 	        startcolor: '#d0f1c0',
-          endcolor: '#fff',
 	        duration: 0.5
 	      });
       }

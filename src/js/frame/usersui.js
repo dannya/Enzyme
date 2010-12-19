@@ -33,7 +33,6 @@ function addUser() {
     	
       new Effect.Highlight($('row-new-' + newRowCounter), {
         startcolor: '#d0f1c0',
-        endcolor: '#fff',
         duration: 1
       });
     }

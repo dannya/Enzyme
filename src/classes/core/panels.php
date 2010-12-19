@@ -54,7 +54,7 @@ class Panels {
   }
 
 
-  public function draw($id, $drawContainer = true) {
+  public function draw($id, $drawContainer = true, $refresh = false) {
     // check that we have panel content
     if (!isset($this->panels[$id]['content'])) {
       return null;
@@ -77,7 +77,7 @@ class Panels {
 
     // check that we have content to display
     $panel = $this->panels[$id]['content'];
-    if (!$content = $this->$panel()){
+    if (!($content = $this->$panel($refresh))) {
       return null;
     }
 
@@ -135,14 +135,14 @@ class Panels {
   }
 
 
-  private function reviewStatus() {
+  private function reviewStatus($refresh = false) {
     $buf = '';
 
     return $buf;
   }
 
 
-  private function myStats() {
+  private function myStats($refresh = false) {
     // get participation stats
     $stats = $this->user->getStats();
 
@@ -175,9 +175,9 @@ class Panels {
   }
 
 
-  private function leaderBoard() {
+  private function leaderBoard($refresh = false) {
     // get participation stats
-    $stats = Enzyme::getParticipationStats();
+    $stats = Enzyme::getParticipationStats(true, $refresh);
 
 
     // draw
@@ -211,7 +211,7 @@ class Panels {
   }
 
 
-  private function activeUsers() {
+  private function activeUsers($refresh = false) {
     // get currently active users
     $users = Track::getUsers(true);
 
@@ -245,7 +245,7 @@ class Panels {
   }
 
 
-  private function enzymeUpdates() {
+  private function enzymeUpdates($refresh = false) {
     // check for updates
     $updates = json_decode(Cache::loadSave('updates', 'file_get_contents', array('http://enzyme-project.org/get/update.php?project=' . urlencode(PROJECT_NAME) . '&version=' . VERSION . '&url=' . BASE_URL)));
 

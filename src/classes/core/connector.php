@@ -26,7 +26,7 @@ abstract class Connector {
 
   public function __construct($repo) {
     // set repository details
-    $this->repo                           = $repo;
+    $this->repo = $repo;
   }
 
 

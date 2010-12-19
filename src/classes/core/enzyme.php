@@ -618,6 +618,12 @@ class Enzyme {
     $repos = Connector::getRepositories();
 
     foreach ($repos as $repo) {
+      // don't process if repository is not enabled
+      if (empty($repo['enabled']) || ($repo['enabled'] == 'N')) {
+        continue;
+      }
+
+      // setup repo
       if ($repo['type'] == 'svn') {
         $repository = new Svn($repo);
         $repository->setupInsertRevisions($start, $end, $showErrors);
@@ -636,7 +642,9 @@ class Enzyme {
 
 
     // display summary
-    echo Ui::processSummary($repository->summary, true);
+    if (isset($repository)) {
+      echo Ui::processSummary($repository->summary, true);
+    }
 
     // clear bugs list cache
     Cache::delete('bugs');
@@ -1075,10 +1083,18 @@ class Enzyme {
   }
 
 
-  public static function getParticipationStats($sort = true) {
+  public static function getParticipationStats($sort = true, $refresh = false) {
+    // check for data in cache
+    $existingStats = Cache::load('participation-stats');
+
+    if ($existingStats && !$refresh) {
+      return $existingStats;
+    }
+
+
     // set week date boundaries
-    $start  = date('Y-m-d', strtotime('Today - 1 week'));
-    $end    = date('Y-m-d');
+    $start  = date('Y-m-d H:i:s', strtotime('Today - 1 week'));
+    $end    = date('Y-m-d H:i:s');
 
 
     // get number of reviewed / classified (total)
@@ -1160,6 +1176,10 @@ class Enzyme {
       if ($sort && $stats) {
         uasort($stats, array('Enzyme', 'sortParticipationStats'));
       }
+
+
+      // save data in cache
+      Cache::save('participation-stats', $stats, false, 3600);
 
     } else {
       // no stats found
