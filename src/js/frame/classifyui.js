@@ -101,6 +101,32 @@ function changeKey(theType) {
 }
 
 
+function setClassifyUserFilter(event) { 
+  // convert checkbox into actual setting
+  if ((typeof event != 'undefined') && event.element().checked) {
+  	var setFilter = 'Y';
+  } else {
+  	var setFilter = 'N';
+  }
+
+  // send off data
+  new Ajax.Request(BASE_URL + '/get/change-personal.php', {
+    method: 'post',
+    parameters: { 
+      data: 'classify_user_filter=' + setFilter
+    },
+    onSuccess: function(transport) {
+      var result = transport.headerJSON;
+
+      if ((typeof result.success != 'undefined') && result.success) {
+        // refresh page to show 
+        location.reload(true);
+      }
+    }
+  });
+}
+
+
 // onload...
 document.observe('dom:loaded', function() {
   // write counter total

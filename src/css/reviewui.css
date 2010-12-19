@@ -250,8 +250,45 @@ div#classify-key-selector input[type="button"].selected {
 div#interface-selector {
   position:relative;
   margin:8px auto 0 auto;
-  width:250px;
+  width:450px;
 
   text-align:center;
   color:#fff;
+}
+div#interface-selector label {
+  cursor:pointer;
+}
+
+
+label#classify-user-filter {
+  margin:4px 0 0 14px;
+  text-align:right;
+  color:#fff; 
+}
+
+
+
+
+div#sub-prompt {
+  position:absolute;
+  bottom:10px;
+  width:52%;
+  padding:0 22%;
+}
+div#sub-prompt p {
+  margin:0 0 !important;
+  padding:10px;
+
+  font-style:italic;
+  font-size:22px;
+  text-align:center;
+
+  color:#999;
+  border:1px solid #999;
+  cursor:pointer;
+}
+div#sub-prompt p:hover {
+  background-color:#f3f3f3;
+  border:1px solid #111;
+  color:#111;
 }

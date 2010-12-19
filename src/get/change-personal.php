@@ -33,7 +33,7 @@ if (empty($user->auth)) {
 
 
 // set valid fields
-$validFields = array('email', 'firstname', 'lastname', 'language', 'interface');
+$validFields = array('email', 'firstname', 'lastname', 'language', 'interface', 'classify_user_filter');
 
 
 // extract new data
@@ -50,6 +50,10 @@ if (isset($data['language']) && ($data['language'] != $user->data['language'])) 
 foreach ($data as $key => $value) {
   if (in_array($key, $validFields)) {
     $user->data[$key] = $value;
+
+  } else {
+    // don't proceed if invalid data is passed
+    App::returnHeaderJson(true, array('error' => true));
   }
 }
 

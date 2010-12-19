@@ -360,10 +360,23 @@ class Ui {
                                 '</label>';
       }
 
-      $interfaceSelector .= '</div>';
+
+      // allow users to only see commits they have reviewed
+      if (isset($user->data['classify_user_filter']) && ($user->data['classify_user_filter'] == 'Y')) {
+        $userFilterChecked = ' checked="checked"';
+      } else {
+        $userFilterChecked = null;
+      }
+
+      $interfaceSelector  .= '  <label id="classify-user-filter">
+                                  <input type="checkbox" onchange="setClassifyUserFilter(event);"' . $userFilterChecked . ' /> ' . _('Only show commits I reviewed') .
+                             '  </label>
+                              </div>';
+
 
       // buttons
       $buttons = '<input id="review-save" type="button" onclick="save(\'' . $type . '\');" value="' . _('Save') . '" title="' . _('Save') . '" />';
+
 
     } else if ($type == 'review') {
       $display = sprintf('<span class="bold">' . _('Selected %s of %s commits reviewed (%s total)'),

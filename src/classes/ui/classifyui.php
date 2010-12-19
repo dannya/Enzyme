@@ -41,8 +41,15 @@ class ClassifyUi extends BaseUi {
     }
 
 
-    // get revision data
-    $revisions = Enzyme::getProcessedRevisions('marked');
+    // get revision data (only show those reviewed by user?)
+    if (isset($this->user->data['classify_user_filter']) && ($this->user->data['classify_user_filter'] == 'Y')) {
+      $classifiedBy = $this->user->data['username'];
+    } else {
+      $classifiedBy = null;
+    }
+
+    $revisions = Enzyme::getProcessedRevisions('marked', null, $classifiedBy);
+
 
     // attach bug data to revisions
     Enzyme::getBugs($revisions);
@@ -54,6 +61,15 @@ class ClassifyUi extends BaseUi {
       $buf = '<p class="prompt">' .
                 _('No revisions available') .
              '</p>';
+
+      // if filtering is set, remind users to unset this
+      if ($classifiedBy) {
+        $buf  .= '<div id="sub-prompt">
+                    <p class="r" onclick="setClassifyUserFilter();">' .
+                      _('Try unchecking "Only show commits I reviewed"') .
+                   '</p>
+                 </div>';
+      }
 
     } else {
       // get author data

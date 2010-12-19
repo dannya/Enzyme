@@ -372,7 +372,7 @@ class Enzyme {
   }
 
 
-  public static function getProcessedRevisions($type = null, $exclude = null, $limit = ' LIMIT 100') {
+  public static function getProcessedRevisions($type = null, $exclude = null, $classifiedBy = null, $limit = ' LIMIT 100') {
     $filter             = ' WHERE 1';
     $revisions          = null;
     $existingRevisions  = null;
@@ -385,6 +385,16 @@ class Enzyme {
       }
 
       $filter .= ' AND commits.author NOT IN ("' . implode('","', $exclude) . '")';
+    }
+
+
+    // only get revisions reviewed by sepcified username?
+    if ($classifiedBy) {
+      if (is_array($classifiedBy)) {
+        $filter .= ' AND commits_reviewed.reviewer IN ("' . implode('","', $classifiedBy) . '")';
+      } else {
+        $filter .= ' AND commits_reviewed.reviewer = ' . Db::quote($classifiedBy . 's');
+      }
     }
 
 
@@ -442,7 +452,7 @@ class Enzyme {
     }
 
     // execute query
-    $selectQuery  = 'SELECT ' . $fields . ' FROM ' . $table . $filter . $limit;
+    $selectQuery  = 'SELECT ' . $fields . ' FROM ' . $table . $filter . ' ORDER BY date ASC' . $limit;
     $q            = mysql_query($selectQuery) or trigger_error(sprintf(_('Query failed: %s'), mysql_error()));
 
     while ($row = mysql_fetch_assoc($q)) {
