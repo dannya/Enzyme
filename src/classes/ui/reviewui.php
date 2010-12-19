@@ -42,7 +42,7 @@ class ReviewUi extends BaseUi {
 
 
     // get revision data
-    $revisions = Enzyme::getProcessedRevisions('unreviewed', true, ' ORDER BY date DESC LIMIT 100');
+    $revisions = Enzyme::getProcessedRevisions('unreviewed', true, ' ORDER BY date ASC LIMIT 100');
 
     // attach bug data to revisions
     Enzyme::getBugs($revisions);

@@ -442,16 +442,17 @@ class Digest {
                  'de_DE'  => _('Deutsch (German)'),
                  'fr_FR'  => _('Français (French)'),
                  'es_ES'  => _('Español (Spanish)'),
+                 'nl_NL'  => _('Nederlands (Dutch)'),
                  'it_IT'  => _('Italiano (Italian)'),
                  'pl_PL'  => _('Polski (Polish)'),
-                 'pt_BR'  => _('Português Brasileiro (Brazilian Portuguese)'));
-
-    return array('nl_NL'  => _('Nederlands (Dutch)'),
                  'pt_PT'  => _('Português (Portuguese)'),
-                 'sv_SE'  => _('Svenska (Swedish)'),
-                 'nds'    => _('Low Saxon (Low Saxon)'),
+                 'pt_BR'  => _('Português Brasileiro (Brazilian Portuguese)'),
                  'hu_HU'  => _('Magyar (Hungarian)'),
-                 'uk_UA'  => _('Ukrainian (Ukrainian)'));
+                 'uk_UA'  => _('Ukrainian (Ukrainian)'),
+                 'nds'    => _('Low Saxon (Low Saxon)'));
+
+    // not yet ready for inclusion, here for translation purposes
+    return array('sv_SE'  => _('Svenska (Swedish)'));
   }
 
 
