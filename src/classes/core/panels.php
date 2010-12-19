@@ -90,7 +90,7 @@ class Panels {
                 </a>
               </h3>
 
-              <div id="panel-' . $id . '" class="container r">' .
+              <div id="' . $id . '" class="container r">' .
                 $content .
              '</div>';
 

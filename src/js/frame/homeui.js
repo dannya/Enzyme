@@ -13,6 +13,18 @@
 +--------------------------------------------------------*/
 
 
+// setup regular AJAX updating for panels
+var panelUpdateInterval = 180000;
+
+document.observe('dom:loaded', function() {
+  $$('div.container').each(function(panel) {
+    if ($(panel.id)) {
+      setInterval('panelRefresh(\'' + panel.id + '\')', panelUpdateInterval);
+    }
+  });
+});
+
+
 function changelog(event) {
   if (typeof event == 'object') {
     Event.stop(event);
@@ -30,9 +42,9 @@ function changelog(event) {
 }
 
 
-function panelRefresh(theId) {
+function panelRefresh(thePanel) {
   // clear cache, refresh frame
-  if ((typeof theId == 'undefined') || !$('panel-' + theId)) {
+  if ((typeof thePanel == 'undefined') || !$(thePanel)) {
     return false;
   }
 
@@ -40,17 +52,17 @@ function panelRefresh(theId) {
   new Ajax.Request(BASE_URL + '/get/panel.php', {
     method: 'post',
     parameters: {
-      panel: theId
+      panel: thePanel
     },
     onSuccess: function(transport) {
       var result = transport.headerJSON;
 
       if ((typeof result.success != 'undefined') && result.success) {
         // success
-        $('panel-' + theId).update(transport.responseText);
+        $(thePanel).update(transport.responseText);
         
         // highlight container
-	      new Effect.Highlight($('panel-' + theId), {
+	      new Effect.Highlight($(thePanel), {
 	        startcolor: '#d0f1c0',
 	        duration: 0.5
 	      });
