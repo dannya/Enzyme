@@ -44,7 +44,7 @@ class DigestsUi extends BaseUi {
 
     } else {
       // load digest data
-      $this->data = Digest::loadDigest($_REQUEST['digest']);
+      $this->data = Digest::loadDigest(trim(str_replace('digests/', null, $_REQUEST['digest']), '/'));
 
       // draw issue management UI
       return $this->drawManagement();
@@ -510,46 +510,48 @@ class DigestsUi extends BaseUi {
       }
 
 
-      // draw developer stats
-      if ($this->data['version'] == 2) {
-        $title = _('Files');
-        $key   = 'num_files';
-      } else {
-        $title = _('Lines');
-        $key   = 'num_lines';
+      // draw developer stats?
+      if (isset($this->data['stats']['developer'])) {
+        if ($this->data['version'] == 2) {
+          $title = _('Files');
+          $key   = 'num_files';
+        } else {
+          $title = _('Lines');
+          $key   = 'num_lines';
+        }
+
+        $counter = 0;
+
+        $buf .=  '<table id="stats-developer" class="stats">
+                    <thead>
+                      <tr>
+                        <td>' . _('Account') . '</td>
+                        <td>' . $title . '</td>
+                        <td>' . _('Commits') . '</td>
+                      </tr>
+                    </thead>
+
+                    <tbody>';
+
+        foreach ($this->data['stats']['developer'] as $account => $data) {
+          $buf .=  '<tr>
+                      <td class="label">
+                        <input id="developer-label-' . $counter . '" type="text" value="' . $account . '" />
+                      </td>
+                      <td class="value valueLeft">
+                        <input id="developer-value1-' . $counter . '" type="text" value="' . $data[$key] . '" />
+                      </td>
+                      <td class="value valueRight">
+                        <input id="developer-value2-' . $counter . '" type="text" value="' . $data['num_commits'] . '" />
+                      </td>
+                    </tr>';
+
+          ++$counter;
+        }
+
+        $buf .=  '  </tbody>
+                  </table>';
       }
-
-      $counter = 0;
-
-      $buf .=  '<table id="stats-developer" class="stats">
-                  <thead>
-                    <tr>
-                      <td>' . _('Account') . '</td>
-                      <td>' . $title . '</td>
-                      <td>' . _('Commits') . '</td>
-                    </tr>
-                  </thead>
-
-                  <tbody>';
-
-      foreach ($this->data['stats']['developer'] as $account => $data) {
-        $buf .=  '<tr>
-                    <td class="label">
-                      <input id="developer-label-' . $counter . '" type="text" value="' . $account . '" />
-                    </td>
-                    <td class="value valueLeft">
-                      <input id="developer-value1-' . $counter . '" type="text" value="' . $data[$key] . '" />
-                    </td>
-                    <td class="value valueRight">
-                      <input id="developer-value2-' . $counter . '" type="text" value="' . $data['num_commits'] . '" />
-                    </td>
-                  </tr>';
-
-        ++$counter;
-      }
-
-      $buf .=  '  </tbody>
-                </table>';
 
 
       // draw i18n stats

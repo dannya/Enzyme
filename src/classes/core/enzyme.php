@@ -661,101 +661,105 @@ class Enzyme {
   }
 
 
-//  public static function generateStatsFromSvn($start, $end, $repoId) {
-//    // ensure script doesn't reach execution limits
-//    set_time_limit(0);
-//    ini_set('memory_limit', '256M');
-//
-//    // allow start and end to be passed in any order
-//    if ($start < $end) {
-//      $boundaries['start']  = $start;
-//      $boundaries['end']    = $end;
-//
-//    } else {
-//      $boundaries['start']  = $end;
-//      $boundaries['end']    = $start;
-//    }
-//
-//
-//    // get start and end revision numbers
-//    foreach ($boundaries as $boundary => $value) {
-//      if (is_numeric($value)) {
-//        // assume this is a revision number
-//        $revision[$boundary] = $value;
-//
-//      } else {
-//        // assume this is a date
-//        $cmd    = 'svn log --non-interactive ' . self::getRepoCmdAuth() . '--xml -v -r {' . $value . '} ' . REPOSITORY;
-//        $data   = shell_exec(escapeshellcmd($cmd));
-//        $data   = simplexml_load_string($data);
-//
-//        $revision[$boundary] = (int)$data->logentry->attributes()->revision;
-//      }
-//    }
-//
-//
-//    // get revision information
-//    Ui::displayMsg(_('Getting revision data...'));
-//
-//    $cmd    = 'svn log --non-interactive ' . self::getRepoCmdAuth() . '--xml -v -r ' . $revision['start'] . ':' . $revision['end'] . ' ' .
-//              REPOSITORY;
-//    $data   = shell_exec(escapeshellcmd($cmd));
-//    $data   = simplexml_load_string(utf8_encode($data));
-//
-//
-//    // initialise totals
-//    $stats                      = array();
-//    $stats['totalFiles']        = 0;
-//    $stats['totalCommits']      = 0;
-//    $stats['excludedCommits']   = 0;
-//    $stats['excludedAccounts']  = self::excludedAccounts();
-//
-//
-//    // process and store data
-//    Ui::displayMsg(_('Parsing revision data...'));
-//
-//    foreach ($data as $entry) {
-//      ++$stats['totalCommits'];
-//
-//      // skip if an excluded account!
-//      if (in_array((string)$entry->author, $stats['excludedAccounts'])) {
-//        ++$stats['excludedCommits'];
-//        continue;
-//      }
-//
-//      // set data into useful data structure
-//      if (!isset($stats['person'][(string)$entry->author]['commits'])) {
-//        // initialise counters
-//        $stats['person'][(string)$entry->author]['commits']  = 0;
-//        $stats['person'][(string)$entry->author]['files']    = 0;
-//      }
-//
-//      // increment commit counter
-//      ++$stats['person'][(string)$entry->author]['commits'];
-//
-//      // increment files counter
-//      $numFiles             = count($entry->paths->path);
-//      $stats['totalFiles'] += $numFiles;
-//
-//      $stats['person'][(string)$entry->author]['files'] += $numFiles;
-//
-//
-//      // extract module
-//      $basepath = self::getBasePath($entry->paths->path, 2);
-//
-//
-//      // increment module counter
-//      if (!isset($stats['module'][$basepath])) {
-//        $stats['module'][$basepath] = 1;
-//      } else {
-//        ++$stats['module'][$basepath];
-//      }
-//    }
-//
-//
-//    // process data into extended statistics
-//    self::processExtendedStats($boundaries['end'], $stats, $revision);
-//  }
+  public static function generateStatsFromSvn($start, $end, $repoId) {
+    // ensure script doesn't reach execution limits
+    set_time_limit(0);
+    ini_set('memory_limit', '256M');
+
+    // allow start and end to be passed in any order
+    if ($start < $end) {
+      $boundaries['start']  = $start;
+      $boundaries['end']    = $end;
+
+    } else {
+      $boundaries['start']  = $end;
+      $boundaries['end']    = $start;
+    }
+
+
+    // load repository
+    $repo = Connector::getRepository($repoId);
+
+
+    // get start and end revision numbers
+    foreach ($boundaries as $boundary => $value) {
+      if (is_numeric($value)) {
+        // assume this is a revision number
+        $revision[$boundary] = $value;
+
+      } else {
+        // assume this is a date
+        $cmd    = 'svn log --non-interactive --xml -v -r {' . $value . '} ' . $repo['hostname'];
+        $data   = shell_exec(escapeshellcmd($cmd));
+        $data   = simplexml_load_string($data);
+
+        $revision[$boundary] = (int)$data->logentry->attributes()->revision;
+      }
+    }
+
+
+    // get revision information
+    Ui::displayMsg(_('Getting revision data...'));
+
+    $cmd    = 'svn log --non-interactive --xml -v -r ' . $revision['start'] . ':' . $revision['end'] . ' ' .
+              $repo['hostname'];
+    $data   = shell_exec(escapeshellcmd($cmd));
+    $data   = simplexml_load_string(utf8_encode($data));
+
+
+    // initialise totals
+    $stats                      = array();
+    $stats['totalFiles']        = 0;
+    $stats['totalCommits']      = 0;
+    $stats['excludedCommits']   = 0;
+    $stats['excludedAccounts']  = self::excludedAccounts();
+
+
+    // process and store data
+    Ui::displayMsg(_('Parsing revision data...'));
+
+    foreach ($data as $entry) {
+      ++$stats['totalCommits'];
+
+      // skip if an excluded account!
+      if (in_array((string)$entry->author, $stats['excludedAccounts'])) {
+        ++$stats['excludedCommits'];
+        continue;
+      }
+
+      // set data into useful data structure
+      if (!isset($stats['person'][(string)$entry->author]['commits'])) {
+        // initialise counters
+        $stats['person'][(string)$entry->author]['commits']  = 0;
+        $stats['person'][(string)$entry->author]['files']    = 0;
+      }
+
+      // increment commit counter
+      ++$stats['person'][(string)$entry->author]['commits'];
+
+      // increment files counter
+      $numFiles             = count($entry->paths->path);
+      $stats['totalFiles'] += $numFiles;
+
+      $stats['person'][(string)$entry->author]['files'] += $numFiles;
+
+
+      // extract module
+      $basepath = self::getBasePath($entry->paths->path, 2);
+
+
+      // increment module counter
+      if (!isset($stats['module'][$basepath])) {
+        $stats['module'][$basepath] = 1;
+      } else {
+        ++$stats['module'][$basepath];
+      }
+    }
+
+
+    // process data into extended statistics
+    self::processExtendedStats($boundaries['end'], $stats, $revision);
+  }
 
 
   public static function generateStatsFromDb($start, $end) {
@@ -799,6 +803,13 @@ class Enzyme {
                       '*',
                       true,
                       'date ASC');
+
+
+    // sanity check
+    if (!$data) {
+      echo _('Not enough data to generate statistics.');
+      return false;
+    }
 
 
     // set revision boundaries

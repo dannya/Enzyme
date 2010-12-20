@@ -47,6 +47,7 @@ echo Ui::drawHtmlPageStart(null, array('/css/common.css'), array('/js/prototype.
 
 // do insert
 Enzyme::generateStatsFromDb($_REQUEST['start'], $_REQUEST['end']);
+//Enzyme::generateStatsFromSvn($_REQUEST['start'], $_REQUEST['end'], 'kde-svn');
 
 
 // draw html page end
