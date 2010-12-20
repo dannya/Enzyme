@@ -1,4 +1,4 @@
-CREATE TABLE IF NOT EXISTS `digest_stats` (
+CREATE TABLE `digest_stats` (
   `date` date NOT NULL,
   `revision_start` int(8) NOT NULL,
   `revision_end` int(8) NOT NULL,
@@ -14,4 +14,4 @@ CREATE TABLE IF NOT EXISTS `digest_stats` (
   `wishes_opened` int(8) NOT NULL,
   `wishes_closed` int(8) NOT NULL,
   UNIQUE KEY `unique` (`date`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci

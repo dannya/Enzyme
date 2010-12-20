@@ -444,6 +444,7 @@ class Digest {
                  'es_ES'  => _('Español (Spanish)'),
                  'nl_NL'  => _('Nederlands (Dutch)'),
                  'it_IT'  => _('Italiano (Italian)'),
+                 'ru_RU'  => _('Русский язык (Russian)'),
                  'pl_PL'  => _('Polski (Polish)'),
                  'pt_PT'  => _('Português (Portuguese)'),
                  'pt_BR'  => _('Português Brasileiro (Brazilian Portuguese)'),

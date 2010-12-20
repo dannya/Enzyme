@@ -1,5 +1,5 @@
-CREATE TABLE IF NOT EXISTS `commit_bugs` (
-  `revision` int(8) unsigned NOT NULL,
+CREATE TABLE `commit_bugs` (
+  `revision` varchar(40) COLLATE utf8_unicode_ci NOT NULL,
   `bug` int(7) unsigned NOT NULL,
   `date` datetime DEFAULT NULL,
   `title` text COLLATE utf8_unicode_ci,
@@ -9,4 +9,4 @@ CREATE TABLE IF NOT EXISTS `commit_bugs` (
   `status` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
   `resolution` varchar(50) COLLATE utf8_unicode_ci DEFAULT NULL,
   UNIQUE KEY `unique` (`revision`,`bug`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci

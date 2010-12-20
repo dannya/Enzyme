@@ -1,4 +1,4 @@
-CREATE TABLE IF NOT EXISTS `digests` (
+CREATE TABLE `digests` (
   `id` int(4) unsigned NOT NULL AUTO_INCREMENT,
   `date` date NOT NULL,
   `type` varchar(7) COLLATE utf8_unicode_ci NOT NULL DEFAULT 'issue',
@@ -10,4 +10,4 @@ CREATE TABLE IF NOT EXISTS `digests` (
   `comments` text COLLATE utf8_unicode_ci,
   UNIQUE KEY `unique2` (`date`),
   KEY `key` (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=162 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci

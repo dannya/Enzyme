@@ -1,4 +1,4 @@
-CREATE TABLE IF NOT EXISTS `digest_intro_sections` (
+CREATE TABLE `digest_intro_sections` (
   `date` date NOT NULL,
   `number` int(2) NOT NULL,
   `type` enum('message','comment') COLLATE utf8_unicode_ci NOT NULL,
@@ -6,4 +6,4 @@ CREATE TABLE IF NOT EXISTS `digest_intro_sections` (
   `intro` text COLLATE utf8_unicode_ci NOT NULL,
   `body` text COLLATE utf8_unicode_ci,
   UNIQUE KEY `unique` (`date`,`number`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci

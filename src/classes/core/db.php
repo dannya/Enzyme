@@ -73,6 +73,25 @@ class Db {
   }
 
 
+  public static function getTables() {
+    return self::$tables;
+  }
+
+
+  public static function getCreateSql($table) {
+    // check specified table is valid
+    if (!in_array($table, self::$tables)) {
+      return null;
+    }
+
+    // get schema
+    $query  = mysql_query('SHOW CREATE TABLE ' . $table) or trigger_error(sprintf(_('Query failed: %s'), mysql_error()));
+    $schema = mysql_fetch_row($query);
+
+    return array_pop($schema);
+  }
+
+
   public static function sanitise($string, $default = null) {
     if (($default != null) && ($string == $default)) {
       // if string is same as default, do not run through sanitise
