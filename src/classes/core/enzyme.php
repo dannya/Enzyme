@@ -244,7 +244,7 @@ class Enzyme {
                                       'example' => null);
     $tmp['DEFAULT_LANGUAGE']  = array('title'   => _('Default Language'),
                                       'valid'   => Digest::getLanguages(),
-                                      'default' => null,
+                                      'default' => 'en_US',
                                       'example' => null);
 
     $tmp['ENABLE_LEGACY']     = array('title'   => _('Enable Legacy Import'),

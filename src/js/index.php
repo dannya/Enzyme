@@ -20,6 +20,10 @@ include($_SERVER['DOCUMENT_ROOT'] . '/autoload.php');
 $validScript = array('common');
 
 
+// set language (for strings)
+App::setLanguage();
+
+
 // determine the script file to include
 if (isset($_GET['script']) && in_array($_GET['script'], $validScript)) {
   header('Content-type: application/javascript');
