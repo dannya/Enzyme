@@ -69,85 +69,90 @@ class LoginUi {
                     </div>
                   </div>
                 </form>
-              </div>
+              </div>';
 
-              <div id="login-column-2">
-                <h2>' . _('Volunteer') . '</h2>
-                <div id="jobs">';
 
-    foreach ($this->jobs as $job => $jobData) {
-      $buf  .= '<h3>' .
-                  $jobData['title'] .
-               '  <span>
-                    <input type="button" onclick="apply(event, \'' . $job . '\');" value="' . _('Apply!') . '" />
-                  </span>
-                </h3>
-                <p>' .
-                  $jobData['description'] .
-               '</p>';
+    // show application form?
+    if ($this->jobs) {
+      $buf  .= '<div id="login-column-2">
+                  <h2>' . _('Volunteer') . '</h2>
+                  <div id="jobs">';
 
-      $jobNames[$job] = $jobData['title'];
+      foreach ($this->jobs as $job => $jobData) {
+        $buf  .= '<h3>' .
+                    $jobData['title'] .
+                 '  <span>
+                      <input type="button" onclick="apply(event, \'' . $job . '\');" value="' . _('Apply!') . '" />
+                    </span>
+                  </h3>
+                  <p>' .
+                    $jobData['description'] .
+                 '</p>';
+
+        $jobNames[$job] = $jobData['title'];
+      }
+
+      $buf  .= '</div>';
+
+
+      // draw hidden apply form
+      $jobSelector = Ui::htmlSelector('apply-job', $jobNames, null, 'checkPathsInput(event);');
+
+      $buf  .= '  <div id="apply" style="display:none;">
+                    <form id="apply-form" action="">
+                      <div class="row">
+                        <div class="left">' . _('Job') . '</div>
+                        <div class="right">' .
+                          $jobSelector .
+                 '      </div>
+                      </div>
+                      <div class="row">
+                        <div class="left">' . _('Paths') . '</div>
+                        <div class="right">
+                          <input id="apply-paths" type="text" disabled="disabled" class="optional prompt" onfocus="inputPrompt(event);" onblur="inputPrompt(event);" value="' . sprintf(_('Optional. (e.g. %s)'), '/koffice/, /kdebase/') . '" />
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="left">' . _('First name') . '</div>
+                        <div class="right">
+                          <input id="apply-firstname" type="text" />
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="left">' . _('Last name') . '</div>
+                        <div class="right">
+                          <input id="apply-lastname" type="text" />
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="left">' . _('Email') . '</div>
+                        <div class="right">
+                          <input id="apply-email" type="text" />
+                        </div>
+                      </div>
+                      <div class="row tall">
+                        <div class="left">' . _('Message') . '</div>
+                        <div class="right">
+                          <textarea id="apply-message"></textarea>
+                        </div>
+                      </div>
+
+                      <div class="row button">
+                        <a href="#" class="n" onclick="cancelApply(event);">' . _('Cancel') . '</a>
+                        <input type="button" onclick="submitApply(event);" value="' . _('Apply!') . '" />
+                      </div>
+                    </form>
+                  </div>
+
+                  <div id="success-message" style="display:none;">' .
+                    _('Thanks for your application!') . '<br /><br />' .
+                    _('The administrator will email you at the address provided when your application has been reviewed.') .
+                 '</div>
+                </div>';
     }
 
-    $buf  .= '</div>';
-
-
-    // draw hidden apply form
-    $jobSelector = Ui::htmlSelector('apply-job', $jobNames, null, 'checkPathsInput(event);');
-
-    $buf  .= '  <div id="apply" style="display:none;">
-                  <form id="apply-form" action="">
-                    <div class="row">
-                      <div class="left">' . _('Job') . '</div>
-                      <div class="right">' .
-                        $jobSelector .
-               '      </div>
-                    </div>
-                    <div class="row">
-                      <div class="left">' . _('Paths') . '</div>
-                      <div class="right">
-                        <input id="apply-paths" type="text" disabled="disabled" class="optional prompt" onfocus="inputPrompt(event);" onblur="inputPrompt(event);" value="' . sprintf(_('Optional. (e.g. %s)'), '/koffice/, /kdebase/') . '" />
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="left">' . _('First name') . '</div>
-                      <div class="right">
-                        <input id="apply-firstname" type="text" />
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="left">' . _('Last name') . '</div>
-                      <div class="right">
-                        <input id="apply-lastname" type="text" />
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="left">' . _('Email') . '</div>
-                      <div class="right">
-                        <input id="apply-email" type="text" />
-                      </div>
-                    </div>
-                    <div class="row tall">
-                      <div class="left">' . _('Message') . '</div>
-                      <div class="right">
-                        <textarea id="apply-message"></textarea>
-                      </div>
-                    </div>
-
-                    <div class="row button">
-                      <a href="#" class="n" onclick="cancelApply(event);">' . _('Cancel') . '</a>
-                      <input type="button" onclick="submitApply(event);" value="' . _('Apply!') . '" />
-                    </div>
-                  </form>
-                </div>
-
-                <div id="success-message" style="display:none;">' .
-                  _('Thanks for your application!') . '<br /><br />' .
-                  _('The administrator will email you at the address provided when your application has been reviewed.') .
-               '</div>
-              </div>
-
-              <div id="login-footer">
+    // footer
+    $buf  .= '<div id="login-footer">
                 <a href="http://enzyme-project.org/" target="_blank">&nbsp;</a>
               </div>';
 
