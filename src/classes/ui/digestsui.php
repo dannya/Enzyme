@@ -283,6 +283,7 @@ class DigestsUi extends BaseUi {
               _('Introduction') .
            '  <span>
                 <span id="indicator-introduction"><span>&nbsp;</span></span>
+                <input id="insert-feature" type="button" value="' . _('Insert from features...') . '" title="' . _('Insert from features...') . '" onclick="insertFeature(\'' . $this->data['date'] . '\');" />
                 <input id="add-introduction" type="button" value="' . _('Add section') . '" title="' . _('Add section') . '" onclick="addIntroSection();" />
                 <input id="people-references" type="button" value="' . _('People references') . '" title="' . _('People references') . '" onclick="peopleReferences(\'' . $this->data['date'] . '\');" />
               </span>
@@ -586,34 +587,36 @@ class DigestsUi extends BaseUi {
                 </table>';
 
 
-      // draw bugfixer stats
-      $counter = 0;
+      // draw bugfixer stats?
+      if (!empty($this->data['stats']['bugfixers'])) {
+        $counter = 0;
 
-      $buf .=  '<table id="stats-bugfixers" class="stats">
-                  <thead>
-                    <tr>
-                      <td>' . _('Person') . '</td>
-                      <td>' . _('Bugs') . '</td>
-                    </tr>
-                  </thead>
+        $buf .=  '<table id="stats-bugfixers" class="stats">
+                    <thead>
+                      <tr>
+                        <td>' . _('Person') . '</td>
+                        <td>' . _('Bugs') . '</td>
+                      </tr>
+                    </thead>
 
-                  <tbody>';
+                    <tbody>';
 
-      foreach ($this->data['stats']['bugfixers'] as $person => $value) {
-        $buf .=  '<tr>
-                    <td class="label modLabel">
-                      <input id="bugfixer-label-' . $counter . '" type="text" value="' . $person . '" />
-                    </td>
-                    <td class="value modValue">
-                      <input id="bugfixer-value-' . $counter . '" type="text" value="' . $value . '" />
-                    </td>
-                  </tr>';
+        foreach ($this->data['stats']['bugfixers'] as $person => $value) {
+          $buf .=  '<tr>
+                      <td class="label modLabel">
+                        <input id="bugfixer-label-' . $counter . '" type="text" value="' . $person . '" />
+                      </td>
+                      <td class="value modValue">
+                        <input id="bugfixer-value-' . $counter . '" type="text" value="' . $value . '" />
+                      </td>
+                    </tr>';
 
-        ++$counter;
+          ++$counter;
+        }
+
+        $buf .=  '  </tbody>
+                  </table>';
       }
-
-      $buf .=  '  </tbody>
-                </table>';
 
 
       // draw buzz (program) stats?
@@ -750,7 +753,12 @@ class DigestsUi extends BaseUi {
       }
 
       // estimate number of rows to display
-      $rows = ceil(strlen($commit['msg']) / 80) + substr_count($commit['msg'], '<br />');
+      $rows = ceil(strlen($commit['msg']) / 80) + substr_count($commit['msg'], '<br />') + substr_count($commit['msg'], "\n");
+
+      // get diffs
+      if (!($diffs = Digest::drawDiffs($commit, $this->data['date']))) {
+        $diffs = '&nbsp;';
+      }
 
       // draw
       $buf .=  '<div id="commit-' . $commit['revision'] . '" class="commit">
@@ -772,7 +780,7 @@ class DigestsUi extends BaseUi {
                       Digest::drawBugs($commit, 'b b-p') .
 
                '      <span class="d">' .
-                        Digest::drawDiffs($commit, $this->data['date']) .
+                        $diffs .
                '      </span>
                       <a class="r n" href="' . DIGEST_URL . '/issues/' . $this->data['date'] . '/moreinfo/' . $commit['revision'] . '/" target="_blank">' .
                         sprintf(_('Revision %s'), $commit['revision']) .
