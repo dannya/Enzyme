@@ -356,6 +356,10 @@ class Db {
             // lower than or equal to
             $query[] = $key . ' <= \'' . self::sanitise($tmpValue['value']) . '\'';
 
+          } else if ($tmpValue['type'] == '!=') {
+            // not equal to
+            $query[] = $key . ' != \'' . self::sanitise($tmpValue['value']) . '\'';
+
           } else if ($tmpValue['type'] == 'range') {
             // between two values
             sort($tmpValue['args']);

@@ -71,6 +71,9 @@ class EnzymeUi {
         } else if ($current == 'digests') {
           $this->frame = new DigestsUI($this->user);
 
+        } else if ($current == 'features') {
+          $this->frame = new FeaturesUI($this->user);
+
         } else if ($current == 'tools') {
           $this->frame = new ToolsUI($this->user);
 

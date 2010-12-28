@@ -161,9 +161,10 @@ class Digest {
 
 
     // load digest issue sections
-    $q = mysql_query('SELECT number, type, author, intro, body
+    $q = mysql_query('SELECT number, type, status, author, intro, body
                       FROM digest_intro_sections
-                      WHERE date = \'' . $date . '\'') or trigger_error(sprintf(_('Query failed: %s'), mysql_error()));
+                      WHERE date = \'' . $date . '\'
+                      AND status = \'selected\'') or trigger_error(sprintf(_('Query failed: %s'), mysql_error()));
 
     while ($row = mysql_fetch_assoc($q)) {
       $digest['sections'][$row['number']] = $row;
@@ -411,6 +412,20 @@ class Digest {
   }
 
 
+  public static function loadDigestFeatures($date = null) {
+    if ($date) {
+      $filter = array('date'   => $date,
+                      'status' => array('type'  => '!=',
+                                        'value' => 'selected'));
+    } else {
+      $filter = array('status' => array('type'  => '!=',
+                                        'value' => 'selected'));
+    }
+
+    return Db::load('digest_intro_sections', $filter);
+  }
+
+
   public static function getPeopleReferences($date) {
     // load digest issue people references
     $q = mysql_query('SELECT number, name, account
@@ -454,6 +469,14 @@ class Digest {
 
     // not yet ready for inclusion, here for translation purposes
     return array('sv_SE'  => _('Svenska (Swedish)'));
+  }
+
+
+  public static function getStatuses() {
+    return array('more-info'   => _('More information needed'),
+                 'proofread'   => _('Needs proofreading'),
+                 'ready'       => _('Ready for selection'),
+                 'selected'    => _('Selected'));
   }
 
 
@@ -611,16 +634,18 @@ class Digest {
 
 
   public static function getPermissions() {
-    $permissions = array('admin'       => array('string' => 'A',
-                                                'title'  => _('Admin')),
-                         'editor'      => array('string' => 'E',
-                                                'title'  => _('Editor')),
-                         'reviewer'    => array('string' => 'R',
-                                                'title'  => _('Reviewer')),
-                         'classifier'  => array('string' => 'C',
-                                                'title'  => _('Classifier')),
-                         'translator'  => array('string' => 'T',
-                                                'title'  => _('Translator')));
+    $permissions = array('admin'            => array('string' => 'A',
+                                                     'title'  => _('Admin')),
+                         'editor'           => array('string' => 'E',
+                                                     'title'  => _('Editor')),
+                         'feature-editor'   => array('string' => 'F',
+                                                     'title'  => _('Feature editor')),
+                         'reviewer'         => array('string' => 'R',
+                                                     'title'  => _('Reviewer')),
+                         'classifier'       => array('string' => 'C',
+                                                     'title'  => _('Classifier')),
+                         'translator'       => array('string' => 'T',
+                                                     'title'  => _('Translator')));
 
     return $permissions;
   }

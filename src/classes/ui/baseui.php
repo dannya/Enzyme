@@ -36,6 +36,10 @@ abstract class BaseUi {
                                        'string'     => _('Classify'),
                                        'permission' => 'classifier'),
 
+                   'features' => array('url'        => BASE_URL . '/features/',
+                                       'string'     => _('Features'),
+                                       'permission' => 'feature-editor'),
+
                    'digests'  => array('url'        => BASE_URL . '/digests/',
                                        'string'     => _('Digests'),
                                        'permission' => 'editor'),

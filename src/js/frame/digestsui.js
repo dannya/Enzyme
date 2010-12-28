@@ -84,6 +84,11 @@ function addDigestLinks(theDate, contentBox) {
 }
 
 
+function insertFeature(theDate) {
+	alert('boo');
+}
+
+
 function peopleReferences(theDate) {
 	if (typeof theDate == 'undefined') {
 	  return false;

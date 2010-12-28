@@ -1,0 +1,61 @@
+div#content {
+  left:208px;
+}
+
+
+h3 {
+  position:relative;
+}
+
+
+h3 span {
+  display:block;
+  float:right;
+
+  font-size:16px;
+  font-weight:normal;
+  font-style:italic;
+  color:#999;
+}
+h3 span a {
+  color:#999;
+}
+
+
+
+
+div#features {
+  margin-top:22px;
+}
+
+div.feature {
+  position:relative;
+  padding:10px;
+  border-bottom:1px solid #000;
+  background-color:#e6e6e6;
+}
+
+div.feature input,
+div.feature select {
+  width:auto;
+}
+
+
+div.feature div.feature-extra {
+  position:absolute;
+  top:10px;
+  right:10px;  
+}
+
+div.feature span.feature-target {
+  margin-left:10px;
+}
+
+
+div.feature-body {
+  margin-top:6px;
+}
+div.feature-body textarea {
+  display:block;
+  width:98%;
+}
