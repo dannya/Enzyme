@@ -67,11 +67,11 @@ ul.digests li {
   font-weight:bold;
   margin-bottom:6px;
 }
-ul.digests li div {
+ul.digests li span {
   margin:0 10px 0 0 !important;
   cursor:pointer;
 }
-ul.digests li div div {
+ul.digests li span span {
   margin:0 !important;
 }
 ul.digests li a.title {
@@ -247,8 +247,8 @@ div.section textarea.intro-comment {
 
 
 
-div.indicator-success,
-div.indicator-failure {
+span.indicator-success,
+span.indicator-failure {
   position:relative;
   float:left;
   padding:4px;
@@ -260,8 +260,9 @@ div.indicator-failure {
   -moz-border-radius:5px;
   -webkit-border-radius:5px; 
 }
-div.indicator-success div,
-div.indicator-failure div {
+span.indicator-success span,
+span.indicator-failure span {
+  display:block;
   position:relative;
   top:1px;
   width:22px;
@@ -269,17 +270,17 @@ div.indicator-failure div {
   background:url("../img/sprite.png") repeat scroll 0 0 transparent;
 }
 
-div.indicator-success {
+span.indicator-success {
   background-color:green;
 }
-div.indicator-success div {
+span.indicator-success span {
   background-position:-22px -22px;
 }
 
-div.indicator-failure {
+span.indicator-failure {
   background-color:red;
 }
-div.indicator-failure div {
+span.indicator-failure span {
   background-position:-44px -22px;
 }
 

@@ -151,9 +151,9 @@ class DigestsUi extends BaseUi {
           }
 
           $buf .=  '<li>
-                      <div class="' . $digest['class'] . '" onclick="setPublished(this, \'' . $digest['date'] . '\', ' . $digest['published'] . ');" title="' . $digest['string'] . '">
-                        <div>&nbsp;</div>
-                      </div>
+                      <span class="' . $digest['class'] . '" onclick="setPublished(this, \'' . $digest['date'] . '\', ' . $digest['published'] . ');" title="' . $digest['string'] . '">
+                        <span>&nbsp;</span>
+                      </span>
 
                       <a class="title" href="' . BASE_URL . '/digests/' . $digest['date'] . '/">' .
                         sprintf(_('Issue %d: %s'), $digest['id'], Date::get('full', $digest['date'])) .

@@ -96,7 +96,7 @@ class EnzymeUi {
     $this->style        = array_merge($this->style, $this->frame->getStyle());
 
     // set script
-    $this->userScript[] = '/js/index.php?script=common&amp;id=' . $this->frame->id;
+    $this->userScript[] = '/js/index.php?script=common&amp;id=' . $this->frame->id . '&amp;language=' . LANGUAGE;
   }
 
 

@@ -55,13 +55,13 @@ ini_set('apc.slam_defense', 'Off');
 
 
 // ensure get variables can always be accessed, even when provided in q= format
-if (isset($_REQUEST['q'])) {
-  $tmp = explode('=', $_REQUEST['q']);
+if (isset($_GET['q'])) {
+  $tmp = explode('=', $_GET['q']);
 
   if (isset($tmp[1])) {
-    $_REQUEST[$tmp[0]] = $tmp[1];
+    $_GET[$tmp[0]] = $tmp[1];
   } else {
-    $_REQUEST[$tmp[0]] = true;
+    $_GET[$tmp[0]] = true;
   }
 }
 
