@@ -45,7 +45,10 @@ function addIntroSection() {
     var newCounter = $('sections').select('div.section').size();
 
     // change id's and actions of new (visible) row
-    changeItemId('', '');
+    changeItemId('new', newCounter);
+
+    // show empty row
+    
 
     // add new row to page
     $('sections').insert({ bottom: '<div id="intro-section-new" class="section" style="display:none;">' + newRow + '</div>' });
@@ -58,24 +61,24 @@ function changeItemId(oldId, newId) {
     return false;
   }
 
-  $('save-introduction-new').writeAttribute('onclick', $('save-introduction-new').readAttribute('onclick').sub('new', newCounter));
-  $('save-introduction-new').id  = $('save-introduction-new').id.sub('-new', '-' + newCounter);
+  $('save-introduction-' + oldId).writeAttribute('onclick', $('save-introduction-new').readAttribute('onclick').sub('new', newId));
+  $('save-introduction-' + oldId).id  = $('save-introduction-' + oldId).id.sub('-' + oldId, '-' + newId);
   
-  $('button-message-new').writeAttribute('onclick', $('button-message-new').readAttribute('onclick').sub('new', newCounter));
-  $('button-message-new').id     = $('button-message-new').id.sub('-new', '-' + newCounter);
+  $('button-message-' + oldId).writeAttribute('onclick', $('button-message-' + oldId).readAttribute('onclick').sub('' + oldId, newId));
+  $('button-message-' + oldId).id     = $('button-message-' + oldId).id.sub('-' + oldId, '-' + newId);
 
-  $('button-comment-new').writeAttribute('onclick', $('button-comment-new').readAttribute('onclick').sub('new', newCounter));
-  $('button-comment-new').id     = $('button-comment-new').id.sub('-new', '-' + newCounter);
+  $('button-comment-' + oldId).writeAttribute('onclick', $('button-comment-' + oldId).readAttribute('onclick').sub('' + oldId, newId));
+  $('button-comment-' + oldId).id     = $('button-comment-' + oldId).id.sub('-' + oldId, '-' + newId);
 
-  $('intro-new').id              = $('intro-new').id.sub('-new', '-' + newCounter);
-  $('body-new').id               = $('body-new').id.sub('-new', '-' + newCounter);
+  $('intro-' + oldId).id              = $('intro-' + oldId).id.sub('-' + oldId, '-' + newId);
+  $('body-' + oldId).id               = $('body-' + oldId).id.sub('-' + oldId, '-' + newId);
 
-  $('section-counter-new').update(newCounter);
-  $('section-counter-new').id    = $('section-counter-new').id.sub('-new', '-' + newCounter);
+  $('section-counter-' + oldId).update(newId);
+  $('section-counter-' + oldId).id    = $('section-counter-' + oldId).id.sub('-' + oldId, '-' + newId);
   
   // make new row visible
-  $('intro-section-new').id      = $('intro-section-new').id.sub('-new', '-' + newCounter);
-  $('intro-section-' + newCounter).show();
+  $('intro-section-' + oldId).id      = $('intro-section-' + oldId).id.sub('-' + oldId, '-' + newId);
+  $('intro-section-' + newId).show();
 }
 
 

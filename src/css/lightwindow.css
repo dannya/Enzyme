@@ -383,6 +383,18 @@ a:active#lightwindow_title_bar_close_link {
 	color: #000000;
 	padding-right: 10px;
 }
+#lightwindow p.prompt,
+#lightwindow p.prompt-compact {
+  margin:200px 0 !important;
+
+  color:#ccc;
+  font-style:italic;
+  font-size:22px;
+  text-align:center;
+}
+#lightwindow p.prompt-compact {
+  margin:100px 0 !important;
+}
 
 
 #lightwindow_iframe {

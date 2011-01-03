@@ -66,7 +66,15 @@ if ($availableFeatures) {
 
 
 // output
-echo $buf;
+if ($buf) {
+  echo $buf;
+
+} else {
+  // none found, show prompt
+  echo '<p class="prompt-compact">' .
+          _('No features ready for selection') .
+       '</p>';
+}
 
 
 
