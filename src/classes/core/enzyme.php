@@ -88,7 +88,7 @@ class Enzyme {
                  'graphics'           => _('Graphics'),
                  'kde-base'           => _('KDE Base'),
                  'kde-pim'            => _('KDE-PIM'),
-                 'koffice'            => _('KOffice'),
+                 'koffice'            => _('Office'),
                  'konqueror'          => _('Konqueror'),
                  'multimedia'         => _('Multimedia'),
                  'networking-tools'   => _('Networking Tools'),
@@ -109,7 +109,7 @@ class Enzyme {
   public static function getTypes($spacer = false) {
     $buf = array('bug-fixes'  => _('Bug Fixes'),
                  'features'   => _('Features'),
-                 'optimize'   => _('Optimize'),
+                 'optimize'   => _('Optimization'),
                  'security'   => _('Security'),
                  'other'      => _('Other'));
 
@@ -190,33 +190,12 @@ class Enzyme {
                                       'valid'   => null,
                                       'default' => null,
                                       'example' => 'smtp.example.com');
+    $tmp['SHOW_INSERT']       = array('title'   => _('Show Insert'),
+                                      'valid'   => array('0'  => _('No'),
+                                                         '1'  => _('Yes')),
+                                      'default' => '1',
+                                      'example' => null);
 
-//    $tmp['REPOSITORY_TYPE']   = array('title'   => _('Repository Type'),
-//                                      'valid'   => array('svn' => _('Subversion')),
-//                                      'default' => 'svn',
-//                                      'example' => null);
-//    $tmp['REPOSITORY']        = array('title'   => _('Repository URL'),
-//                                      'valid'   => null,
-//                                      'default' => null,
-//                                      'example' => 'svn://anonsvn.kde.org/home/kde/');
-//    $tmp['REPOSITORY_USER']   = array('title'   => _('Repository Username'),
-//                                      'valid'   => null,
-//                                      'default' => null,
-//                                      'example' => null,
-//                                      'comment' => _('This password will be stored as plaintext. Consider setting up a separate, read-only repository user if security is important.'));
-//    $tmp['REPOSITORY_PASS']   = array('title'   => _('Repository Password'),
-//                                      'valid'   => null,
-//                                      'default' => null,
-//                                      'example' => null);
-//    $tmp['ACCOUNTS_FILE']     = array('title'   => _('Accounts File'),
-//                                      'valid'   => null,
-//                                      'default' => null,
-//                                      'example' => 'trunk/common/accounts.txt');
-
-//    $tmp['WEBSVN']            = array('title'   => _('Web Repository Viewer'),
-//                                      'valid'   => null,
-//                                      'default' => null,
-//                                      'example' => null);
     $tmp['WEBBUG']            = array('title'   => _('Web Bug Tracker'),
                                       'valid'   => null,
                                       'default' => null,
@@ -280,14 +259,8 @@ class Enzyme {
                                              'ENZYME_URL'             => $tmp['ENZYME_URL'],
                                              'DIGEST_URL'             => $tmp['DIGEST_URL'],
                                              'HELP_URL'               => $tmp['HELP_URL'],
-                                             'SMTP'                   => $tmp['SMTP']));
-
-//    $settings[] = array('title'     => _('Repository'),
-//                        'settings'  => array('REPOSITORY_TYPE'        => $tmp['REPOSITORY_TYPE'],
-//                                             'REPOSITORY'             => $tmp['REPOSITORY'],
-//                                             'REPOSITORY_USER'        => $tmp['REPOSITORY_USER'],
-//                                             'REPOSITORY_PASS'        => $tmp['REPOSITORY_PASS'],
-//                                             'ACCOUNTS_FILE'          => $tmp['ACCOUNTS_FILE']));
+                                             'SMTP'                   => $tmp['SMTP'],
+                                             'SHOW_INSERT'            => $tmp['SHOW_INSERT']));
 
     $settings[] = array('title'     => _('Data Locations'),
                         'settings'  => array('WEBBUG'                 => $tmp['WEBBUG'],
@@ -1389,6 +1362,18 @@ class Enzyme {
     } else {
       // no digest / synopsis found
       return false;
+    }
+  }
+
+
+  public static function getFreeFeatureArticleNum($date) {
+    $features = Db::load('digest_intro_sections', array('date' => $date), 1, 'number', true, 'number DESC');
+
+    if (!empty($features['number'])) {
+      return $features['number'] + 1;
+
+    } else {
+      return 1;
     }
   }
 }

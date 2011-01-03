@@ -59,7 +59,7 @@ class EnzymeUi {
 
       } else {
         // logged in, initialise authorised UI
-        if ($current == 'insert') {
+        if ($current == 'insert' && defined('SHOW_INSERT') && SHOW_INSERT) {
           $this->frame = new InsertUI($this->user);
 
         } else if ($current == 'review') {

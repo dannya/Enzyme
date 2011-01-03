@@ -30,9 +30,11 @@ div#features {
 
 div.feature {
   position:relative;
-  padding:10px;
-  border-bottom:1px solid #000;
-  background-color:#e6e6e6;
+  padding:10px 10px 32px 10px;
+  border-bottom:2px dotted #ccc;
+}
+div.feature:nth-child(odd) {
+  background-color:#E1EAF3;
 }
 
 div.feature input,
@@ -52,10 +54,95 @@ div.feature span.feature-target {
 }
 
 
-div.feature-body {
-  margin-top:6px;
-}
 div.feature-body textarea {
   display:block;
   width:98%;
+  margin-top:6px;
+}
+
+
+div.feature-save {
+  height:30px;
+  margin:10px 0 0 0;
+}
+
+div.feature-save input {
+  float:right;
+}
+
+
+
+
+
+
+
+
+
+div#ideas div.idea {
+  position:relative;
+  padding:10px;
+  border-bottom:2px dotted #ccc;
+}
+
+
+div#ideas div.idea div.idea-expand,
+div#ideas div.ideaExpand div.idea-expand,
+div#ideas div.idea div.idea-save {
+  float:left;
+  width:22px;
+  height:22px;
+
+  background:url('../img/sprite.png') no-repeat;
+  background-position:-220px -22px;
+  cursor:pointer;
+}
+div#ideas div.idea div.idea-expand:hover {
+  background-position:-220px -0;
+}
+
+div#ideas div.ideaExpand div.idea-expand {
+  background-position:-198px -22px;
+}
+div#ideas div.ideaExpand div.idea-expand:hover {
+  background-position:-198px -0;
+}
+
+
+div#ideas div.idea div.idea-save {
+  margin-top:4px;
+  background-position:-0 -44px;
+}
+div#ideas div.idea div.idea-save:hover {
+  background-position:-0 -0;
+}
+
+
+div#ideas div.idea div.idea-intro {
+  margin:0 120px 0 32px;
+  height:44px;
+  overflow:hidden;
+}
+div#ideas div.idea div.idea-intro input[type="text"] {
+  width:98%;
+}
+
+
+div#ideas div.ideaExpand div.idea-intro {
+  height:auto;
+  overflow:visible;
+}
+
+
+div#ideas div.idea input.idea-claim {
+  position:absolute;
+  top:10px;
+  right:10px;
+}
+
+
+
+
+span.indicator-success {
+  float:right;
+  margin:0 4px 0 0;
 }

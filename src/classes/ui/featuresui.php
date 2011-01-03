@@ -18,6 +18,7 @@
 class FeaturesUi extends BaseUi {
   public $id                    = 'features';
 
+  private $dates                = array();
   private $features             = array();
   private $featureEditors       = array();
   private $availableStatuses    = array();
@@ -30,6 +31,9 @@ class FeaturesUi extends BaseUi {
     $this->title              = _('Features');
 
     // get available features
+    $this->ideas              = Digest::loadDigestFeatures(null, 'idea');
+
+    // get available features
     $this->features           = Digest::loadDigestFeatures();
 
     // get available feature editors
@@ -37,6 +41,14 @@ class FeaturesUi extends BaseUi {
 
     // get available statuses
     $this->availableStatuses  = Digest::getStatuses();
+
+    // get possible future dates (4 weeks into future)
+    $tmpDate = Digest::getLastIssueDate(null, true, true);
+
+    for ($i = 0; $i < 4; $i++) {
+      $tmpDate                = date('Y-m-d', strtotime($tmpDate . ' + 1 week'));
+      $this->dates[$tmpDate]  = $tmpDate;
+    }
   }
 
 
@@ -48,42 +60,8 @@ class FeaturesUi extends BaseUi {
 
 
     // draw
-    $buf = '<h3>' .
-              _('Pending Feature Articles') .
-           '  <span>
-                <input type="button" onclick="createNewFeature();" value="' . _('Create new feature') . '" title="' . _('Create new feature') . '" />
-              </span>
-            </h3>
-
-            <div id="features">';
-
-    foreach ($this->features as $feature) {
-      $buf  .= '<div id="feature-1" class="feature">
-                  <div class="feature-info">
-                    <span class="feature-editor">' .
-                      _('Editor') . ' ' . Ui::htmlSelector('boo', $this->featureEditors, $feature['author'], 'alert(\'boo\')') .
-               '    </span>
-                  </div>
-
-                  <div class="feature-extra">
-                    <span class="feature-status">' .
-                      _('Status') . ' ' . Ui::htmlSelector('boo', $this->availableStatuses, $feature['status'], 'alert(\'boo\')') .
-               '    </span>
-                    <span class="feature-target">' .
-                      _('Target') . ' <input type="text" value="' . $feature['date'] . '">
-                    </span>
-                  </div>
-
-                  <div class="feature-body">
-                    <textarea id="intro-1" class="intro-message" rows="1">' . $feature['intro'] . '</textarea>
-                    <textarea id="body-1" class="body" rows="8">' . $feature['body'] . '</textarea>
-                  </div>
-                </div>';
-    }
-
-    $buf  .= '</div>';
-
-    return $buf;
+    return $this->drawIdeas() .
+           $this->drawPending();
   }
 
 
@@ -94,6 +72,114 @@ class FeaturesUi extends BaseUi {
 
   public function getStyle() {
     return array('/css/featuresui.css');
+  }
+
+
+  private function drawIdeas() {
+    $buf   = '<h3>' .
+                _('Ideas for Feature Articles') .
+             '  <span>
+                  <input type="button" value="' . _('Create new idea') . '" title="' . _('Create new idea') . '" onclick="createNewIdea();" />
+                </span>
+              </h3>';
+
+    if (!$this->ideas) {
+      // only show header if no items
+      return $buf .
+             '<p class="prompt-compact">' .
+                _('No items found') .
+             '</p>';
+    }
+
+
+    // draw items
+    $buf  .= '<div id="ideas">';
+
+    foreach ($this->ideas as $idea) {
+      $buf  .= '<div id="idea_' . $idea['number'] . '" class="idea">
+                  <div class="idea-expand" onclick="expandIdea(' . $idea['number'] . ');" title="' . _('Expand') . '">
+                    &nbsp;
+                  </div>
+
+                  <div class="idea-intro">' .
+                    $idea['intro'] .
+               '  </div>
+
+                  <input class="idea-claim" type="button" value="' . _('Claim') . '" title="' . _('Claim') . '" onclick="claimIdea(' . $idea['number'] . ', \'' . end($this->dates) . '\', \'' . $this->user->data['username'] . '\');" />
+                </div>';
+    }
+
+    // draw empty row
+    $buf  .= '<div id="idea_new" class="idea" style="display:none;">
+                <div class="idea-save" onclick="saveIdea();" title="' . _('Save') . '">
+                  &nbsp;
+                </div>
+
+                <div class="idea-intro">
+                  <input id="idea-intro-new" type="text" value="" />
+                </div>
+              </div>';
+
+    $buf  .= '</div>';
+
+    return $buf;
+  }
+
+
+  private function drawPending() {
+    $buf   = '<h3>' .
+                _('Pending Feature Articles') .
+             '</h3>';
+
+    if (!$this->features) {
+      // only show header if no items
+      return $buf .
+             '<p class="prompt-compact">' .
+                _('No items found') .
+             '</p>';
+    }
+
+
+    // draw items
+    $buf  .= '<div id="features">';
+
+    foreach ($this->features as $feature) {
+      // calculate number of rows to use for each box
+      $totalRows      = 16;
+      $numIntroRows   = ceil(strlen($feature['intro']) / 140) + substr_count($feature['intro'], "\n");
+      $numBodyRows    = $totalRows - $numIntroRows;
+
+      $buf  .= '<div id="feature_' . $feature['date'] . '_' . $feature['number'] . '" class="feature">
+                  <div class="feature-info">
+                    <span class="feature-editor">' .
+                      _('Editor') . ' ' . Ui::htmlSelector('author_' . $feature['date'] . '_' . $feature['number'], $this->featureEditors, $feature['author'], 'changeItem(\'' . $feature['date'] . '\', ' . $feature['number'] . ', \'author\');') .
+               '    </span>
+                  </div>
+
+                  <div class="feature-extra">
+                    <span class="feature-status">' .
+                      _('Status') . ' ' . Ui::htmlSelector('status_' . $feature['date'] . '_' . $feature['number'], $this->availableStatuses, $feature['status'], 'changeItem(\'' . $feature['date'] . '\', ' . $feature['number'] . ', \'status\');') .
+               '    </span>
+                    <span class="feature-target">' .
+                      _('Target') . ' ' . Ui::htmlSelector('date_' . $feature['date'] . '_' . $feature['number'], $this->dates, $feature['date'], 'changeItem(\'' . $feature['date'] . '\', ' . $feature['number'] . ', \'date\');') .
+               '    </span>
+                  </div>
+
+                  <div class="feature-body">
+                    <textarea id="intro_' . $feature['date'] . '_' . $feature['number'] . '" class="intro-message" rows="' . $numIntroRows . '">' . $feature['intro'] . '</textarea>
+                    <textarea id="body_' . $feature['date'] . '_' . $feature['number'] . '" class="body" rows="' . $numBodyRows . '">' . $feature['body'] . '</textarea>
+                  </div>
+
+                  <div class="feature-save">
+                    <input type="button" value="' . _('Save changes') .'" title="' . _('Save changes') .'" onclick="saveChanges(\'' . $feature['date'] . '\', ' . $feature['number'] . ');" />' .
+                    Ui::drawIndicator('feature-' . $feature['number']) .
+               '  </div>
+                </div>';
+    }
+
+    $buf  .= '</div>';
+
+    return $buf;
   }
 }
 

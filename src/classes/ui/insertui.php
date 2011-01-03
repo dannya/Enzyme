@@ -30,8 +30,10 @@ class InsertUi extends BaseUi {
 
 
   public function draw() {
-    // check permission
-    if ($buf = App::checkPermission($this->user, 'editor')) {
+    // check permission (and insert is set to show)
+    if ($buf = App::checkPermission($this->user, 'editor') ||
+        (defined('SHOW_INSERT') && !SHOW_INSERT)) {
+
       return $buf;
     }
 

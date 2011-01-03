@@ -58,20 +58,44 @@ if ($_REQUEST['context'] == 'msg') {
   $json['success'] = Db::save('commits', $filter, $values);
 
 } else if ($_REQUEST['context'] == 'remove') {
-  $filter = array('revision' => $_REQUEST['revision']);
-  $values = array('marked'      => 0,
-                  'type'        => null,
-                  'area'        => null,
-                  'classifier'  => null,
-                  'classified'  => null);
+  // convert JSON to array for iteration
+  $items = json_decode($_REQUEST['revision']);
 
-  $json['success'] = Db::save('commits_reviewed', $filter, $values);
+  if (!$items || !is_array($items)) {
+    // not JSON, add single value to items array
+    $items = array($_REQUEST['revision']);
+  }
+
+  $json['success'] = true;
+
+  // set commits as deleted
+  foreach ($items as $item) {
+    $filter = array('revision' => $item);
+    $values = array('marked'      => 0,
+                    'type'        => null,
+                    'area'        => null,
+                    'classifier'  => null,
+                    'classified'  => null);
+
+    $json['success'] = Db::save('commits_reviewed', $filter, $values);
+  }
 
 } else {
-  $filter = array('revision' => $_REQUEST['revision']);
-  $values = array($_REQUEST['context'] => intval($_REQUEST['value']));
+  // convert JSON to array for iteration
+  $items = json_decode($_REQUEST['revision']);
 
-  $json['success'] = Db::save('commits_reviewed', $filter, $values);
+  if (!$items || !is_array($items)) {
+    // not JSON, add single value to items array
+    $items = array($_REQUEST['revision']);
+  }
+
+  // change commits
+  foreach ($items as $item) {
+    $filter = array('revision' => $item);
+    $values = array($_REQUEST['context'] => intval($_REQUEST['value']));
+
+    $json['success'] = Db::save('commits_reviewed', $filter, $values);
+  }
 }
 
 

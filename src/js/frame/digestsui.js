@@ -13,6 +13,24 @@
 +--------------------------------------------------------*/
 
 
+var bulkRevisions = [];
+
+function bulkSelect(theRevision, event) {
+  if (typeof theRevision == 'undefined') {
+    return false;
+  }
+
+  if (bulkRevisions.indexOf(theRevision) == -1) {
+    // add to bulk revisions
+    bulkRevisions.push(theRevision);
+
+  } else {
+    // remove from bulk revisions
+    bulkRevisions = bulkRevisions.without(theRevision);
+  }
+}
+
+
 function addIntroSection() {
   if ($('sections') && $('intro-section-new')) {
 	  // hide prompt
@@ -27,28 +45,37 @@ function addIntroSection() {
     var newCounter = $('sections').select('div.section').size();
 
     // change id's and actions of new (visible) row
-    $('save-introduction-new').writeAttribute('onclick', $('save-introduction-new').readAttribute('onclick').sub('new', newCounter));
-    $('save-introduction-new').id  = $('save-introduction-new').id.sub('-new', '-' + newCounter);
-    
-    $('button-message-new').writeAttribute('onclick', $('button-message-new').readAttribute('onclick').sub('new', newCounter));
-    $('button-message-new').id     = $('button-message-new').id.sub('-new', '-' + newCounter);
-
-    $('button-comment-new').writeAttribute('onclick', $('button-comment-new').readAttribute('onclick').sub('new', newCounter));
-    $('button-comment-new').id     = $('button-comment-new').id.sub('-new', '-' + newCounter);
-
-    $('intro-new').id              = $('intro-new').id.sub('-new', '-' + newCounter);
-    $('body-new').id               = $('body-new').id.sub('-new', '-' + newCounter);
-
-    $('section-counter-new').update(newCounter);
-    $('section-counter-new').id    = $('section-counter-new').id.sub('-new', '-' + newCounter);
-    
-    // make new row visible
-    $('intro-section-new').id      = $('intro-section-new').id.sub('-new', '-' + newCounter);
-    $('intro-section-' + newCounter).show();
+    changeItemId('', '');
 
     // add new row to page
     $('sections').insert({ bottom: '<div id="intro-section-new" class="section" style="display:none;">' + newRow + '</div>' });
   }
+}
+
+
+function changeItemId(oldId, newId) {
+	if ((typeof oldId == 'undefined') || (typeof newId == 'undefined')) {
+    return false;
+  }
+
+  $('save-introduction-new').writeAttribute('onclick', $('save-introduction-new').readAttribute('onclick').sub('new', newCounter));
+  $('save-introduction-new').id  = $('save-introduction-new').id.sub('-new', '-' + newCounter);
+  
+  $('button-message-new').writeAttribute('onclick', $('button-message-new').readAttribute('onclick').sub('new', newCounter));
+  $('button-message-new').id     = $('button-message-new').id.sub('-new', '-' + newCounter);
+
+  $('button-comment-new').writeAttribute('onclick', $('button-comment-new').readAttribute('onclick').sub('new', newCounter));
+  $('button-comment-new').id     = $('button-comment-new').id.sub('-new', '-' + newCounter);
+
+  $('intro-new').id              = $('intro-new').id.sub('-new', '-' + newCounter);
+  $('body-new').id               = $('body-new').id.sub('-new', '-' + newCounter);
+
+  $('section-counter-new').update(newCounter);
+  $('section-counter-new').id    = $('section-counter-new').id.sub('-new', '-' + newCounter);
+  
+  // make new row visible
+  $('intro-section-new').id      = $('intro-section-new').id.sub('-new', '-' + newCounter);
+  $('intro-section-' + newCounter).show();
 }
 
 
@@ -72,7 +99,7 @@ function addDigestLinks(theDate, contentBox) {
 
       if ((typeof result.success != 'undefined') && result.success) {
         showIndicator('new-digest', 'indicator-success');
-        
+
         // put linked content back into content box
         $(contentBox).value = result.data;
 
@@ -84,8 +111,76 @@ function addDigestLinks(theDate, contentBox) {
 }
 
 
-function insertFeature(theDate) {
-	alert('boo');
+function insertFromFeatures(theDate) {
+  if (typeof theDate == 'undefined') {
+    return false;
+  }
+
+  // load in lightbox
+  myLightWindow.activateWindow({
+    href:    BASE_URL + '/get/feature-articles.php?date=' + theDate, 
+    title:   strings.feature_articles,
+    width:   500,
+    height:  500
+  });
+  
+  return false;
+}
+
+
+function expandFeature(theDate, itemNum) {
+  if ((typeof theDate == 'undefined') || (typeof itemNum == 'undefined') ||
+      !$('feature_' + theDate + '_' + itemNum)) {
+
+    return false;
+  }
+
+  $('feature_' + theDate + '_' + itemNum).toggleClassName('featureExpand');
+}
+
+
+function insertFeature(theDate, itemNum, targetDate) {
+  if ((typeof theDate == 'undefined') || (typeof itemNum == 'undefined') || (typeof targetDate == 'undefined') ||
+      !$('feature_' + theDate + '_' + itemNum)) {
+
+    return false;
+  }
+  
+  
+  // set params
+  var params = {
+    date:   theDate,
+    number: itemNum,
+    values: 'status=selected'
+  };
+
+  if (theDate != targetDate) {
+    params.values += '&date=' + targetDate;
+  }
+
+
+  // set date to this, and state to selected
+  new Ajax.Request(BASE_URL + '/get/change-feature.php', {
+    method: 'post',
+    parameters: params,
+    onSuccess: function(transport) {
+      var result = transport.headerJSON;
+
+      if ((typeof result.success != 'undefined') && result.success) {
+			  // close lightbox, reload page to show inserted article
+			  myLightWindow.deactivate();
+			  location.reload(true);
+
+      } else {
+        // failure
+        if (typeof strings.failure == 'string') {
+          alert(strings.failure);
+        } else {
+          alert('Error');
+        }
+      }
+    }
+  });
 }
 
 
@@ -193,6 +288,55 @@ function insertSection(event, theDate, theContext, number) {
 }
 
 
+function changeSectionNumber(event, theDate, itemNum) {
+  if ((typeof event == 'undefined') || (typeof theDate == 'undefined') || (typeof itemNum == 'undefined')) {
+    return false;
+  }
+
+  var newItemNum = prompt(strings.change_section_num, itemNum);
+  
+  // save?
+  if (newItemNum && (newItemNum != itemNum)) {  
+	  new Ajax.Request(BASE_URL + '/get/change-feature.php', {
+	    method: 'post',
+	    parameters: {
+	      date:    theDate,
+	      number:  itemNum,
+	      values:  'number=' + newItemNum
+      },
+	    onSuccess: function(transport) {
+	      var result = transport.headerJSON;
+
+	      if ((typeof result.success != 'undefined') && result.success) {
+          // change all onclick actions
+          if ($('section-counter-' + itemNum)) {
+            $('section-counter-' + itemNum).writeAttribute('onclick', "changeSectionNumber(event, '" + theDate + "', " + newItemNum + ");"); 
+          }
+          if ($('save-introduction-' + itemNum)) {
+            $('save-introduction-' + itemNum).writeAttribute('onclick', "saveSection('" + theDate + "', 'introduction', " + newItemNum + ");"); 
+          }
+
+			    // rename all section elements
+			    if ($('intro-section-' + itemNum)) {
+			    	$('intro-section-' + itemNum).id = 'intro-section-' + newItemNum; 
+          }
+
+			    // write new number into box
+			    event.element().update(newItemNum);
+
+	      } else {
+	        // failure (chosen number probably already in use)
+		      new Effect.Highlight(event.element(), {
+		        startcolor: '#d40000',
+		        duration:   2
+		      });
+	      }
+	    }
+	  });
+  }
+}
+
+
 function saveSection(theDate, theContext, number, theInsert) {
   if ((typeof theDate == 'undefined') || (typeof theContext == 'undefined')) {
     return false;
@@ -226,6 +370,7 @@ function saveSection(theDate, theContext, number, theInsert) {
     }
 
     theValues.number = number;
+    theValues.status = 'selected';
     theValues.intro  = $('intro-' + number).value;
 
     if ($('button-comment-' + number).hasClassName('selected')) {
@@ -354,29 +499,6 @@ function changeItemType(theDate, theNumber, theType) {
 }
 
 
-function showIndicator(context, class) {
-  if ((typeof context == 'undefined') || (typeof class == 'undefined')) {
-    return false;
-  }
-
-  if ($('indicator-' + context)) {
-    // change class
-    $('indicator-' + context).writeAttribute('class', class);
-
-    // show for x seconds, then hide
-    new Effect.Appear('indicator-' + context, {
-      duration:    0.2,
-      afterFinish: function() {
-        new Effect.Fade('indicator-' + context, {
-          duration: 0.2,
-          delay:    4
-        });
-      }
-    });
-  }
-}
-
-
 function generateStats(start, end) {
   if ((typeof start == 'undefined') || (typeof end == 'undefined')) {
     return false;
@@ -421,19 +543,49 @@ function changeValue(theContext, theRevision) {
   // reset success visuals
   $(theContext + '-' + theRevision).removeClassName('success');
 
+
+  // change multiple commits?
+  if (((theContext == 'area') || (theContext == 'type')) && 
+      (bulkRevisions.indexOf(theRevision) != -1)) {
+
+    var changeRevisions = bulkRevisions.toJSON();
+
+  } else {
+    // convert to JSON
+    var changeRevisions = '[' + theRevision + ']';
+  }
+
+
   // send off change
   new Ajax.Request(BASE_URL + '/get/change-value.php', {
     method: 'post',
     parameters: {
       'context':  theContext,
-      'revision': theRevision,
+      'revision': changeRevisions,
       'value':    $(theContext + '-' + theRevision).value
     },
     onSuccess: function(transport) {
       var result = transport.headerJSON;
 
       if ((typeof result.success != 'undefined') && result.success) {
-        $(theContext + '-' + theRevision).addClassName('success');
+        // iterate
+        changeRevisions.evalJSON(true).each(function(item) {
+        	// add success styling to element
+          $(theContext + '-' + item).addClassName('success');
+
+          if ((theContext == 'area') || (theContext == 'type')) {
+	          // set select box to matching item
+	          $(theContext + '-' + item).selectedIndex = $(theContext + '-' + theRevision).selectedIndex;
+
+	          // uncheck bulk action box if checked
+	          if ($('bulk-' + item) && $('bulk-' + item).checked) {
+	            $('bulk-' + item).checked = false;
+	          }
+
+		        // remove from bulk revisions list
+		        bulkRevisions = bulkRevisions.without(item);
+          }
+        });
       }
     }
   });
@@ -450,11 +602,19 @@ function removeCommit(theRevision) {
   	return false;
   }
 
+  // remove multiple commits?
+  if (bulkRevisions.indexOf(theRevision) != -1) {
+  	var removeRevisions = bulkRevisions.toJSON();
+  } else {
+  	// convert to JSON
+  	var removeRevisions = '[' + theRevision + ']';
+  }
+
   new Ajax.Request(BASE_URL + '/get/change-value.php', {
     method: 'post',
     parameters: {
       'context':  'remove',
-      'revision': theRevision,
+      'revision': removeRevisions,
       'value':    true
     },
     onSuccess: function(transport) {
@@ -462,17 +622,22 @@ function removeCommit(theRevision) {
 
       // remove unneeded subheaders
       if ((typeof result.success != 'undefined') && result.success) {
-        if ($('commit-' + theRevision)) {
-        	var subheader = $('commit-' + theRevision).previous('h3');
+        // iterate
+      	removeRevisions.evalJSON(true).each(function(item) {
+	        if ($('commit-' + item)) {
+	          var subheader = $('commit-' + item).previous('h3');
+	
+	          // remove commit from page
+	          $('commit-' + item).remove();
+	
+	          // check if subheader has more items, if not, also remove
+	          if (!subheader.next() || (subheader.next().tagName != 'DIV')) {
+	            subheader.remove();
+	          }
+	        }
+      	});
 
-        	// remove commit from page
-        	$('commit-' + theRevision).remove();
 
-        	// check if subheader has more items, if not, also remove
-        	if (!subheader.next() || (subheader.next().tagName != 'DIV')) {
-        		subheader.remove();
-        	}
-        }
       }
       
       // fix total display

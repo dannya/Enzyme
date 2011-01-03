@@ -39,7 +39,10 @@ strings.settings_failure        = '<?php echo _("Failed to save settings") ?>';
 strings.reset_success           = '<?php echo _("Your password has been reset. Please check your registered email account for further instructions.") ?>';
 
 strings.people_references       = '<?php echo _("People References") ?>';
+strings.feature_articles        = '<?php echo _("Available Feature Articles") ?>';
 strings.dot_blurb               = '<?php echo _("Dot Synopsis") ?>';
+
+strings.change_section_num      = '<?php echo _("What number should this section be?") ?>';
 
 strings.remove_commit           = '<?php echo _("Are you sure you want to remove this commit?") ?>';
 
@@ -423,4 +426,27 @@ function changeInterface(context) {
       }
     }
   });
+}
+
+
+function showIndicator(context, class) {
+  if ((typeof context == 'undefined') || (typeof class == 'undefined')) {
+    return false;
+  }
+
+  if ($('indicator-' + context)) {
+    // change class
+    $('indicator-' + context).writeAttribute('class', class);
+
+    // show for x seconds, then hide
+    new Effect.Appear('indicator-' + context, {
+      duration:    0.2,
+      afterFinish: function() {
+        new Effect.Fade('indicator-' + context, {
+          duration: 0.2,
+          delay:    4
+        });
+      }
+    });
+  }
 }

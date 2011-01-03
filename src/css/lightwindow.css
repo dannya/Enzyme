@@ -18,7 +18,7 @@
 	visibility: hidden;
 	position: absolute;
 	z-index: 999;
-	line-height: 0;
+	line-height: 20px;
 	/* REQUIRED */
 }
 
@@ -403,16 +403,19 @@ a:active#lightwindow_title_bar_close_link {
 }
 
 
+
 div.contents {
-  margin-top:10px;
+  height:100%;
+  overflow-y:auto;
 }
+
 
 
 div.contents h2 {
   margin:42px 0 8px 0 !important;
 }
 div.contents h2:first-child {
-  margin-top:12px !important;
+  margin-top:0 !important;
 }
 
 
@@ -432,5 +435,5 @@ div.contents h3 {
   margin:20px 0 10px 0 !important;
 }
 div.contents h3:first-child {
-  margin-top:12px !important;
+  margin-top:0 !important;
 }

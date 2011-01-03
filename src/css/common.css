@@ -411,13 +411,17 @@ div#console {
 
 
 
-p.prompt {
+p.prompt,
+p.prompt-compact {
   margin:200px 0 !important;
 
   color:#ccc;
   font-style:italic;
   font-size:22px;
   text-align:center;
+}
+p.prompt-compact {
+  margin:100px 0 !important;
 }
 
 
@@ -451,4 +455,46 @@ div.summary_box {
   margin-top:22px;
   padding-top:22px;
   border-top:2px dotted #ccc;
+}
+
+
+
+
+
+
+span.indicator-success,
+span.indicator-failure {
+  position:relative;
+  float:left;
+  padding:4px;
+  margin:3px 2px 0 0;
+
+  opacity:0.6;
+
+  border-radius:5px;
+  -moz-border-radius:5px;
+  -webkit-border-radius:5px; 
+}
+span.indicator-success span,
+span.indicator-failure span {
+  display:block;
+  position:relative;
+  top:1px;
+  width:22px;
+  height:22px;
+  background:url("../img/sprite.png") repeat scroll 0 0 transparent;
+}
+
+span.indicator-success {
+  background-color:green;
+}
+span.indicator-success span {
+  background-position:-22px -22px;
+}
+
+span.indicator-failure {
+  background-color:red;
+}
+span.indicator-failure span {
+  background-position:-44px -22px;
 }

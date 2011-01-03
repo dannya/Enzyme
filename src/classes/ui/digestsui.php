@@ -68,9 +68,9 @@ class DigestsUi extends BaseUi {
     // draw "create a new digest" form
     $buf = '<h3>' .
               _('Create a New Digest') .
-           '  <span>
-                <span id="indicator-new-digest"><span>&nbsp;</span></span>
-                <input type="button" onclick="createNewDigest();" value="' . _('Create new digest') . '" title="' . _('Create new digest') . '" />
+           '  <span>' .
+                Ui::drawIndicator('new-digest') .
+           '    <input type="button" onclick="createNewDigest();" value="' . _('Create new digest') . '" title="' . _('Create new digest') . '" />
               </span>
             </h3>
 
@@ -283,7 +283,7 @@ class DigestsUi extends BaseUi {
               _('Introduction') .
            '  <span>
                 <span id="indicator-introduction"><span>&nbsp;</span></span>
-                <input id="insert-feature" type="button" value="' . _('Insert from features...') . '" title="' . _('Insert from features...') . '" onclick="insertFeature(\'' . $this->data['date'] . '\');" />
+                <input id="insert-feature" type="button" value="' . _('Insert from features...') . '" title="' . _('Insert from features...') . '" onclick="insertFromFeatures(\'' . $this->data['date'] . '\');" />
                 <input id="add-introduction" type="button" value="' . _('Add section') . '" title="' . _('Add section') . '" onclick="addIntroSection();" />
                 <input id="people-references" type="button" value="' . _('People references') . '" title="' . _('People references') . '" onclick="peopleReferences(\'' . $this->data['date'] . '\');" />
               </span>
@@ -359,7 +359,7 @@ class DigestsUi extends BaseUi {
 
     // draw
     $buf = '<div id="' . $rowId . '" class="section"' . $rowStyle . '>
-              <span id="section-counter-' . $number . '">' . $number . '</span>
+              <span id="section-counter-' . $number . '" class="section-counter" title="' . _('Click to change this section number...') . '" onclick="changeSectionNumber(event, \'' . $this->data['date'] . '\', ' . $number . ');">' . $number . '</span>
               <div id="save-introduction-' . $number . '" class="save-introduction" title="' . _('Save changes') . '" onclick="' . $saveAction .'">
                 <div>&nbsp;</div>
               </div>
@@ -768,6 +768,8 @@ class DigestsUi extends BaseUi {
                   <div class="selectors">
                     <div class="reviewer" title="' . sprintf(_('Reviewed by %s'), $commit['reviewer']) . '">&nbsp;</div>
                     <div class="classifier" title="' . sprintf(_('Classified by %s'), $commit['classifier']) . '">&nbsp;</div>
+
+                    <input id="bulk-' . $commit['revision'] . '" type="checkbox" title="' . _('Select this commit for bulk actions...') . '" onclick="bulkSelect(' . $commit['revision'] . ');" />
                     <div class="remove" title="' . _('Remove commit from this digest?') . '" onclick="removeCommit(' . $commit['revision'] . ');">&nbsp;</div>' .
                     Ui::htmlSelector('type-' . $commit['revision'], $numericTypes, $commit['type'], 'changeValue(\'type\', ' . $commit['revision'] . ');') .
                     Ui::htmlSelector('area-' . $commit['revision'], $numericAreas, $commit['area'], 'changeValue(\'area\', ' . $commit['revision'] . ');') .

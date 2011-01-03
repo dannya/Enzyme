@@ -70,6 +70,9 @@ if ($_REQUEST['context'] == 'new-digest') {
   $data    = array('type'      => $values['type']);
 
   // set optional values
+  if (isset($values['status'])) {
+    $data['status'] = $values['status'];
+  }
   if (isset($values['intro'])) {
     $data['intro'] = $values['intro'];
   }

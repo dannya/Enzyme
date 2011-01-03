@@ -53,6 +53,12 @@ abstract class BaseUi {
                                        'permission' => 'admin'));
 
 
+    // show import section?
+    if (defined('SHOW_INSERT') && !SHOW_INSERT) {
+      unset($items['insert']);
+    }
+
+
     // draw sidebar
     $buf =   '<div id="sidebar">
                 <ul>';

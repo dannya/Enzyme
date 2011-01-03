@@ -119,7 +119,7 @@ class SetupUi extends BaseUi {
         // determine input type to show
         if (isset($data['valid']) && is_array($data['valid'])) {
           // select box
-          if (!empty($this->settings[$key]['value'])) {
+          if (isset($this->settings[$key]['value'])) {
             $default = $this->settings[$key]['value'];
           } else if (!empty($data['default'])) {
             // preselect a default value

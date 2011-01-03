@@ -170,6 +170,14 @@ div.section input[type="button"] {
   width:28px;
 }
 
+div.section span.section-counter {
+  cursor:pointer;
+}
+div.section span.section-counter:hover {
+  color:#fff;
+  background-color:#464D7A;
+}
+
 div.section div.save-introduction {
   position:absolute;
   width:22px;
@@ -247,48 +255,6 @@ div.section textarea.intro-comment {
 
 
 
-span.indicator-success,
-span.indicator-failure {
-  position:relative;
-  float:left;
-  padding:4px;
-  margin:3px 2px 0 0;
-
-  opacity:0.6;
-
-  border-radius:5px;
-  -moz-border-radius:5px;
-  -webkit-border-radius:5px; 
-}
-span.indicator-success span,
-span.indicator-failure span {
-  display:block;
-  position:relative;
-  top:1px;
-  width:22px;
-  height:22px;
-  background:url("../img/sprite.png") repeat scroll 0 0 transparent;
-}
-
-span.indicator-success {
-  background-color:green;
-}
-span.indicator-success span {
-  background-position:-22px -22px;
-}
-
-span.indicator-failure {
-  background-color:red;
-}
-span.indicator-failure span {
-  background-position:-44px -22px;
-}
-
-
-
-
-
-
 
 
 
@@ -303,7 +269,7 @@ div.commit {
 }
 
 div.commit div.intro {
-  width:600px;
+  width:590px;
   margin-bottom:9px;
 }
 
@@ -322,6 +288,7 @@ div.commit div.selectors select:last-child {
   margin-right:0;
 }
 
+div.commit div.selectors input[type="checkbox"],
 div.commit div.selectors div.remove,
 div.commit div.selectors div.reviewer,
 div.commit div.selectors div.classifier {
@@ -476,4 +443,67 @@ div#dot-blurb textarea {
   margin-top:10px;
   width:484px;
   height:410px;
+}
+
+
+
+
+/* feature articles lightbox */
+div.contents h3 {
+  margin:40px 0 10px !important;
+}
+
+
+div#features div.feature {
+  position:relative;
+  padding:10px;
+  border-bottom:2px dotted #ccc;
+}
+
+div#features div.feature div.feature-expand,
+div#features div.featureExpand div.feature-expand {
+  float:left;
+  width:22px;
+  height:22px;
+
+  background:url('../img/sprite.png') no-repeat;
+  background-position:-220px -22px;
+  cursor:pointer;
+}
+div#features div.feature div.feature-expand:hover {
+  background-position:-220px -0;
+}
+
+div#features div.featureExpand div.feature-expand {
+  background-position:-198px -22px;
+}
+div#features div.featureExpand div.feature-expand:hover {
+  background-position:-198px -0;
+}
+
+div#features div.feature div.feature-intro,
+div#features div.feature div.feature-body {
+  margin-left:32px;
+  width:360px;
+  height:20px;
+  overflow:hidden;
+}
+
+div#features div.feature div.feature-body {
+  font-style:italic;
+  color:#666;
+}
+
+
+div#features div.featureExpand div.feature-intro,
+div#features div.featureExpand div.feature-body {
+  height:auto;
+  overflow:visible;
+}
+
+
+div#features div.feature input.feature-insert {
+  position:absolute;
+  top:10px;
+  right:10px;
 }

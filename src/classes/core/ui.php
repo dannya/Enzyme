@@ -498,6 +498,11 @@ class Ui {
 
     return str_replace($pattern, $replace, $emailAddress);
   }
+
+
+  public static function drawIndicator($id) {
+    return '<span id="indicator-' . $id . '"><span>&nbsp;</span></span>';
+  }
 }
 
 ?>

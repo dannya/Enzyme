@@ -201,7 +201,7 @@ class Db {
   }
 
 
-  public static function save($table, $filter, $values) {
+  public static function save($table, $filter, $values, $silentError = false) {
     // check if table is valid, and filter is provided
     if (!in_array($table, self::$tables) || (count($filter) == 0)) {
       return null;
@@ -212,7 +212,12 @@ class Db {
                    ' WHERE ' . self::createFilter($table, $filter);
 
     // save data
-    return mysql_query($updateQuery) or trigger_error(sprintf(_('Query failed: %s'), mysql_error()));
+    if ($silentError) {
+      return mysql_query($updateQuery);
+
+    } else {
+      return mysql_query($updateQuery) or trigger_error(sprintf(_('Query failed: %s'), mysql_error()));
+    }
   }
 
 
@@ -342,29 +347,29 @@ class Db {
         } else if (isset($tmpValue['type'])) {
           if ($tmpValue['type'] == 'gt') {
             // greater than
-            $query[] = $key . ' > \'' . self::sanitise($tmpValue['value']) . '\'';
+            $query[] = self::createFilterElement($key, '>', $tmpValue['value']);
 
           } else if ($tmpValue['type'] == 'gte') {
             // greater than or equal to
-            $query[] = $key . ' >= \'' . self::sanitise($tmpValue['value']) . '\'';
+            $query[] = self::createFilterElement($key, '>=', $tmpValue['value']);
 
           } else if ($tmpValue['type'] == 'lt') {
             // lower than
-            $query[] = $key . ' < \'' . self::sanitise($tmpValue['value']) . '\'';
+            $query[] = self::createFilterElement($key, '<', $tmpValue['value']);
 
           } else if ($tmpValue['type'] == 'lte') {
             // lower than or equal to
-            $query[] = $key . ' <= \'' . self::sanitise($tmpValue['value']) . '\'';
+            $query[] = self::createFilterElement($key, '<=', $tmpValue['value']);
 
           } else if ($tmpValue['type'] == '!=') {
             // not equal to
-            $query[] = $key . ' != \'' . self::sanitise($tmpValue['value']) . '\'';
+            $query[] = self::createFilterElement($key, '!=', $tmpValue['value']);
 
           } else if ($tmpValue['type'] == 'range') {
             // between two values
             sort($tmpValue['args']);
 
-            $query[] = $key . ' >= \'' . self::sanitise($tmpValue['args'][0]) . '\' AND ' . $key . ' <= \'' . self::sanitise($tmpValue['args'][1]) . '\'';
+            $query[] = $key . ' >= ' . self::quote($tmpValue['args'][0]) . ' AND ' . $key . ' <= ' . self::quote($tmpValue['args'][1]);
           }
 
         } else {
@@ -393,6 +398,25 @@ class Db {
 
     // join filters
     return implode(' AND ', $query);
+  }
+
+
+  private static function createFilterElement($key, $operator, $value) {
+    if (is_array($value)) {
+      $filter = array();
+
+      foreach ($value as $v) {
+        $filter[] = $key . ' ' . $operator . ' ' . self::quote($v);
+      }
+
+      return implode(' AND ', $filter);
+
+    } else {
+      // single element
+      return $key . ' ' . $operator . ' ' . self::quote($value);
+    }
+
+    return $buf;
   }
 
 
@@ -507,7 +531,7 @@ class Db {
 
       // overwrite values?
       if ($overwrite) {
-      $data[$theKey] = $item;
+        $data[$theKey] = $item;
       } else {
         $data[$theKey][] = $item;
       }

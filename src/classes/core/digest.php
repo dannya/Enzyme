@@ -42,7 +42,7 @@ class Digest {
   }
 
 
-  public static function getLastIssueDate($timewarp = null, $getValid = true) {
+  public static function getLastIssueDate($timewarp = null, $getValid = true, $onlyPublished = false) {
     // use a specific timewarp value (6 months, etc)?
     if ($timewarp) {
       $timewarp = '-' . $timewarp;
@@ -54,15 +54,21 @@ class Digest {
     // only get a valid date?
     if ($getValid) {
       // load list of issues
-      $issues = Cache::loadSave('issue_latest', 'Digest::loadDigests', array('issue', 'latest', false));
-      $key    = self::findIssueDate($date, $issues);
+      if (!$onlyPublished) {
+        $issues = Cache::loadSave('issue_latest', 'Digest::loadDigests', array('issue', 'latest', false));
+      } else {
+        // only get published
+        $issues = Digest::loadDigests('issue', 'latest', true);
+      }
+
+      $key = self::findIssueDate($date, $issues);
 
       if ($key === false) {
         $key = reset($issues);
         return $key['date'];
 
       } else {
-        return $key;
+        return $issues[$key]['date'];
       }
 
     } else {
@@ -412,17 +418,23 @@ class Digest {
   }
 
 
-  public static function loadDigestFeatures($date = null) {
-    if ($date) {
-      $filter = array('date'   => $date,
-                      'status' => array('type'  => '!=',
-                                        'value' => 'selected'));
+  public static function loadDigestFeatures($date = null, $status = null) {
+    if ($status) {
+      // load specific status
+      $filter = array('status' => $status);
+
     } else {
+      // load all that aren't ideas or selected
       $filter = array('status' => array('type'  => '!=',
-                                        'value' => 'selected'));
+                                        'value' => array('idea', 'selected')));
     }
 
-    return Db::load('digest_intro_sections', $filter);
+    // also filter by date?
+    if ($date) {
+      $filter['date'] = $date;
+    }
+
+    return Db::load('digest_intro_sections', $filter, null, '*', false);
   }
 
 
@@ -473,10 +485,12 @@ class Digest {
 
 
   public static function getStatuses() {
-    return array('more-info'   => _('More information needed'),
-                 'proofread'   => _('Needs proofreading'),
-                 'ready'       => _('Ready for selection'),
-                 'selected'    => _('Selected'));
+    return array('idea'        => _('1. Idea'),
+                 'contacting'  => _('2. Contacting'),
+                 'more-info'   => _('3. More information needed'),
+                 'proofread'   => _('4. Needs proofreading'),
+                 'ready'       => _('5. Ready for selection'),
+                 'selected'    => _('6. Selected'));
   }
 
 
@@ -535,13 +549,13 @@ class Digest {
   public static function getCommitTitle($commit) {
       if (empty($commit['format']) || ($commit['format'] == 'svn')) {
       $title  = sprintf(_('%s committed changes in %s:'),
-                '<a class="n" href="http://cia.vc/stats/author/' . $commit['author'] . '/">' . $commit['name'] . '</a>',
+                '<a class="n" href="http://cia.vc/stats/author/' . $commit['author'] . '/" target="_blank">' . $commit['name'] . '</a>',
                 Enzyme::drawBasePath($commit['basepath']));
 
     } else if ($commit['format'] == 'git') {
       // do we have the name of the committer?
       if (!empty($commit['name'])) {
-        $committer = '<a class="n" href="http://cia.vc/stats/author/' . $commit['author'] . '/">' . $commit['name'] . '</a>';
+        $committer = '<a class="n" href="http://cia.vc/stats/author/' . $commit['author'] . '/" target="_blank">' . $commit['name'] . '</a>';
       } else {
         $committer = Ui::displayEmailAddress($commit['author']);
       }
