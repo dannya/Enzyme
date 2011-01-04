@@ -719,6 +719,8 @@ class DigestsUi extends BaseUi {
 
 
     // initialise areas and types
+    $numCommits   = count($this->data['commits']);
+
     $types        = Enzyme::getTypes();
     $areas        = Enzyme::getAreas();
 
@@ -735,8 +737,16 @@ class DigestsUi extends BaseUi {
 
     // draw
     $buf = '<div id="num-commits">' .
-              sprintf(_('There are %d selections this week'), count($this->data['commits'])) .
-           '</div>';
+              sprintf(_('There are %d selections this week'), $numCommits) .
+           '</div>
+
+            <div id="floating-status" style="display:none;">
+              <div id="floating-status-remove" style="display:none;">
+                <div id="floating-status-remove-button" class="remove" onclick="removeCommit(\'bulk\');" title="Remove selected commits from this digest?">&nbsp;</div>
+                <span id="floating-status-selected">1</span>
+              </div>
+              <span id="floating-status-total">' . $numCommits . '</span>
+            </div>';
 
     foreach ($this->data['commits'] as $commit) {
       // draw new header (type)?

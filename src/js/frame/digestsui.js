@@ -13,20 +13,96 @@
 +--------------------------------------------------------*/
 
 
+// observe scroll (so we can show/hide floating status box)
+document.observe('dom:loaded', function() {
+	if ($('floating-status')) {
+		if ($('num-commits')) {
+			var animating = false;
+
+			// only show floating box when commits area is in viewport
+	    Event.observe(window, 'scroll', function() {
+	    	var boundary        = $('num-commits').cumulativeOffset();
+	      var currentScroll   = document.viewport.getScrollOffsets();
+	          currentScroll   = currentScroll[1] + document.viewport.getHeight() - 180;
+
+        // show / hide?
+        if (!animating) {
+	        if ((currentScroll > boundary[1]) && !$('floating-status').visible()) {
+	          new Effect.Appear('floating-status',
+	                            { duration: 0.3,
+                                beforeStart: function() {
+                                	animating = true;
+	                              },
+	                              afterFinish: function() {
+	                              	animating = false;
+	                              }
+	                            });
+	
+	        } else if ((currentScroll <= boundary[1]) && $('floating-status').visible()) {
+            new Effect.Fade('floating-status',
+                            { duration: 0.3,
+                              beforeStart: function() {
+                                animating = true;
+                              },
+                              afterFinish: function() {
+                                animating = false;
+                              }
+                            });
+	        }
+        }
+	    });
+	
+		} else {
+	    // cannot detect commits area boundary, always show floating box
+	    $('floating-status').appear({ duration:0.3 });
+	  }
+	}
+});
+
+
 var bulkRevisions = [];
 
-function bulkSelect(theRevision, event) {
+function bulkSelect(theRevision, forceAction) {
   if (typeof theRevision == 'undefined') {
     return false;
   }
 
-  if (bulkRevisions.indexOf(theRevision) == -1) {
-    // add to bulk revisions
-    bulkRevisions.push(theRevision);
+  if (typeof forceAction != 'undefined') {
+  	if (forceAction == 'remove') {
+      // remove from bulk revisions
+      bulkRevisions = bulkRevisions.without(theRevision);  	
+  	}
 
   } else {
-    // remove from bulk revisions
-    bulkRevisions = bulkRevisions.without(theRevision);
+	  if (bulkRevisions.indexOf(theRevision) == -1) {
+	    // add to bulk revisions
+	    bulkRevisions.push(theRevision);
+	
+	  } else {
+	    // remove from bulk revisions
+	    bulkRevisions = bulkRevisions.without(theRevision);
+	  }
+  }
+  
+  
+  // show / hide floating remove button?
+  if ($('floating-status-remove')) {
+  	if (bulkRevisions.size() > 0) {
+  		$('floating-status-remove').show();
+  	} else {
+  		$('floating-status-remove').hide();
+  	}
+
+  	// change title of button to reflect number of revisions to be removed onclick
+  	if ($('floating-status-remove-button')) {
+  	  $('floating-status-remove-button').writeAttribute('title', sprintf(strings.remove_commits, bulkRevisions.size()));
+  	}
+  }
+  
+
+  // change floating selected counter
+  if ($('floating-status-selected')) {
+  	$('floating-status-selected').update(bulkRevisions.size());
   }
 }
 
@@ -606,7 +682,7 @@ function changeValue(theContext, theRevision) {
 	          }
 
 		        // remove from bulk revisions list
-		        bulkRevisions = bulkRevisions.without(item);
+		        bulkSelect(item, 'remove');
           }
         });
       }
@@ -621,7 +697,12 @@ function removeCommit(theRevision) {
   }
   
   // remove multiple commits?
-  if (bulkRevisions.indexOf(theRevision) != -1) {
+  if ((theRevision == 'bulk') || bulkRevisions.indexOf(theRevision) != -1) {
+  	// ensure we have items selected for bulk remove
+  	if ((theRevision == 'bulk') && (bulkRevisions.size() == 0)) {
+  		return false;
+  	}
+
     // ask first
 	  if (!confirm(sprintf(strings.remove_commits, bulkRevisions.size()))) {
 	    return false;
@@ -639,6 +720,8 @@ function removeCommit(theRevision) {
   	var removeRevisions = '[' + theRevision + ']';
   }
 
+
+  // send off change
   new Ajax.Request(BASE_URL + '/get/change-value.php', {
     method: 'post',
     parameters: {
@@ -668,10 +751,15 @@ function removeCommit(theRevision) {
 
 
       }
-      
-      // fix total display
+
+      // fix total displays
+      var newTotal = $('content').select('div.commit').size();
+
       if ($('num-commits')) {
-      	$('num-commits').update($('num-commits').innerHTML.replace(/[0-9]/g, $('content').select('div.commit').size()));
+      	$('num-commits').update(sprintf(strings.num_commits, newTotal));
+      }
+      if ($('floating-status-total')) {
+      	$('floating-status-total').update(newTotal);
       }
     }
   }); 

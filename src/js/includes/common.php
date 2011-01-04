@@ -45,8 +45,10 @@ strings.dot_blurb               = '<?php echo _("Dot Synopsis") ?>';
 strings.change_section_num      = '<?php echo _("What number should this section be?") ?>';
 strings.delete_section          = '<?php echo _("Are you sure you want to permanently delete this?") ?>';
 
+strings.num_commits             = '<?php echo _("There are %d selections this week") ?>';
+
 strings.remove_commit           = '<?php echo _("Are you sure you want to remove this commit?") ?>';
-strings.remove_commits          = '<?php echo _("Remove these %d commits?") ?>';
+strings.remove_commits          = '<?php echo _("Remove the %d selected commits?") ?>';
 
 strings.button_user             = '<?php echo _("Make this user inactive?") ?>';
 strings.button_repo             = '<?php echo _("Delete repository?") ?>';
