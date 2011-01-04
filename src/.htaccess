@@ -1,11 +1,12 @@
-Options +FollowSymlinks
-
 ErrorDocument 404 /404.php
 
 RewriteEngine on
 
+RewriteCond %{SCRIPT_FILENAME} !-f
 RewriteRule ^digests/(.*)/ /index.php?page=digests&digest=$1 [QSA,L]
+RewriteCond %{SCRIPT_FILENAME} !-f
 RewriteRule ^tools/(.*)/ /index.php?page=tools&tool=$1 [QSA,L]
+RewriteCond %{SCRIPT_FILENAME} !-f
 RewriteRule ^reset/(.*)/ /index.php?page=reset&code=$1 [QSA,L]
 
 RewriteCond %{REQUEST_URI} insert/ [OR]

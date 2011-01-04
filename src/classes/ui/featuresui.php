@@ -85,28 +85,29 @@ class FeaturesUi extends BaseUi {
 
     if (!$this->ideas) {
       // only show header if no items
-      return $buf .
-             '<p class="prompt-compact">' .
-                _('No items found') .
-             '</p>';
+      $buf  .= '<p id="ideas-prompt" class="prompt-compact">' .
+                  _('No items found') .
+               '</p>';
     }
 
 
     // draw items
     $buf  .= '<div id="ideas">';
 
-    foreach ($this->ideas as $idea) {
-      $buf  .= '<div id="idea_' . $idea['number'] . '" class="idea">
-                  <div class="idea-expand" onclick="expandIdea(' . $idea['number'] . ');" title="' . _('Expand') . '">
-                    &nbsp;
-                  </div>
+    if ($this->ideas) {
+      foreach ($this->ideas as $idea) {
+        $buf  .= '<div id="idea_' . $idea['number'] . '" class="idea">
+                    <div class="idea-expand" onclick="expandIdea(' . $idea['number'] . ');" title="' . _('Expand') . '">
+                      &nbsp;
+                    </div>
 
-                  <div class="idea-intro">' .
-                    $idea['intro'] .
-               '  </div>
+                    <div class="idea-intro">' .
+                      $idea['intro'] .
+                 '  </div>
 
-                  <input class="idea-claim" type="button" value="' . _('Claim') . '" title="' . _('Claim') . '" onclick="claimIdea(' . $idea['number'] . ', \'' . end($this->dates) . '\', \'' . $this->user->data['username'] . '\');" />
-                </div>';
+                    <input class="idea-claim" type="button" value="' . _('Claim') . '" title="' . _('Claim') . '" onclick="claimIdea(' . $idea['number'] . ', \'' . end($this->dates) . '\', \'' . $this->user->data['username'] . '\');" />
+                  </div>';
+      }
     }
 
     // draw empty row

@@ -14,6 +14,10 @@
 
 
 function createNewIdea() {
+	if ($('ideas-prompt')) {
+		$('ideas-prompt').hide();
+	}
+
 	if ($('idea_new')) {
 		if (!$('idea_new').visible()) {
 			// show hidden row
