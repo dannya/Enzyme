@@ -10,4 +10,4 @@ CREATE TABLE `digests` (
   `comments` text COLLATE utf8_unicode_ci,
   UNIQUE KEY `unique2` (`date`),
   KEY `key` (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=162 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci
+) ENGINE=MyISAM AUTO_INCREMENT=201 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci
