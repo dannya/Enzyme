@@ -620,15 +620,21 @@ function removeCommit(theRevision) {
     return false;
   }
   
-  // ask first!
-  if (!confirm(strings.remove_commit)) {
-  	return false;
-  }
-
   // remove multiple commits?
   if (bulkRevisions.indexOf(theRevision) != -1) {
+    // ask first
+	  if (!confirm(sprintf(strings.remove_commits, bulkRevisions.size()))) {
+	    return false;
+	  }
+
   	var removeRevisions = bulkRevisions.toJSON();
+
   } else {
+    // ask first
+    if (!confirm(strings.remove_commit)) {
+      return false;
+    }
+
   	// convert to JSON
   	var removeRevisions = '[' + theRevision + ']';
   }
