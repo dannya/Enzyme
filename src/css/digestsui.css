@@ -178,13 +178,14 @@ div.section span.section-counter:hover {
   background-color:#464D7A;
 }
 
-div.section div.save-introduction {
+div.section div.save-introduction,
+div.section div.delete-introduction {
   position:absolute;
   width:22px;
   height:22px;
   
   left:0;
-  top:50px;
+  top:62px;
 
   padding:9px;
   margin:0;
@@ -196,11 +197,17 @@ div.section div.save-introduction {
   -moz-border-radius:5px;
   -webkit-border-radius:5px;
 }
-div.section div.save-introduction:hover {
+div.section div.save-introduction:hover,
+div.section div.delete-introduction:hover {
   background-color:#464D7A;
 }
 
-div.section div.save-introduction div {
+div.section div.delete-introduction {
+  top:112px;
+}
+
+div.section div.save-introduction div,
+div.section div.delete-introduction div {
   width:22px;
   height:22px;
   background:url("../img/sprite.png") no-repeat transparent;
@@ -209,6 +216,14 @@ div.section div.save-introduction div {
 div.section div.save-introduction:hover div {
   background-position:-0 -22px;
 }
+
+div.section div.delete-introduction div {
+  background-position:-44px -0;
+}
+div.section div.delete-introduction:hover div {
+  background-position:-44px -22px;
+}
+
 
 div.section span {
   background:url("../img/bgd.png") repeat scroll 0 0 transparent;

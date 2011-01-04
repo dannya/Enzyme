@@ -43,6 +43,7 @@ strings.feature_articles        = '<?php echo _("Available Feature Articles") ?>
 strings.dot_blurb               = '<?php echo _("Dot Synopsis") ?>';
 
 strings.change_section_num      = '<?php echo _("What number should this section be?") ?>';
+strings.delete_section          = '<?php echo _("Are you sure you want to permanently delete this?") ?>';
 
 strings.remove_commit           = '<?php echo _("Are you sure you want to remove this commit?") ?>';
 
@@ -172,10 +173,29 @@ function selectItem(direction) {
 }
 
 
-function scrollItem(id) {
+function scrollItem(id, offset) {
+	if (!$(id)) {
+	  return false;
+	}
+
+	if (typeof offset == 'undefined') {
+	 var offset = -56;
+	}
+
   // make sure current item is visible in browser viewport!
   var pos = $(id).cumulativeOffset();
-  $('content').scrollTop = pos[1] - 56;
+  $('content').scrollTop = pos[1] + offset;
+}
+
+
+function scrollToOffset(id, offset) {
+  if (!$(id) || (typeof offset == 'undefined')) {
+    return false;
+  }
+
+  // make sure current item is visible in browser viewport!
+  var pos = $(id).cumulativeOffset();
+  window.scrollTo(pos[0], pos[1] + offset);
 }
 
 

@@ -41,17 +41,25 @@ function addIntroSection() {
     // clone new row, so we can keep adding new rows after this one
     var newRow = $('intro-section-new').innerHTML;
 
-    // count number of sections
-    var newCounter = $('sections').select('div.section').size();
+    // get next available number
+    var newCounter = 1;
+
+    $('sections').select('div.section').each(function(item) {
+    	if (item.visible()) {
+    		newCounter = parseInt(item.id.sub('intro-section-', '')) + 1; 
+    	}
+    });
 
     // change id's and actions of new (visible) row
-    changeItemId('new', newCounter);
-
-    // show empty row
-    
+    changeItemId('new', newCounter);   
 
     // add new row to page
     $('sections').insert({ bottom: '<div id="intro-section-new" class="section" style="display:none;">' + newRow + '</div>' });
+
+    // scroll to new item
+    if ($('intro-section-' + newCounter)) {
+    	scrollToOffset('intro-section-' + newCounter, -56);
+    }
   }
 }
 
@@ -62,22 +70,25 @@ function changeItemId(oldId, newId) {
   }
 
   $('save-introduction-' + oldId).writeAttribute('onclick', $('save-introduction-new').readAttribute('onclick').sub('new', newId));
-  $('save-introduction-' + oldId).id  = $('save-introduction-' + oldId).id.sub('-' + oldId, '-' + newId);
+  $('save-introduction-' + oldId).id    = $('save-introduction-' + oldId).id.sub('-' + oldId, '-' + newId);
+
+  $('delete-introduction-' + oldId).writeAttribute('onclick', $('delete-introduction-new').readAttribute('onclick').sub('new', newId));
+  $('delete-introduction-' + oldId).id  = $('delete-introduction-' + oldId).id.sub('-' + oldId, '-' + newId);
   
   $('button-message-' + oldId).writeAttribute('onclick', $('button-message-' + oldId).readAttribute('onclick').sub('' + oldId, newId));
-  $('button-message-' + oldId).id     = $('button-message-' + oldId).id.sub('-' + oldId, '-' + newId);
+  $('button-message-' + oldId).id       = $('button-message-' + oldId).id.sub('-' + oldId, '-' + newId);
 
   $('button-comment-' + oldId).writeAttribute('onclick', $('button-comment-' + oldId).readAttribute('onclick').sub('' + oldId, newId));
-  $('button-comment-' + oldId).id     = $('button-comment-' + oldId).id.sub('-' + oldId, '-' + newId);
+  $('button-comment-' + oldId).id       = $('button-comment-' + oldId).id.sub('-' + oldId, '-' + newId);
 
-  $('intro-' + oldId).id              = $('intro-' + oldId).id.sub('-' + oldId, '-' + newId);
-  $('body-' + oldId).id               = $('body-' + oldId).id.sub('-' + oldId, '-' + newId);
+  $('intro-' + oldId).id                = $('intro-' + oldId).id.sub('-' + oldId, '-' + newId);
+  $('body-' + oldId).id                 = $('body-' + oldId).id.sub('-' + oldId, '-' + newId);
 
   $('section-counter-' + oldId).update(newId);
-  $('section-counter-' + oldId).id    = $('section-counter-' + oldId).id.sub('-' + oldId, '-' + newId);
+  $('section-counter-' + oldId).id      = $('section-counter-' + oldId).id.sub('-' + oldId, '-' + newId);
   
   // make new row visible
-  $('intro-section-' + oldId).id      = $('intro-section-' + oldId).id.sub('-' + oldId, '-' + newId);
+  $('intro-section-' + oldId).id        = $('intro-section-' + oldId).id.sub('-' + oldId, '-' + newId);
   $('intro-section-' + newId).show();
 }
 
@@ -280,14 +291,26 @@ function createNewDigest() {
 
 
 function insertSection(event, theDate, theContext, number) {
-  var success = saveSection(theDate, theContext, number, true);
+  var success = saveSection(theDate, theContext, number, 'insert');
 
-  // change onclick action
   if (success) {
+    // change onclick action
   	var button = event.element().up('div.save-introduction');
 
   	button.writeAttribute('onclick', "saveSection('" + theDate + "', '" + theContext + "', " + number + ");");
   }
+}
+
+
+function deleteSection(theDate, number) {
+	if (confirm(strings.delete_section)) {
+	  var success = saveSection(theDate, 'introduction', number, 'delete');
+	
+	  if (success && $('intro-section-' + number)) {
+	  	// remove item from page
+	    $('intro-section-' + number).remove();
+	  }
+	}
 }
 
 
@@ -340,18 +363,15 @@ function changeSectionNumber(event, theDate, itemNum) {
 }
 
 
-function saveSection(theDate, theContext, number, theInsert) {
+function saveSection(theDate, theContext, number, theAction) {
   if ((typeof theDate == 'undefined') || (typeof theContext == 'undefined')) {
     return false;
   }
   
-  // insert, or save?
-  if ((typeof theInsert != 'undefined') && theInsert) {
-  	var theInsert = true;
-  } else {
-  	var theInsert = false;
+  // set action if unset
+  if (typeof theAction == 'undefined') {
+  	var theAction = null;
   }
-
 
   // set data
   var theValues = {};
@@ -395,7 +415,7 @@ function saveSection(theDate, theContext, number, theInsert) {
       date:    theDate,
       context: theContext,
       values:  Object.toQueryString(theValues),
-      insert:  theInsert
+      action:  theAction
     },
     onSuccess: function(transport) {
       var result = transport.headerJSON;

@@ -80,16 +80,21 @@ if ($_REQUEST['context'] == 'new-digest') {
     $data['body'] = $values['body'];
   }
 
-  // insert?
-  if (isset($_REQUEST['insert']) && ($_REQUEST['insert'] == 'true')) {
-    // add additional fields
-    $data['date']   = $_REQUEST['date'];
-    $data['number'] = $values['number'];
-    $data['author'] = $user->data['username'];
+  if (isset($_REQUEST['action'])) {
+    if ($_REQUEST['action'] == 'insert') {
+      // insert, add additional fields
+      $data['date']   = $_REQUEST['date'];
+      $data['number'] = $values['number'];
+      $data['author'] = $user->data['username'];
 
-    // insert
-    $json['success']  = Db::insert($table, $data);
-    $skip             = true;
+      // insert
+      $json['success']  = Db::insert($table, $data);
+      $skip             = true;
+
+    } else if ($_REQUEST['action'] == 'delete') {
+      $json['success']  = Db::delete($table, $filter);
+      $skip             = true;
+    }
   }
 
 } else {

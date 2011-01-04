@@ -340,6 +340,7 @@ class DigestsUi extends BaseUi {
                          $section['body'] .
                       '</textarea>';
       $saveAction   = 'saveSection(\'' . $this->data['date'] . '\', \'introduction\', ' . $number . ');';
+      $deleteAction = 'deleteSection(\'' . $this->data['date'] . '\', ' . $number . ');';
 
     } else {
       // blank row
@@ -354,6 +355,7 @@ class DigestsUi extends BaseUi {
       $rowStyle       = ' style="display:none;"';
 
       $saveAction     = 'insertSection(event, \'' . $this->data['date'] . '\', \'introduction\', ' . $number . ');';
+      $deleteAction   = '$(\'' . $rowId . '\').remove();';
     }
 
 
@@ -361,6 +363,9 @@ class DigestsUi extends BaseUi {
     $buf = '<div id="' . $rowId . '" class="section"' . $rowStyle . '>
               <span id="section-counter-' . $number . '" class="section-counter" title="' . _('Click to change this section number...') . '" onclick="changeSectionNumber(event, \'' . $this->data['date'] . '\', ' . $number . ');">' . $number . '</span>
               <div id="save-introduction-' . $number . '" class="save-introduction" title="' . _('Save changes') . '" onclick="' . $saveAction .'">
+                <div>&nbsp;</div>
+              </div>
+              <div id="delete-introduction-' . $number . '" class="delete-introduction" title="' . _('Delete') . '" onclick="' . $deleteAction .'">
                 <div>&nbsp;</div>
               </div>
 
