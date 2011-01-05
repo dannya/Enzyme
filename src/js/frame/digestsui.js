@@ -747,6 +747,9 @@ function removeCommit(theRevision) {
 	            subheader.remove();
 	          }
 	        }
+
+          // remove from bulk revisions list
+          bulkSelect(item, 'remove');
       	});
       }
 
