@@ -186,8 +186,8 @@ class Panels {
                 <tr>
                   <th>' . _('Username') . '</th>
                   <th>' . _('Reviewed (Week)') . '</th>
-                  <th>' . _('Reviewed (Total)') . '</th>
                   <th>' . _('Classified (Week)') . '</th>
+                  <th>' . _('Reviewed (Total)') . '</th>
                   <th>' . _('Classified (Total)') . '</th>
                 </tr>
               </thead>
@@ -198,8 +198,8 @@ class Panels {
       $buf  .= '<tr>
                   <td>' . $person . '</td>
                   <td>' . $row['reviewed']['week'] . '</td>
-                  <td>' . $row['reviewed']['total'] . '</td>
                   <td>' . $row['classified']['week'] . '</td>
+                  <td>' . $row['reviewed']['total'] . '</td>
                   <td>' . $row['classified']['total'] . '</td>
                 </tr>';
     }
