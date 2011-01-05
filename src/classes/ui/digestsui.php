@@ -195,63 +195,65 @@ class DigestsUi extends BaseUi {
               </span>
             </h2>
 
-            <table id="info">
-              <tbody>
-                <tr>
-                  <td class="label">' . _('ID') . '</td>
-                  <td class="value">
-                    <input id="info-id" type="text" value="' . $this->data['id'] . '" />
-                  </td>
-                </tr>
-                <tr>
-                  <td class="label">' . _('Date') . '</td>
-                  <td class="value">
-                    <input id="info-date" type="text" value="' . $this->data['date'] . '" />
-                  </td>
-                </tr>
-                <tr>
-                  <td class="label">' . _('Type') . '</td>
-                  <td class="value">' .
-                    Ui::htmlSelector('info-type', Digest::getTypes(), $this->data['type']) .
-           '      </td>
-                </tr>
-                <tr>
-                  <td class="label">' . _('Language') . '</td>
-                  <td class="value">' .
-                    Ui::htmlSelector('info-language', Digest::getLanguages(), $this->data['language']) .
-           '      </td>
-                </tr>
-                <tr>
-                  <td class="label">' . _('Editor') . '</td>
-                  <td class="value">' .
-                    Ui::htmlSelector('info-editor', Digest::getUsersByPermission('editor'), $this->data['author']) .
-           '      </td>
-                </tr>
-              </tbody>
-            </table>
+            <div id="management-container">
+              <table id="info">
+                <tbody>
+                  <tr>
+                    <td class="label">' . _('ID') . '</td>
+                    <td class="value">
+                      <input id="info-id" type="text" value="' . $this->data['id'] . '" />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="label">' . _('Date') . '</td>
+                    <td class="value">
+                      <input id="info-date" type="text" value="' . $this->data['date'] . '" />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="label">' . _('Type') . '</td>
+                    <td class="value">' .
+                      Ui::htmlSelector('info-type', Digest::getTypes(), $this->data['type']) .
+             '      </td>
+                  </tr>
+                  <tr>
+                    <td class="label">' . _('Language') . '</td>
+                    <td class="value">' .
+                      Ui::htmlSelector('info-language', Digest::getLanguages(), $this->data['language']) .
+             '      </td>
+                  </tr>
+                  <tr>
+                    <td class="label">' . _('Editor') . '</td>
+                    <td class="value">' .
+                      Ui::htmlSelector('info-editor', Digest::getUsersByPermission('editor'), $this->data['author']) .
+             '      </td>
+                  </tr>
+                </tbody>
+              </table>
 
-            <table id="contributors">
-              <tbody>
-                <tr>
-                  <td class="label">' . _('Published') . '</td>
-                  <td class="value">' .
-                    Ui::htmlSelector('info-published', array('0' => _('No'), '1' => _('Yes')), $this->data['published']) .
-           '      </td>
-                </tr>
-                <tr>
-                  <td class="label">' . _('Comments URL') . '</td>
-                  <td class="value">
-                    <input id="info-comments" type="text" value="' . $this->data['comments'] . '" />
-                  </td>
-                </tr>
-                <tr>
-                  <td class="label">' . _('Contributors') . '</td>
-                  <td class="value">
-                    <textarea readonly="readonly" rows="3">' . implode("\n", array_unique($contributors)) . '</textarea>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
+              <table id="contributors">
+                <tbody>
+                  <tr>
+                    <td class="label">' . _('Published') . '</td>
+                    <td class="value">' .
+                      Ui::htmlSelector('info-published', array('0' => _('No'), '1' => _('Yes')), $this->data['published']) .
+             '      </td>
+                  </tr>
+                  <tr>
+                    <td class="label">' . _('Comments URL') . '</td>
+                    <td class="value">
+                      <input id="info-comments" type="text" value="' . $this->data['comments'] . '" />
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="label">' . _('Contributors') . '</td>
+                    <td class="value">
+                      <textarea readonly="readonly" rows="3">' . implode("\n", array_unique($contributors)) . '</textarea>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
 
 
             <h2>' .

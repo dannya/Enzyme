@@ -30,10 +30,10 @@ h3 span {
 
 
 h3 {
-  margin:18px 0 10px 0 !important;
+  margin:22px 0 10px 0 !important;
 }
 h3:first-child {
-  margin-top:0 !important;
+  margin:0 0 10px 0 !important;
 }
 
 
@@ -109,6 +109,27 @@ table td.label {
 table td.value {
   width:194px;
 }
+
+
+
+
+
+div#management-container {
+  position:relative;
+}
+
+table#info,
+table#contributors {
+  width:50%;
+}
+table#contributors {
+  position:absolute;
+  right:0;
+  top:0;
+}
+
+
+
 
 
 table.stats thead tr td {
