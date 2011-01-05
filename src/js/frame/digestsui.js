@@ -748,8 +748,6 @@ function removeCommit(theRevision) {
 	          }
 	        }
       	});
-
-
       }
 
       // fix total displays

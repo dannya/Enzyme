@@ -208,7 +208,7 @@ class UsersUi extends BaseUi {
         }
 
         $permissionsString .= '<td>
-                                 <input id="permission-' . $permission . '-' . $user['data']['username'] . '" type="checkbox"' . $checked . ' name="permission-' . $permission . '"' . $onChange . $disabled . ' />
+                                 <input id="permission-' . $permission . '-' . $user['data']['username'] . '" type="checkbox"' . $checked . ' name="permission-' . $permission . '"' . $onChange . $disabled . ' title="' . $permissionData['title'] . '" />
                                </td>';
       }
 
