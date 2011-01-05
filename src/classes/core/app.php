@@ -48,7 +48,7 @@ class App {
 
     // load language strings for set language
     putenv('LC_ALL=' . LANGUAGE);
-    setlocale(LC_ALL, array(LANGUAGE, LANGUAGE . '.utf8', LANGUAGE . '.utf-8'));
+    setlocale(LC_ALL, array(LANGUAGE . '.utf8', LANGUAGE . '.utf-8', LANGUAGE));
     bindtextdomain(APP_ID, BASE_DIR . '/languages');
     textdomain(APP_ID);
   }
