@@ -1,6 +1,6 @@
 /*-------------------------------------------------------+
 | Enzyme
-| Copyright 2010 Danny Allen <danny@enzyme-project.org>
+| Copyright 2010-2011 Danny Allen <danny@enzyme-project.org>
 | http://www.enzyme-project.org/
 +--------------------------------------------------------+
 | This program is released as free software under the
