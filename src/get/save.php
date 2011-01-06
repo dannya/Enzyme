@@ -78,11 +78,11 @@ if ($_REQUEST['type'] == 'review') {
     // compile values for insersion
     foreach ($data as $item) {
       // set values
-      $values[] = array('revision' => $item->r,
-                        'type' => $item->t,
-                        'area' => $item->a,
-                        'classifier' => $user->data['username'],
-                        'classified' => 'NOW()');
+      $values[] = array('revision'    => $item->r,
+                        'type'        => $item->t,
+                        'area'        => $item->a,
+                        'classifier'  => $user->data['username'],
+                        'classified'  => 'NOW()');
     }
 
 

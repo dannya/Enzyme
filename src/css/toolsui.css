@@ -12,3 +12,29 @@ div#console form label {
   position:relative;
   top:4px;
 }
+
+
+
+span.indicator-success {
+  float:right;
+  margin:0 4px 0 0;
+}
+
+
+
+table thead tr th {
+  height:22px;
+  padding:0 8px;
+  
+  text-align:left;
+  font-weight:normal;
+  font-style:italic;
+  font-size:14px;
+  color:#666;
+}
+
+
+
+table#path-filters {
+  margin:10px 0 20px 0;
+}

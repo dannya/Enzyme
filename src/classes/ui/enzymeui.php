@@ -98,6 +98,13 @@ class EnzymeUi {
     // get specific style
     $this->style        = array_merge($this->style, $this->frame->getStyle());
 
+    // draw browser-specific stylesheet?
+    $browser = App::getBrowserInfo();
+
+    if ($browser['name'] == 'chrome') {
+      $this->style[] = '/css/browser-chrome.css';
+    }
+
     // set script
     $this->userScript[] = '/js/index.php?script=common&amp;id=' . $this->frame->id . '&amp;language=' . LANGUAGE;
   }

@@ -127,7 +127,7 @@ function addIntroSection() {
     });
 
     // change id's and actions of new (visible) row
-    changeItemId('new', newCounter);   
+    changeItemId('new', newCounter);
 
     // add new row to page
     $('sections').insert({ bottom: '<div id="intro-section-new" class="section" style="display:none;">' + newRow + '</div>' });
@@ -150,7 +150,7 @@ function changeItemId(oldId, newId) {
 
   $('delete-introduction-' + oldId).writeAttribute('onclick', $('delete-introduction-new').readAttribute('onclick').sub('new', newId));
   $('delete-introduction-' + oldId).id  = $('delete-introduction-' + oldId).id.sub('-' + oldId, '-' + newId);
-  
+
   $('button-message-' + oldId).writeAttribute('onclick', $('button-message-' + oldId).readAttribute('onclick').sub('' + oldId, newId));
   $('button-message-' + oldId).id       = $('button-message-' + oldId).id.sub('-' + oldId, '-' + newId);
 
@@ -506,7 +506,7 @@ function saveSection(theDate, theContext, number, theAction) {
     },
     onFailure: function() {
     	return false;
-    },
+    }
   });
 
   return true;

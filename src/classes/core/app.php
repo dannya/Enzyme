@@ -262,6 +262,59 @@ class App {
 
     return $commaList;
   }
+
+
+  // adapted from http://www.php.net/manual/en/function.get-browser.php#92310
+  public static function getBrowserInfo($agent = null) {
+    // Clean up agent and build regex that matches phrases for known browsers
+    // (e.g. "Firefox/2.0" or "MSIE 6.0" (This only matches the major and minor
+    // version numbers.  E.g. "2.0.0.6" is parsed as simply "2.0"
+    $agent    = strtolower($agent ? $agent : (isset($_SERVER['HTTP_USER_AGENT']) ? $_SERVER['HTTP_USER_AGENT'] : ''));
+    $pattern  = '#(?<browser>chrome|msie|firefox|safari|webkit|opera|netscape|konqueror|gecko)[/ ]+(?<version>[0-9]+(?:\.[0-9]+)?)#';
+
+    // check if this is an iPhone/iPod (agent is in slightly different format)
+    $iphone   = (strpos($agent, "iphone") !== false || strpos($agent, "ipod") !== false);
+
+    // Find all phrases (or return empty array if none found)
+    // single '&' operator is intentional!
+    if (!$iphone & !preg_match_all($pattern, $agent, $matches)) {
+      return array('name'         => '',
+                   'version'      => 0,
+                   'fullVersion'  => 0,
+                   'rawVersion'   => 0);
+    }
+
+    // determine agent
+    if ($iphone) {
+        // is iPhone / iPod
+        return array('name'         => 'iphone',
+                     'version'      => 0,
+                     'fullVersion'  => 0,
+                     'rawVersion'   => 0);
+
+    } else {
+      // Since some UAs have more than one phrase (e.g Firefox has a Gecko phrase,
+      // Opera 7,8 have a MSIE phrase), use the last one found (the right-most one
+      // in the UA). That's usually the most correct (use last-1 if chrome!).
+      $numMatches = count($matches['browser']);
+
+      if (isset($matches['browser'][$numMatches - 2]) &&
+          ($matches['browser'][$numMatches - 2] == 'chrome')) {
+
+        // special case chrome
+        $i = $numMatches - 2;
+
+      } else {
+        $i = $numMatches - 1;
+      }
+
+      // return as name, version (major), full version (no trailing zeros), and [name] => [full version]
+      return array('name'         => $matches['browser'][$i],
+                   'version'      => (int)$matches['version'][$i],
+                   'fullVersion'  => rtrim($matches['version'][$i], '.0'),
+                   'rawVersion'   => $matches['version'][$i]);
+    }
+  }
 }
 
 ?>

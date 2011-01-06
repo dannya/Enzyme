@@ -477,34 +477,19 @@ class Enzyme {
   }
 
 
-  public static function getClassifications() {
-    // TODO: store this data in db, create management interface in Enzyme
-    $classifications  = array('/kdegraphics/'       => 4,
-                              '/oxygen/'            => 11,
-                              '/kdelibs/'           => 5,
-                              '/multimedia/'        => 9,
-                              '/kdemultimedia/'     => 9,
-                              '/kdebindings/'       => 2,
-                              '/kdesdk/'            => 2,
-                              '/kdelibs/'           => 5,
-                              '/graphics/'          => 4,
-                              '/kdeutils/'          => 12,
-                              '/kdepim/'            => 6,
-                              '/koffice/'           => 7,
-                              '/kdevelop/'          => 2,
-                              '/kdevplatform/'      => 2,
-                              '/kdeedu/'            => 3,
-                              '/kopete/'            => 10,
-                              '/kdebase/'           => 5,
-                              '/kdeplasma-addons/'  => 5,
-                              '/office/'            => 7,
-                              '/utils/'             => 12,
-                              '/base/'              => 5,
-                              '/network/'           => 10,
-                              '/pim/'               => 6,
-                              '/kdegames/'          => 13,
-                              '/games/'             => 13
-    );
+  public static function getClassifications($indexById = false) {
+    $items  = Db::load('commit_path_filters', false, null, '*', false);
+
+    // put into desired data structure
+    $classifications  = array();
+
+    foreach ($items as $item) {
+      if ($indexById) {
+        $classifications[$item['id']]   = $item;
+      } else {
+        $classifications[$item['path']] = $item['area'];
+      }
+    }
 
     return $classifications;
   }

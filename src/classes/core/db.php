@@ -23,6 +23,7 @@ class Db {
                                   'commits_reviewed',
                                   'commit_bugs',
                                   'commit_files',
+                                  'commit_path_filters',
                                   'countries',
                                   'digests',
                                   'digest_intro_people',
@@ -262,6 +263,8 @@ class Db {
 
     // create appropriate insert query
     $insertQuery = 'INSERT' . $delay . $ignore . ' INTO ' . $table . ' ' . $values . ';';
+    echo $insertQuery;
+    exit;
 
     if ($execute) {
       return mysql_query($insertQuery) or trigger_error(sprintf(_('Query failed: %s'), mysql_error()));

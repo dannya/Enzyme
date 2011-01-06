@@ -119,7 +119,8 @@ class Ui {
   }
 
 
-  public static function htmlSelector($id, $items, $preselectKey = null, $onChange = null, $name = null) {
+  public static function htmlSelector($id, $items, $preselectKey = null,
+                                      $onChange = null, $name = null, $style = null) {
     // set onchange?
     if ($onChange) {
       $onChange = ' onchange="' . $onChange . '"';
@@ -130,7 +131,12 @@ class Ui {
       $name = $id;
     }
 
-    $buf = '<select id="' . $id . '" name="' . $name . '"' . $onChange . '>';
+    // add styling?
+    if ($style) {
+      $style = ' style="' . $style . '"';
+    }
+
+    $buf = '<select id="' . $id . '" name="' . $name . '"' . $onChange . $style . '>';
 
     foreach ($items as $key => $value) {
       if ($key == $preselectKey) {

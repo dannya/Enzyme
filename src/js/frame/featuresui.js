@@ -198,6 +198,6 @@ function saveChanges(theDate, itemNum) {
     },
     onFailure: function() {
       return false;
-    },
+    }
   });
 }

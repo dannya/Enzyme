@@ -31,3 +31,78 @@ function parseAuthors(event) {
   // change result iframe URL to start insert process (and show results!)
   $('result').src = BASE_URL + '/tool/parse-authors.php?show_skipped=' + $('show-skipped').checked;
 }
+
+
+function addNewFilter() {
+	if (!$('path-filters-items') || !$('path-filters-new')) {
+		return false;
+	}
+	
+  // clone new row, so we can keep adding new rows after this one
+  var newRow = $('path-filters-new').innerHTML;
+
+  // make row and elements visible, change id's
+  $('path-filters-new').show();
+  $('path-filters-new').select('select, input').invoke('show');
+  $('path-filters-new').id  = '';
+  $('path-new').id          = 'path-' + Math.floor(Math.random() * 10000);
+
+  // insert original "new" row back into table
+  $('path-filters-items').insert({ bottom: '<tr id="path-filters-new">' + newRow + '</tr>' });
+}
+
+
+function saveFilters() {
+	if (!$('path-filters-data')) {
+	 return false;
+	}
+
+
+	// ensure all values are filled, and serialise form data
+	var error              = false;
+
+	var formData           = {};
+	formData['id[]']       = [];
+	formData['paths[]']    = [];
+	formData['areas[]']    = [];
+	
+	$('path-filters-data').getElements().each(function(item) {
+		if (item.visible()) {
+			if ((item.type != 'hidden') && (item.value.empty() || (item.value == 0))) {
+				item.addClassName('failure');
+				error = true;
+
+			} else {
+				item.removeClassName('failure');
+
+				// add to data
+				formData[item.name].push(item.value);
+			}
+		}
+	});
+
+	if (error) {
+	  return false;
+	}
+
+
+  // send off values
+  new Ajax.Request(BASE_URL + '/get/commit-path-sorting.php', {
+    method: 'post',
+    parameters: formData,
+    onSuccess: function(transport) {
+      var result = transport.headerJSON;
+
+      if ((typeof result.success != 'undefined') && result.success) {
+        showIndicator('save-filters', 'indicator-success');
+      } else {
+        showIndicator('save-filters', 'indicator-failure');
+      }
+
+      return true;
+    },
+    onFailure: function() {
+      return false;
+    }
+  });
+}

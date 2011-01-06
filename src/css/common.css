@@ -253,9 +253,6 @@ div#header div#header-user span {
 div#header div#header-user input {
   margin:4px 4px 0 5px;
 }
-div#header div#header-user input:last-child {
-  margin:-18px 4px 0 5px;
-}
 
 div#header div#header-login {
   position:absolute;
