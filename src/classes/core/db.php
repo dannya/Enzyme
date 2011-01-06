@@ -93,6 +93,20 @@ class Db {
   }
 
 
+  public static function getDataSql($table) {
+    // check specified table is valid
+    if (!in_array($table, self::$tables)) {
+      return null;
+    }
+
+    // load data
+    $values = self::load($table, false, null, '*', false);
+
+    // fake insertion (don't execute) to get data SQL
+    return self::insert($table, $values, false, false, false);
+  }
+
+
   public static function sanitise($string, $default = null) {
     if (($default != null) && ($string == $default)) {
       // if string is same as default, do not run through sanitise
@@ -263,8 +277,6 @@ class Db {
 
     // create appropriate insert query
     $insertQuery = 'INSERT' . $delay . $ignore . ' INTO ' . $table . ' ' . $values . ';';
-    echo $insertQuery;
-    exit;
 
     if ($execute) {
       return mysql_query($insertQuery) or trigger_error(sprintf(_('Query failed: %s'), mysql_error()));
