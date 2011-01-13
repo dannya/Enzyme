@@ -651,7 +651,7 @@ function changeValue(theContext, theRevision) {
 
   } else {
     // convert to JSON
-    var changeRevisions = '[' + theRevision + ']';
+    var changeRevisions = '[' + quote(theRevision) + ']';
   }
 
 
@@ -717,7 +717,7 @@ function removeCommit(theRevision) {
     }
 
   	// convert to JSON
-  	var removeRevisions = '[' + theRevision + ']';
+  	var removeRevisions = '[' + quote(theRevision) + ']';
   }
 
 
@@ -753,12 +753,19 @@ function removeCommit(theRevision) {
       	});
       }
 
+
       // fix total displays
       var newTotal = $('content').select('div.commit').size();
 
       if ($('num-commits')) {
-      	$('num-commits').update(sprintf(strings.num_commits, newTotal));
+      	if (newTotal == 1) {
+          $('num-commits').update(sprintf(strings.num_commits_singular, newTotal));
+      	} else {
+      		$('num-commits').update(sprintf(strings.num_commits_plural, newTotal));
+      	}
+
       }
+
       if ($('floating-status-total')) {
       	$('floating-status-total').update(newTotal);
       }

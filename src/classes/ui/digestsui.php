@@ -787,13 +787,13 @@ class DigestsUi extends BaseUi {
                     <div class="classifier" title="' . sprintf(_('Classified by %s'), $commit['classifier']) . '">&nbsp;</div>
 
                     <input id="bulk-' . $commit['revision'] . '" type="checkbox" title="' . _('Select this commit for bulk actions...') . '" onclick="bulkSelect(' . $commit['revision'] . ');" />
-                    <div class="remove" title="' . _('Remove commit from this digest?') . '" onclick="removeCommit(' . $commit['revision'] . ');">&nbsp;</div>' .
-                    Ui::htmlSelector('type-' . $commit['revision'], $numericTypes, $commit['type'], 'changeValue(\'type\', ' . $commit['revision'] . ');') .
-                    Ui::htmlSelector('area-' . $commit['revision'], $numericAreas, $commit['area'], 'changeValue(\'area\', ' . $commit['revision'] . ');') .
+                    <div class="remove" title="' . _('Remove commit from this digest?') . '" onclick="removeCommit(' . Db::quote($commit['revision']) . ');">&nbsp;</div>' .
+                    Ui::htmlSelector('type-' . $commit['revision'], $numericTypes, $commit['type'], 'changeValue(\'type\', ' . Db::quote($commit['revision']) . ');') .
+                    Ui::htmlSelector('area-' . $commit['revision'], $numericAreas, $commit['area'], 'changeValue(\'area\', ' . Db::quote($commit['revision']) . ');') .
                '  </div>
 
                   <div class="details">
-                    <textarea id="msg-' . $commit['revision'] . '" class="msg" rows="' . $rows . '" onchange="changeValue(\'msg\', ' . $commit['revision'] . ');">' . str_replace("<br />", "<br />\n", $commit['msg']) . '</textarea>
+                    <textarea id="msg-' . $commit['revision'] . '" class="msg" rows="' . $rows . '" onchange="changeValue(\'msg\', ' . Db::quote($commit['revision']) . ');">' . str_replace("<br />", "<br />\n", $commit['msg']) . '</textarea>
 
                     <div class="info">' .
                       Digest::drawBugs($commit, 'b b-p') .

@@ -45,7 +45,8 @@ strings.dot_blurb               = '<?php echo _("Dot Synopsis") ?>';
 strings.change_section_num      = '<?php echo _("What number should this section be?") ?>';
 strings.delete_section          = '<?php echo _("Are you sure you want to permanently delete this?") ?>';
 
-strings.num_commits             = '<?php echo _("There are %d selections this week") ?>';
+strings.num_commits_singular    = '<?php echo _("There is %d selection this week") ?>';
+strings.num_commits_plural      = '<?php echo _("There are %d selections this week") ?>';
 
 strings.remove_commit           = '<?php echo _("Are you sure you want to remove this commit?") ?>';
 strings.remove_commits          = '<?php echo _("Remove the %d selected commits?") ?>';
@@ -129,6 +130,19 @@ function sprintf() {
   }
 
   return str;
+}
+
+
+function quote(element) {
+	if (typeof element == 'undefined') {
+		return false;
+	}
+
+	if (Object.isNumber(element)) {
+		return element;
+	} else {
+		return '"' + element + '"';
+	}
 }
 
 

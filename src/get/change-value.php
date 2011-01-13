@@ -55,16 +55,15 @@ $items = json_decode($_REQUEST['revision']);
 
 if (!$items || !is_array($items)) {
   // not JSON, add single value to items array
-  $items = array($_REQUEST['revision']);
+  $items = array(trim($_REQUEST['revision'], ']['));
 }
 
 
 // save change
 if ($_REQUEST['context'] == 'msg') {
-  if (!$items) {
-    $json['success'] = false;
+  $json['success'] = false;
 
-  } else {
+  if ($items) {
     foreach ($items as $item) {
       $filter = array('revision'            => $item);
       $values = array($_REQUEST['context']  => $_REQUEST['value']);
@@ -75,10 +74,9 @@ if ($_REQUEST['context'] == 'msg') {
 
 } else if ($_REQUEST['context'] == 'remove') {
   // set commits as deleted
-  if (!$items) {
-    $json['success'] = false;
+  $json['success'] = false;
 
-  } else {
+  if ($items) {
     foreach ($items as $item) {
       $filter = array('revision'    => $item);
       $values = array('marked'      => 0,
@@ -93,10 +91,9 @@ if ($_REQUEST['context'] == 'msg') {
 
 } else {
   // change commits
-  if (!$items) {
-    $json['success'] = false;
+  $json['success'] = false;
 
-  } else {
+  if ($items) {
     foreach ($items as $item) {
       $filter = array('revision'            => $item);
       $values = array($_REQUEST['context']  => intval($_REQUEST['value']));
