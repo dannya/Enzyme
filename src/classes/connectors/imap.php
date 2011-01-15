@@ -34,14 +34,15 @@ class Imap extends Connector {
       throw new Exception('Call setupInsertRevisions() on this object first');
     }
 
-    $hostname = '{' . $this->repo['hostname'] . ':' . $this->repo['port'] . '/imap/novalidate-cert}';
+    $hostname = '{' . $this->repo['hostname'] . ':' . $this->repo['port'] . '/imap/ssl}';
+//    $hostname = '{' . $this->repo['hostname'] . ':' . $this->repo['port'] . '/imap/novalidate-cert}';
 
     // connect to inbox
     $inbox = imap_open($hostname, $this->repo['username'], $this->repo['password'], null, 1) or die(imap_last_error());
 
     // get unseen emails
-    $emails = imap_search($inbox, 'UNSEEN');
-    //$emails = imap_search($inbox, 'ALL');
+    //$emails = imap_search($inbox, 'UNSEEN');
+    $emails = imap_search($inbox, 'ALL');
 
     if ($emails) {
       foreach ($emails as $emailNumber) {
@@ -60,6 +61,9 @@ class Imap extends Connector {
         // check if we should include this commit
         // (kde-commits mailing list prefixes subjects with [ when it is a Git commit...)
         if (!isset($header->subject) || trim($header->subject[0]) != '[') {
+          // delete email message
+          imap_delete($inbox, $emailNumber);
+
           // increment summary counter
           ++$this->summary['skipped']['value'];
           continue;
@@ -196,6 +200,9 @@ class Imap extends Connector {
 
         // report successful process/insertion
         Ui::displayMsg(sprintf(_('Processed revision %s'), $commit['revision']));
+
+        // delete email message
+        imap_delete($inbox, $emailNumber);
 
         // increment summary counter
         ++$this->summary['processed']['value'];
