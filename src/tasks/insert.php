@@ -26,7 +26,7 @@ if (!COMMAND_LINE) {
 
 
 // allow parameters to be passed via command-line
-$params = getopt("a:b:");
+$params = getopt('a:b:');
 
 if (!empty($params['a']) && !empty($params['b'])) {
   $start  = $params['a'];

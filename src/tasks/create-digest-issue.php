@@ -26,7 +26,7 @@ if (!COMMAND_LINE) {
 
 
 // allow parameters to be passed via command-line
-$params = getopt("a:b:");
+$params = getopt('a:b:');
 
 if (!empty($params['a'])) {
   $date = $params['a'];
@@ -34,13 +34,15 @@ if (!empty($params['a'])) {
 } else {
   // set date
   $date = Digest::getLastIssueDate(null, false);
-  echo $date;
-  exit;
 }
 
 
+// attempt to load digest data
+$issue = Digest::loadDigest($date);
+
+
 // create digest issue?
-if (false) {
+if (!$issue) {
   $data    = array('date'      => $date,
                    'type'      => 'issue',
                    'language'  => 'en_US',
@@ -52,8 +54,8 @@ if (false) {
 
 
 // generate stats?
-if (false) {
-  Enzyme::generateStatsFromDb($date, date('Y-m-d', strtotime($date . ' -1 week'));
+if (empty($issue['stats'])) {
+  Enzyme::generateStatsFromDb($date, date('Y-m-d', strtotime($date . ' -1 week')));
 }
 
 ?>
