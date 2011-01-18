@@ -28,18 +28,32 @@ if (!COMMAND_LINE) {
 // allow parameters to be passed via command-line
 $params = getopt("a:b:");
 
-if (!empty($params['a']) && !empty($params['b'])) {
-  $start  = $params['a'];
-  $end    = $params['b'];
+if (!empty($params['a'])) {
+  $date = $params['a'];
 
 } else {
-  // set dates
-  $start  = date('Y-m-d');
-  $end    = date('Y-m-d', strtotime('today + 1 day'));
+  // set date
+  $date = Digest::getLastIssueDate(null, false);
+  echo $date;
+  exit;
 }
 
 
-// do insert
-Enzyme::insertRevisions($start, $end);
+// create digest issue?
+if (false) {
+  $data    = array('date'      => $date,
+                   'type'      => 'issue',
+                   'language'  => 'en_US',
+                   'author'    => 'dannya');
+
+  // insert new digest
+  $success = Db::insert('digests', $data, true);
+}
+
+
+// generate stats?
+if (false) {
+  Enzyme::generateStatsFromDb($date, date('Y-m-d', strtotime($date . ' -1 week'));
+}
 
 ?>
