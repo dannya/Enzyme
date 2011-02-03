@@ -43,7 +43,8 @@ $issue = Digest::loadDigest($date);
 
 // create digest issue?
 if (!$issue) {
-  $data    = array('date'      => $date,
+  $data    = array('id'        => Db::count('digests', array('type' => 'issue')) + 1,
+                   'date'      => $date,
                    'type'      => 'issue',
                    'language'  => 'en_US',
                    'author'    => 'dannya');

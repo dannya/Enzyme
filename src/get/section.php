@@ -37,7 +37,8 @@ parse_str($_REQUEST['values'], $values);
 
 if ($_REQUEST['context'] == 'new-digest') {
   $table   = 'digests';
-  $data    = array('date'      => $_REQUEST['date'],
+  $data    = array('id'        => Db::count('digests', array('type' => 'issue')) + 1,
+                   'date'      => $_REQUEST['date'],
                    'type'      => $values['info-type'],
                    'language'  => $values['info-language'],
                    'author'    => $values['info-editor']);
