@@ -130,8 +130,8 @@ function setClassifyUserFilter(event) {
 // onload...
 document.observe('dom:loaded', function() {
   // write counter total
-  if ($('commit-total')) {
-    $('commit-total').update($$('div.item').size());
+  if ($('commit-displayed')) {
+    $('commit-displayed').update($$('div.item').size());
   }
   
   // focus first box

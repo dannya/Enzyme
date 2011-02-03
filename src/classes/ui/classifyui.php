@@ -48,7 +48,7 @@ class ClassifyUi extends BaseUi {
       $classifiedBy = null;
     }
 
-    $revisions = Enzyme::getProcessedRevisions('marked', null, $classifiedBy);
+    $revisions = Enzyme::getProcessedRevisions('marked', null, $classifiedBy, ' LIMIT 100');
 
 
     // attach bug data to revisions

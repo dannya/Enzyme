@@ -249,7 +249,10 @@ class Imap extends Connector {
 
     // extract date
     if (strpos($body[$i + 1], 'Committed on ') !== false) {
-      $parsed['commit']['date'] = date('Y-m-d H:i:s', strtotime(trim(str_replace('Committed on ', null, $body[$i + 1]))));
+      $pattern = array('Committed on ', 'at');
+      $replace = null;
+
+      $parsed['commit']['date'] = date('Y-m-d H:i:s', strtotime(trim(str_replace($pattern, $replace, $body[$i + 1]), '.')));
       ++$i;
 
     } else {
@@ -272,7 +275,7 @@ class Imap extends Connector {
 
 
     // pattern for file diff listings
-    $filePattern  = '/[MADI]{1} [\+-][0-9]{0,4} [\+-][0-9]{0,4}/';
+    $filePattern  = '/[MADI]{1}\s+[\+\-][0-9]{0,4}\s+[\+\-][0-9]{0,4}/';
 
 
     // extract message text
@@ -283,6 +286,8 @@ class Imap extends Connector {
 
     while (isset($body[$i]) &&
            (preg_match($filePattern, $body[$i]) != 1)) {
+
+             echo $body[$i] . '::' . preg_match($filePattern, $body[$i]) . '<br>';
 
       $parsed['commit']['msg'] .= $body[$i] . "\n";
       ++$i;

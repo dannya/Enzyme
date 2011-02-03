@@ -60,6 +60,9 @@ if ($_REQUEST['type'] == 'review') {
     $json['success'] = false;
   }
 
+  // get new total
+  $json['total'] = Enzyme::getProcessedRevisions('unreviewed', true, null, null, true);
+
   // report success
   App::returnHeaderJson();
 
@@ -100,6 +103,9 @@ if ($_REQUEST['type'] == 'review') {
     $json['success'] = true;
     $json['nodata']  = true;
   }
+
+  // get new total
+  $json['total'] = Enzyme::getProcessedRevisions('marked', null, null, null, true);
 
   // report success
   App::returnHeaderJson();

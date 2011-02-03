@@ -47,7 +47,7 @@ function actionNext(event) {
   // update display?
   if ($('commit-counter') &&
       (commitCounter > $('commit-counter').innerHTML) &&
-      (commitCounter <= $('commit-total').innerHTML)) {
+      (commitCounter <= $('commit-displayed').innerHTML)) {
 
     $('commit-counter').update(commitCounter);
 
@@ -100,7 +100,7 @@ Hotkey.add([' '], function(event) { actionSelect(event); }, 3);
 // onload...
 document.observe('dom:loaded', function() {
   // write counter total
-  if ($('commit-total')) {
-    $('commit-total').update($$('div.item').size());
+  if ($('commit-displayed')) {
+    $('commit-displayed').update($$('div.item').size());
   }
 });

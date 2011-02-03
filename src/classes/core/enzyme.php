@@ -345,7 +345,8 @@ class Enzyme {
   }
 
 
-  public static function getProcessedRevisions($type = null, $exclude = null, $classifiedBy = null, $limit = ' LIMIT 100') {
+  public static function getProcessedRevisions($type = null, $exclude = null, $classifiedBy = null,
+                                               $limit = ' LIMIT 100', $getCount = false) {
     $filter             = ' WHERE 1';
     $revisions          = null;
     $existingRevisions  = null;
@@ -424,15 +425,34 @@ class Enzyme {
       $table    = 'commits';
     }
 
+
+    // get count instead?
+    if ($getCount) {
+      $fields = 'COUNT(commits.revision) as count';
+      $limit  = null;
+    }
+
+
     // execute query
     $selectQuery  = 'SELECT ' . $fields . ' FROM ' . $table . $filter . ' ORDER BY date ASC' . $limit;
     $q            = mysql_query($selectQuery) or trigger_error(sprintf(_('Query failed: %s'), mysql_error()));
 
-    while ($row = mysql_fetch_assoc($q)) {
-      $existingRevisions[$row['revision']] = $row;
+
+    // get and return data
+    if ($getCount) {
+      $row = mysql_fetch_assoc($q);
+
+      return $row['count'];
+
+    } else {
+      while ($row = mysql_fetch_assoc($q)) {
+        $existingRevisions[$row['revision']] = $row;
+      }
+
+      return $existingRevisions;
     }
 
-    return $existingRevisions;
+
   }
 
 

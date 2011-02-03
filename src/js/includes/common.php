@@ -321,9 +321,12 @@ function save(theType) {
 			  if ($('commit-selected')) {
 			    $('commit-selected').update(markedCommits.size());
 			  }
-			  if ($('commit-total')) {
-			    $('commit-total').update($$('div.item').size());
+			  if ($('commit-displayed')) {
+			    $('commit-displayed').update($$('div.item').size());
 			  }
+        if ($('commit-total')) {
+          $('commit-total').update(result.total);
+        }
 			  $('commit-counter').update(commitCounter);
 
       } else {

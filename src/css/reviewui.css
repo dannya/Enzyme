@@ -255,13 +255,36 @@ div#interface-selector {
   text-align:center;
   color:#fff;
 }
+
 div#interface-selector label {
   cursor:pointer;
 }
 
+div#interface-selector label i,
+label#classify-user-filter i {
+  display:inline-block;
+  width:22px;
+  height:22px;
+  background:url(../img/sprite.png) no-repeat scroll transparent;
+}
+
+div#interface-selector label.mouse i {
+  background-position:-242px -22px;
+}
+div#interface-selector label.keyboard i {
+  background-position:-264px -22px;
+}
+label#classify-user-filter i {
+  background-position:-286px -22px !important;
+}
+
+
+
+
+
 
 label#classify-user-filter {
-  margin:4px 0 0 14px;
+  margin-left:20px;
   text-align:right;
   color:#fff; 
 }
