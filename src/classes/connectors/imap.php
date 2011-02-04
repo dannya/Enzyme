@@ -79,7 +79,12 @@ class Imap extends Connector {
 
 
         // use parser based on inferred format
-        if (strpos($bodyText, 'Date: ') !== false) {
+        $delimiter = strpos($bodyText, 'diff ');
+        if ($delimiter === false) {
+          $delimiter = strlen($bodyText);
+        }
+
+        if (strpos(substr($bodyText, 0, $delimiter), 'Date: ') !== false) {
           $parseSuccess = $this->parseFormat1($inbox, $emailNumber, $body, $parsed);
 
         } else {
@@ -123,10 +128,9 @@ class Imap extends Connector {
   }
 
 
-  private function parseFormat1($inbox, $emailNumber, $body, &$parsed) {
+  private function parseFormat1(&$inbox, $emailNumber, $body, &$parsed) {
     // initialise line counter
     $i = 0;
-
 
     // check for added/deleted files at start of message
     while (isset($body[$i]) && (substr($body[$i], 0, 6) != 'commit') && (substr($body[$i], 0, 10) != 'Git commit')) {
@@ -216,7 +220,7 @@ class Imap extends Connector {
     // get modified files
     while ($i < $totalLines) {
       if (strpos($body[$i], 'diff --git') !== FALSE) {
-        $tmp         = explode(' ', $body[$i]);
+        $tmp         = preg_split('/\s+/', $body[$i]);
         $tmp         = ltrim($tmp[2], 'a');
 
         // add to files list?
@@ -237,7 +241,7 @@ class Imap extends Connector {
   }
 
 
-  private function parseFormat2($inbox, $emailNumber, $body, &$parsed) {
+  private function parseFormat2(&$inbox, $emailNumber, $body, &$parsed) {
     // initialise line counter
     $i = 0;
 
@@ -268,7 +272,7 @@ class Imap extends Connector {
       ++$i;
     }
 
-    $tmp = explode(' ', $body[$i + 1]);
+    $tmp = preg_split('/\s+/', $body[$i + 1]);
 
     $parsed['commit']['author'] = $tmp[2];
     $parsed['commit']['branch'] = end($tmp);
@@ -285,11 +289,10 @@ class Imap extends Connector {
     $parsed['commit']['msg']  = null;
 
     while (isset($body[$i]) &&
-           (preg_match($filePattern, $body[$i]) != 1)) {
+           (preg_match($filePattern, $body[$i]) != 1) &&
+           (substr($body[$i], 0, 7) != 'http://')) {
 
-             echo $body[$i] . '::' . preg_match($filePattern, $body[$i]) . '<br>';
-
-      $parsed['commit']['msg'] .= $body[$i] . "\n";
+      $parsed['commit']['msg'] .= rtrim($body[$i], '=') . "\n";
       ++$i;
     }
 
@@ -299,7 +302,7 @@ class Imap extends Connector {
     // get modified files
     while ($i < $totalLines) {
       if (preg_match($filePattern, $body[$i]) == 1) {
-        $tmp      = explode(' ', $body[$i]);
+        $tmp      = preg_split('/\s+/', $body[$i]);
         $tmpFile  = trim($tmp[3]);
 
         if (substr($tmpFile, -1) == '=') {
