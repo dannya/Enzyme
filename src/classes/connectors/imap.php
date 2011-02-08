@@ -223,7 +223,7 @@ class Imap extends Connector {
       ++$i;
     }
 
-    $parsed['commit']['msg'] = Enzyme::processCommitMsg($parsed['commit']['revision'], trim($parsed['commit']['msg']));
+    $parsed['commit']['msg'] = Enzyme::processCommitMsg($parsed['commit']['revision'], imap_qprint(trim($parsed['commit']['msg'])));
 
 
     // get modified files
@@ -316,7 +316,7 @@ class Imap extends Connector {
       ++$i;
     }
 
-    $parsed['commit']['msg'] = Enzyme::processCommitMsg($parsed['commit']['revision'], trim($parsed['commit']['msg']));
+    $parsed['commit']['msg'] = Enzyme::processCommitMsg($parsed['commit']['revision'], imap_qprint(trim($parsed['commit']['msg'])));
 
 
     // get modified files
