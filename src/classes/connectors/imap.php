@@ -97,7 +97,7 @@ class Imap extends Connector {
 
 
         // insert modified/added/deleted files?
-        if ($parsed['commitFiles']) {
+        if ($parseSuccess && $parsed['commitFiles']) {
           foreach ($parsed['commitFiles'] as $commitFile) {
             // add revision ID
             $commitFile['revision'] = $parsed['commit']['revision'];
@@ -108,17 +108,26 @@ class Imap extends Connector {
         }
 
 
-        // insert commit into database
-        Db::insert('commits', $parsed['commit'], true);
+        if ($parseSuccess) {
+          // insert commit into database
+          Db::insert('commits', $parsed['commit'], true);
 
-        // report successful process/insertion
-        Ui::displayMsg(sprintf(_('Processed revision %s'), $parsed['commit']['revision']));
+          // report successful process/insertion
+          Ui::displayMsg(sprintf(_('Processed revision %s'), $parsed['commit']['revision']));
 
-        // delete email message
-        //imap_delete($inbox, $emailNumber);
+          // delete email message
+          //imap_delete($inbox, $emailNumber);
 
-        // increment summary counter
-        ++$this->summary['processed']['value'];
+          // increment summary counter
+          ++$this->summary['processed']['value'];
+
+        } else {
+          // report failed process/insertion
+          Ui::displayMsg(sprintf(_('Failed to process revision %s'), $parsed['commit']['revision']), 'error');
+
+          // increment summary counter
+          ++$this->summary['failed']['value'];
+        }
       }
     }
 
@@ -253,16 +262,27 @@ class Imap extends Connector {
 
     // extract date
     if (strpos($body[$i + 1], 'Committed on ') !== false) {
-      $pattern = array('Committed on ', 'at');
-      $replace = null;
+      $pattern        = array('Committed on ', 'at');
+      $replace        = null;
 
-      $parsed['commit']['date'] = date('Y-m-d H:i:s', strtotime(trim(str_replace($pattern, $replace, $body[$i + 1]), '.')));
+      $date           = DateTime::createFromFormat('d/m/y H:i', trim(str_replace($pattern, $replace, $body[$i + 1]), '.'));
+      $extractedDate  = $date->format('Y-m-d H:i:s');
+
+      $parsed['commit']['date'] = $extractedDate;
       ++$i;
 
     } else {
       // get date from headers
-      $header                   = imap_header($inbox, $emailNumber);
-      $parsed['commit']['date'] = date('Y-m-d H:i:s', strtotime($header->date));
+      $header        = imap_header($inbox, $emailNumber);
+
+      $extractedDate = strtotime($header->date);
+      $parsed['commit']['date'] = date('Y-m-d H:i:s', $extractedDate);
+    }
+
+
+    // protect against errors in date parsing
+    if (!$extractedDate) {
+      return false;
     }
 
 

@@ -34,6 +34,8 @@ abstract class Connector {
     // setup summary
     $this->summary['skipped']['title']    = _('Skipped: %d');
     $this->summary['skipped']['value']    = 0;
+    $this->summary['failed']['title']     = _('Failed: %d');
+    $this->summary['failed']['value']     = 0;
     $this->summary['processed']['title']  = _('Processed: %d');
     $this->summary['processed']['value']  = 0;
 
