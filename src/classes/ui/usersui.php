@@ -251,7 +251,7 @@ class UsersUi extends BaseUi {
 
       foreach ($this->availablePermissions as $permission => $permissionData) {
         $permissionsString .= '<td>
-                                 <input id="permission-' . $permission . '" type="checkbox" name="permission-' . $permission . '" />
+                                 <input id="permission-' . $permission . '" type="checkbox" name="permission-' . $permission . '" title="' . $permissionData['title'] . '" />
                                </td>';
       }
     }

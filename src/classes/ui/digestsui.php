@@ -562,36 +562,38 @@ class DigestsUi extends BaseUi {
       }
 
 
-      // draw i18n stats
-      $counter = 0;
+      // draw i18n stats?
+      if (!empty($this->data['stats']['i18n'])) {
+        $counter = 0;
 
-      $buf .=  '<h3>' . _('Internationalisation (i18n) and Bug Killers') . '</h3>
+        $buf .=  '<h3>' . _('Internationalisation (i18n) and Bug Killers') . '</h3>
 
-                <table id="stats-i18n" class="stats">
-                  <thead>
-                    <tr>
-                      <td>' . _('Language') . '</td>
-                      <td>' . _('Percent (%)') . '</td>
-                    </tr>
-                  </thead>
+                  <table id="stats-i18n" class="stats">
+                    <thead>
+                      <tr>
+                        <td>' . _('Language') . '</td>
+                        <td>' . _('Percent (%)') . '</td>
+                      </tr>
+                    </thead>
 
-                  <tbody>';
+                    <tbody>';
 
-      foreach ($this->data['stats']['i18n'] as $language => $data) {
-        $buf .=  '<tr>
-                    <td class="label">
-                      <input id="i18n-label-' . $counter . '" type="text" value="' . $language . '" />
-                    </td>
-                    <td class="value">
-                      <input id="i18n-value-' . $counter . '" type="text" value="' . $data['value'] . '" />
-                    </td>
-                  </tr>';
+        foreach ($this->data['stats']['i18n'] as $language => $data) {
+          $buf .=  '<tr>
+                      <td class="label">
+                        <input id="i18n-label-' . $counter . '" type="text" value="' . $language . '" />
+                      </td>
+                      <td class="value">
+                        <input id="i18n-value-' . $counter . '" type="text" value="' . $data['value'] . '" />
+                      </td>
+                    </tr>';
 
-        ++$counter;
+          ++$counter;
+        }
+
+        $buf .=  '  </tbody>
+                  </table>';
       }
-
-      $buf .=  '  </tbody>
-                </table>';
 
 
       // draw bugfixer stats?
