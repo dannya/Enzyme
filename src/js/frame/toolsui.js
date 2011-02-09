@@ -42,13 +42,23 @@ function addNewFilter() {
   var newRow = $('path-filters-new').innerHTML;
 
   // make row and elements visible, change id's
+  
+  var tmpId  = Math.floor(Math.random() * 10000); 
+
   $('path-filters-new').show();
   $('path-filters-new').select('select, input').invoke('show');
-  $('path-filters-new').id  = '';
-  $('path-new').id          = 'path-' + Math.floor(Math.random() * 10000);
+  $('path-filters-new').writeAttribute('class', $('path-filters-items').select('tr').size());
+  $('path-filters-new').id  = 'path-filter-' + tmpId;
+  $('path-new').id          = 'path-' + tmpId;
 
   // insert original "new" row back into table
   $('path-filters-items').insert({ bottom: '<tr id="path-filters-new">' + newRow + '</tr>' });
+
+  // scroll to new row
+  if ($('path-filter-' + tmpId)) {
+    $('path-filter-' + tmpId).scrollTo();
+    $('path-filter-' + tmpId).select('input[type="text"]').first().focus();
+  }
 }
 
 
@@ -97,6 +107,11 @@ function saveFilters() {
         showIndicator('save-filters', 'indicator-success');
       } else {
         showIndicator('save-filters', 'indicator-failure');
+      }
+      
+      // update total display
+      if ($('status')) {
+      	$('status').update(sprintf(strings.num_filters_plural, ($('path-filters-items').select('tr').size() - 1)));
       }
 
       return true;

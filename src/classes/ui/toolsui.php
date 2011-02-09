@@ -283,7 +283,10 @@ class ToolsUi extends BaseUi {
     // draw
     $buf   = '<h3>' .
                 _('Commit Path Sorting') .
-             '  <span>
+             '  <span class="floating-buttons">
+                  <span id="status" class="status">' .
+                    sprintf(_('%d filters'), count($commitPaths)) .
+             '    </span>
                   <input type="button" value="' . _('Save changes') . '" title="' . _('Save changes') . '" onclick="saveFilters();" />
                   <input type="button" value="' . _('Add new filter') . '" title="' . _('Add new filter') . '" onclick="addNewFilter();" />' .
                   Ui::drawIndicator('save-filters') .

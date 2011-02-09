@@ -144,5 +144,5 @@ div#ideas div.idea input.idea-claim {
 
 span.indicator-success {
   float:right;
-  margin:0 4px 0 0;
+  margin-right:4px;
 }
