@@ -164,6 +164,11 @@ class Panels {
                   <td>' . $stats['reviewed']['total'] . '</td>
                 </tr>
                 <tr>
+                  <td class="label">' . _('Selected') . '</td>
+                  <td>' . $stats['selected']['week'] . ' (' . round($stats['selectedPercent']['week'], 1) . '%)</td>
+                  <td>' . $stats['selected']['total'] . ' (' . round($stats['selectedPercent']['total'], 1) . '%)</td>
+                </tr>
+                <tr>
                   <td class="label">' . _('Classified') . '</td>
                   <td>' . $stats['classified']['week'] . '</td>
                   <td>' . $stats['classified']['total'] . '</td>
@@ -195,12 +200,22 @@ class Panels {
               <tbody>';
 
     foreach ($stats as $person => $row) {
+      // show number of selected commits in hover titles
+      $titleWeek  = sprintf(_('Selected %d commits (%s%%)'),
+                            $row['selected']['week'],
+                            round($row['selectedPercent']['week'], 1));
+
+      $titleTotal = sprintf(_('Selected %d commits (%s%%)'),
+                            $row['selected']['total'],
+                            round($row['selectedPercent']['total'], 1));
+
+      // draw row
       $buf  .= '<tr>
                   <td>' . $person . '</td>
-                  <td>' . $row['reviewed']['week'] . '</td>
-                  <td>' . $row['classified']['week'] . '</td>
-                  <td>' . $row['reviewed']['total'] . '</td>
-                  <td>' . $row['classified']['total'] . '</td>
+                  <td title="' . $titleWeek . '">' . $row['reviewed']['week'] . '</td>
+                  <td title="' . $titleWeek . '">' . $row['classified']['week'] . '</td>
+                  <td title="' . $titleTotal . '">' . $row['reviewed']['total'] . '</td>
+                  <td title="' . $titleTotal . '">' . $row['classified']['total'] . '</td>
                 </tr>';
     }
 

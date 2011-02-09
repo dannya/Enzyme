@@ -255,6 +255,25 @@ class User {
     $stats['reviewed']['week'] = $tmp[0]['count'];
 
 
+    // get number of selected
+    $tmp   = Db::sql('SELECT COUNT(revision) AS count FROM commits_reviewed
+                      WHERE reviewer = "' . $this->data['username'] . '"
+                      AND marked = 1', true);
+
+    $stats['selected']['total']         = $tmp[0]['count'];
+    $stats['selectedPercent']['total']  = (($stats['selected']['total'] / $stats['reviewed']['total']) * 100);
+
+    // get number of selected (week)
+    $tmp   = Db::sql('SELECT COUNT(revision) AS count FROM commits_reviewed
+                      WHERE reviewer = "' . $this->data['username'] . '"
+                      AND marked = 1
+                      AND reviewed > "' . $start . '"
+                      AND reviewed <= "' . $end . '"', true);
+
+    $stats['selected']['week']          = $tmp[0]['count'];
+    $stats['selectedPercent']['week']   = (($stats['selected']['week'] / $stats['reviewed']['week']) * 100);
+
+
     // get number of classified
     $tmp   = Db::sql('SELECT COUNT(revision) AS count FROM commits_reviewed
                       WHERE classifier = "' . $this->data['username'] . '"', true);
