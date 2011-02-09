@@ -25,7 +25,13 @@ class DigestsUi extends BaseUi {
     $this->user = $user;
 
     // set title
-    $this->title = _('Digests');
+    if (empty($_REQUEST['digest']) || ($_REQUEST['digest'] == '/digests/')) {
+      $this->title = _('Digests');
+
+    } else {
+      // set title to date of digest issue
+      $this->title = Date::get('full', $_REQUEST['digest']);
+    }
   }
 
 
