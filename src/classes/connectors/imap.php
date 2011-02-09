@@ -75,7 +75,7 @@ class Imap extends Connector {
 
         // get message body
         $bodyText = trim(imap_fetchbody($inbox, $emailNumber, 1));
-        $body     = explode("\n", $bodyText);
+        $body     = explode("\n", imap_qprint($bodyText));
 
 
         // use parser based on inferred format
@@ -223,7 +223,7 @@ class Imap extends Connector {
       ++$i;
     }
 
-    $parsed['commit']['msg'] = Enzyme::processCommitMsg($parsed['commit']['revision'], imap_qprint(trim($parsed['commit']['msg'])));
+    $parsed['commit']['msg'] = Enzyme::processCommitMsg($parsed['commit']['revision'], trim($parsed['commit']['msg']));
 
 
     // get modified files
@@ -265,11 +265,27 @@ class Imap extends Connector {
       $pattern        = array('Committed on ', 'at');
       $replace        = null;
 
-      $date           = DateTime::createFromFormat('d/m/y H:i', trim(str_replace($pattern, $replace, $body[$i + 1]), '.'));
-      $extractedDate  = $date->format('Y-m-d H:i:s');
+      $extractedDate  = preg_split('/[ \/:]/', trim(str_replace($pattern, $replace, $body[$i + 1]), '.'), null, PREG_SPLIT_NO_EMPTY);
 
-      $parsed['commit']['date'] = $extractedDate;
-      ++$i;
+      if (count($extractedDate) != 5) {
+        // protect against errors in date parsing
+        return false;
+
+      } else if (strlen($extractedDate[2]) == 2) {
+        // convert into 4 digit year format
+        if (intval($extractedDate[2]) > 30) {
+          $extractedDate[2] = intval('19' . $extractedDate[2]);
+        } else {
+          $extractedDate[2] = intval('20' . $extractedDate[2]);
+        }
+      }
+
+      $parsed['commit']['date'] = date('Y-m-d H:i:s', mktime($extractedDate[3],
+                                                             $extractedDate[4],
+                                                             0,
+                                                             $extractedDate[1],
+                                                             $extractedDate[0],
+                                                             $extractedDate[2]));
 
     } else {
       // get date from headers
@@ -316,7 +332,7 @@ class Imap extends Connector {
       ++$i;
     }
 
-    $parsed['commit']['msg'] = Enzyme::processCommitMsg($parsed['commit']['revision'], imap_qprint(trim($parsed['commit']['msg'])));
+    $parsed['commit']['msg'] = Enzyme::processCommitMsg($parsed['commit']['revision'], trim($parsed['commit']['msg']));
 
 
     // get modified files

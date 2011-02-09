@@ -1191,8 +1191,13 @@ class Enzyme {
 
       // calculate selected percentages
       foreach ($stats as &$item) {
-        $item['selectedPercent']['week']    = (($item['selected']['week'] / $item['reviewed']['week']) * 100);
-        $item['selectedPercent']['total']   = (($item['selected']['total'] / $item['reviewed']['total']) * 100);
+        if ($item['reviewed']['week']) {
+          $item['selectedPercent']['week']  = (($item['selected']['week'] / $item['reviewed']['week']) * 100);
+        }
+
+        if ($item['reviewed']['total']) {
+          $item['selectedPercent']['total'] = (($item['selected']['total'] / $item['reviewed']['total']) * 100);
+        }
       }
 
 
@@ -1206,7 +1211,8 @@ class Enzyme {
         // classified
         if (!isset($stats[$item['classifier']]['classified']['week'])) {
           $stats[$item['classifier']]['classified']['week'] = 1;
-        } else {
+
+        } else if (is_array($stats[$item['classifier']]['classified'])) {
           ++$stats[$item['classifier']]['classified']['week'];
         }
       }
