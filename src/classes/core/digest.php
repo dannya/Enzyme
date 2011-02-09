@@ -488,6 +488,7 @@ class Digest {
     return array('idea'        => _('1. Idea'),
                  'contacting'  => _('2. Contacting'),
                  'more-info'   => _('3. More information needed'),
+                 ''            => '--------',
                  'proofread'   => _('4. Needs proofreading'),
                  'ready'       => _('5. Ready for selection'),
                  'selected'    => _('6. Selected'));

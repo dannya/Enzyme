@@ -75,6 +75,7 @@ if (isset($_REQUEST['newItem'])) {
       // if setting status back to idea, reset author and date too
       $values['date']   = '0000-00-00';
       $values['author'] = null;
+      $values['number'] = Enzyme::getFreeFeatureArticleNum($values['date']);
     }
   }
 

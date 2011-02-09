@@ -119,7 +119,8 @@ function claimIdea(itemNum, theDate, theAuthor) {
 
 function changeItem(theDate, itemNum, type) {
   if ((typeof theDate == 'undefined') || (typeof itemNum == 'undefined') || 
-      (typeof type == 'undefined') || !$(type + '_' + theDate + '_' + itemNum)) {
+      (typeof type == 'undefined') || !$(type + '_' + theDate + '_' + itemNum) ||
+      $(type + '_' + theDate + '_' + itemNum).value.empty()) {
 
   	return false;
   }
