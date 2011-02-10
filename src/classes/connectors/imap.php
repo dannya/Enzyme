@@ -116,7 +116,7 @@ class Imap extends Connector {
           Ui::displayMsg(sprintf(_('Processed revision %s'), $parsed['commit']['revision']));
 
           // delete email message
-          //imap_delete($inbox, $emailNumber);
+          imap_delete($inbox, $emailNumber);
 
           // increment summary counter
           ++$this->summary['processed']['value'];
@@ -285,7 +285,7 @@ class Imap extends Connector {
                                                              0,
                                                              $extractedDate[1],
                                                              $extractedDate[0],
-                                                             $extractedDate[2]));
+                                                             intval($extractedDate[2])));
 
     } else {
       // get date from headers

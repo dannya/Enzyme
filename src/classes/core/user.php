@@ -261,7 +261,7 @@ class User {
                       AND marked = 1', true);
 
     $stats['selected']['total']         = $tmp[0]['count'];
-    $stats['selectedPercent']['total']  = (($stats['selected']['total'] / $stats['reviewed']['total']) * 100);
+    $stats['selectedPercent']['total']  = (($stats['selected']['total'] / ($stats['reviewed']['total'] ? $stats['reviewed']['total'] : 1)) * 100);
 
     // get number of selected (week)
     $tmp   = Db::sql('SELECT COUNT(revision) AS count FROM commits_reviewed
@@ -271,7 +271,7 @@ class User {
                       AND reviewed <= "' . $end . '"', true);
 
     $stats['selected']['week']          = $tmp[0]['count'];
-    $stats['selectedPercent']['week']   = (($stats['selected']['week'] / $stats['reviewed']['week']) * 100);
+    $stats['selectedPercent']['week']   = (($stats['selected']['week'] / ($stats['reviewed']['week'] ? $stats['reviewed']['week'] : 1)) * 100);
 
 
     // get number of classified
