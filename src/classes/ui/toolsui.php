@@ -55,11 +55,11 @@ class ToolsUi extends BaseUi {
 
     //////////////////////////////////////
 
-    $this->tools['config'][]      = array('id'          => 'commit-path-sorting',
-                                          'string'      => _('Commit Path Sorting'),
+    $this->tools['config'][]      = array('id'          => 'commit-area-filtering',
+                                          'string'      => _('Commit Area Filtering'),
                                           'permission'  => array('admin', 'reviewer', 'classifier'),
-                                          'url'         => BASE_URL . '/tools/commit-path-sorting/',
-                                          'function'    => array($this, 'commitPathSorting'),
+                                          'url'         => BASE_URL . '/tools/commit-area-filtering/',
+                                          'function'    => array($this, 'commitAreaFiltering'),
                                           'params'      => null);
 
     //////////////////////////////////////
@@ -312,7 +312,7 @@ class ToolsUi extends BaseUi {
   }
 
 
-  private function commitPathSorting() {
+  private function commitAreaFiltering() {
     // get existing commit path classifications
     $commitPaths    = Enzyme::getClassifications(true);
 
@@ -326,7 +326,7 @@ class ToolsUi extends BaseUi {
 
     // draw
     $buf   = '<h3>' .
-                _('Commit Path Sorting') .
+                _('Commit Area Filtering') .
              '  <span class="floating-buttons">
                   <span id="status" class="status">' .
                     sprintf(_('%d filters'), count($commitPaths)) .

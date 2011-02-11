@@ -99,7 +99,7 @@ function saveFilters() {
 
 
   // send off values
-  new Ajax.Request(BASE_URL + '/get/commit-path-sorting.php', {
+  new Ajax.Request(BASE_URL + '/get/commit-area-filtering.php', {
     method: 'post',
     parameters: formData,
     onSuccess: function(transport) {
