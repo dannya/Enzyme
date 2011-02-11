@@ -371,7 +371,7 @@ class ToolsUi extends BaseUi {
                         Ui::htmlSelector('target-new', $availableTargets, null, null, 'targets[]', 'display:none;') .
              '        </td>
                       <td>
-                        <input type="text" value="" name="paths[]" style="display:none;" />
+                        <input type="text" value="" name="matches[]" style="display:none;" />
                       </td>
                       <td>' .
                         Ui::htmlSelector('path-new', $availableAreas, null, null, 'areas[]', 'display:none;') .
