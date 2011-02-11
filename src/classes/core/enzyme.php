@@ -122,6 +122,14 @@ class Enzyme {
   }
 
 
+  public static function getFilterTargets() {
+    $buf = array('path'         => _('Path'),
+                 'repository'   => _('Repository'));
+
+    return $buf;
+  }
+
+
   public static function loadSettings($cacheIfEmpty = true, $getKey = false) {
     // load settings (from cache if possible)
     $existingSettings = Cache::load('settings');
@@ -507,7 +515,7 @@ class Enzyme {
       if ($indexById) {
         $classifications[$item['id']]   = $item;
       } else {
-        $classifications[$item['path']] = $item['area'];
+        $classifications[$item['matched']] = $item;
       }
     }
 

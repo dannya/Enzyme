@@ -41,15 +41,16 @@ function addNewFilter() {
   // clone new row, so we can keep adding new rows after this one
   var newRow = $('path-filters-new').innerHTML;
 
-  // make row and elements visible, change id's
-  
+  // make row and elements visible, change id's  
   var tmpId  = Math.floor(Math.random() * 10000); 
 
   $('path-filters-new').show();
   $('path-filters-new').select('select, input').invoke('show');
   $('path-filters-new').writeAttribute('class', $('path-filters-items').select('tr').size());
+
   $('path-filters-new').id  = 'path-filter-' + tmpId;
   $('path-new').id          = 'path-' + tmpId;
+  $('target-new').id        = 'target-' + tmpId;
 
   // insert original "new" row back into table
   $('path-filters-items').insert({ bottom: '<tr id="path-filters-new">' + newRow + '</tr>' });
@@ -73,7 +74,8 @@ function saveFilters() {
 
 	var formData           = {};
 	formData['id[]']       = [];
-	formData['paths[]']    = [];
+	formData['targets[]']  = [];
+	formData['matches[]']  = [];
 	formData['areas[]']    = [];
 	
 	$('path-filters-data').getElements().each(function(item) {

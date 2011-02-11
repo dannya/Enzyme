@@ -281,11 +281,11 @@ class Imap extends Connector {
       }
 
       $parsed['commit']['date'] = date('Y-m-d H:i:s', mktime($extractedDate[3],
-                                                             $extractedDate[4],
+                                                             intval($extractedDate[4]),
                                                              0,
                                                              $extractedDate[1],
                                                              $extractedDate[0],
-                                                             intval($extractedDate[2])));
+                                                             $extractedDate[2]));
 
     } else {
       // get date from headers

@@ -16,63 +16,157 @@
 
 
 class ToolsUi extends BaseUi {
-  public $id      = 'tools';
+  public $id          = 'tools';
 
-  private $user   = null;
+  public $categories  = array();
+  public $tools       = array();
+
+  private $user       = null;
 
 
   public function __construct($user) {
-    $this->user = $user;
+    $this->user   = $user;
 
     // set title
-    $this->title = _('Tools');
+    $this->title  = _('Tools');
+
+
+    // setup tool categories
+    $this->categories   = array('general'   => _('Tools'),
+                                'config'    => _('Configuration'),
+                                'migration' => _('Legacy Migration'),
+                                'import'    => _('Legacy Import'));
+
+
+    // setup available tools
+    $this->tools['general'][]     = array('id'          => 'parse-authors',
+                                          'string'      => _('Parse Authors Data'),
+                                          'permission'  => 'admin',
+                                          'url'         => BASE_URL . '/tools/parse-authors/',
+                                          'function'    => array($this, 'parseAuthors'),
+                                          'params'      => null);
+
+    $this->tools['general'][]     = array('id'          => 'parse-i18n-teams',
+                                          'string'      => _('Parse I18n Teams'),
+                                          'permission'  => 'admin',
+                                          'url'         => BASE_URL . '/tools/parse-i18n-teams/',
+                                          'function'    => array($this, 'parseI18n'),
+                                          'params'      => null);
+
+    //////////////////////////////////////
+
+    $this->tools['config'][]      = array('id'          => 'commit-path-sorting',
+                                          'string'      => _('Commit Path Sorting'),
+                                          'permission'  => array('admin', 'reviewer', 'classifier'),
+                                          'url'         => BASE_URL . '/tools/commit-path-sorting/',
+                                          'function'    => array($this, 'commitPathSorting'),
+                                          'params'      => null);
+
+    //////////////////////////////////////
+
+    $this->tools['import'][]      = array('id'          => 'parse-people',
+                                          'string'      => _('Parse People'),
+                                          'permission'  => 'admin',
+                                          'url'         => BASE_URL . '/tools/parse-people',
+                                          'function'    => array($this, 'parsePeople'),
+                                          'params'      => null);
+
+    $this->tools['import'][]      = array('id'          => 'parse-bugfixers',
+                                          'string'      => _('Parse Bugfixers'),
+                                          'permission'  => 'admin',
+                                          'url'         => BASE_URL . '/tools/parse-bugfixers/',
+                                          'function'    => array($this, 'parseBugfixers'),
+                                          'params'      => null);
+
+    $this->tools['import'][]      = array('id'          => 'parse-countries',
+                                          'string'      => _('Parse Countries'),
+                                          'permission'  => 'admin',
+                                          'url'         => BASE_URL . '/tools/parse-countries/',
+                                          'function'    => array($this, 'parseCountries'),
+                                          'params'      => null);
+
+    $this->tools['import'][]      = array('id'          => 'parse-filetypes',
+                                          'string'      => _('Parse Filetypes'),
+                                          'permission'  => 'admin',
+                                          'url'         => BASE_URL . '/tools/parse-filetypes/',
+                                          'function'    => array($this, 'parseFiletypes'),
+                                          'params'      => null);
+
+    $this->tools['import'][]      = array('id'          => 'parse-links',
+                                          'string'      => _('Parse Links'),
+                                          'permission'  => 'admin',
+                                          'url'         => BASE_URL . '/tools/parse-links/',
+                                          'function'    => array($this, 'parseLinks'),
+                                          'params'      => null);
+
+    //////////////////////////////////////
+
+    $this->tools['migration'][]   = array('id'          => 'digest-intro/issues',
+                                          'string'      => _('Import Digest Intro (Issues)'),
+                                          'permission'  => 'admin',
+                                          'url'         => BASE_URL . '/tools/digest-intro/issues/',
+                                          'function'    => array($this, 'digestIntro'),
+                                          'params'      => 'issue');
+
+    $this->tools['migration'][]   = array('id'          => 'digest-intro/archive',
+                                          'string'      => _('Import Digest Intro (Archive)'),
+                                          'permission'  => 'admin',
+                                          'url'         => BASE_URL . '/tools/digest-intro/archive/',
+                                          'function'    => array($this, 'digestIntro'),
+                                          'params'      => 'archive');
+
+    $this->tools['migration'][]   = array('id'          => 'digest-stats/issues',
+                                          'string'      => _('Import Digest Stats (Issues)'),
+                                          'permission'  => 'admin',
+                                          'url'         => BASE_URL . '/tools/digest-stats/issues/',
+                                          'function'    => array($this, 'digestStats'),
+                                          'params'      => 'issue');
+
+    $this->tools['migration'][]   = array('id'          => 'digest-stats/archive',
+                                          'string'      => _('Import Digest Stats (Archive)'),
+                                          'permission'  => 'admin',
+                                          'url'         => BASE_URL . '/tools/digest-stats/archive/',
+                                          'function'    => array($this, 'digestStats'),
+                                          'params'      => 'archive');
+
+    $this->tools['migration'][]   = array('id'          => 'digest-commits',
+                                          'string'      => _('Import Digest Commits'),
+                                          'permission'  => 'admin',
+                                          'url'         => BASE_URL . '/tools/digest-commits/',
+                                          'function'    => array($this, 'digestCommits'),
+                                          'params'      => null);
   }
 
 
   public function draw() {
-    // check permission
-    if ($buf = App::checkPermission($this->user, 'admin')) {
-      return $buf;
-    }
-
     if (empty($_REQUEST['tool']) || ($_REQUEST['tool'] == '/tools/')) {
       // draw menu UI
       return $this->drawMenu();
 
     } else {
       // show a specific tool
-      if ($_REQUEST['tool'] == 'parse-authors') {
-        $buf = $this->parseAuthors();
-      } else if ($_REQUEST['tool'] == 'parse-i18n-teams') {
-        $buf = $this->parseI18n();
-      } else if ($_REQUEST['tool'] == 'parse-people') {
-        $buf = $this->parsePeople();
-      } else if ($_REQUEST['tool'] == 'parse-bugfixers') {
-        $buf = $this->parseBugfixers();
-      } else if ($_REQUEST['tool'] == 'parse-countries') {
-        $buf = $this->parseCountries();
-      } else if ($_REQUEST['tool'] == 'parse-filetypes') {
-        $buf = $this->parseFiletypes();
-      } else if ($_REQUEST['tool'] == 'parse-links') {
-        $buf = $this->parseLinks();
+      foreach ($this->tools as $category => $tools) {
+        foreach ($tools as $tool) {
+          // match requested tool to available tools
+          if ($tool['id'] == $_REQUEST['tool']) {
+            // check that user has needed permissions to access tool
+            if (($buf = App::checkPermission($this->user, $tool['permission'])) ||
+                (!ENABLE_LEGACY && (($category == 'migration') || ($category == 'import')))) {
 
-      } else if ($_REQUEST['tool'] == 'digest-intro/issues') {
-        $buf = $this->digestIntro('issue');
-      } else if ($_REQUEST['tool'] == 'digest-intro/archive') {
-        $buf = $this->digestIntro('archive');
-      } else if ($_REQUEST['tool'] == 'digest-stats/issues') {
-        $buf = $this->digestStats('issue');
-      } else if ($_REQUEST['tool'] == 'digest-stats/archive') {
-        $buf = $this->digestStats('archive');
-      } else if ($_REQUEST['tool'] == 'digest-commits') {
-        $buf = $this->digestCommits();
+              // user does not have needed access permissions
+              return $buf;
 
-      } else if ($_REQUEST['tool'] == 'commit-path-sorting') {
-        $buf = $this->commitPathSorting();
+            } else {
+              return call_user_func($tool['function'], $tool['params']);
+            }
+          }
+        }
       }
-    }
 
-    return $buf;
+
+      // tool not found, display message
+      return _('Tool not found');
+    }
   }
 
 
@@ -87,97 +181,44 @@ class ToolsUi extends BaseUi {
 
 
   private function drawMenu() {
-    $buf = '<h3>' . _('Tools') . '</h3>
+    $buf = null;
 
-            <ul>
-              <li>
-                <a href="' . BASE_URL . '/tools/parse-authors/">' .
-                  _('Parse Authors Data') .
-           '    </a>
-              </li>
-              <li>
-                <a href="' . BASE_URL . '/tools/parse-i18n-teams/">' .
-                  _('Parse I18n Teams') .
-           '    </a>
-              </li>
-            </ul>
+    // draw tools within sections
+    foreach ($this->tools as $category => $tools) {
+      // show legacy section?
+      if (!ENABLE_LEGACY && (($category == 'migration') || ($category == 'import'))) {
+        continue;
+      }
 
+      // draw section
+      $buf  .= '<h3>' . $this->categories[$category] . '</h3>
 
-            <h3>' . _('Configuration') . '</h3>
+                <ul>';
 
-            <ul>
-              <li>
-                <a href="' . BASE_URL . '/tools/commit-path-sorting/">' .
-                  _('Commit Path Sorting') .
-           '    </a>
-              </li>
-            </ul>';
+      foreach ($tools as $tool) {
+        // only draw if we have permission to access this tool
+        if (!App::checkPermission($this->user, $tool['permission'])) {
+          $buf  .= '<li>
+                      <a href="' . $tool['url'] . '">' .
+                        $tool['string'] .
+                   '  </a>
+                    </li>';
+        }
+      }
 
+      $buf  .= '</ul>';
 
-    // show legacy tools?
-    if (ENABLE_LEGACY) {
-      $buf  .= '<h3>' . _('Legacy Migration') . '</h3>
-
-                <ul>
-                  <li>
-                    <a href="' . BASE_URL . '/tools/digest-intro/issues/">' .
-                      _('Import Digest Intro (Issues)') .
-               '    </a>
-                  </li>
-                  <li>
-                    <a href="' . BASE_URL . '/tools/digest-intro/archive/">' .
-                      _('Import Digest Intro (Archive)') .
-               '    </a>
-                  </li>
-
-                  <li>
-                    <a href="' . BASE_URL . '/tools/digest-stats/issues/">' .
-                      _('Import Digest Stats (Issues)') .
-               '    </a>
-                  </li>
-                  <li>
-                    <a href="' . BASE_URL . '/tools/digest-stats/archive/">' .
-                      _('Import Digest Stats (Archive)') .
-               '    </a>
-                  </li>
-
-                  <li>
-                    <a href="' . BASE_URL . '/tools/digest-commits/">' .
-                      _('Import Digest Commits') .
-               '    </a>
-                  </li>
-                </ul>
+      // add to created array, reset for next iteration
+      $tmp[] = $buf;
+      $buf   = null;
+    }
 
 
-                <h3>' . _('Legacy Import') . '</h3>
-
-                <ul>
-                  <li>
-                    <a href="' . BASE_URL . '/tools/parse-bugfixers/">' .
-                      _('Parse Bugfixers') .
-               '    </a>
-                  </li>
-                  <li>
-                    <a href="' . BASE_URL . '/tools/parse-countries/">' .
-                      _('Parse Countries') .
-               '    </a>
-                  </li>
-                  <li>
-                    <a href="' . BASE_URL . '/tools/parse-filetypes/">' .
-                      _('Parse Filetypes') .
-               '    </a>
-                  </li>
-                  <li>
-                    <a href="' . BASE_URL . '/tools/parse-people/">' .
-                      _('Parse People') .
-               '    </a>
-                  </li>
-                  <li>
-                    <a href="' . BASE_URL . '/tools/parse-links/">' .
-                      _('Parse Links') .
-               '    </a>
-                  </li>
-                </ul>';
+    // output
+    foreach ($tmp as $t) {
+      if (strpos($t, '<li>') !== false) {
+        $buf .= $t;
+      }
     }
 
     return $buf;
@@ -279,6 +320,9 @@ class ToolsUi extends BaseUi {
     $availableAreas = array_values(Enzyme::getAreas());
     array_unshift($availableAreas, null);
 
+    // get available targets
+    $availableTargets = Enzyme::getFilterTargets();
+
 
     // draw
     $buf   = '<h3>' .
@@ -297,7 +341,8 @@ class ToolsUi extends BaseUi {
                 <table id="path-filters">
                   <thead>
                     <tr>
-                      <th>' . _('Path') . '</th>
+                      <th>' . _('Target') . '</th>
+                      <th>' . _('Match') . '</th>
                       <th>' . _('Area') . '</th>
                     </tr>
                   </thead>
@@ -307,8 +352,11 @@ class ToolsUi extends BaseUi {
     foreach ($commitPaths as $id => $item) {
       $buf  .= '<tr class="' . $id . '">
                   <td>
-                    <input type="hidden" name="id[]" value="' . $id . '" />
-                    <input type="text" value="' . $item['path'] . '" name="paths[]" />
+                    <input type="hidden" name="id[]" value="' . $id . '" />' .
+                    Ui::htmlSelector('target-' . $id, $availableTargets, $item['target'], null, 'targets[]') .
+               '  </td>
+                  <td>
+                    <input type="text" value="' . $item['matched'] . '" name="matches[]" />
                   </td>
                   <td>' .
                     Ui::htmlSelector('path-' . $id, $availableAreas, $item['area'], null, 'areas[]') .
@@ -319,7 +367,10 @@ class ToolsUi extends BaseUi {
     // draw empty row
     $buf  .= '      <tr id="path-filters-new" style="display:none;">
                       <td>
-                        <input type="hidden" name="id[]" value="" style="display:none;" />
+                        <input type="hidden" name="id[]" value="" style="display:none;" />' .
+                        Ui::htmlSelector('target-new', $availableTargets, null, null, 'targets[]', 'display:none;') .
+             '        </td>
+                      <td>
                         <input type="text" value="" name="paths[]" style="display:none;" />
                       </td>
                       <td>' .

@@ -19,7 +19,9 @@ include($_SERVER['DOCUMENT_ROOT'] . '/autoload.php');
 
 
 // ensure needed params are set
-if (!isset($_REQUEST['id']) || !isset($_REQUEST['paths']) || !isset($_REQUEST['areas'])) {
+if (!isset($_REQUEST['id']) || !isset($_REQUEST['targets']) ||
+    !isset($_REQUEST['matches']) || !isset($_REQUEST['areas'])) {
+
   App::returnHeaderJson(true, array('missing' => true));
 }
 
@@ -33,7 +35,7 @@ if (empty($user->auth)) {
 
 
 // ensure user has privileges
-if (!$user->hasPermission('admin')) {
+if (!$user->hasPermission(array('admin', 'reviewer', 'classifier'))) {
   App::returnHeaderJson(true, array('permission' => false));
 }
 
@@ -45,9 +47,10 @@ if ($numItems > 0) {
   $json['success'] = false;
 
   for ($i = 0; $i < $numItems; $i++) {
-    $values[] = array('id'    => $_REQUEST['id'][$i],
-                      'path'  => $_REQUEST['paths'][$i],
-                      'area'  => $_REQUEST['areas'][$i]);
+    $values[] = array('id'      => $_REQUEST['id'][$i],
+                      'target'  => $_REQUEST['targets'][$i],
+                      'matched' => $_REQUEST['matches'][$i],
+                      'area'    => $_REQUEST['areas'][$i]);
   }
 
   if (isset($values)) {

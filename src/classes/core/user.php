@@ -192,8 +192,19 @@ class User {
   }
 
 
-  public function hasPermission($permission) {
-    return in_array($permission, $this->permissions);
+  public function hasPermission($permissions) {
+    if (!is_array($permissions)) {
+      // convert to array for iteration
+      $permissions = array($permissions);
+    }
+
+    foreach ($permissions as $permission) {
+      if (in_array($permission, $this->permissions)) {
+        return true;
+      }
+    }
+
+    return false;
   }
 
 

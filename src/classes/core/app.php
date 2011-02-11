@@ -121,10 +121,28 @@ class App {
   }
 
 
-  public static function checkPermission($user, $permission, $return = true) {
-    if (!$user->hasPermission($permission)) {
-      $message = sprintf(_('You need to have the permission "%s" to view this section'), $permission);
+  public static function checkPermission($user, $permissions, $return = true) {
+    $message = false;
 
+    if (!is_array($permissions)) {
+      // convert to array for iteration (only one element though)
+      $permissions = array($permissions);
+    }
+
+    // check for required permission
+    foreach ($permissions as $permission) {
+      if (!$user->hasPermission($permission)) {
+        $message = sprintf(_('You need to have the permission "%s" to view this section'), $permission);
+
+      } else {
+        // user has permission, stop check
+        $message = null;
+        break;
+      }
+    }
+
+    // respond
+    if ($message) {
       if ($return) {
         return $message;
 
@@ -132,6 +150,9 @@ class App {
         echo $message;
         exit;
       }
+
+    } else {
+      return false;
     }
   }
 

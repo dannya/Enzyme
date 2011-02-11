@@ -46,7 +46,7 @@ abstract class BaseUi {
 
                    'tools'    => array('url'        => BASE_URL . '/tools/',
                                        'string'     => _('Tools'),
-                                       'permission' => 'admin'),
+                                       'permission' => null),
 
                    'users'    => array('url'        => BASE_URL . '/users/',
                                        'string'     => _('Users'),

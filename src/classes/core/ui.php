@@ -283,9 +283,12 @@ class Ui {
     if ($type == 'classify') {
       // search for basepath in common area classifications, so we can prefill value
       if ($classifications) {
-        foreach ($classifications as $thePath => $theArea) {
-          if (strpos($data['basepath'], $thePath) !== false) {
-            $data['area'] = $theArea;
+        foreach ($classifications as $filter) {
+          if ((($filter['target'] == 'path') && (strpos($data['basepath'], $filter['matched']) !== false)) ||
+              (($filter['target'] == 'repository') && (strpos($data['repository'], $filter['matched']) !== false))) {
+
+            $data['area'] = $filter['area'];
+
             break;
           }
         }
