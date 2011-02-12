@@ -28,7 +28,7 @@ class Db {
                                   'digests',
                                   'digest_intro_people',
                                   'digest_intro_sections',
-                                  'digest_intro_videos',
+                                  'digest_intro_media',
                                   'digest_stats',
                                   'digest_stats_bugfixers',
                                   'digest_stats_buzz',
@@ -171,8 +171,8 @@ class Db {
       if (is_array($limit)) {
         $selectQuery .= ' LIMIT ' . intval($limit[0]) . ' ,' . intval($limit[1]);
       } else {
-      $selectQuery .= ' LIMIT ' . intval($limit);
-    }
+        $selectQuery .= ' LIMIT ' . intval($limit);
+      }
     }
 
 
