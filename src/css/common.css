@@ -223,9 +223,12 @@ div#header a#logo {
   position:absolute;
   top:0;
   left:0;
-  width:214px;
+  width:250px;
   height:38px;
-  background:url(../img/logo.png) no-repeat scroll 0 0 transparent;
+  background:url(../img/logo-hover.png) no-repeat scroll 0 0 transparent;
+}
+div#header a#logo:hover {
+  background-position:-0 -38px;
 }
 
 div#header h1#header-title {
