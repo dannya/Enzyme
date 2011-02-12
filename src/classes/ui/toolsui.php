@@ -16,26 +16,27 @@
 
 
 class ToolsUi extends BaseUi {
-  public $id          = 'tools';
+  public $id              = 'tools';
 
-  public $categories  = array();
-  public $tools       = array();
+  public $categories      = array();
+  public $tools           = array();
 
-  private $user       = null;
+  private $user           = null;
+
+  private $message        = null;
+  private $toolFunction   = null;
+  private $toolParams     = null;
 
 
   public function __construct($user) {
     $this->user   = $user;
 
-    // set title
-    $this->title  = _('Tools');
-
 
     // setup tool categories
-    $this->categories   = array('general'   => _('Tools'),
-                                'config'    => _('Configuration'),
-                                'migration' => _('Legacy Migration'),
-                                'import'    => _('Legacy Import'));
+    $this->categories             = array('general'   => _('Tools'),
+                                          'config'    => _('Configuration'),
+                                          'migration' => _('Legacy Migration'),
+                                          'import'    => _('Legacy Import'));
 
 
     // setup available tools
@@ -60,6 +61,13 @@ class ToolsUi extends BaseUi {
                                           'permission'  => array('admin', 'reviewer', 'classifier'),
                                           'url'         => BASE_URL . '/tools/commit-area-filtering/',
                                           'function'    => array($this, 'commitAreaFiltering'),
+                                          'params'      => null);
+
+    $this->tools['config'][]      = array('id'          => 'project-links',
+                                          'string'      => _('Project Links'),
+                                          'permission'  => array('admin', 'reviewer', 'classifier'),
+                                          'url'         => BASE_URL . '/tools/project-links/',
+                                          'function'    => array($this, 'projectLinks'),
                                           'params'      => null);
 
     //////////////////////////////////////
@@ -135,13 +143,46 @@ class ToolsUi extends BaseUi {
                                           'url'         => BASE_URL . '/tools/digest-commits/',
                                           'function'    => array($this, 'digestCommits'),
                                           'params'      => null);
+
+    // set title
+    $this->title = _('Tools');
+
+
+    // get tool context
+    $this->toolContext = $this->getToolContext();
   }
 
 
   public function draw() {
-    if (empty($_REQUEST['tool']) || ($_REQUEST['tool'] == '/tools/')) {
+    if (!$this->toolContext || ($this->toolContext == 'need-permissions')) {
+      // error
+      return $this->message;
+
+    } else if ($this->toolContext == 'menu') {
       // draw menu UI
       return $this->drawMenu();
+
+    } else {
+      // show a specific tool
+      return call_user_func($this->toolFunction, $this->toolParams);
+    }
+  }
+
+
+  public function getScript() {
+    return array('/js/frame/toolsui.js');
+  }
+
+
+  public function getStyle() {
+    return array('/css/toolsui.css');
+  }
+
+
+  private function getToolContext() {
+    if (empty($_REQUEST['tool']) || ($_REQUEST['tool'] == '/tools/')) {
+      // draw menu UI
+      return 'menu';
 
     } else {
       // show a specific tool
@@ -154,29 +195,28 @@ class ToolsUi extends BaseUi {
                 (!ENABLE_LEGACY && (($category == 'migration') || ($category == 'import')))) {
 
               // user does not have needed access permissions
-              return $buf;
+              $this->message = $buf;
+
+              return 'need-permissions';
 
             } else {
-              return call_user_func($tool['function'], $tool['params']);
+              $this->title          = $tool['string'];
+
+              $this->toolFunction   = $tool['function'];
+              $this->toolParams     = $tool['params'];
+
+              return $tool['id'];
             }
           }
         }
       }
 
 
-      // tool not found, display message
-      return _('Tool not found');
+      // tool not found
+      $this->message = _('Tool not found');
+
+      return false;
     }
-  }
-
-
-  public function getScript() {
-    return array('/js/frame/toolsui.js');
-  }
-
-
-  public function getStyle() {
-    return array('/css/toolsui.css');
   }
 
 
@@ -381,6 +421,99 @@ class ToolsUi extends BaseUi {
     $buf  .= '    </tbody>
                 </table>
               </form>';
+
+    return $buf;
+  }
+
+
+  private function projectLinks() {
+    // get links
+    $links = Enzyme::loadLinks(false, 'type');
+
+    // calculate number of links
+    $numLinks = 0;
+
+    foreach ($links as $section) {
+      $numLinks += count($section);
+    }
+
+    $availableTypes = array('project'   =>  _('Project'),
+                            'program'   =>  _('Program'),
+                            'external'  =>  _('External'),
+                            'other'     =>  _('Other'));
+
+    // draw
+    $buf   = '<h3>' .
+                _('Project Links') .
+             '  <span class="floating-buttons">
+                  <span id="status" class="status">' .
+                    sprintf(_('%d links'), $numLinks) .
+             '    </span>
+                  <input type="button" value="' . _('Save changes') . '" title="' . _('Save changes') . '" onclick="saveLinks();" />
+                  <input type="button" value="' . _('Add new link') . '" title="' . _('Add new link') . '" onclick="addNewLink();" />' .
+                  Ui::drawIndicator('save-links') .
+             '  </span>
+              </h3>
+
+              <form id="path-links-data" action="">';
+
+    foreach ($links as $name => $section) {
+      $buf  .= '<table id="path-links-' . $name . '" class="path-links">
+                  <thead>
+                    <tr>
+                      <th class="delete">&nbsp;</th>
+                      <th class="type">' . _('Type') . '</th>
+                      <th class="name">' . _('Name') . '</th>
+                      <th class="link">' . _('URL') . '</th>
+                      <th class="area">' . _('Area') . '</th>
+                    </tr>
+                  </thead>
+
+                  <tbody id="path-links-' . $name . '-items">';
+
+      foreach ($section as $id => $item) {
+        $buf  .= '<tr id="path-link-' . $name . '-' . $id . '">
+                    <td>
+                      <span class="delete-link indicator-failure" onclick="deleteLink(\'path-link-' . $name . '-' . $id . '\', \'' . $item['name'] . '\');" title="' . _('Delete this link?') . '">
+                        <span>&nbsp;</span>
+                      </span>
+                    </td>
+                    <td>' .
+                      Ui::htmlSelector('type-' . $name . '-' . $id, $availableTypes, $item['type'], null, 'types[]') .
+                 '  </td>
+                    <td>
+                      <input type="text" value="' . $item['name'] . '" name="names[]" />
+                    </td>
+                    <td>
+                      <input type="text" value="' . $item['url'] . '" name="links[]" />
+                    </td>
+                    <td>
+                      <input type="text" value="' . $item['area'] . '" name="areas[]" />
+                    </td>
+                  </tr>';
+      }
+
+      // draw empty row
+      $buf  .= '      <tr id="path-links-' . $name . '-new" style="display:none;">
+                        <td>' .
+                          Ui::htmlSelector('type-' . $name . '-new', $availableTypes, null, null, 'types[]', 'display:none;') .
+               '        </td>
+                        <td>
+                          <input type="text" value="" name="names[]" style="display:none;" />
+                        </td>
+                        <td>
+                          <input type="text" value="" name="links[]" style="display:none;" />
+                        </td>
+                        <td>
+                          <input type="text" value="" name="areas[]" style="display:none;" />
+                        </td>
+                      </tr>';
+
+      $buf  .= '    </tbody>
+                  </table>';
+    }
+
+    $buf  .= '  </form>';
 
     return $buf;
   }

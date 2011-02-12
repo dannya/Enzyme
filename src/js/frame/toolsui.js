@@ -65,7 +65,7 @@ function addNewFilter() {
 
 function saveFilters() {
 	if (!$('path-filters-data')) {
-	 return false;
+	  return false;
 	}
 
 
@@ -114,6 +114,163 @@ function saveFilters() {
       // update total display
       if ($('status')) {
       	$('status').update(sprintf(strings.num_filters_plural, ($('path-filters-items').select('tr').size() - 1)));
+      }
+
+      return true;
+    },
+    onFailure: function() {
+      return false;
+    }
+  });
+}
+
+
+function addNewLink() {
+  if (!$('path-links-external-items') || !$('path-links-external-new')) {
+    return false;
+  }
+
+  // clone new row, so we can keep adding new rows after this one
+  var newRow = $('path-links-external-new').innerHTML;
+
+  // make row and elements visible, change id's  
+  var tmpId  = Math.floor(Math.random() * 10000); 
+
+  $('path-links-external-new').show();
+  $('path-links-external-new').select('select, input').invoke('show');
+  $('path-links-external-new').writeAttribute('class', $('path-links-external-items').select('tr').size());
+
+  $('path-links-external-new').id  = 'path-links-external-' + tmpId;
+  $('type-external-new').id        = 'type-external-new-' + tmpId;
+
+  // insert original "new" row back into table
+  $('path-links-external-items').insert({ bottom: '<tr id="path-links-external-new">' + newRow + '</tr>' });
+
+  // scroll to new row
+  if ($('path-links-external-' + tmpId)) {
+    $('path-links-external-' + tmpId).scrollTo();
+    $('path-links-external-' + tmpId).select('input[type="text"]').first().focus();
+  }
+}
+
+
+
+
+
+
+
+
+
+
+function saveLinks() {
+  if (!$('path-links-data')) {
+    return false;
+  }
+
+
+  // ensure all values are filled, and serialise form data
+  var error              = false;
+
+  var formData           = {};
+  formData['types[]']    = [];
+  formData['names[]']    = [];
+  formData['links[]']    = [];
+  formData['areas[]']    = [];
+
+  $('path-links-data').getElements().each(function(item) {
+    if (item.visible()) {
+      if ((item.type != 'hidden') && (item.name != 'areas[]') && (item.name != 'links[]') 
+          && (item.value.empty() || (item.value == 0))) {
+
+        item.addClassName('failure');
+        error = true;
+
+      } else {
+        item.removeClassName('failure');
+
+        // add to data
+        formData[item.name].push(item.value);
+      }
+    }
+  });
+
+  if (error) {
+    return false;
+  }
+
+
+  // send off values
+  new Ajax.Request(BASE_URL + '/get/project-links.php', {
+    method: 'post',
+    parameters: formData,
+    onSuccess: function(transport) {
+      var result = transport.headerJSON;
+
+      if ((typeof result.success != 'undefined') && result.success) {
+        showIndicator('save-links', 'indicator-success');
+      } else {
+        showIndicator('save-links', 'indicator-failure');
+      }
+      
+      // update total display
+      if ($('status')) {
+      	var numLinks = 0;
+
+      	$('path-links-data').select('tbody').each(function(item) {
+      		numLinks += item.select('tr').size();
+        })
+
+        $('status').update(sprintf(strings.num_links_plural, (numLinks - 4)));
+      }
+
+      return true;
+    },
+    onFailure: function() {
+      return false;
+    }
+  });
+}
+
+
+function deleteLink(elementId, theName) {
+  if ((typeof elementId != 'string') || (typeof theName != 'string')) {
+    return false;
+  }
+
+
+  // send off delete request
+  new Ajax.Request(BASE_URL + '/get/delete-link.php', {
+    method: 'post',
+    parameters: {
+    	name: theName
+    },
+    onSuccess: function(transport) {
+      var result = transport.headerJSON;
+
+      if ((typeof result.success != 'undefined') && result.success) {
+        // remove link row from page
+        if ($(elementId)) {
+        	new Effect.Fade(elementId, {
+        		duration: 0.3,
+        		afterFinish: function() {
+        			$(elementId).remove();
+
+			        // update total display
+			        if ($('status')) {
+			          var numLinks = 0;
+
+			          $('path-links-data').select('tbody').each(function(item) {
+			            numLinks += item.select('tr').size();
+			          })
+
+			          $('status').update(sprintf(strings.num_links_plural, (numLinks - 4)));
+			        }
+        		}
+        	});
+        }
+
+      } else {
+        showIndicator('save-links', 'indicator-failure');
       }
 
       return true;

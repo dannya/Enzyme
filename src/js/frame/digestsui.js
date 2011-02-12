@@ -623,7 +623,7 @@ function deleteStats(theDate) {
   // alert
   alert(theDate);
   return
-  
+
   // change buttons
   if ($('generate-stats') && $('delete-stats')) {
   	$('delete-stats').hide();

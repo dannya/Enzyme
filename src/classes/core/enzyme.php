@@ -152,7 +152,7 @@ class Enzyme {
 
     // set defaults if unset
     if (empty($existingSettings['HELP_URL']['value'])) {
-      $existingSettings['HELP_URL']['value'] = 'http://github.com/dannyakakong/Enzyme/wiki';
+      $existingSettings['HELP_URL']['value'] = 'https://github.com/dannyakakong/Enzyme/wiki';
     }
 
 
@@ -193,7 +193,7 @@ class Enzyme {
     $tmp['HELP_URL']          = array('title'   => _('Help URL'),
                                       'valid'   => null,
                                       'default' => null,
-                                      'example' => 'http://github.com/dannyakakong/Enzyme/wiki');
+                                      'example' => 'https://github.com/dannyakakong/Enzyme/wiki');
     $tmp['SMTP']              = array('title'   => _('SMTP Mail Server'),
                                       'valid'   => null,
                                       'default' => null,
@@ -577,23 +577,14 @@ class Enzyme {
   }
 
 
-  public static function loadLinks($lowercase = false) {
-    $links = array();
-
-    // load from db
-    $q = mysql_query('SELECT * FROM links') or trigger_error(sprintf(_('Query failed: %s'), mysql_error()));
-
-    while ($row = mysql_fetch_assoc($q)) {
-      if ($lowercase) {
-        // lowercase word to aid comparisons
-        $links[strtolower($row['name'])] = $row;
-
-      } else {
-        $links[$row['name']] = $row;
-      }
+  public static function loadLinks($lowercase = false, $indexBy = 'name') {
+    // lowercase key names?
+    if ($lowercase) {
+      $lowercase = 'strtolower';
     }
 
-    return $links;
+    // load from db
+    return Db::reindex(Db::load('links', false), $indexBy, $lowercase, false);
   }
 
 

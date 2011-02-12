@@ -475,7 +475,7 @@ span.indicator-failure {
   position:relative;
   float:left;
   padding:4px;
-  margin:3px 2px 0 10px;
+  margin:0 2px 0 10px;
 
   opacity:0.6;
 

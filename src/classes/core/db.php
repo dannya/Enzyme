@@ -543,7 +543,15 @@ class Db {
 
     foreach ($array as $item) {
       if ($processKey) {
-        $theKey = self::key($item[$key]);
+        if (is_string($processKey)) {
+          // use specified function to process key
+          $theKey = call_user_func($processKey, $item[$key]);
+
+        } else {
+          // use standard key processing function
+          $theKey = self::key($item[$key]);
+        }
+
       } else {
         $theKey = $item[$key];
       }

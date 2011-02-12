@@ -38,3 +38,32 @@ table thead tr th {
 table#path-filters {
   margin:10px 0 20px 0;
 }
+
+
+table.path-links {
+  margin:10px 0 48px 0;
+}
+table.path-links:last-child {
+  margin:10px 0 20px 0;
+}
+
+table.path-links th.delete {
+  width:22px;
+}
+table.path-links th.type {
+  width:100px;
+}
+table.path-links th.name {
+  width:140px;
+}
+table.path-links th.link {
+  width:200px;
+}
+table.path-links th.area {
+  width:120px;
+}
+
+table.path-links tbody span.delete-link {
+  margin:0 2px 0 0;
+  cursor:pointer;
+} 
