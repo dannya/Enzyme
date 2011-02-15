@@ -215,10 +215,6 @@ class Digest {
                       WHERE date = \'' . $date . '\'') or trigger_error(sprintf(_('Query failed: %s'), mysql_error()));
 
     while ($row = mysql_fetch_assoc($q)) {
-      // get filesize and filetype
-      $row['type'] = 'AVI';
-      $row['size'] = '2048';
-
       $digest['video'][$row['number']] = $row;
     }
 
@@ -435,6 +431,28 @@ class Digest {
     }
 
     return Db::load('digest_intro_sections', $filter, null, '*', false);
+  }
+
+
+  public static function loadDigestMedia($date = null, $type = null, $order = 'date DESC') {
+    if ($type) {
+      // load specific media type
+      $filter = array('type' => $type);
+
+    } else {
+      // load all media
+      $filter = false;
+    }
+
+    // also filter by date?
+    if ($date) {
+      $filter['date'] = $date;
+    }
+
+    return Db::reindex(Db::load('digest_intro_media', $filter, null, '*', false, $order),
+                       'date',
+                       false,
+                       false);
   }
 
 

@@ -36,13 +36,17 @@ abstract class BaseUi {
                                        'string'     => _('Classify'),
                                        'permission' => 'classifier'),
 
+                   'digests'  => array('url'        => BASE_URL . '/digests/',
+                                       'string'     => _('Digests'),
+                                       'permission' => 'editor'),
+
                    'features' => array('url'        => BASE_URL . '/features/',
                                        'string'     => _('Features'),
                                        'permission' => 'feature-editor'),
 
-                   'digests'  => array('url'        => BASE_URL . '/digests/',
-                                       'string'     => _('Digests'),
-                                       'permission' => 'editor'),
+                   'media'    => array('url'        => BASE_URL . '/media/',
+                                       'string'     => _('Media'),
+                                       'permission' => 'feature-editor'),
 
                    'tools'    => array('url'        => BASE_URL . '/tools/',
                                        'string'     => _('Tools'),

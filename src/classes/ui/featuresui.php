@@ -61,8 +61,7 @@ class FeaturesUi extends BaseUi {
 
     // draw
     return $this->drawIdeas() .
-           $this->drawPending() .
-           $this->drawMedia();
+           $this->drawPending();
   }
 
 
@@ -144,54 +143,6 @@ class FeaturesUi extends BaseUi {
 
     // draw items
     $buf  .= '<div id="features">';
-
-    foreach ($this->features as $feature) {
-      // calculate number of rows to use for each box
-      $totalRows      = 16;
-      $numIntroRows   = ceil(strlen($feature['intro']) / 140) + substr_count($feature['intro'], "\n");
-      $numBodyRows    = $totalRows - $numIntroRows;
-
-      $buf  .= '<div id="feature_' . $feature['date'] . '_' . $feature['number'] . '" class="feature">
-                  <div class="feature-info">
-                    <span class="feature-editor">' .
-                      _('Editor') . ' ' . Ui::htmlSelector('author_' . $feature['date'] . '_' . $feature['number'], $this->featureEditors, $feature['author'], 'changeItem(\'' . $feature['date'] . '\', ' . $feature['number'] . ', \'author\');') .
-               '    </span>
-                  </div>
-
-                  <div class="feature-extra">
-                    <span class="feature-status">' .
-                      _('Status') . ' ' . Ui::htmlSelector('status_' . $feature['date'] . '_' . $feature['number'], $this->availableStatuses, $feature['status'], 'changeItem(\'' . $feature['date'] . '\', ' . $feature['number'] . ', \'status\');') .
-               '    </span>
-                    <span class="feature-target">' .
-                      _('Target') . ' ' . Ui::htmlSelector('date_' . $feature['date'] . '_' . $feature['number'], $this->dates, $feature['date'], 'changeItem(\'' . $feature['date'] . '\', ' . $feature['number'] . ', \'date\');') .
-               '    </span>
-                  </div>
-
-                  <div class="feature-body">
-                    <textarea id="intro_' . $feature['date'] . '_' . $feature['number'] . '" class="intro-message" rows="' . $numIntroRows . '">' . $feature['intro'] . '</textarea>
-                    <textarea id="body_' . $feature['date'] . '_' . $feature['number'] . '" class="body" rows="' . $numBodyRows . '">' . $feature['body'] . '</textarea>
-                  </div>
-
-                  <div class="feature-save">
-                    <input type="button" value="' . _('Save changes') .'" title="' . _('Save changes') .'" onclick="saveChanges(\'' . $feature['date'] . '\', ' . $feature['number'] . ');" />' .
-                    Ui::drawIndicator('feature-' . $feature['number']) .
-               '  </div>
-                </div>';
-    }
-
-    $buf  .= '</div>';
-
-    return $buf;
-  }
-
-
-  private function drawMedia() {
-    $buf   = '<h3>' .
-                _('Feature Media Management') .
-             '</h3>';
-
-    // draw items
-    $buf  .= '<div id="media">';
 
     foreach ($this->features as $feature) {
       // calculate number of rows to use for each box

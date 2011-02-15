@@ -1,0 +1,109 @@
+div#content {
+  left:208px;
+}
+
+
+h3 {
+  position:relative;
+}
+
+
+div#media {
+  margin-top:22px;
+}
+
+
+div.media-item-container {
+  position:relative;
+  padding:10px 10px 22px 10px;
+  border-bottom:2px dotted #ccc;
+}
+div.media-item-container:nth-child(odd) {
+  background-color:#E1EAF3;
+}
+
+div.media-item-container h4 {
+  margin:0 0 10px 0;
+}
+
+
+div.media-item {
+  margin:0 0 4px 0;
+}
+div.media-item input {
+  width:auto;
+}
+
+
+div.media-item span.video,
+div.media-item span.image {
+  display:inline-block;
+  width:22px;
+  height:22px;
+  margin:0 10px 0 0;
+
+  background:url('../img/sprite.png') no-repeat;
+}
+div.media-item span.video {
+  background-position:-330px -0;
+}
+div.media-item span.image {
+  background-position:-308px -0;
+}
+
+div.media-item input.media-item-number {
+  width:22px;
+}
+div.media-item input.media-item-name {
+  width:230px;
+}
+div.media-item input.media-item-youtube {
+  width:120px;
+}
+
+div.media-item span.media-item-file a.media-item-file-link {
+  padding:3px 6px;
+  border-bottom:0;
+  background-color:#333;
+  color:#fff;
+  
+  border-radius:3px;
+  -moz-border-radius:3px;
+  -webkit-border-radius:3px;
+}
+div.media-item span.media-item-file a.media-item-file-link:hover {
+  background-color:#000;
+}
+
+
+
+
+div.preview-container {
+}
+
+
+div.preview-container div.img {
+  text-align:center;
+  width:100%;
+  margin:22px 0;
+}
+div.preview-container div.img a {
+  margin-bottom:0;
+  border-bottom:0;
+}
+div.preview-container div.img span {
+  display:block;
+  color:#666;
+}
+
+
+div.preview-container div.video {
+  margin:30px 0 10px;
+  text-align:center;
+}
+div.preview-container div.video div.v {
+  height:350px;
+}
+div.preview-container div.video div.link {
+  margin-top:12px;
+}

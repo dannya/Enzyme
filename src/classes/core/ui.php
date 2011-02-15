@@ -520,6 +520,25 @@ class Ui {
   public static function drawIndicator($id) {
     return '<span id="indicator-' . $id . '"><span>&nbsp;</span></span>';
   }
+
+
+  public static function filesize($bytes, $base = 1024) {
+    if (!$bytes) {
+      return null;
+    }
+
+    // choose prefix
+    if ($base == 1000) {
+      $units = array('B', 'kB', 'MB', 'GB');
+    } else {
+      $units = array('B', 'KiB', 'MiB', 'GiB');
+    }
+
+    // determine power to select correct units
+    $power = floor(log($bytes) / log($base));
+
+    return ($bytes / pow($base, floor($power))) . ' ' . $units[$power];
+  }
 }
 
 ?>

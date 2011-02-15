@@ -74,6 +74,9 @@ class EnzymeUi {
         } else if ($current == 'features') {
           $this->frame = new FeaturesUI($this->user);
 
+        } else if ($current == 'media') {
+          $this->frame = new MediaUI($this->user);
+
         } else if ($current == 'tools') {
           $this->frame = new ToolsUI($this->user);
 
