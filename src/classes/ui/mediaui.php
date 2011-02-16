@@ -19,6 +19,7 @@ class MediaUi extends BaseUi {
   public $id                    = 'media';
 
   private $media                = array();
+  private $dates                = array();
 
 
   public function __construct($user) {
@@ -29,6 +30,27 @@ class MediaUi extends BaseUi {
 
     // get available media
     $this->media              = Digest::loadDigestMedia();
+
+
+    // get possible dates for new media (unpublished, and 4 weeks into future)
+    $tmpDigests = Digest::loadDigests('issue', 'latest', null, null, array('published' => 0));
+    $tmpDate    = Digest::getLastIssueDate(null, true, true);
+
+    if ($tmpDigests) {
+      foreach ($tmpDigests as $digest) {
+        $this->dates[$digest['date']] = $digest['date'];
+      }
+    }
+
+    for ($i = 0; $i < 4; $i++) {
+      $tmpDate = date('Y-m-d', strtotime($tmpDate . ' + 1 week'));
+
+      if (!isset($this->dates[$tmpDate])) {
+        $this->dates[$tmpDate] = $tmpDate;
+      }
+    }
+
+    ksort($this->dates);
   }
 
 
@@ -55,12 +77,37 @@ class MediaUi extends BaseUi {
 
 
   private function drawMedia() {
+    // title and "add media" button
     $buf   = '<h3>' .
                 _('Media') .
              '  <span>
                   <input type="button" value="' . _('Add media') . '" title="' . _('Add media') . '" onclick="addMedia();" />
                 </span>
               </h3>';
+
+
+    // draw new media form
+    $buf  .= '<div id="add-media-form" class="clearfix">
+                <form action="" method="post">
+                  <div id="media_new" class="media-item media-item-new">
+                    <span id="new-icon" class="image">&nbsp;</span>' .
+                    Ui::htmlSelector('new-type', Media::getTypes(), null, "changeNewMediaType(event);") .
+                    Ui::htmlSelector('new-date', $this->dates) .
+
+             '      <input id="new-caption" type="text" class="prompt" name="caption" value="' . _('Caption') . '" onfocus="inputPrompt(event);" onblur="inputPrompt(event);" />
+
+                    <input id="new-name" style="display:none;" type="text" class="prompt" name="name" value="' . _('Name') . '" onfocus="inputPrompt(event);" onblur="inputPrompt(event);" />
+                    <input id="new-youtube" style="display:none;" type="text" class="media-item-youtube prompt" name="youtube" value="' . _('Youtube') . '" onfocus="inputPrompt(event);" onblur="inputPrompt(event);" />
+
+                    <span class="media-item-file">file</span>
+                    <input type="file" />
+
+                    <input type="submit" value="' . _('Add') . '" title="' . _('Add') . '" onclick="addMediaForm();" />
+                  </div>
+
+                </form>
+              </div>';
+
 
     // draw items
     $buf  .= '<div id="media">';

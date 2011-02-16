@@ -16,6 +16,14 @@
 
 
 class Media {
+  public static function getTypes() {
+    $types = array('image' => _('Image'),
+                   'video' => _('Video'));
+
+    return $types;
+  }
+
+
   public static function draw($media) {
     // get filesize and filetype
     $media['type'] = @strtoupper(end(explode('.', $media['file'])));

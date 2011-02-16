@@ -8,6 +8,39 @@ h3 {
 }
 
 
+
+div#add-media-form {
+  margin:32px 0 32px 0;
+}
+
+div.media-item-new {
+  padding:0 10px;
+}
+div.media-item-new input {
+  padding:4px;
+  margin:0 0 0 0;
+}
+div.media-item-new input#new-name,
+div.media-item-new input#new-caption {
+  width:204px;
+}
+
+div.media-item-new select {
+  width:auto;
+  margin:0 6px 0 0;
+}
+div.media-item-new select#new-type {
+  margin:0 6px 0 6px;
+}
+
+div.media-item-new span.media-item-file {
+  margin:0 4px 0 22px;
+  font-style:italic;
+  color:#666;
+}
+
+
+
 div#media {
   margin-top:22px;
 }

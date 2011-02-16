@@ -104,7 +104,9 @@ class Digest {
   }
 
 
-  public static function loadDigests($type, $sort = 'latest', $onlyPublished = true, $limit = null) {
+  public static function loadDigests($type, $sort = 'latest', $onlyPublished = true, $limit = null, $filter = null) {
+    $table = 'digests';
+
     // determine sorting
     if (($sort == 'earliest') || ($sort == 'ASC')) {
       $sort = ' ASC';
@@ -114,22 +116,28 @@ class Digest {
       return false;
     }
 
-    // limit results?
-    if ($limit) {
-      $limit = ' LIMIT ' . $limit;
+    // use specified filter?
+    if ($filter) {
+      $filter = ' AND ' . Db::createFilter($table, $filter) . ' ';
+
+    } else {
+      // only get published?
+      if ($onlyPublished) {
+        $filter = ' AND published = 1 ';
+      } else {
+        $filter = null;
+      }
     }
 
-    // only get published?
-    if ($onlyPublished) {
-      $published = ' AND published = 1 ';
-    } else {
-      $published = null;;
+    // limit results?
+    if ($limit) {
+      $limit = ' LIMIT ' . intval($limit);
     }
 
     // get data
-    $q = mysql_query('SELECT * FROM digests
-                      WHERE type = "' . $type . '"' .
-                      $published .
+    $q = mysql_query('SELECT * FROM ' . $table . ' ' .
+                     'WHERE type = "' . $type . '"' .
+                      $filter .
                      'ORDER BY date' . $sort . $limit) or trigger_error(sprintf(_('Query failed: %s'), mysql_error()));
 
     $digests = array();

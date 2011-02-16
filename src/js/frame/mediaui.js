@@ -17,6 +17,34 @@ function addMedia() {
 }
 
 
+function changeNewMediaType(event) {	
+	var element  = event.element();
+	var selected = element.options[element.selectedIndex].value;
+
+  // change elements
+  if (selected == 'image') {
+    // icon
+  	$('new-icon').addClassName('image');
+  	$('new-icon').removeClassName('video');
+
+    $('new-name').hide();
+    $('new-youtube').hide();
+
+  	$('new-caption').show();
+
+  } else if (selected == 'video') {
+  	// icon
+    $('new-icon').addClassName('video');
+    $('new-icon').removeClassName('image');
+
+    $('new-caption').hide();
+
+    $('new-name').show();
+    $('new-youtube').show();
+  }
+}
+
+
 function changeMediaDate(theDate, theNumber) {
   if ((typeof theDate != 'string') || (typeof theNumber != 'number')) {
     return false;

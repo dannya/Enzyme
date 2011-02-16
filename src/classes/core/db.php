@@ -343,7 +343,7 @@ class Db {
   }
 
 
-  private static function createFilter($table, $filter) {
+  public static function createFilter($table, $filter) {
     // load all?
     if ($filter === false) {
       return '1';
