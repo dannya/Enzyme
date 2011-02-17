@@ -94,11 +94,11 @@ if (($_REQUEST['dataType'] == 'name') ||
 
     if (!is_dir($newBaseLocation)) {
       // create media directory
-      echo 'mk';
+      mkdir($newBaseLocation, 0777);
     }
     if (!is_writable($newBaseLocation)) {
       // make writable
-      echo 'w';
+      chmod($newBaseLocation, 0777);
     }
 
     // move file
@@ -111,12 +111,14 @@ if (($_REQUEST['dataType'] == 'name') ||
 
 
   // change date
+  $table  = 'digest_intro_media';
   $values = array('date'    => $_REQUEST['data'],
-                  'file'    => $newFileLocation);
+                  'file'    => $newFileLocation,
+                  'number'  => Db::count($table, array('date' => $_REQUEST['data'])) + 1);
 
 
   // save change
-  $json['success'] = Db::save('digest_intro_media', $filter, $values);
+  $json['success'] = Db::save($table, $filter, $values);
 }
 
 

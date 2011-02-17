@@ -14,6 +14,36 @@
 
 
 function addMedia() {
+	if ($('add-media-form')) {
+		$('add-media-form').toggle();
+	}
+}
+
+
+function addMediaForm(event) {
+  // set elements to check depending on media type
+  var selected = $('new-type').options[$('new-type').selectedIndex].value;
+
+  if (selected == 'image') {
+  	var fields = ['new-caption', 'new-file'];
+
+  } else if (selected == 'video') {
+    var fields = ['new-name', 'new-youtube', 'new-file'];
+  }
+  
+
+  // check that all fields are filled
+  fields.each(function(field) {
+    if ($(field) && ($(field).value.empty() || ($(field).value == $(field).readAttribute('alt')))) {
+      // add error class
+      $(field).addClassName('failure');
+
+      // stop form submit
+      if (typeof event != 'undefined') {
+        Event.stop(event);
+      }
+    }
+  });
 }
 
 
@@ -51,10 +81,10 @@ function changeMediaDate(theDate, theNumber) {
   }
 
   // get new date
-  var newDate = prompt('Boo', theDate);
+  var newDate = prompt(strings.change_date, theDate);
 
   // change date?
-  if ((newDate != theDate) && (newDate.length == 10)) {
+  if (newDate && (newDate != theDate) && (newDate.length == 10)) {
 	  new Ajax.Request(BASE_URL + '/get/change-media.php', {
 	    method: 'post',
 	    parameters: {

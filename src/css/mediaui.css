@@ -130,6 +130,7 @@ div.preview-container div.img span {
 }
 
 
+div.preview-container div.image,
 div.preview-container div.video {
   margin:30px 0 10px;
   text-align:center;
@@ -137,6 +138,7 @@ div.preview-container div.video {
 div.preview-container div.video div.v {
   height:350px;
 }
+div.preview-container div.image div.link,
 div.preview-container div.video div.link {
   margin-top:12px;
 }

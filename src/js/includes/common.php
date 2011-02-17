@@ -21,41 +21,43 @@ var scrollFinished  = false;
 // define translatable strings
 var strings  = {};
 
-strings.failure                 = '<?php echo _("Error") ?>';
-strings.close                   = '<?php echo _("Close") ?>';
-strings.loading                 = '<?php echo _("Loading") ?>';
-strings.cancel                  = '<?php echo _("Cancel") ?>';
+strings.failure                 = '<?php echo _("Error"); ?>';
+strings.close                   = '<?php echo _("Close"); ?>';
+strings.loading                 = '<?php echo _("Loading"); ?>';
+strings.cancel                  = '<?php echo _("Cancel"); ?>';
 
-strings.change_password_success = '<?php echo _("Your password has been changed") ?>';
-strings.change_password_failure = '<?php echo _("Error: Password not changed") ?>';
+strings.change_password_success = '<?php echo _("Your password has been changed"); ?>';
+strings.change_password_failure = '<?php echo _("Error: Password not changed"); ?>';
 
-strings.change_personal_success = '<?php echo _("Your information has been changed") ?>';
-strings.change_personal_failure = '<?php echo _("Error: Personal information not changed") ?>';
+strings.change_personal_success = '<?php echo _("Your information has been changed"); ?>';
+strings.change_personal_failure = '<?php echo _("Error: Personal information not changed"); ?>';
 
-strings.application_failure     = '<?php echo _("Error: Application failed") ?>';
+strings.application_failure     = '<?php echo _("Error: Application failed"); ?>';
 
-strings.settings_failure        = '<?php echo _("Failed to save settings") ?>';
+strings.settings_failure        = '<?php echo _("Failed to save settings"); ?>';
 
-strings.reset_success           = '<?php echo _("Your password has been reset. Please check your registered email account for further instructions.") ?>';
+strings.reset_success           = '<?php echo _("Your password has been reset. Please check your registered email account for further instructions."); ?>';
 
-strings.people_references       = '<?php echo _("People References") ?>';
-strings.feature_articles        = '<?php echo _("Available Feature Articles") ?>';
-strings.dot_blurb               = '<?php echo _("Dot Synopsis") ?>';
+strings.people_references       = '<?php echo _("People References"); ?>';
+strings.feature_articles        = '<?php echo _("Available Feature Articles"); ?>';
+strings.dot_blurb               = '<?php echo _("Dot Synopsis"); ?>';
 
-strings.change_section_num      = '<?php echo _("What number should this section be?") ?>';
-strings.delete_section          = '<?php echo _("Are you sure you want to permanently delete this?") ?>';
+strings.change_section_num      = '<?php echo _("What number should this section be?"); ?>';
+strings.delete_section          = '<?php echo _("Are you sure you want to permanently delete this?"); ?>';
 
-strings.num_commits_singular    = '<?php echo _("There is %d selection this week") ?>';
-strings.num_commits_plural      = '<?php echo _("There are %d selections this week") ?>';
+strings.num_commits_singular    = '<?php echo _("There is %d selection this week"); ?>';
+strings.num_commits_plural      = '<?php echo _("There are %d selections this week"); ?>';
 
-strings.num_filters_plural      = '<?php echo _("%d filters") ?>';
-strings.num_links_plural        = '<?php echo _("%d links") ?>';
+strings.num_filters_plural      = '<?php echo _("%d filters"); ?>';
+strings.num_links_plural        = '<?php echo _("%d links"); ?>';
 
-strings.remove_commit           = '<?php echo _("Are you sure you want to remove this commit?") ?>';
-strings.remove_commits          = '<?php echo _("Remove the %d selected commits?") ?>';
+strings.remove_commit           = '<?php echo _("Are you sure you want to remove this commit?"); ?>';
+strings.remove_commits          = '<?php echo _("Remove the %d selected commits?"); ?>';
 
-strings.button_user             = '<?php echo _("Make this user inactive?") ?>';
-strings.button_repo             = '<?php echo _("Delete repository?") ?>';
+strings.button_user             = '<?php echo _("Make this user inactive?"); ?>';
+strings.button_repo             = '<?php echo _("Delete repository?"); ?>';
+
+strings.change_date             = '<?php echo _("Change the date?"); ?>';
 
 
 function sprintf() {

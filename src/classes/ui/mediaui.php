@@ -23,6 +23,13 @@ class MediaUi extends BaseUi {
 
 
   public function __construct($user) {
+    // check if we need to process a media upload submission
+    if (isset($_REQUEST['upload'])) {
+      echo 'sd';
+      exit;
+      //return false;
+    }
+
     $this->user               = $user;
 
     // set title
@@ -87,24 +94,25 @@ class MediaUi extends BaseUi {
 
 
     // draw new media form
-    $buf  .= '<div id="add-media-form" class="clearfix">
-                <form action="" method="post">
+    $buf  .= '<div id="add-media-form" class="clearfix" style="display:none;">
+                <form enctype="multipart/form-data" method="post" action="' . BASE_URL . '/get/upload-media.php?upload" target="uploadTarget">
                   <div id="media_new" class="media-item media-item-new">
                     <span id="new-icon" class="image">&nbsp;</span>' .
                     Ui::htmlSelector('new-type', Media::getTypes(), null, "changeNewMediaType(event);") .
                     Ui::htmlSelector('new-date', $this->dates) .
 
-             '      <input id="new-caption" type="text" class="prompt" name="caption" value="' . _('Caption') . '" onfocus="inputPrompt(event);" onblur="inputPrompt(event);" />
+             '      <input id="new-caption" type="text" class="prompt" name="caption" value="' . _('Caption') . '" alt="' . _('Caption') . '" onfocus="inputPrompt(event);" onblur="inputPrompt(event);" />
 
-                    <input id="new-name" style="display:none;" type="text" class="prompt" name="name" value="' . _('Name') . '" onfocus="inputPrompt(event);" onblur="inputPrompt(event);" />
-                    <input id="new-youtube" style="display:none;" type="text" class="media-item-youtube prompt" name="youtube" value="' . _('Youtube') . '" onfocus="inputPrompt(event);" onblur="inputPrompt(event);" />
+                    <input id="new-name" style="display:none;" type="text" class="prompt" name="name" value="' . _('Name') . '" alt="' . _('Name') . '" onfocus="inputPrompt(event);" onblur="inputPrompt(event);" />
+                    <input id="new-youtube" style="display:none;" type="text" class="media-item-youtube prompt" name="youtube" value="' . _('Youtube') . '" alt="' . _('Youtube') . '" onfocus="inputPrompt(event);" onblur="inputPrompt(event);" />
 
                     <span class="media-item-file">file</span>
-                    <input type="file" />
+                    <input id="new-file" type="file" name="new-file" size="28" />
 
-                    <input type="submit" value="' . _('Add') . '" title="' . _('Add') . '" onclick="addMediaForm();" />
+                    <iframe id="uploadTarget" name="uploadTarget" src="" style="display:none;"></iframe>
+
+                    <input type="submit" value="' . _('Add') . '" title="' . _('Add') . '" onclick="addMediaForm(event);" />
                   </div>
-
                 </form>
               </div>';
 
@@ -122,6 +130,9 @@ class MediaUi extends BaseUi {
 
                   <div>';
 
+      // sort by number
+      usort($mediaOnDate, 'self::sortMediaByNumber');
+
       foreach ($mediaOnDate as $media) {
         // create file link "breadcrumb"
         $fileLink = Media::makeClickable($media);
@@ -130,9 +141,13 @@ class MediaUi extends BaseUi {
         $buf  .= '  <div id="media_' . $media['date'] . '_' . $media['number'] . '" class="media-item">
                       <span class="' . $media['type'] . '">&nbsp;</span>
                       <input type="text" class="media-item-number" value="' . $media['number'] . '" name="number" onchange="saveChange(\'' . $media['date'] . '\', ' . $media['number'] . ', event);" />
-                      <input type="text" class="media-item-name" value="' . $media['name'] . '" name="name" onchange="saveChange(\'' . $media['date'] . '\', ' . $media['number'] . ', event);" />
-                      <input type="text" class="media-item-youtube" value="' . $media['youtube'] . '" name="youtube" onchange="saveChange(\'' . $media['date'] . '\', ' . $media['number'] . ', event);" />
-                      <span class="media-item-file">' . $fileLink . '</span>
+                      <input type="text" class="media-item-name" value="' . $media['name'] . '" name="name" onchange="saveChange(\'' . $media['date'] . '\', ' . $media['number'] . ', event);" />';
+
+        if ($media['type'] == 'video') {
+          $buf  .= '  <input type="text" class="media-item-youtube" value="' . $media['youtube'] . '" name="youtube" onchange="saveChange(\'' . $media['date'] . '\', ' . $media['number'] . ', event);" />';
+        }
+
+        $buf  .= '    <span class="media-item-file">' . $fileLink . '</span>
 
                       <input id="media_' . $media['date'] . '_' . $media['number'] . '-close-preview" style="display:none;" type="button" value="' . _('Close preview') . '" onclick="previewMedia(\'' . $media['date'] . '\', ' . $media['number'] . ')" />
                       <input id="media_' . $media['date'] . '_' . $media['number'] . '-preview" type="button" value="' . _('Preview') . '" onclick="previewMedia(\'' . $media['date'] . '\', ' . $media['number'] . ')" />
@@ -146,6 +161,11 @@ class MediaUi extends BaseUi {
     $buf  .= '</div>';
 
     return $buf;
+  }
+
+
+  private static function sortMediaByNumber($a, $b) {
+    return ($a['number'] > $b['number']);
   }
 }
 
