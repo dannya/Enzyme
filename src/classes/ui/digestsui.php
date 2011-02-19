@@ -52,8 +52,14 @@ class DigestsUi extends BaseUi {
       // load digest data
       $this->data = Digest::loadDigest(trim(str_replace('digests/', null, $_REQUEST['digest']), '/'));
 
-      // draw issue management UI
-      return $this->drawManagement();
+      if (!$this->data) {
+        // issue not found
+        return _('Issue not found');
+
+      } else {
+        // draw issue management UI
+        return $this->drawManagement();
+      }
     }
   }
 
