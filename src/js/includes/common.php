@@ -54,6 +54,8 @@ strings.num_links_plural        = '<?php echo _("%d links"); ?>';
 strings.remove_commit           = '<?php echo _("Are you sure you want to remove this commit?"); ?>';
 strings.remove_commits          = '<?php echo _("Remove the %d selected commits?"); ?>';
 
+strings.delete_stats            = '<?php echo _("Are you sure you want to delete these statistics?"); ?>';
+
 strings.button_user             = '<?php echo _("Make this user inactive?"); ?>';
 strings.button_repo             = '<?php echo _("Delete repository?"); ?>';
 

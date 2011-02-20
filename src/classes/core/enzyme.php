@@ -865,6 +865,27 @@ class Enzyme {
   }
 
 
+  public static function deleteStats($date) {
+    // set delete filter to provided date
+    $filter   = array('date' => $date);
+
+    // perform delete on neccessary tables
+    $tables   = array('digest_stats',
+                      'digest_stats_bugfixers',
+                      'digest_stats_buzz',
+                      'digest_stats_developers',
+                      'digest_stats_extended',
+                      'digest_stats_i18n',
+                      'digest_stats_modules');
+
+    foreach ($tables as $table) {
+      Db::delete($table, $filter);
+    }
+
+    return true;
+  }
+
+
   public static function processExtendedStats($date, array $stats, array $revision) {
     // process / insert people stats
     foreach ($stats['person'] as $person => $data) {

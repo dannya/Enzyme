@@ -604,9 +604,9 @@ function generateStats(start, end) {
   }
 
   if ($('results')) {
-    $('results').src = BASE_URL + '/get/statistics.php?start=' + start + '&end=' + end;
+    $('results').src = BASE_URL + '/get/statistics.php?context=insert&start=' + start + '&end=' + end;
   }
-  
+
   // change buttons
   if ($('generate-stats') && $('delete-stats')) {
     $('generate-stats').hide();
@@ -616,19 +616,27 @@ function generateStats(start, end) {
 
 
 function deleteStats(theDate) {
-  if ((typeof theDate == 'undefined')) {
+  if ((typeof theDate == 'undefined') || !confirm(strings.delete_stats)) {
     return false;
   }
 
-  // alert
-  alert(theDate);
-  return
 
-  // change buttons
-  if ($('generate-stats') && $('delete-stats')) {
-  	$('delete-stats').hide();
-    $('generate-stats').show();
-  }
+  // send off delete request
+  new Ajax.Request(BASE_URL + '/get/statistics.php', {
+    method: 'post',
+    parameters: {
+      'context':  'delete',
+      'date':     theDate
+    },
+    onSuccess: function(transport) {
+      var result = transport.headerJSON;
+
+      if ((typeof result.success != 'undefined') && result.success) {
+			  // reload
+			  location.reload(true);
+      }
+    }
+  });
 }
 
 

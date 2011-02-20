@@ -18,14 +18,34 @@
 include($_SERVER['DOCUMENT_ROOT'] . '/autoload.php');
 
 
+$insert = false;
+$delete = false;
+
+
 // ensure needed params are set
-if (!isset($_REQUEST['start'])) {
-  echo _('Please enter the start date!');
+if (empty($_REQUEST['context'])) {
   exit;
-}
-if (!isset($_REQUEST['end'])) {
-  echo _('Please enter the end date!');
-  exit;
+
+} else {
+  if ($_REQUEST['context'] == 'insert') {
+    $insert = true;
+
+    if (!isset($_REQUEST['start'])) {
+      echo _('Please enter the start date!');
+      exit;
+    }
+    if (!isset($_REQUEST['end'])) {
+      echo _('Please enter the end date!');
+      exit;
+    }
+
+  } else if ($_REQUEST['context'] == 'delete') {
+    $delete = true;
+
+    if (!isset($_REQUEST['date'])) {
+      App::returnHeaderJson(true, array('missing' => true));
+    }
+  }
 }
 
 
@@ -38,20 +58,40 @@ if (empty($user->auth)) {
 }
 
 
+// check permissions
+if (!$user->hasPermission('editor')) {
+  if ($insert) {
+    echo sprintf(_('You need to have the permission "%s" to view this section'), 'editor');
+
+  } else if ($delete) {
+    App::returnHeaderJson(true, array('permission' => false));
+  }
+
+  exit;
+}
+
+
 ob_start();
 
 
-// draw html page start
-echo Ui::drawHtmlPageStart(null, array('/css/common.css'), array('/js/prototype.js'));
+if ($insert) {
+  // draw html page start
+  echo Ui::drawHtmlPageStart(null, array('/css/common.css'), array('/js/prototype.js'));
 
 
-// do insert
-Enzyme::generateStatsFromDb($_REQUEST['start'], $_REQUEST['end']);
-//Enzyme::generateStatsFromSvn($_REQUEST['start'], $_REQUEST['end'], 'kde-svn');
+  // do insert
+  Enzyme::generateStatsFromDb($_REQUEST['start'], $_REQUEST['end']);
+  //Enzyme::generateStatsFromSvn($_REQUEST['start'], $_REQUEST['end'], 'kde-svn');
 
 
-// draw html page end
-echo Ui::drawHtmlPageEnd();
+  // draw html page end
+  echo Ui::drawHtmlPageEnd();
 
+} else if ($delete) {
+  $json['success'] = Enzyme::deleteStats($_REQUEST['date']);
+
+  // report success
+  App::returnHeaderJson();
+}
 
 ?>
