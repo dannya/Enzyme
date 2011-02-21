@@ -207,13 +207,13 @@ function insertFromFeatures(theDate) {
   }
 
   // load in lightbox
-  myLightWindow.activateWindow({
+  lightbox.activateWindow({
     href:    BASE_URL + '/get/feature-articles.php?date=' + theDate, 
     title:   strings.feature_articles,
     width:   500,
     height:  500
   });
-  
+
   return false;
 }
 
@@ -258,7 +258,7 @@ function insertFeature(theDate, itemNum, targetDate) {
 
       if ((typeof result.success != 'undefined') && result.success) {
 			  // close lightbox, reload page to show inserted article
-			  myLightWindow.deactivate();
+			  lightbox.deactivate();
 			  location.reload(true);
 
       } else {
@@ -280,7 +280,7 @@ function peopleReferences(theDate) {
 	}
 
 	// load in lightbox
-	myLightWindow.activateWindow({
+	lightbox.activateWindow({
 	  href:    BASE_URL + '/get/people-references.php?date=' + theDate, 
 	  title:   strings.people_references,
 	  width:   500,
@@ -297,7 +297,7 @@ function dotBlurb(theDate) {
   }
 
   // load in lightbox
-  myLightWindow.activateWindow({
+  lightbox.activateWindow({
     href:    BASE_URL + '/get/dot-blurb.php?date=' + theDate, 
     title:   strings.dot_blurb,
     width:   500,

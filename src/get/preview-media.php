@@ -37,6 +37,15 @@ App::returnHeaderJson(false, array('success' => true));
 
 
 // draw media preview HTML
-echo Media::draw($media);
+$buf = Media::draw($media);
+
+if (!empty($_REQUEST['mode']) && ($_REQUEST['mode'] == 'lightbox')) {
+  echo '<div class="preview-container">' .
+          $buf .
+       '</div>';
+
+} else {
+  echo $buf;
+}
 
 ?>

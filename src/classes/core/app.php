@@ -336,6 +336,20 @@ class App {
                    'rawVersion'   => $matches['version'][$i]);
     }
   }
+
+
+  public static function getExtension($filename) {
+    $tmp = explode('.', $filename);
+    return strtolower(end($tmp));
+  }
+
+
+  public static function stripExtension($filename) {
+    $tmp = explode('.', $filename);
+    array_pop($tmp);
+
+    return implode('.', $tmp);
+  }
 }
 
 ?>

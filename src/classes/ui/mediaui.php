@@ -23,13 +23,6 @@ class MediaUi extends BaseUi {
 
 
   public function __construct($user) {
-    // check if we need to process a media upload submission
-    if (isset($_REQUEST['upload'])) {
-      echo 'sd';
-      exit;
-      //return false;
-    }
-
     $this->user               = $user;
 
     // set title
@@ -138,20 +131,7 @@ class MediaUi extends BaseUi {
         $fileLink = Media::makeClickable($media);
 
         // draw
-        $buf  .= '  <div id="media_' . $media['date'] . '_' . $media['number'] . '" class="media-item">
-                      <span class="' . $media['type'] . '">&nbsp;</span>
-                      <input type="text" class="media-item-number" value="' . $media['number'] . '" name="number" onchange="saveChange(\'' . $media['date'] . '\', ' . $media['number'] . ', event);" />
-                      <input type="text" class="media-item-name" value="' . $media['name'] . '" name="name" onchange="saveChange(\'' . $media['date'] . '\', ' . $media['number'] . ', event);" />';
-
-        if ($media['type'] == 'video') {
-          $buf  .= '  <input type="text" class="media-item-youtube" value="' . $media['youtube'] . '" name="youtube" onchange="saveChange(\'' . $media['date'] . '\', ' . $media['number'] . ', event);" />';
-        }
-
-        $buf  .= '    <span class="media-item-file">' . $fileLink . '</span>
-
-                      <input id="media_' . $media['date'] . '_' . $media['number'] . '-close-preview" style="display:none;" type="button" value="' . _('Close preview') . '" onclick="previewMedia(\'' . $media['date'] . '\', ' . $media['number'] . ')" />
-                      <input id="media_' . $media['date'] . '_' . $media['number'] . '-preview" type="button" value="' . _('Preview') . '" onclick="previewMedia(\'' . $media['date'] . '\', ' . $media['number'] . ')" />
-                    </div>';
+        $buf  .= Media::drawItem($media, true);
       }
 
       $buf  .= '  </div>

@@ -19,7 +19,12 @@ class FeaturesUi extends BaseUi {
   public $id                    = 'features';
 
   private $dates                = array();
+
   private $features             = array();
+  private $featureDates         = array();
+
+  private $featureMedia         = array();
+
   private $featureEditors       = array();
   private $availableStatuses    = array();
 
@@ -35,6 +40,10 @@ class FeaturesUi extends BaseUi {
 
     // get available features
     $this->features           = Digest::loadDigestFeatures();
+    $this->featureDates       = array_unique(array_keys(Db::reindex($this->features, 'date')));
+
+    // get media for available features
+    $this->featureMedia       = Media::load($this->featureDates, true);
 
     // get available feature editors
     $this->featureEditors     = Digest::getUsersByPermission('feature-editor');
@@ -66,12 +75,14 @@ class FeaturesUi extends BaseUi {
 
 
   public function getScript() {
-    return array('/js/frame/featuresui.js');
+    return array('/js/lightwindow.js',
+                 '/js/frame/featuresui.js');
   }
 
 
   public function getStyle() {
-    return array('/css/featuresui.css');
+    return array('/css/lightwindow.css',
+                 '/css/featuresui.css');
   }
 
 
@@ -169,13 +180,33 @@ class FeaturesUi extends BaseUi {
                   <div class="feature-body">
                     <textarea id="intro_' . $feature['date'] . '_' . $feature['number'] . '" class="intro-message" rows="' . $numIntroRows . '">' . $feature['intro'] . '</textarea>
                     <textarea id="body_' . $feature['date'] . '_' . $feature['number'] . '" class="body" rows="' . $numBodyRows . '">' . $feature['body'] . '</textarea>
-                  </div>
+                  </div>' .
 
-                  <div class="feature-save">
+                  $this->drawMedia($feature['date']) .
+
+               '  <div class="feature-save">
                     <input type="button" value="' . _('Save changes') .'" title="' . _('Save changes') .'" onclick="saveChanges(\'' . $feature['date'] . '\', ' . $feature['number'] . ');" />' .
                     Ui::drawIndicator('feature-' . $feature['number']) .
                '  </div>
                 </div>';
+    }
+
+    $buf  .= '</div>';
+
+    return $buf;
+  }
+
+
+  private function drawMedia($theDate) {
+    if (!isset($this->featureMedia[$theDate])) {
+      return false;
+    }
+
+    // draw
+    $buf   = '<div class="feature-media">';
+
+    foreach ($this->featureMedia[$theDate] as $media) {
+      $buf  .= Media::drawItem($media, false);
     }
 
     $buf  .= '</div>';

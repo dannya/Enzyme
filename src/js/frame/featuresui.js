@@ -202,3 +202,32 @@ function saveChanges(theDate, itemNum) {
     }
   });
 }
+
+
+function previewMedia(theDate, theNumber) {
+  if ((typeof theDate != 'string') || (typeof theNumber != 'number')) {
+    return false;
+  }
+
+
+  // if preview already in place, remove and switch buttons
+  if (false && $('media_' + theDate).down('div').down('div.preview-container-' + theNumber)) {
+    // remove preview
+    $('media_' + theDate).down('div').down('div.preview-container-' + theNumber).remove();
+
+    // switch buttons
+    $('media_' + theDate + '_' + theNumber + '-preview').toggle();
+    $('media_' + theDate + '_' + theNumber + '-close-preview').toggle();
+
+    return;
+  }
+  
+  
+  // load in lightbox
+  lightbox.activateWindow({
+    href:    BASE_URL + '/get/preview-media.php?mode=lightbox&date=' + theDate + '&number=' + theNumber, 
+    title:   'Preview',
+    width:   500,
+    height:  500
+  });
+}

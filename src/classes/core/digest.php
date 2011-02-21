@@ -217,10 +217,22 @@ class Digest {
     }
 
 
-    // load digest issue video references
-    $q = mysql_query('SELECT number, name, file, youtube
+      // load digest issue image references
+    $q = mysql_query('SELECT type, number, name, file, thumbnail
                       FROM digest_intro_media
-                      WHERE date = \'' . $date . '\'') or trigger_error(sprintf(_('Query failed: %s'), mysql_error()));
+                      WHERE type = \'image\'
+                      AND date = \'' . $date . '\'') or trigger_error(sprintf(_('Query failed: %s'), mysql_error()));
+
+    while ($row = mysql_fetch_assoc($q)) {
+      $digest['image'][$row['number']] = $row;
+    }
+
+
+    // load digest issue video references
+    $q = mysql_query('SELECT type, number, name, file, youtube
+                      FROM digest_intro_media
+                      WHERE type = \'video\'
+                      AND date = \'' . $date . '\'') or trigger_error(sprintf(_('Query failed: %s'), mysql_error()));
 
     while ($row = mysql_fetch_assoc($q)) {
       $digest['video'][$row['number']] = $row;

@@ -61,13 +61,34 @@ div.feature-body textarea {
 }
 
 
-div.feature-save {
-  height:30px;
-  margin:10px 0 0 0;
+div.feature-media {
+  display:inline-block;
+  margin:10px 144px 0 0;
 }
 
-div.feature-save input {
+div.feature-media div.media-item {
+  height:30px;
+}
+
+div.feature-media div.media-item span {
+  margin:4px 6px 0 0;
+}
+
+div.feature-media div.media-item input.tag {
+  width:90px;
+  margin:0 6px 0 0;
+  font-weight:bold;
+}
+
+div.feature-media div.media-item span.name {
+  margin:0 22px 0 0;
+}
+
+
+div.feature-save {
   float:right;
+  height:30px;
+  margin:10px 0 0 0;
 }
 
 

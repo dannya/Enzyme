@@ -205,7 +205,7 @@ lightwindow.prototype = {
 						'</div>',	
 				loading : 	'<div id="lightwindow_loading" >'+
 								'<img src="' + BASE_URL + '/img/spinner.gif" alt="loading" />'+
-								'<span>' + strings.loading + ' / <a href="javascript: myLightWindow.deactivate();">' + strings.cancel + '</a></span>'+
+								'<span>' + strings.loading + ' / <a href="javascript: lightbox.deactivate();">' + strings.cancel + '</a></span>'+
 								'<iframe name="lightwindow_loading_shim" id="lightwindow_loading_shim" src="javascript:false;" frameBorder="0" scrolling="no"></iframe>'+
 							'</div>',
 				iframe : 	'<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">'+
@@ -1915,7 +1915,7 @@ Event.observe(window, 'load', lightwindowInit, false);
 //
 //	Set up all of our links
 //
-var myLightWindow = null;
+var lightbox = null;
 function lightwindowInit() {
-	myLightWindow = new lightwindow();
+	lightbox = new lightwindow();
 }

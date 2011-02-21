@@ -22,6 +22,9 @@ class Media {
   private $file       = false;
   private $filename   = false;
 
+  private static $max = array('width'   => 550,
+                              'height'  => 600);
+
   private $allowed    = array('image' => array('png'   => 1,
                                                'gif'   => 1,
                                                'jpg'   => 1),
@@ -42,9 +45,7 @@ class Media {
     // check files
     foreach ($_FILES as $file) {
       // get file extension
-      $this->ext        = explode('.', $file['name']);
-      $this->ext        = strtolower(end($this->ext));
-
+      $this->ext        = App::getExtension($file['name']);
       $this->file       = $file['tmp_name'];
       $this->filename   = $file['name'];
 
@@ -70,6 +71,7 @@ class Media {
     $newFile['extension']   = $this->ext;
     $newFile['filename']    = $this->filename;
     $newFile['file']        = $uploadDir . $this->filename;
+    $newFile['thumbnail']   = null;
 
 
     // ensure target directory is available and writable
@@ -89,11 +91,82 @@ class Media {
     $success = move_uploaded_file($this->file, $uploadDir . $newFile['filename']);
 
     if ($success) {
+      // create thumbnail?
+      if ($thumbnail = $this->resize($newFile['file'])) {
+        $newFile['thumbnail'] = $thumbnail;
+      }
+
+      // return details
       return $newFile;
 
     } else {
       return false;
     }
+  }
+
+
+  private static function resize($originalImage) {
+    // do we need to resize?
+    list($width, $height) = getimagesize(DIGEST_BASE_DIR . $originalImage);
+
+    if (($width <= self::$max['width']) && ($height <= self::$max['height'])) {
+      // don't resize
+      return false;
+    }
+
+
+    // resize...
+    $xscale = $width / self::$max['width'];
+    $yscale = $height / self::$max['height'];
+
+    if ($yscale > $xscale) {
+        $newWidth = round($width * (1 / $yscale));
+        $newHeight = round($height * (1 / $yscale));
+
+    } else {
+        $newWidth = round($width * (1 / $xscale));
+        $newHeight = round($height * (1 / $xscale));
+    }
+
+
+    // get extension
+    $ext          = App::getExtension($originalImage);
+
+
+    // initialise image
+    $imageResized = imagecreatetruecolor($newWidth, $newHeight);
+
+    if ($ext == 'png') {
+      $imageTmp   = imagecreatefrompng(DIGEST_BASE_DIR . $originalImage);
+    } else if ($ext == 'gif') {
+      $imageTmp   = imagecreatefromgif(DIGEST_BASE_DIR . $originalImage);
+    } else if (($ext == 'jpg') || ($ext == 'jpeg')) {
+      $imageTmp   = imagecreatefromjpeg(DIGEST_BASE_DIR . $originalImage);
+
+    } else {
+      // unknown file type
+      return false;
+    }
+
+
+    // do resize
+    imagecopyresampled($imageResized, $imageTmp, 0, 0, 0, 0, $newWidth, $newHeight, $width, $height);
+
+
+    // save resized image
+    $outputPath = App::stripExtension($originalImage) . '_thumb.' . $ext;
+
+    if ($ext == 'gif') {
+      imagegif($imageResized, DIGEST_BASE_DIR . $outputPath);
+    } else if ($ext == 'png') {
+      imagepng($imageResized, DIGEST_BASE_DIR . $outputPath, 95);
+    } else if (($ext == 'jpg') || ($ext == 'jpeg')) {
+      imagejpeg($imageResized, DIGEST_BASE_DIR . $outputPath, 95);
+    }
+
+
+    // return path of resized image
+    return $outputPath;
   }
 
 
@@ -137,8 +210,18 @@ class Media {
     $buf = null;
 
     if ($media['type'] == 'image') {
-      $buf   = '<div class="image">
-                  <img src="' . DIGEST_URL . $media['file'] . '" alt="" />' .
+      // show thumbnail and link to larger image?
+      if (!empty($media['thumbnail'])) {
+        $image = '<a href="' . DIGEST_URL . $media['file'] . '" target="_blank">
+                    <img src="' . DIGEST_URL . $media['thumbnail'] . '" alt="" />
+                  </a>';
+
+      } else {
+        $image = '<img src="' . DIGEST_URL . $media['file'] . '" alt="" />';
+      }
+
+      $buf   = '<div class="img">' .
+                  $image .
                   $link .
                '</div>';
 
@@ -156,6 +239,55 @@ class Media {
     }
 
     return $buf;
+  }
+
+
+  public static function drawItem($media, $edit = false) {
+    $fileLink = self::makeClickable($media);
+
+    // draw
+    if ($edit) {
+      // editable
+      $buf   = '  <div id="media_' . $media['date'] . '_' . $media['number'] . '" class="media-item">
+                    <span class="' . $media['type'] . '">&nbsp;</span>
+                    <input type="text" class="media-item-number" value="' . $media['number'] . '" name="number" onchange="saveChange(\'' . $media['date'] . '\', ' . $media['number'] . ', event);" />
+                    <input type="text" class="media-item-name" value="' . $media['name'] . '" name="name" onchange="saveChange(\'' . $media['date'] . '\', ' . $media['number'] . ', event);" />';
+
+      if ($media['type'] == 'video') {
+        $buf  .= '  <input type="text" class="media-item-youtube" value="' . $media['youtube'] . '" name="youtube" onchange="saveChange(\'' . $media['date'] . '\', ' . $media['number'] . ', event);" />';
+      }
+
+      $buf  .= '    <span class="media-item-file">' . $fileLink . '</span>
+
+                    <input id="media_' . $media['date'] . '_' . $media['number'] . '-close-preview" style="display:none;" type="button" value="' . _('Close preview') . '" onclick="previewMedia(\'' . $media['date'] . '\', ' . $media['number'] . ')" />
+                    <input id="media_' . $media['date'] . '_' . $media['number'] . '-preview" type="button" value="' . _('Preview') . '" onclick="previewMedia(\'' . $media['date'] . '\', ' . $media['number'] . ')" />
+                  </div>';
+    } else {
+      // display
+      $buf   = '  <div id="media_' . $media['date'] . '_' . $media['number'] . '" class="media-item">
+                    <span class="' . $media['type'] . '">&nbsp;</span>
+                    <input type="text" class="tag" value="[' . $media['type'] . $media['number'] . ']" />
+                    <span class="name">' . $media['name'] . '</span>
+
+                    <input id="media_' . $media['date'] . '_' . $media['number'] . '-close-preview" style="display:none;" type="button" value="' . _('Close preview') . '" onclick="previewMedia(\'' . $media['date'] . '\', ' . $media['number'] . ')" />
+                    <input id="media_' . $media['date'] . '_' . $media['number'] . '-preview" type="button" value="' . _('Preview') . '" onclick="previewMedia(\'' . $media['date'] . '\', ' . $media['number'] . ')" />
+                  </div>';
+    }
+
+    return $buf;
+  }
+
+
+  public static function load($date, $reindex = false) {
+    // $date can be single date string, or array of date strings
+    $media = Db::load('digest_intro_media', array('date' => $date));
+
+    // renindex
+    if ($reindex) {
+      $media = Db::reindex($media, 'date', false, false);
+    }
+
+    return $media;
   }
 
 
