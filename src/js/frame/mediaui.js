@@ -114,6 +114,48 @@ function changeMediaDate(theDate, theNumber) {
 }
 
 
+function changeMediaFilename(theDate, theNumber, theFilename) {
+  if ((typeof theDate != 'string') || (typeof theNumber != 'number') || (typeof theFilename != 'string')) {
+    return false;
+  }
+
+  // get new date
+  var newFilename = prompt(strings.change_filename, theFilename);
+
+  // change date?
+  if (newFilename && (newFilename != theFilename) && (newFilename.length > 6)) {
+    new Ajax.Request(BASE_URL + '/get/change-media.php', {
+      method: 'post',
+      parameters: {
+        date:      theDate,
+        number:    theNumber,
+        data:      newFilename,
+        dataType:  'filename'
+      },
+      onSuccess: function(transport) {
+        var result = transport.headerJSON;
+  
+        if ((typeof result.success != 'undefined') && result.success) {
+          // insert new filename into box, change clickable action
+          if ($('media-filename-' + theDate + '-' + theNumber)) {
+            $('media-filename-' + theDate + '-' + theNumber).update(newFilename);
+            $('media-filename-' + theDate + '-' + theNumber).writeAttribute('onclick', "changeMediaFilename('" + theDate + "', " + theNumber + ", '" + newFilename + "');");
+          }
+  
+        } else {
+          // failure
+          if (typeof strings.failure == 'string') {
+            alert(strings.failure);
+          } else {
+            alert('Error');
+          }
+        }
+      }
+    });
+  }
+}
+
+
 function previewMedia(theDate, theNumber) {
 	if ((typeof theDate != 'string') || (typeof theNumber != 'number')) {
 		return false;

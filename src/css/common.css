@@ -602,9 +602,17 @@ div.media-item input.media-item-youtube {
   width:120px;
 }
 
+
+div.media-item span.media-item-file {
+  display:inline-block;
+  max-width:460px;
+}
+
 div.media-item span.media-item-file a.media-item-file-link {
+  display:inline-block;
   padding:3px 6px;
   border-bottom:0;
+  margin:0 0 2px 0;
   background-color:#333;
   color:#fff;
   

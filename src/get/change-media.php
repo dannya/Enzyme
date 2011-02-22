@@ -106,15 +106,85 @@ if (($_REQUEST['dataType'] == 'name') ||
 
   } else {
     // error, don't continue!
-    App::returnHeaderJson(array('error' => true));
+    App::returnHeaderJson(true, array('error' => true));
   }
 
 
-  // change date
+  // change stored date
   $table  = 'digest_intro_media';
   $values = array('date'    => $_REQUEST['data'],
                   'file'    => $newFileLocation,
                   'number'  => Db::count($table, array('date' => $_REQUEST['data'])) + 1);
+
+
+  // also move thumbnail image?
+  if (!empty($media['thumbnail']) && is_file(DIGEST_BASE_DIR . $media['thumbnail'])) {
+    $newFileLocation = str_replace('/' . $_REQUEST['date'] . '/',
+                                   '/' . $_REQUEST['data'] . '/',
+                                   $media['thumbnail']);
+
+    // move file
+    if (rename(DIGEST_BASE_DIR . $media['thumbnail'], DIGEST_BASE_DIR . $newFileLocation)) {
+      // change stored thumbnail filename
+      $values['thumbnail'] = $newFileLocation;
+    }
+  }
+
+
+  // save change
+  $json['success'] = Db::save($table, $filter, $values);
+
+
+} else if ($_REQUEST['dataType'] == 'filename') {
+  // check that new file extension is valid
+  if (!Media::validFilename($_REQUEST['data'])) {
+    App::returnHeaderJson(true, array('error' => true));
+  }
+
+
+  // load media record from db
+  $media = Db::load('digest_intro_media', $filter, 1);
+
+
+  // change stored file location
+  $oldFileLocation  = $media['file'];
+
+  $newFileBase      = explode('/', $oldFileLocation);
+  array_pop($newFileBase);
+  $newFileBase      = implode('/', $newFileBase) . '/';
+
+  $newFileLocation  = $newFileBase . $_REQUEST['data'];
+
+
+  // move media file on filesystem
+  if (is_file(DIGEST_BASE_DIR . $oldFileLocation) && !is_file(DIGEST_BASE_DIR . $newFileLocation)) {
+    $newBaseLocation = DIGEST_BASE_DIR . Media::getBasePath($newFileLocation, 1);
+
+    // move file
+    rename(DIGEST_BASE_DIR . $oldFileLocation, DIGEST_BASE_DIR . $newFileLocation);
+
+  } else {
+    // error, don't continue!
+    App::returnHeaderJson(true, array('error' => true));
+  }
+
+
+  // change stored filename
+  $table  = 'digest_intro_media';
+  $values = array('file' => $newFileLocation);
+
+
+  // also rename thumbnail image?
+  if (!empty($media['thumbnail']) && is_file(DIGEST_BASE_DIR . $media['thumbnail'])) {
+    $ext              = App::getExtension($media['thumbnail']);
+    $newThumbLocation = App::stripExtension($_REQUEST['data']) . '_thumb.' . $ext;
+
+    // move file
+    if (rename(DIGEST_BASE_DIR . $media['thumbnail'], DIGEST_BASE_DIR . $newFileBase . $newThumbLocation)) {
+      // change stored thumbnail filename
+      $values['thumbnail'] = $newFileBase . $newThumbLocation;
+    }
+  }
 
 
   // save change

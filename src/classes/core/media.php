@@ -16,26 +16,26 @@
 
 
 class Media {
-  private $ext        = null;
-  private $error      = false;
+  private $ext              = null;
+  private $error            = false;
 
-  private $file       = false;
-  private $filename   = false;
+  private $file             = false;
+  private $filename         = false;
 
-  private static $max = array('width'   => 550,
-                              'height'  => 600);
+  private static $max       = array('width'   => 550,
+                                    'height'  => 600);
 
-  private $allowed    = array('image' => array('png'   => 1,
-                                               'gif'   => 1,
-                                               'jpg'   => 1),
+  private static $allowed   = array('image' => array('png'   => 1,
+                                                     'gif'   => 1,
+                                                     'jpg'   => 1),
 
-                              'video' => array('avi'   => 1,
-                                               'mpeg'  => 1));
+                                    'video' => array('avi'   => 1,
+                                                     'mpeg'  => 1));
 
 
   public function __construct($type) {
     // check type is valid
-    if (!isset($this->allowed[$type])) {
+    if (!isset(self::$allowed[$type])) {
         trigger_error(_('Upload type not valid'));
 
         $this->error = true;
@@ -50,7 +50,7 @@ class Media {
       $this->filename   = $file['name'];
 
       // check filetype is allowed
-      if (!isset($this->allowed[$type][$this->ext])) {
+      if (!isset(self::$allowed[$type][$this->ext])) {
         trigger_error(sprintf(_('Filetype %s not allowed'), $this->ext));
 
         $this->error = true;
@@ -180,7 +180,7 @@ class Media {
 
   public static function draw($media) {
     // get file extension
-    $media['ext'] = @strtoupper(end(explode('.', $media['file'])));
+    $media['ext'] = strtoupper(App::getExtension($media['file']));
 
 
     // determine link type
@@ -307,7 +307,12 @@ class Media {
 
         $dateLinked = true;
 
+      } else if (($tmpExt = App::getExtension($filePart)) && (strlen($tmpExt) == 3) || (strlen($tmpExt) == 4)) {
+        // filename
+        $fileLink .= '/<a id="media-filename-' . $media['date'] . '-' . $media['number'] . '" href="#" class="media-item-file-link" onclick="changeMediaFilename(\'' . $media['date'] . '\', ' . $media['number'] . ', \'' . $filePart . '\');">' . $filePart . '</a>';
+
       } else {
+        // normal segment
         $fileLink .= '/' . $filePart;
       }
     }
@@ -330,6 +335,21 @@ class Media {
     }
 
     return '/' . implode('/', $fileParts) . '/';
+  }
+
+
+  public static function validFilename($filename) {
+    $ext = App::getExtension($filename);
+
+    foreach (self::$allowed as $items) {
+      foreach ($items as $item => $null) {
+        if ($item == $ext) {
+          return true;
+        }
+      }
+    }
+
+    return false;
   }
 }
 

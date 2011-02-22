@@ -60,6 +60,7 @@ strings.button_user             = '<?php echo _("Make this user inactive?"); ?>'
 strings.button_repo             = '<?php echo _("Delete repository?"); ?>';
 
 strings.change_date             = '<?php echo _("Change the date?"); ?>';
+strings.change_filename         = '<?php echo _("Change the filename?"); ?>';
 
 
 function sprintf() {
