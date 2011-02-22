@@ -41,6 +41,21 @@ if (isset($_REQUEST['newItem'])) {
 
   $json['success'] = Db::insert('digest_intro_sections', $item);
 
+
+} else if (isset($_REQUEST['dataType']) && ($_REQUEST['dataType'] == 'delete')) {
+  // ensure needed params are set
+  if (!isset($_REQUEST['number'])) {
+    App::returnHeaderJson(true, array('missing' => true));
+  }
+
+  // delete item
+  $item = array('date'    => '0000-00-00',
+                'number'  => $_REQUEST['number'],
+                'status'  => 'idea');
+
+  $json['success'] = Db::delete('digest_intro_sections', $item);
+
+
 } else {
   // ensure needed params are set
   if (!isset($_REQUEST['date']) || !isset($_REQUEST['values']) || !isset($_REQUEST['number'])) {

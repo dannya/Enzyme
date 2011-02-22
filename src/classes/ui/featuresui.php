@@ -116,7 +116,10 @@ class FeaturesUi extends BaseUi {
                       $idea['intro'] .
                  '  </div>
 
-                    <input class="idea-claim" type="button" value="' . _('Claim') . '" title="' . _('Claim') . '" onclick="claimIdea(' . $idea['number'] . ', \'' . end($this->dates) . '\', \'' . $this->user->data['username'] . '\');" />
+                    <div class="idea-buttons">
+                      <input class="idea-claim" type="button" value="' . _('Claim') . '" title="' . _('Claim') . '" onclick="claimIdea(' . $idea['number'] . ', \'' . end($this->dates) . '\', \'' . $this->user->data['username'] . '\');" />
+                      <input class="idea-delete" type="button" value="' . _('Delete') . '" title="' . _('Delete') . '" onclick="deleteIdea(' . $idea['number'] . ');" />
+                    </div>
                   </div>';
       }
     }
@@ -161,7 +164,7 @@ class FeaturesUi extends BaseUi {
       $numIntroRows   = ceil(strlen($feature['intro']) / 140) + substr_count($feature['intro'], "\n");
       $numBodyRows    = $totalRows - $numIntroRows;
 
-      $buf  .= '<div id="feature_' . $feature['date'] . '_' . $feature['number'] . '" class="feature">
+      $buf  .= '<div id="feature_' . $feature['date'] . '_' . $feature['number'] . '" class="feature clearfix">
                   <div class="feature-info">
                     <span class="feature-editor">' .
                       _('Editor') . ' ' . Ui::htmlSelector('author_' . $feature['date'] . '_' . $feature['number'], $this->featureEditors, $feature['author'], 'changeItem(\'' . $feature['date'] . '\', ' . $feature['number'] . ', \'author\');') .

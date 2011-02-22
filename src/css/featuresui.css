@@ -154,10 +154,17 @@ div#ideas div.ideaExpand div.idea-intro {
 }
 
 
-div#ideas div.idea input.idea-claim {
+div#ideas div.idea div.idea-buttons {
   position:absolute;
   top:6px;
   right:10px;
+}
+
+div#ideas div.idea input.idea-delete {
+  float:right;
+}
+div#ideas div.idea input.idea-claim {
+  float:right;
 }
 
 

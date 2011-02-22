@@ -77,6 +77,12 @@ if (($_REQUEST['dataType'] == 'name') ||
 
 
 } else if ($_REQUEST['dataType'] == 'date') {
+  // check that date is a sunday
+  if (date('w', strtotime($_REQUEST['data'])) != 0) {
+    App::returnHeaderJson(true, array('error' => true));
+  }
+
+
   // load media record from db
   $media = Db::load('digest_intro_media', $filter, 1);
 
@@ -89,12 +95,12 @@ if (($_REQUEST['dataType'] == 'name') ||
 
 
   // move media file on filesystem
-  if (is_file(DIGEST_BASE_DIR . $oldFileLocation) && is_dir(DIGEST_BASE_DIR . Media::getBasePath($newFileLocation, 2))) {
+  if (is_file(DIGEST_BASE_DIR . $oldFileLocation)) {
     $newBaseLocation = DIGEST_BASE_DIR . Media::getBasePath($newFileLocation, 1);
 
     if (!is_dir($newBaseLocation)) {
       // create media directory
-      mkdir($newBaseLocation, 0777);
+      mkdir($newBaseLocation, null, true);
     }
     if (!is_writable($newBaseLocation)) {
       // make writable

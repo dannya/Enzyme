@@ -280,9 +280,9 @@ class Media {
 
   public static function load($date, $reindex = false) {
     // $date can be single date string, or array of date strings
-    $media = Db::load('digest_intro_media', array('date' => $date));
+    $media = Db::load('digest_intro_media', array('date' => $date), null, '*', false);
 
-    // renindex
+    // reindex
     if ($reindex) {
       $media = Db::reindex($media, 'date', false, false);
     }

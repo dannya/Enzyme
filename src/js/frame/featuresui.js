@@ -90,13 +90,14 @@ function claimIdea(itemNum, theDate, theAuthor) {
   theValues.author  = theAuthor;
   theValues.status  = 'contacting';
 
+
   // send off change
   new Ajax.Request(BASE_URL + '/get/change-feature.php', {
     method: 'post',
     parameters: {
-      date:   '0000-00-00',
-      number: itemNum,
-      values: Object.toQueryString(theValues)
+      date:     '0000-00-00',
+      number:   itemNum,
+      values:   Object.toQueryString(theValues)
     },
     onSuccess: function(transport) {
       var result = transport.headerJSON;
@@ -106,6 +107,44 @@ function claimIdea(itemNum, theDate, theAuthor) {
 
       } else {
       	// failure
+        if (typeof strings.failure == 'string') {
+          alert(strings.failure);
+        } else {
+          alert('Error');
+        }
+      }
+    }
+  });
+}
+
+
+function deleteIdea(itemNum) {
+  if (typeof itemNum == 'undefined' || !confirm(strings.delete_idea)) {
+    return false;
+  }
+
+
+  // send off change
+  new Ajax.Request(BASE_URL + '/get/change-feature.php', {
+    method: 'post',
+    parameters: {
+    	dataType: 'delete',
+      number:   itemNum
+    },
+    onSuccess: function(transport) {
+      var result = transport.headerJSON;
+
+      if ((typeof result.success != 'undefined') && result.success) {
+        // remove from page
+        if ($('idea_' + itemNum)) {
+        	$('idea_' + itemNum).remove();
+
+        } else {
+        	location.reload(true);
+        }
+
+      } else {
+        // failure
         if (typeof strings.failure == 'string') {
           alert(strings.failure);
         } else {
