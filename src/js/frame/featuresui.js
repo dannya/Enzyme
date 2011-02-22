@@ -266,7 +266,7 @@ function previewMedia(theDate, theNumber) {
   lightbox.activateWindow({
     href:    BASE_URL + '/get/preview-media.php?mode=lightbox&date=' + theDate + '&number=' + theNumber, 
     title:   'Preview',
-    width:   500,
+    width:   620,
     height:  500
   });
 }

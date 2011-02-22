@@ -279,6 +279,11 @@ class Media {
 
 
   public static function load($date, $reindex = false) {
+    // sanity check
+    if (!$date) {
+      return false;
+    }
+
     // $date can be single date string, or array of date strings
     $media = Db::load('digest_intro_media', array('date' => $date), null, '*', false);
 

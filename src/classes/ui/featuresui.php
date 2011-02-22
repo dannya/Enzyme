@@ -43,7 +43,9 @@ class FeaturesUi extends BaseUi {
     $this->featureDates       = array_unique(array_keys(Db::reindex($this->features, 'date')));
 
     // get media for available features
-    $this->featureMedia       = Media::load($this->featureDates, true);
+    if ($this->features) {
+      $this->featureMedia     = Media::load($this->featureDates, true);
+    }
 
     // get available feature editors
     $this->featureEditors     = Digest::getUsersByPermission('feature-editor');
