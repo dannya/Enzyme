@@ -1,453 +1,285 @@
-# Yuri Chornoivan <yurchor@ukr.net>, 2010.
+# Yuri Chornoivan <yurchor@ukr.net>, 2010, 2011.
 msgid ""
 msgstr ""
 "Project-Id-Version: Enzyme\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-12-04 14:05-0000\n"
-"PO-Revision-Date: 2010-12-05 20:35+0200\n"
+"Report-Msgid-Bugs-To: danny@commit-digest.org\n"
+"POT-Creation-Date: 2011-01-12 00:29+0000\n"
+"PO-Revision-Date: 2011-01-12 08:07+0200\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
 "Language-Team: Ukrainian <translation@linux.org.ua>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Poedit-KeywordsList: _\n"
-"X-Poedit-Basepath: .\n"
-"X-Poedit-Language: English\n"
-"X-Poedit-Country: UNITED STATES\n"
-"X-Poedit-SourceCharset: utf-8\n"
-"X-Poedit-SearchPath-0: C:\\www\\enzyme\\src\n"
-"Language: ukX-Generator: Lokalize 1.1\n"
+"Language: uk\n"
 "Plural-Forms: nplurals=4; plural=n==1 ? 3 : n%10==1 && n%100!=11 ? 0 : n%"
 "10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Lokalize 1.1\n"
+"X-Generator: Lokalize 1.2\n"
 
-#: C:\www\enzyme\src/autoload.php:100 C:\www\enzyme\src/autoload.php:114
-msgid "Setup"
-msgstr "Налаштування"
-
-#: C:\www\enzyme\src/classes/core/app.php:126
 #, php-format
-msgid "You need to have the permission \"%s\" to view this section"
-msgstr "Для перегляду цього розділу вам потрібні права доступу «%s»"
+msgid " (%.1f percent of %d)"
+msgstr " (%.1f відсотків з %d)"
 
-#: C:\www\enzyme\src/classes/core/date.php:32
 #, php-format
-msgid "%d seconds ago"
-msgstr "%d секунд тому"
+msgid "%d applications"
+msgstr "%d запитів"
 
-#: C:\www\enzyme\src/classes/core/date.php:33
-#, php-format
-msgid "%d minutes ago"
-msgstr "%d хвилин тому"
-
-#: C:\www\enzyme\src/classes/core/date.php:34
-#, php-format
-msgid "%d hours ago"
-msgstr "%d годин тому"
-
-#: C:\www\enzyme\src/classes/core/date.php:35
-#, php-format
-msgid "%d days ago"
-msgstr "%d днів тому"
-
-#: C:\www\enzyme\src/classes/core/date.php:36
-#, php-format
-msgid "%d weeks ago"
-msgstr "%d тижнів тому"
-
-#: C:\www\enzyme\src/classes/core/date.php:37
-#, php-format
-msgid "%d months ago"
-msgstr "%d місяців тому"
-
-#: C:\www\enzyme\src/classes/core/date.php:38
-#, php-format
-msgid "%d years ago"
-msgstr "%d років тому"
-
-#: C:\www\enzyme\src/classes/core/db.php:47
-#, php-format
-msgid ""
-"Couldn't connect to database: ensure you have set the correct values at the "
-"top of %s/autoload.php"
-msgstr ""
-"Не вдалося встановити з’єднання з базою даних: переконайтеся, що було "
-"встановлено належні значення на початку файла %s/autoload.php"
-
-#: C:\www\enzyme\src/classes/core/db.php:62
-#: C:\www\enzyme\src/classes/core/db.php:146
-#: C:\www\enzyme\src/classes/core/db.php:194
-#: C:\www\enzyme\src/classes/core/db.php:217
-#: C:\www\enzyme\src/classes/core/db.php:241
-#: C:\www\enzyme\src/classes/core/db.php:262
-#: C:\www\enzyme\src/classes/core/db.php:281
-#: C:\www\enzyme\src/classes/core/db.php:295
-#: C:\www\enzyme\src/classes/core/db.php:484
-#: C:\www\enzyme\src/classes/core/db.php:502
-#: C:\www\enzyme\src/classes/core/digest.php:95
-#: C:\www\enzyme\src/classes/core/digest.php:127
-#: C:\www\enzyme\src/classes/core/digest.php:142
-#: C:\www\enzyme\src/classes/core/digest.php:166
-#: C:\www\enzyme\src/classes/core/digest.php:194
-#: C:\www\enzyme\src/classes/core/digest.php:208
-#: C:\www\enzyme\src/classes/core/digest.php:222
-#: C:\www\enzyme\src/classes/core/digest.php:233
-#: C:\www\enzyme\src/classes/core/digest.php:244
-#: C:\www\enzyme\src/classes/core/digest.php:260
-#: C:\www\enzyme\src/classes/core/digest.php:273
-#: C:\www\enzyme\src/classes/core/digest.php:304
-#: C:\www\enzyme\src/classes/core/digest.php:319
-#: C:\www\enzyme\src/classes/core/digest.php:329
-#: C:\www\enzyme\src/classes/core/digest.php:347
-#: C:\www\enzyme\src/classes/core/digest.php:393
-#: C:\www\enzyme\src/classes/core/digest.php:402
-#: C:\www\enzyme\src/classes/core/digest.php:418
-#: C:\www\enzyme\src/classes/core/enzyme.php:73
-#: C:\www\enzyme\src/classes/core/enzyme.php:447
-#: C:\www\enzyme\src/classes/core/enzyme.php:468
-#: C:\www\enzyme\src/classes/core/enzyme.php:494
-#: C:\www\enzyme\src/classes/core/enzyme.php:581
-#, php-format
-msgid "Query failed: %s"
-msgstr "Невдалий запит: %s"
-
-#: C:\www\enzyme\src/classes/core/db.php:354
-msgid "Query failed"
-msgstr "Невдалий запит"
-
-#: C:\www\enzyme\src/classes/core/digest.php:435
-msgid "Issue"
-msgstr "Випуск"
-
-#: C:\www\enzyme\src/classes/core/digest.php:436
-msgid "Archive"
-msgstr "Архів"
-
-#: C:\www\enzyme\src/classes/core/digest.php:441
-msgid "English"
-msgstr "англійською"
-
-#: C:\www\enzyme\src/classes/core/digest.php:442
-msgid "Deutsch (German)"
-msgstr "німецькою"
-
-#: C:\www\enzyme\src/classes/core/digest.php:443
-msgid "Français (French)"
-msgstr "французькою"
-
-#: C:\www\enzyme\src/classes/core/digest.php:444
-msgid "Español (Spanish)"
-msgstr "іспанською"
-
-#: C:\www\enzyme\src/classes/core/digest.php:445
-msgid "Italiano (Italian)"
-msgstr "італійською"
-
-#: C:\www\enzyme\src/classes/core/digest.php:446
-msgid "Polski (Polish)"
-msgstr "польською"
-
-#: C:\www\enzyme\src/classes/core/digest.php:447
-msgid "Português Brasileiro (Brazilian Portuguese)"
-msgstr "бразильською португальською"
-
-#: C:\www\enzyme\src/classes/core/digest.php:449
-msgid "Nederlands (Dutch)"
-msgstr "голландською"
-
-#: C:\www\enzyme\src/classes/core/digest.php:450
-msgid "Português (Portuguese)"
-msgstr "португальською"
-
-#: C:\www\enzyme\src/classes/core/digest.php:451
-msgid "Svenska (Swedish)"
-msgstr "шведською"
-
-#: C:\www\enzyme\src/classes/core/digest.php:465
-#, php-format
-msgid "%s committed changes in %s:"
-msgstr "%s внесених змін за %s:"
-
-#: C:\www\enzyme\src/classes/core/digest.php:486
-#, php-format
-msgid "Revision %d"
-msgstr "Модифікація %d"
-
-#: C:\www\enzyme\src/classes/core/digest.php:512
-#: C:\www\enzyme\src/classes/core/ui.php:192
-#, php-format
-msgid "Bug %d: %s"
-msgstr "Вада %d: %s"
-
-#: C:\www\enzyme\src/classes/core/digest.php:516
 #, php-format
 msgid "%d days"
 msgstr "%d днів"
 
-#: C:\www\enzyme\src/classes/core/digest.php:554
 #, php-format
-msgid "Diffs: %s"
-msgstr "Відмінності: %s"
+msgid "%d days ago"
+msgstr "%d днів тому"
 
-#: C:\www\enzyme\src/classes/core/digest.php:557
+#, php-format
+msgid "%d hours ago"
+msgstr "%d годин тому"
+
+#, php-format
+msgid "%d minutes ago"
+msgstr "%d хвилин тому"
+
+#, php-format
+msgid "%d months ago"
+msgstr "%d місяців тому"
+
+#, php-format
+msgid "%d repositories"
+msgstr "%d сховища"
+
+#, php-format
+msgid "%d seconds ago"
+msgstr "%d секунд тому"
+
+#, php-format
+msgid "%d users"
+msgstr "%d користувачів"
+
+#, php-format
+msgid "%d weeks ago"
+msgstr "%d тижнів тому"
+
+#, php-format
+msgid "%d years ago"
+msgstr "%d років тому"
+
+#, php-format
+msgid "%s commits classified (%s total)"
+msgstr "Класифіковано %s внесків (з загальної кількості у %s)"
+
+#, php-format
+msgid "%s committed changes in %s:"
+msgstr "%s внесених змін за %s:"
+
+#, php-format
+msgid ""
+"%s, someone at the IP address %s has requested a password reset on your "
+"account."
+msgstr ""
+"%s, хтось, хто працює за IP-адресою %s, надіслав запит щодо скидання пароля "
+"для вашого облікового запису."
+
 #, php-format
 msgid "(+ %d more)"
 msgstr "(+ %d інших)"
 
-#: C:\www\enzyme\src/classes/core/digest.php:566
-#: C:\www\enzyme\src/classes/core/enzyme.php:305
-msgid "Admin"
-msgstr "Адміністратор"
+msgid "1. Idea"
+msgstr "1. Ідея"
 
-#: C:\www\enzyme\src/classes/core/digest.php:568
-#: C:\www\enzyme\src/classes/core/enzyme.php:317
-msgid "Editor"
-msgstr "Редактор"
+msgid "2. Contacting"
+msgstr "2. Встановлення зв’язку"
 
-#: C:\www\enzyme\src/classes/core/digest.php:570
-#: C:\www\enzyme\src/classes/core/enzyme.php:309
-msgid "Reviewer"
-msgstr "Рецензент"
+msgid "3. More information needed"
+msgstr "3. Потрібна додаткова інформація"
 
-#: C:\www\enzyme\src/classes/core/digest.php:572
-#: C:\www\enzyme\src/classes/core/enzyme.php:313
-msgid "Classifier"
-msgstr "Класифікатор"
+msgid "4. Needs proofreading"
+msgstr "4. Потрібне редагування"
 
-#: C:\www\enzyme\src/classes/core/digest.php:574
-#: C:\www\enzyme\src/classes/core/enzyme.php:321
-#: C:\www\enzyme\src/classes/core/enzyme.php:322
-msgid "Translator"
-msgstr "Перекладач"
+msgid "5. Ready for selection"
+msgstr "5. Готовий для вибірки"
 
-#: C:\www\enzyme\src/classes/core/email.php:15
-msgid "SMTP mail server has not been set!"
-msgstr "Не вказано поштовий сервер SMTP!"
+msgid "6. Selected"
+msgstr "6. Вибрано"
 
-#: C:\www\enzyme\src/classes/core/enzyme.php:61
-#, php-format
-msgid "Fetched details for bug %d"
-msgstr "Отримано подробиці щодо вади %d"
+msgid "About"
+msgstr "Про систему"
 
-#: C:\www\enzyme\src/classes/core/enzyme.php:85
 msgid "Accessibility"
 msgstr "Доступність"
 
-#: C:\www\enzyme\src/classes/core/enzyme.php:86
-msgid "Development Tools"
-msgstr "Інструменти для розробки"
+msgid "Account"
+msgstr "Обліковий запис"
 
-#: C:\www\enzyme\src/classes/core/enzyme.php:87
-msgid "Educational"
-msgstr "Освітні програми"
+msgid "Accounts file"
+msgstr "Файл облікових записів"
 
-#: C:\www\enzyme\src/classes/core/enzyme.php:88
-msgid "Graphics"
-msgstr "Графіка"
+msgid "Active Developers"
+msgstr "Активні розробники"
 
-#: C:\www\enzyme\src/classes/core/enzyme.php:89
-msgid "KDE Base"
-msgstr "KDE Base"
+msgid "Active Users"
+msgstr "Активні користувачі"
 
-#: C:\www\enzyme\src/classes/core/enzyme.php:90
-msgid "KDE-PIM"
-msgstr "KDE-PIM"
+msgid "Add Links"
+msgstr "Додати посилання"
 
-#: C:\www\enzyme\src/classes/core/enzyme.php:91
-msgid "KOffice"
-msgstr "KOffice"
+msgid "Add new filter"
+msgstr "Додати новий фільтр"
 
-#: C:\www\enzyme\src/classes/core/enzyme.php:92
-msgid "Konqueror"
-msgstr "Konqueror"
+msgid "Add new user"
+msgstr "Додати нового користувача"
 
-#: C:\www\enzyme\src/classes/core/enzyme.php:93
-msgid "Multimedia"
-msgstr "Звук та відео"
+msgid "Add person"
+msgstr "Додати особу"
 
-#: C:\www\enzyme\src/classes/core/enzyme.php:94
-msgid "Networking Tools"
-msgstr "Мережеві інструменти"
+msgid "Add repository"
+msgstr "Додати сховище"
 
-#: C:\www\enzyme\src/classes/core/enzyme.php:95
-msgid "User Interface"
-msgstr "Інтерфейс користувача"
+msgid "Add section"
+msgstr "Додати розділ"
 
-#: C:\www\enzyme\src/classes/core/enzyme.php:96
-msgid "Utilities"
-msgstr "Інструменти"
+#, php-format
+msgid "Added %s (%s) to authors table"
+msgstr "Додано %s (%s) до списку авторів"
 
-#: C:\www\enzyme\src/classes/core/enzyme.php:97
-msgid "Games"
-msgstr "Ігри"
+#, php-format
+msgid "Added: %d"
+msgstr "Додано: %d"
 
-#: C:\www\enzyme\src/classes/core/enzyme.php:98
-#: C:\www\enzyme\src/classes/core/enzyme.php:114
-msgid "Other"
-msgstr "Інше"
+msgid "Admin"
+msgstr "Адміністратор"
 
-#: C:\www\enzyme\src/classes/core/enzyme.php:110
-msgid "Bug Fixes"
-msgstr "Виправлення вад"
-
-#: C:\www\enzyme\src/classes/core/enzyme.php:111
-msgid "Features"
-msgstr "Можливості"
-
-#: C:\www\enzyme\src/classes/core/enzyme.php:112
-msgid "Optimize"
-msgstr "Оптимізація"
-
-#: C:\www\enzyme\src/classes/core/enzyme.php:113
-msgid "Security"
-msgstr "Безпека"
-
-#: C:\www\enzyme\src/classes/core/enzyme.php:169
-msgid "Project Name"
-msgstr "Назва проекту"
-
-#: C:\www\enzyme\src/classes/core/enzyme.php:173
 msgid "Admin Email"
 msgstr "Адреса адміністратора"
 
-#: C:\www\enzyme\src/classes/core/enzyme.php:177
-msgid "Enzyme URL"
-msgstr "Адреса Enzyme"
+msgid "All"
+msgstr "Всі"
 
-#: C:\www\enzyme\src/classes/core/enzyme.php:181
-msgid "Digest URL"
-msgstr "Адреса огляду"
+msgid "Any unsaved changes will be lost. Continue?"
+msgstr "Всі незбережені зміни буде втрачено. Виконати дію?"
 
-#: C:\www\enzyme\src/classes/core/enzyme.php:185
-msgid "Help URL"
-msgstr "Адреса довідки"
+msgid "Applications"
+msgstr "Запити"
 
-#: C:\www\enzyme\src/classes/core/enzyme.php:189
-msgid "SMTP Mail Server"
-msgstr "Поштовий сервер SMTP"
+msgid "Apply!"
+msgstr "Взяти участь"
 
-#: C:\www\enzyme\src/classes/core/enzyme.php:194
-msgid "Repository Type"
-msgstr "Тип сховища"
+msgid "Approve"
+msgstr "Прийняти"
 
-#: C:\www\enzyme\src/classes/core/enzyme.php:195
-msgid "Subversion"
-msgstr "Subversion"
+msgid "Archive"
+msgstr "Архів"
 
-#: C:\www\enzyme\src/classes/core/enzyme.php:198
-msgid "Repository URL"
-msgstr "Адреса сховища"
+msgid "Are you sure you want to permanently delete this?"
+msgstr "Ви справді бажаєте остаточно вилучити ці дані?"
 
-#: C:\www\enzyme\src/classes/core/enzyme.php:202
-msgid "Accounts File"
-msgstr "Файл облікових записів"
+msgid "Are you sure you want to remove this commit?"
+msgstr "Ви справді бажаєте вилучити дані цього внеску?"
 
-#: C:\www\enzyme\src/classes/core/enzyme.php:207
-msgid "Web Repository Viewer"
-msgstr "Нагляд за інтернет-сховищем"
+msgid "Area"
+msgstr "Область"
 
-#: C:\www\enzyme\src/classes/core/enzyme.php:211
-msgid "Web Bug Tracker"
-msgstr "Стеження за вадами"
+msgid "Areas"
+msgstr "Області"
 
-#: C:\www\enzyme\src/classes/core/enzyme.php:215
-msgid "Web Bug Tracker XML"
-msgstr "XML інтернет-стеження за вадами"
+msgid "Available Feature Articles"
+msgstr "Доступні статті з описом можливостей"
 
-#: C:\www\enzyme\src/classes/core/enzyme.php:219
-msgid "I18n Stats URL"
-msgstr "Адреса статистики перекладу"
+msgid "Available Jobs"
+msgstr "Доступні завдання"
 
-#: C:\www\enzyme\src/classes/core/enzyme.php:223
-msgid "I18n Teams URL"
-msgstr "Адреса команд перекладачів"
+msgid ""
+"Be sure to change your password immediately after logging in by going to "
+"\"Settings\" at the top right."
+msgstr ""
+"Змініть ваш пароль одразу після входу до системи за допомогою пункту "
+"«Параметри», розташованого на сторінці згори праворуч."
 
-#: C:\www\enzyme\src/classes/core/enzyme.php:227
+#, php-format
+msgid "Bug %d: %s"
+msgstr "Вада %d: %s"
+
+msgid "Bug Fixes"
+msgstr "Виправлення вад"
+
 msgid "Bug Stats URL"
 msgstr "Адреса статистики вад"
 
-#: C:\www\enzyme\src/classes/core/enzyme.php:232
-msgid "Default Timezone"
-msgstr "Типовий часовий пояс"
+msgid "Bugs"
+msgstr "Вади"
 
-#: C:\www\enzyme\src/classes/core/enzyme.php:236
-msgid "Default Language"
-msgstr "Типова мова"
+msgid "Bugs Closed"
+msgstr "Закрито вад"
 
-#: C:\www\enzyme\src/classes/core/enzyme.php:241
-msgid "Enable Legacy Import"
-msgstr "Уможливити імпорт застарілих даних"
+msgid "Bugs Opened"
+msgstr "Відкрито вад"
 
-#: C:\www\enzyme\src/classes/core/enzyme.php:242
-msgid "No"
-msgstr "Ні"
+msgid "Buzz"
+msgstr "Результати"
 
-#: C:\www\enzyme\src/classes/core/enzyme.php:243
-msgid "Yes"
-msgstr "Так"
+msgid "Cancel"
+msgstr "Скасувати"
 
-#: C:\www\enzyme\src/classes/core/enzyme.php:246
-msgid "Existing Issues"
-msgstr "Створені випуски"
+#, php-format
+msgid "Cannot find %s"
+msgstr "Не вдалося знайти %s"
 
-#: C:\www\enzyme\src/classes/core/enzyme.php:250
-msgid "Existing Archive"
-msgstr "Поточний архів"
+msgid "Change password"
+msgstr "Змінити пароль"
 
-#: C:\www\enzyme\src/classes/core/enzyme.php:254
-msgid "Existing Data"
-msgstr "Існуюча дата"
+msgid "Changelog"
+msgstr "Журнал змін"
 
-#: C:\www\enzyme\src/classes/core/enzyme.php:268
-msgid "Enzyme Settings"
-msgstr "Параметри Enzyme"
+msgid "Claim"
+msgstr "Запит"
 
-#: C:\www\enzyme\src/classes/core/enzyme.php:276
-msgid "Repository"
-msgstr "Сховище"
+msgid "Classified"
+msgstr "Класифіковано"
 
-#: C:\www\enzyme\src/classes/core/enzyme.php:281
-msgid "Data Locations"
-msgstr "Адреси даних"
+msgid "Classified (Total)"
+msgstr "Класифіковано (загалом)"
 
-#: C:\www\enzyme\src/classes/core/enzyme.php:289
-msgid "Display Defaults"
-msgstr "Типові параметри показу"
+msgid "Classified (Week)"
+msgstr "Класифіковано (за тиждень)"
 
-#: C:\www\enzyme\src/classes/core/enzyme.php:293
-msgid "Legacy Import"
-msgstr "Імпорт застарілих даних"
+#, php-format
+msgid "Classified by %s"
+msgstr "Класифікатор — %s"
 
-#: C:\www\enzyme\src/classes/core/enzyme.php:306
-msgid "Enzyme Administrator"
-msgstr "Адміністратор Enzyme"
+msgid "Classifier"
+msgstr "Класифікатор"
 
-#: C:\www\enzyme\src/classes/core/enzyme.php:307
+msgid "Classify"
+msgstr "Класифікація"
+
+msgid "Classify commits..."
+msgstr "Класифікувати внески…"
+
 msgid ""
-"Enzyme Administrators can manage all aspects of the system, including "
-"various import tools and user accounts."
+"Click \"Setup database\" to let Enzyme create a compatible database ready "
+"for use."
 msgstr ""
-"Адміністратори Enzyme можуть керувати всіма аспектами системи, зокрема "
-"програмами для імпортування даних та обліковими записами користувачів."
+"Натисніть кнопку «Налаштувати базу даних», щоб дозволити Enzyme створити "
+"сумісну базу даних, якою можна буде скористатися."
 
-#: C:\www\enzyme\src/classes/core/enzyme.php:310
-msgid "Commit Reviewer"
-msgstr "Рецензент внеску"
+msgid "Click to change this section number..."
+msgstr "Натисніть, щоб змінити номер цього розділу…"
 
-#: C:\www\enzyme\src/classes/core/enzyme.php:311
-msgid ""
-"Commit Reviewers look at all the recent commits, selecting those which are "
-"significant and interesting enough to be included into the weekly Commit-"
-"Digest."
-msgstr ""
-"Рецензенти внесків переглядають всі нещодавні внески, вибирають з них "
-"суттєві та досить цікаві для включення до щотижневого огляду внесків."
+msgid "Close"
+msgstr "Закрити"
 
-#: C:\www\enzyme\src/classes/core/enzyme.php:314
+msgid "Comment"
+msgstr "Коментар"
+
+msgid "Comments URL"
+msgstr "Адреса коментарів"
+
+#, php-format
+msgid "Commit %s by %s (%s)"
+msgstr "Внесок %s від %s (%s)"
+
 msgid "Commit Classifier"
 msgstr "Класифікатор внесків"
 
-#: C:\www\enzyme\src/classes/core/enzyme.php:315
 msgid ""
 "Commit Classifiers sort the selected commits into areas (which is partly "
 "automated), and by type (such as bug fix, feature, etc)."
@@ -456,11 +288,247 @@ msgstr ""
 "робота виконується автоматично) і типами (зокрема виокремлюють виправлення "
 "вад, нові можливості тощо)."
 
-#: C:\www\enzyme\src/classes/core/enzyme.php:318
+msgid "Commit Path Sorting"
+msgstr "Впорядкування каталогів внесків"
+
+msgid "Commit Reviewer"
+msgstr "Рецензент внеску"
+
+msgid ""
+"Commit Reviewers look at all the recent commits, selecting those which are "
+"significant and interesting enough to be included into the weekly Commit-"
+"Digest."
+msgstr ""
+"Рецензенти внесків переглядають всі нещодавні внески, вибирають з них "
+"суттєві та досить цікаві для включення до щотижневого огляду внесків."
+
+msgid "Commit Summary"
+msgstr "Резюме внесків"
+
+#, php-format
+msgid "Commit data past %s has not been collected yet."
+msgstr "Дані щодо внесків до %s ще не було зібрано."
+
+msgid "Commits"
+msgstr "Внески"
+
+msgid "Configuration"
+msgstr "Налаштування"
+
+msgid "Contributors"
+msgstr "Автори"
+
+#, php-format
+msgid "Converted %s"
+msgstr "Перетворено %s"
+
+msgid "Converting translations..."
+msgstr "Перетворення перекладів…"
+
+#, php-format
+msgid ""
+"Couldn't connect to database: ensure you have set the correct values at the "
+"top of %s/autoload.php"
+msgstr ""
+"Не вдалося встановити з’єднання з базою даних: переконайтеся, що було "
+"встановлено належні значення на початку файла %s/autoload.php"
+
+msgid "Create a New Digest"
+msgstr "Створити огляд"
+
+msgid "Create new digest"
+msgstr "Створити огляд"
+
+msgid "Create new idea"
+msgstr "Створити запис ідеї"
+
+msgid "Create user"
+msgstr "Створити користувача"
+
+msgid "Data Locations"
+msgstr "Адреси даних"
+
+msgid "Database"
+msgstr "База даних"
+
+msgid "Date"
+msgstr "Дата"
+
+msgid "Decline"
+msgstr "Відхилити"
+
+msgid "Default Language"
+msgstr "Типова мова"
+
+msgid "Default Timezone"
+msgstr "Типовий часовий пояс"
+
+msgid "Delete"
+msgstr "Вилучити"
+
+msgid "Delete repository?"
+msgstr "Вилучити сховище?"
+
+msgid "Delete statistics"
+msgstr "Вилучити статистичні дані"
+
+msgid "Deutsch (German)"
+msgstr "німецькою (German)"
+
+msgid "Development Tools"
+msgstr "Інструменти для розробки"
+
+#, php-format
+msgid "Diffs: %s"
+msgstr "Відмінності: %s"
+
+msgid "Digest Information"
+msgstr "Дані щодо огляду"
+
+msgid "Digest URL"
+msgstr "Адреса огляду"
+
+msgid "Digests"
+msgstr "Огляди"
+
+msgid "Display Defaults"
+msgstr "Типові параметри показу"
+
+msgid "Dot Synopsis"
+msgstr "Короткий опис для Dot"
+
+msgid "Download"
+msgstr "Звантажити"
+
+#, php-format
+msgid "Downloaded %d i18n teams"
+msgstr "Звантажено %d команд перекладачів"
+
+#, php-format
+msgid "Downloaded %s (%s)"
+msgstr "Звантажено %s (%s)"
+
+msgid "Downloading translations..."
+msgstr "Звантаження перекладів…"
+
+msgid "Editor"
+msgstr "Редактор"
+
+msgid "Educational"
+msgstr "Освітні програми"
+
+msgid "Email"
+msgstr "Ел. пошта"
+
+msgid "Enable Legacy Import"
+msgstr "Уможливити імпорт застарілих даних"
+
+msgid "End"
+msgstr "Кінець"
+
+msgid "English"
+msgstr "англійською (English)"
+
+#, php-format
+msgid "Entry \"%s\" malformed, not added"
+msgstr "Запис «%s» має помилковий формат, його не додано"
+
+msgid "Enzyme Administrator"
+msgstr "Адміністратор Enzyme"
+
+msgid ""
+"Enzyme Administrators can manage all aspects of the system, including "
+"various import tools and user accounts."
+msgstr ""
+"Адміністратори Enzyme можуть керувати всіма аспектами системи, зокрема "
+"програмами для імпортування даних та обліковими записами користувачів."
+
+msgid "Enzyme Settings"
+msgstr "Параметри Enzyme"
+
+msgid "Enzyme URL"
+msgstr "Адреса Enzyme"
+
+msgid "Enzyme Updates"
+msgstr "Оновлення Enzyme"
+
+#, php-format
+msgid ""
+"Enzyme cannot find a compatible database at the location set at the top of %"
+"s:"
+msgstr ""
+"Enzyme не вдалося знайти сумісну базу даних за адресою, вказаною на початку %"
+"s:"
+
+msgid "Error"
+msgstr "Помилка"
+
+#, php-format
+msgid "Error creating table \"%s\""
+msgstr "Помилка під час спроби створення таблиці «%s»"
+
+#, php-format
+msgid "Error detected on line %d"
+msgstr "Виявлено помилку у рядку %d"
+
+#, php-format
+msgid "Error importing data into table \"%s\""
+msgstr "Помилка під час спроби імпортування даних до таблиці «%s»"
+
+msgid "Error: Application failed"
+msgstr "Помилка: помилка запиту"
+
+msgid "Error: Password not changed"
+msgstr "Помилка: пароль не змінено"
+
+msgid "Error: Personal information not changed"
+msgstr "Помилка: особисті дані не змінено"
+
+msgid ""
+"Errors were encountered when trying to create the database and tables, "
+"please try to fix them manually."
+msgstr ""
+"Під час спроби створення бази даних і таблиць сталися помилки, спробуйте "
+"виправити ці помилки вручну."
+
+msgid "Español (Spanish)"
+msgstr "іспанською (Spanish)"
+
+msgid "Existing Archive"
+msgstr "Поточний архів"
+
+msgid "Existing Data"
+msgstr "Існуюча дата"
+
+msgid "Existing Issues"
+msgstr "Створені випуски"
+
+msgid "Expand"
+msgstr "Розгорнути"
+
+#, php-format
+msgid "Exported %s"
+msgstr "Експортовано %s"
+
+#, php-format
+msgid "Exported %s data"
+msgstr "Експортовано дані %s"
+
+msgid "Exporting database data..."
+msgstr "Експортування з бази даних…"
+
+msgid "Exporting database schema..."
+msgstr "Експортування схеми бази даних…"
+
+msgid "Extracting extended statistics..."
+msgstr "Видобування додаткових статистичних даних…"
+
+msgid "Failed to save settings"
+msgstr "Не вдалося зберегти параметри"
+
 msgid "Feature Editor"
 msgstr "Редактор з можливостей"
 
-#: C:\www\enzyme\src/classes/core/enzyme.php:319
 msgid ""
 "Feature Editors contact people working on interesting projects and assist "
 "them in writing original pieces which are presented in the introduction of "
@@ -470,633 +538,635 @@ msgstr ""
 "і допомагають їм у написанні статей, у яких представлено результати роботи "
 "для включення у огляди внесків."
 
-#: C:\www\enzyme\src/classes/core/enzyme.php:323
-msgid ""
-"Translators increase the reach of the Commit-Digest and the work done across "
-"the project by making the weekly Commit-Digests (and the website interfaces) "
-"available in the native language of people around the world."
-msgstr ""
-"Перекладачі збільшують кількість читачів оглядів внесків і роблять "
-"доступними рідною мовою огляди внесків (та веб-інтерфейс цих оглядів) людям "
-"з усього світу."
+msgid "Feature editor"
+msgstr "Редактор з можливостей"
 
-#: C:\www\enzyme\src/classes/core/enzyme.php:659
+msgid "Features"
+msgstr "Можливості"
+
 #, php-format
-msgid "Skipping revision %d"
-msgstr "Пропуск модифікації %d"
+msgid "Fetched details for bug %d"
+msgstr "Отримано подробиці щодо вади %d"
 
-#: C:\www\enzyme\src/classes/core/enzyme.php:702
 #, php-format
-msgid "Processed revision %d"
-msgstr "Оброблено модифікацію %d"
+msgid "File %s could not be found..."
+msgstr "Не вдалося знайти файл %s…"
 
-#: C:\www\enzyme\src/classes/core/enzyme.php:749
-msgid "Getting revision data..."
-msgstr "Отримання даних модифікації…"
+msgid "Files"
+msgstr "Файли"
 
-#: C:\www\enzyme\src/classes/core/enzyme.php:758
-msgid "Parsing revision data..."
-msgstr "Обробка даних модифікації…"
+msgid "First name"
+msgstr "Ім'я"
 
-#: C:\www\enzyme\src/classes/core/enzyme.php:814
-msgid "Inserted people stats"
-msgstr "Вставлено статистику щодо учасників"
+msgid "Forgot password?"
+msgstr "Забули пароль?"
 
-#: C:\www\enzyme\src/classes/core/enzyme.php:833
-msgid "Inserted module stats"
-msgstr "Вставлено статистику щодо модулів"
+msgid "Français (French)"
+msgstr "французькою (French)"
 
-#: C:\www\enzyme\src/classes/core/enzyme.php:842
-msgid "Extracting extended statistics..."
-msgstr "Видобування додаткових статистичних даних…"
+msgid "Games"
+msgstr "Ігри"
 
-#: C:\www\enzyme\src/classes/core/enzyme.php:935
-msgid "Getting internationalization (i18n) stats..."
-msgstr "Отримання статистичних даних щодо перекладу (i18n)…"
+msgid "General"
+msgstr "Загальне"
 
-#: C:\www\enzyme\src/classes/core/enzyme.php:959
+msgid "Generate statistics"
+msgstr "Створити статистичні дані"
+
+msgid "Getting available translations..."
+msgstr "Отримання доступних перекладів…"
+
 msgid "Getting bug stats..."
 msgstr "Отримання даних щодо вад…"
 
-#: C:\www\enzyme\src/classes/core/enzyme.php:1014
+msgid "Getting internationalization (i18n) stats..."
+msgstr "Отримання статистичних даних щодо перекладу (i18n)…"
+
+msgid "Getting revision data..."
+msgstr "Отримання даних модифікації…"
+
+msgid "Graphics"
+msgstr "Графіка"
+
+msgid "Help"
+msgstr "Довідка"
+
+msgid "Help URL"
+msgstr "Адреса довідки"
+
+msgid "Home"
+msgstr "Домівка"
+
+msgid "Hostname"
+msgstr "Назва вузла"
+
+msgid "I18n Stats URL"
+msgstr "Адреса статистики перекладу"
+
+msgid "I18n Teams URL"
+msgstr "Адреса команд перекладачів"
+
+msgid "ID"
+msgstr "ІД"
+
+msgid "IP"
+msgstr "IP"
+
+msgid "Ideas for Feature Articles"
+msgstr "Ідеї щодо опису можливостей"
+
+#, php-format
+msgid "If you get any more unrequested reset messages, please contact %s"
+msgstr ""
+"Якщо ви продовжуватимете отримувати повідомлення про скидання пароля, будь "
+"ласка, повідомте про це %s"
+
+msgid "If you have not requested the password reset, please ignore this email."
+msgstr ""
+"Якщо ви не надсилали запиту щодо скидання паролів, будь ласка, не зважайте "
+"на це повідомлення."
+
+#, php-format
+msgid "If you have requested the password reset, please go to %s"
+msgstr ""
+"Якщо ви надіслали запит щодо скидання паролів, будь ласка, перейдіть до %s"
+
+msgid "Import Digest Commits"
+msgstr "Імпортувати внески огляду"
+
+msgid "Import Digest Intro (Archive)"
+msgstr "Імпортувати вступ огляду (архів)"
+
+msgid "Import Digest Intro (Issues)"
+msgstr "Імпортувати вступ огляду (випуски)"
+
+msgid "Import Digest Stats (Archive)"
+msgstr "Імпортувати статистику огляду (архів)"
+
+msgid "Import Digest Stats (Issues)"
+msgstr "Імпортувати статистику огляду (випуски)"
+
+msgid "Insert"
+msgstr "Вставити"
+
+msgid "Insert commits"
+msgstr "Вставити внески"
+
+msgid "Insert from features..."
+msgstr "Вставити з описів можливостей…"
+
+#, php-format
+msgid "Inserted %s"
+msgstr "Вставлено %s"
+
+#, php-format
+msgid "Inserted %s (%s)"
+msgstr "Вставлено %s (%s)"
+
 msgid "Inserted general stats"
 msgstr "Вставлено загальні статистичні дані"
 
-#: C:\www\enzyme\src/classes/core/enzyme.php:1186
+msgid "Inserted module stats"
+msgstr "Вставлено статистику щодо модулів"
+
+msgid "Inserted people stats"
+msgstr "Вставлено статистику щодо учасників"
+
+msgid "Interface"
+msgstr "Інтерфейс"
+
+msgid "Internationalisation (i18n) and Bug Killers"
+msgstr "Перекладачі та мисливці за вадами"
+
+msgid "Introduction"
+msgstr "Вступ"
+
 #, php-format
 msgid "Invalid data type in %s"
 msgstr "Некоректний тип даних у %s"
 
-#: C:\www\enzyme\src/classes/core/ui.php:255
-#, php-format
-msgid "Reviewed by %s"
-msgstr "Рецензовано %s"
+msgid "Invalid import type (needs to be \"issue\" or \"archive\")"
+msgstr ""
+"Некоректний тип імпортування (слід використовувати \"issue\" або \"archive\")"
 
-#: C:\www\enzyme\src/classes/core/ui.php:273
-msgid "Area"
-msgstr "Область"
+msgid "Invalid reset code provided"
+msgstr "Вказано помилковий код скидання"
 
-#: C:\www\enzyme\src/classes/core/ui.php:276
-msgid "Type"
-msgstr "Тип"
+msgid "Issue"
+msgstr "Випуск"
 
-#: C:\www\enzyme\src/classes/core/ui.php:291
-#, php-format
-msgid "%s commits classified (%s total)"
-msgstr "Класифіковано %s внесків (з загальної кількості у %s)"
-
-#: C:\www\enzyme\src/classes/core/ui.php:296
-msgid "Mouse"
-msgstr "Миша"
-
-#: C:\www\enzyme\src/classes/core/ui.php:297
-msgid "Keyboard"
-msgstr "Клавіатура"
-
-#: C:\www\enzyme\src/classes/core/ui.php:316
-#: C:\www\enzyme\src/classes/core/ui.php:325
-msgid "Save"
-msgstr "Зберегти"
-
-#: C:\www\enzyme\src/classes/core/ui.php:319
-#, php-format
-msgid "Selected %s of %s commits reviewed (%s total)"
-msgstr "Вибрано %s з %s рецензованих внесків (загалом внесків: %s)"
-
-#: C:\www\enzyme\src/classes/core/ui.php:388
-#, php-format
-msgid " (%.1f percent of %d)"
-msgstr " (%.1f відсотків з %d)"
-
-#: C:\www\enzyme\src/classes/core/ui.php:405
-#: C:\www\enzyme\src/classes/core/ui.php:407
-#, php-format
-msgid "Total: %d"
-msgstr "Загалом: %d"
-
-#: C:\www\enzyme\src/classes/ui/aboutui.php:24
-msgid "About"
-msgstr "Про систему"
-
-#: C:\www\enzyme\src/classes/ui/aboutui.php:30
-#, php-format
-msgid "Version %.2f"
-msgstr "Версія %.2f"
-
-#: C:\www\enzyme\src/classes/ui/baseui.php:28
-#: C:\www\enzyme\src/classes/ui/insertui.php:28
-msgid "Insert"
-msgstr "Вставити"
-
-#: C:\www\enzyme\src/classes/ui/baseui.php:32
-#: C:\www\enzyme\src/classes/ui/reviewui.php:33
-msgid "Review"
-msgstr "Рецензування"
-
-#: C:\www\enzyme\src/classes/ui/baseui.php:36
-#: C:\www\enzyme\src/classes/ui/classifyui.php:33
-msgid "Classify"
-msgstr "Класифікація"
-
-#: C:\www\enzyme\src/classes/ui/baseui.php:40
-#: C:\www\enzyme\src/classes/ui/digestsui.php:28
-msgid "Digests"
-msgstr "Огляди"
-
-#: C:\www\enzyme\src/classes/ui/baseui.php:44
-#: C:\www\enzyme\src/classes/ui/toolsui.php:28
-#: C:\www\enzyme\src/classes/ui/toolsui.php:86
-msgid "Tools"
-msgstr "Інструменти"
-
-#: C:\www\enzyme\src/classes/ui/baseui.php:48
-#: C:\www\enzyme\src/classes/ui/usersui.php:33
-#: C:\www\enzyme\src/classes/ui/usersui.php:59
-msgid "Users"
-msgstr "Користувачі"
-
-#: C:\www\enzyme\src/classes/ui/classifyui.php:55
-#: C:\www\enzyme\src/classes/ui/reviewui.php:58
-msgid "No revisions available"
-msgstr "Немає доступних модифікацій"
-
-#: C:\www\enzyme\src/classes/ui/classifyui.php:123
-msgid "Areas"
-msgstr "Області"
-
-#: C:\www\enzyme\src/classes/ui/classifyui.php:124
-msgid "Types"
-msgstr "Типи"
-
-#: C:\www\enzyme\src/classes/ui/digestsui.php:70
-msgid "Create a New Digest"
-msgstr "Створити огляд"
-
-#: C:\www\enzyme\src/classes/ui/digestsui.php:73
-msgid "Create new digest"
-msgstr "Створити огляд"
-
-#: C:\www\enzyme\src/classes/ui/digestsui.php:80
-#: C:\www\enzyme\src/classes/ui/digestsui.php:204
-msgid "Date"
-msgstr "Дата"
-
-#: C:\www\enzyme\src/classes/ui/digestsui.php:92
-#: C:\www\enzyme\src/classes/ui/digestsui.php:216
-#: C:\www\enzyme\src/classes/ui/digestsui.php:558
-#: C:\www\enzyme\src/classes/ui/settingsui.php:103
-msgid "Language"
-msgstr "Мова"
-
-#: C:\www\enzyme\src/classes/ui/digestsui.php:115
-#, php-format
-msgid "Publish %s..."
-msgstr "Оприлюднити %s…"
-
-#: C:\www\enzyme\src/classes/ui/digestsui.php:120
-#, php-format
-msgid "Unpublish %s..."
-msgstr "Вилучити з оприлюднених %s…"
-
-#: C:\www\enzyme\src/classes/ui/digestsui.php:132
-msgid "Manage Digests"
-msgstr "Керування оглядами"
-
-#: C:\www\enzyme\src/classes/ui/digestsui.php:133
-msgid "Select a digest to manage..."
-msgstr "Вибрати огляд для керування…"
-
-#: C:\www\enzyme\src/classes/ui/digestsui.php:159
 #, php-format
 msgid "Issue %d: %s"
 msgstr "Випуск %d: %s"
 
-#: C:\www\enzyme\src/classes/ui/digestsui.php:187
-msgid "Digest Information"
-msgstr "Дані щодо огляду"
+msgid "Italiano (Italian)"
+msgstr "італійською (Italian)"
 
-#: C:\www\enzyme\src/classes/ui/digestsui.php:190
-#: C:\www\enzyme\src/classes/ui/digestsui.php:258
-#: C:\www\enzyme\src/classes/ui/digestsui.php:357
-#: C:\www\enzyme\src/classes/ui/settingsui.php:70
-msgid "Save changes"
-msgstr "Зберегти зміни"
-
-#: C:\www\enzyme\src/classes/ui/digestsui.php:191
-msgid "Preview"
-msgstr "Перегляд"
-
-#: C:\www\enzyme\src/classes/ui/digestsui.php:198
-msgid "ID"
-msgstr "ІД"
-
-#: C:\www\enzyme\src/classes/ui/digestsui.php:233
-msgid "Published"
-msgstr "Оприлюднено"
-
-#: C:\www\enzyme\src/classes/ui/digestsui.php:239
-msgid "Comments URL"
-msgstr "Адреса коментарів"
-
-#: C:\www\enzyme\src/classes/ui/digestsui.php:245
-msgid "Contributors"
-msgstr "Автори"
-
-#: C:\www\enzyme\src/classes/ui/digestsui.php:255
-msgid "Synopsis"
-msgstr "Короткий опис"
-
-#: C:\www\enzyme\src/classes/ui/digestsui.php:278
-msgid "Introduction"
-msgstr "Вступ"
-
-#: C:\www\enzyme\src/classes/ui/digestsui.php:281
-msgid "Add section"
-msgstr "Додати розділ"
-
-#: C:\www\enzyme\src/classes/ui/digestsui.php:282
-msgid "People references"
-msgstr "Посилання на авторів"
-
-#: C:\www\enzyme\src/classes/ui/digestsui.php:289
-msgid "No introduction sections found"
-msgstr "Вступних розділів не знайдено"
-
-#: C:\www\enzyme\src/classes/ui/digestsui.php:362
-#: C:\www\enzyme\src/classes/ui/loginui.php:131
-#: C:\www\enzyme\src/classes/ui/usersui.php:348
-msgid "Message"
-msgstr "Повідомлення"
-
-#: C:\www\enzyme\src/classes/ui/digestsui.php:363
-msgid "Comment"
-msgstr "Коментар"
-
-#: C:\www\enzyme\src/classes/ui/digestsui.php:388
-msgid "Statistics"
-msgstr "Статистика"
-
-#: C:\www\enzyme\src/classes/ui/digestsui.php:391
-msgid "Generate statistics"
-msgstr "Створити статистичні дані"
-
-#: C:\www\enzyme\src/classes/ui/digestsui.php:392
-msgid "Delete statistics"
-msgstr "Вилучити статистичні дані"
-
-#: C:\www\enzyme\src/classes/ui/digestsui.php:402
-msgid "Total Commits"
-msgstr "Загалом внесків"
-
-#: C:\www\enzyme\src/classes/ui/digestsui.php:403
-msgid "Total Lines"
-msgstr "Загалом рядків"
-
-#: C:\www\enzyme\src/classes/ui/digestsui.php:404
-msgid "New Files"
-msgstr "Нові файли"
-
-#: C:\www\enzyme\src/classes/ui/digestsui.php:405
-msgid "Total Files"
-msgstr "Всього файлів"
-
-#: C:\www\enzyme\src/classes/ui/digestsui.php:406
-msgid "Active Developers"
-msgstr "Активні розробники"
-
-#: C:\www\enzyme\src/classes/ui/digestsui.php:407
-msgid "Open Bugs"
-msgstr "Невиправлені вади"
-
-#: C:\www\enzyme\src/classes/ui/digestsui.php:408
-msgid "Open Wishes"
-msgstr "Нереалізовані побажання"
-
-#: C:\www\enzyme\src/classes/ui/digestsui.php:409
-msgid "Bugs Opened"
-msgstr "Відкрито вад"
-
-#: C:\www\enzyme\src/classes/ui/digestsui.php:410
-msgid "Bugs Closed"
-msgstr "Закрито вад"
-
-#: C:\www\enzyme\src/classes/ui/digestsui.php:411
-msgid "Wishes Opened"
-msgstr "Відкрито побажань"
-
-#: C:\www\enzyme\src/classes/ui/digestsui.php:412
-msgid "Wishes Closed"
-msgstr "Закрито побажань"
-
-#: C:\www\enzyme\src/classes/ui/digestsui.php:444
-msgid "General"
-msgstr "Загальне"
-
-#: C:\www\enzyme\src/classes/ui/digestsui.php:478
-msgid "Commit Summary"
-msgstr "Резюме внесків"
-
-#: C:\www\enzyme\src/classes/ui/digestsui.php:483
-msgid "Module"
-msgstr "Модуль"
-
-#: C:\www\enzyme\src/classes/ui/digestsui.php:484
-#: C:\www\enzyme\src/classes/ui/digestsui.php:524
-msgid "Commits"
-msgstr "Внески"
-
-#: C:\www\enzyme\src/classes/ui/digestsui.php:510
-msgid "Files"
-msgstr "Файли"
-
-#: C:\www\enzyme\src/classes/ui/digestsui.php:513
-msgid "Lines"
-msgstr "Рядки"
-
-#: C:\www\enzyme\src/classes/ui/digestsui.php:522
-msgid "Account"
-msgstr "Обліковий запис"
-
-#: C:\www\enzyme\src/classes/ui/digestsui.php:553
-msgid "Internationalisation (i18n) and Bug Killers"
-msgstr "Перекладачі та мисливці за вадами"
-
-#: C:\www\enzyme\src/classes/ui/digestsui.php:559
-msgid "Percent (%)"
-msgstr "Відсотки (%)"
-
-#: C:\www\enzyme\src/classes/ui/digestsui.php:588
-#: C:\www\enzyme\src/classes/ui/digestsui.php:656
-msgid "Person"
-msgstr "Особа"
-
-#: C:\www\enzyme\src/classes/ui/digestsui.php:589
-msgid "Bugs"
-msgstr "Вади"
-
-#: C:\www\enzyme\src/classes/ui/digestsui.php:616
-#: C:\www\enzyme\src/classes/ui/digestsui.php:622
-#: C:\www\enzyme\src/classes/ui/digestsui.php:657
-msgid "Buzz"
-msgstr "Відповіді"
-
-#: C:\www\enzyme\src/classes/ui/digestsui.php:621
-msgid "Program"
-msgstr "Програма"
-
-#: C:\www\enzyme\src/classes/ui/digestsui.php:693
-msgid "Selected Commits"
-msgstr "Вибрані внески"
-
-#: C:\www\enzyme\src/classes/ui/digestsui.php:695
-msgid "Review commits..."
-msgstr "Рецензувати внески…"
-
-#: C:\www\enzyme\src/classes/ui/digestsui.php:696
-msgid "Classify commits..."
-msgstr "Класифікувати внески…"
-
-#: C:\www\enzyme\src/classes/ui/digestsui.php:701
-msgid "No commits reviewed and classified!"
-msgstr "Жодного з внесків не рецензовано і не класифіковано!"
-
-#: C:\www\enzyme\src/classes/ui/digestsui.php:723
-#, php-format
-msgid "There are %d selections this week"
-msgstr "Цього тижня вибрано %d внесків"
-
-#: C:\www\enzyme\src/classes/ui/digestsui.php:757
-#, php-format
-msgid "Classified by %s"
-msgstr "Класифікатор — %s"
-
-#: C:\www\enzyme\src/classes/ui/digestsui.php:758
-msgid "Remove commit from this digest?"
-msgstr "Вилучити внесок з цього огляду?"
-
-#: C:\www\enzyme\src/classes/ui/enzymeui.php:198
-msgid "Logout"
-msgstr "Вийти"
-
-#: C:\www\enzyme\src/classes/ui/enzymeui.php:199
-#: C:\www\enzyme\src/classes/ui/helpui.php:28
-#: C:\www\enzyme\src/classes/ui/helpui.php:36
-msgid "Help"
-msgstr "Довідка"
-
-#: C:\www\enzyme\src/classes/ui/enzymeui.php:201
-#: C:\www\enzyme\src/classes/ui/settingsui.php:28
-msgid "Settings"
-msgstr "Параметри"
-
-#: C:\www\enzyme\src/classes/ui/helpui.php:38
-msgid "Refresh"
-msgstr "Оновити"
-
-#: C:\www\enzyme\src/classes/ui/helpui.php:41
-#: C:\www\enzyme\src/classes/ui/homeui.php:28
-msgid "Home"
-msgstr "Домівка"
-
-#: C:\www\enzyme\src/classes/ui/helpui.php:46
-#, php-format
-msgid "This help content is a Wiki: help improve it @ %s"
-msgstr ""
-"Дані цієї довідки зберігаються у вікі: допоможіть у його покращенні за "
-"адресою %s"
-
-#: C:\www\enzyme\src/classes/ui/homeui.php:36
-msgid "Welcome to Enzyme!"
-msgstr "Ласкаво просимо до Enzyme!"
-
-#: C:\www\enzyme\src/classes/ui/homeui.php:67
-msgid "Review Status"
-msgstr "Стан рецензування"
-
-#: C:\www\enzyme\src/classes/ui/homeui.php:82
-msgid "My Stats"
-msgstr "Моя статистика"
-
-#: C:\www\enzyme\src/classes/ui/homeui.php:89
-msgid "Past Week"
-msgstr "Попередній тиждень"
-
-#: C:\www\enzyme\src/classes/ui/homeui.php:90
-msgid "Total"
-msgstr "Загалом"
-
-#: C:\www\enzyme\src/classes/ui/homeui.php:96
-msgid "Reviewed"
-msgstr "Рецензовано"
-
-#: C:\www\enzyme\src/classes/ui/homeui.php:101
-msgid "Classified"
-msgstr "Класифіковано"
-
-#: C:\www\enzyme\src/classes/ui/homeui.php:119
-msgid "Leaderboard"
-msgstr "Панель лідерів"
-
-#: C:\www\enzyme\src/classes/ui/homeui.php:125
-#: C:\www\enzyme\src/classes/ui/homeui.php:165
-#: C:\www\enzyme\src/classes/ui/loginui.php:54
-#: C:\www\enzyme\src/classes/ui/resetui.php:58
-#: C:\www\enzyme\src/classes/ui/settingsui.php:77
-#: C:\www\enzyme\src/classes/ui/setupui.php:211
-#: C:\www\enzyme\src/classes/ui/usersui.php:72
-#: C:\www\enzyme\src/classes/ui/usersui.php:314
-msgid "Username"
-msgstr "Користувач"
-
-#: C:\www\enzyme\src/classes/ui/homeui.php:126
-msgid "Reviewed (Week)"
-msgstr "Рецензовано (за тиждень)"
-
-#: C:\www\enzyme\src/classes/ui/homeui.php:127
-msgid "Reviewed (Total)"
-msgstr "Рецензовано (загалом)"
-
-#: C:\www\enzyme\src/classes/ui/homeui.php:128
-msgid "Classified (Week)"
-msgstr "Класифіковано (за тиждень)"
-
-#: C:\www\enzyme\src/classes/ui/homeui.php:129
-msgid "Classified (Total)"
-msgstr "Класифіковано (загалом)"
-
-#: C:\www\enzyme\src/classes/ui/homeui.php:159
-msgid "Active Users"
-msgstr "Активні користувачі"
-
-#: C:\www\enzyme\src/classes/ui/homeui.php:166
-msgid "IP"
-msgstr "IP"
-
-#: C:\www\enzyme\src/classes/ui/homeui.php:167
-msgid "Page"
-msgstr "Сторінка"
-
-#: C:\www\enzyme\src/classes/ui/homeui.php:168
-msgid "Time"
-msgstr "Час"
-
-#: C:\www\enzyme\src/classes/ui/homeui.php:208
-#, php-format
-msgid "There is an update for Enzyme available, version %.2f (released %s)."
-msgstr "Створено нову версію Enzyme, версію %.2f (випущено %s)."
-
-#: C:\www\enzyme\src/classes/ui/homeui.php:209
-msgid "Changelog"
-msgstr "Журнал змін"
-
-#: C:\www\enzyme\src/classes/ui/homeui.php:209
-msgid "Download"
-msgstr "Звантажити"
-
-#: C:\www\enzyme\src/classes/ui/homeui.php:220
-#, php-format
-msgid "You are running the latest version of Enzyme (version %.2f)."
-msgstr "Ви користуєтеся найсвіжішою версією Enzyme (версією %.2f)."
-
-#: C:\www\enzyme\src/classes/ui/homeui.php:225
-msgid "Enzyme Updates"
-msgstr "Оновлення Enzyme"
-
-#: C:\www\enzyme\src/classes/ui/insertui.php:61
-msgid "Start"
-msgstr "Початок"
-
-#: C:\www\enzyme\src/classes/ui/insertui.php:64
-msgid "End"
-msgstr "Кінець"
-
-#: C:\www\enzyme\src/classes/ui/insertui.php:67
-#: C:\www\enzyme\src/classes/ui/toolsui.php:182
-msgid "Show Skipped?"
-msgstr "Показати пропущені?"
-
-#: C:\www\enzyme\src/classes/ui/insertui.php:70
-msgid "Insert commits"
-msgstr "Вставити внески"
-
-#: C:\www\enzyme\src/classes/ui/loginui.php:25
-#, php-format
-msgid "Welcome to Enzyme @ %s"
-msgstr "Ласкаво просимо до Enzyme на %s"
-
-#: C:\www\enzyme\src/classes/ui/loginui.php:49
-#: C:\www\enzyme\src/classes/ui/loginui.php:68
-msgid "Login"
-msgstr "Вхід"
-
-#: C:\www\enzyme\src/classes/ui/loginui.php:60
-#: C:\www\enzyme\src/classes/ui/setupui.php:217
-msgid "Password"
-msgstr "Пароль"
-
-#: C:\www\enzyme\src/classes/ui/loginui.php:67
-msgid "Forgot password?"
-msgstr "Забули пароль?"
-
-#: C:\www\enzyme\src/classes/ui/loginui.php:75
-msgid "Volunteer"
-msgstr "Волонтер"
-
-#: C:\www\enzyme\src/classes/ui/loginui.php:82
-#: C:\www\enzyme\src/classes/ui/loginui.php:139
-msgid "Apply!"
-msgstr "Взяти участь"
-
-#: C:\www\enzyme\src/classes/ui/loginui.php:101
-#: C:\www\enzyme\src/classes/ui/usersui.php:338
 msgid "Job"
 msgstr "Завдання"
 
-#: C:\www\enzyme\src/classes/ui/loginui.php:107
-#: C:\www\enzyme\src/classes/ui/settingsui.php:128
-#: C:\www\enzyme\src/classes/ui/usersui.php:84
-#: C:\www\enzyme\src/classes/ui/usersui.php:342
-msgid "Paths"
-msgstr "Шляхи"
+msgid "KDE Base"
+msgstr "KDE Base"
 
-#: C:\www\enzyme\src/classes/ui/loginui.php:109
+#, php-format
+msgid "KDE Commit-Digest for %s"
+msgstr "Огляд внесків KDE для %s"
+
+msgid "KDE-PIM"
+msgstr "KDE-PIM"
+
+msgid "KOffice"
+msgstr "KOffice"
+
+msgid "Keyboard"
+msgstr "Клавіатура"
+
+msgid "Konqueror"
+msgstr "Konqueror"
+
+msgid "Language"
+msgstr "Мова"
+
+msgid "Last name"
+msgstr "Прізвище"
+
+msgid "Leaderboard"
+msgstr "Панель лідерів"
+
+msgid "Legacy Import"
+msgstr "Імпорт застарілих даних"
+
+msgid "Legacy Migration"
+msgstr "Міграція з застарілих версій"
+
+msgid "Lines"
+msgstr "Рядки"
+
+msgid "Loading"
+msgstr "Завантаження"
+
+msgid "Login"
+msgstr "Вхід"
+
+msgid "Logout"
+msgstr "Вийти"
+
+msgid "Low Saxon (Low Saxon)"
+msgstr "нижньосаксонською (Low Saxon)"
+
+msgid "Magyar (Hungarian)"
+msgstr "угорською (Hungarian)"
+
+msgid "Make this user active?"
+msgstr "Активізувати запис цього користувача?"
+
+msgid "Make this user inactive?"
+msgstr "Вимкнути запис цього користувача?"
+
+#, php-format
+msgid "Malformed: %d"
+msgstr "Помилкове форматування: %d"
+
+msgid "Manage Digests"
+msgstr "Керування оглядами"
+
+msgid "Message"
+msgstr "Повідомлення"
+
+msgid "Module"
+msgstr "Модуль"
+
+msgid "Mouse"
+msgstr "Миша"
+
+msgid "Multimedia"
+msgstr "Звук та відео"
+
+msgid "Must be logged in!"
+msgstr "Вам слід увійти до системи!"
+
+msgid "My Stats"
+msgstr "Моя статистика"
+
+msgid "Name"
+msgstr "Ім’я"
+
+msgid "Nederlands (Dutch)"
+msgstr "голландською (Dutch)"
+
+msgid "Networking Tools"
+msgstr "Мережеві інструменти"
+
+msgid "New Files"
+msgstr "Нові файли"
+
+msgid "New password"
+msgstr "Новий пароль"
+
+msgid "Next"
+msgstr "Далі"
+
+msgid "Next, we need to setup an admin user account for Enzyme."
+msgstr "Далі, нам слід налаштувати адміністративний обліковий запис Enzyme."
+
+msgid "No"
+msgstr "Ні"
+
+msgid "No commits reviewed and classified!"
+msgstr "Жодного з внесків не рецензовано і не класифіковано!"
+
+msgid "No features ready for selection"
+msgstr "Для вибірки не приготовано жодних описів можливостей"
+
+msgid "No introduction sections found"
+msgstr "Вступних розділів не знайдено"
+
+msgid "No items found"
+msgstr "Не знайдено жодного об’єкта"
+
+msgid "No revisions available"
+msgstr "Немає доступних модифікацій"
+
+msgid "Not enough data to generate statistics."
+msgstr "Недостатньо даних для статистичного аналізу."
+
+msgid "Number"
+msgstr "Номер"
+
+msgid "Office"
+msgstr "Офіс"
+
+msgid "Old password"
+msgstr "Старий пароль"
+
+msgid "Only show commits I reviewed"
+msgstr "Показувати лише рецензовані мною внески"
+
+msgid "Open Bugs"
+msgstr "Невиправлені вади"
+
+msgid "Open Wishes"
+msgstr "Нереалізовані побажання"
+
+msgid "Optimization"
+msgstr "Оптимізація"
+
+msgid "Optimize"
+msgstr "Оптимізація"
+
 #, php-format
 msgid "Optional. (e.g. %s)"
 msgstr "Необов’язковий (наприклад, %s)"
 
-#: C:\www\enzyme\src/classes/ui/loginui.php:113
-#: C:\www\enzyme\src/classes/ui/settingsui.php:90
-#: C:\www\enzyme\src/classes/ui/setupui.php:224
-#: C:\www\enzyme\src/classes/ui/usersui.php:74
-#: C:\www\enzyme\src/classes/ui/usersui.php:320
-msgid "First name"
-msgstr "Ім'я"
+msgid "Other"
+msgstr "Інше"
 
-#: C:\www\enzyme\src/classes/ui/loginui.php:119
-#: C:\www\enzyme\src/classes/ui/settingsui.php:96
-#: C:\www\enzyme\src/classes/ui/setupui.php:230
-#: C:\www\enzyme\src/classes/ui/usersui.php:75
-#: C:\www\enzyme\src/classes/ui/usersui.php:326
-msgid "Last name"
-msgstr "Прізвище"
+msgid "Other Feature Articles"
+msgstr "Інші описи можливостей"
 
-#: C:\www\enzyme\src/classes/ui/loginui.php:125
-#: C:\www\enzyme\src/classes/ui/settingsui.php:83
-#: C:\www\enzyme\src/classes/ui/setupui.php:236
-#: C:\www\enzyme\src/classes/ui/usersui.php:73
-#: C:\www\enzyme\src/classes/ui/usersui.php:332
-msgid "Email"
-msgstr "Ел. пошта"
+msgid "Page"
+msgstr "Сторінка"
 
-#: C:\www\enzyme\src/classes/ui/loginui.php:138
-msgid "Cancel"
-msgstr "Скасувати"
+msgid "Parse Authors Data"
+msgstr "Обробити дані авторів"
 
-#: C:\www\enzyme\src/classes/ui/loginui.php:145
+msgid "Parse Bugfixers"
+msgstr "Обробити дані мисливців за вадами"
+
+msgid "Parse Countries"
+msgstr "Обробити дані країн"
+
+msgid "Parse Filetypes"
+msgstr "Обробити типи файлів"
+
+msgid "Parse I18n Teams"
+msgstr "Обробити дані команд перекладачів"
+
+msgid "Parse Links"
+msgstr "Обробити посилання"
+
+msgid "Parse People"
+msgstr "Обробити дані осіб"
+
+msgid "Parse authors"
+msgstr "Обробити дані авторів"
+
+msgid "Parsing revision data..."
+msgstr "Обробка даних модифікації…"
+
+msgid "Password"
+msgstr "Пароль"
+
+msgid "Past Week"
+msgstr "Попередній тиждень"
+
+msgid "Path"
+msgstr "Шлях"
+
+msgid "Paths"
+msgstr "Шляхи"
+
+msgid "Pending Feature Articles"
+msgstr "Описи можливостей у черзі"
+
+msgid "People References"
+msgstr "Посилання на авторів"
+
+msgid "People references"
+msgstr "Посилання на авторів"
+
+msgid "Percent (%)"
+msgstr "Відсотки (%)"
+
+msgid "Permissions"
+msgstr "Права доступу"
+
+msgid "Person"
+msgstr "Особа"
+
+msgid "Personal"
+msgstr "Особисті"
+
+msgid "Please enter the end date!"
+msgstr "Будь ласка, вкажіть дату завершення!"
+
+msgid "Please enter the start date!"
+msgstr "Будь ласка, вкажіть дату початку!"
+
+msgid "Polski (Polish)"
+msgstr "польською (Polish)"
+
+msgid "Port"
+msgstr "Порт"
+
+msgid "Português (Portuguese)"
+msgstr "португальською (Portuguese)"
+
+msgid "Português Brasileiro (Brazilian Portuguese)"
+msgstr "бразильською португальською (Brazilian Portuguese)"
+
+msgid "Preview"
+msgstr "Перегляд"
+
+msgid "Priority"
+msgstr "Пріоритет"
+
+#, php-format
+msgid "Processed %s"
+msgstr "Оброблено %s"
+
+#, php-format
+msgid "Processed revision %s"
+msgstr "Оброблено модифікацію %s"
+
+#, php-format
+msgid "Processed: %d"
+msgstr "Оброблено: %d"
+
+msgid "Program"
+msgstr "Програма"
+
+msgid "Project Name"
+msgstr "Назва проекту"
+
+#, php-format
+msgid "Publish %s..."
+msgstr "Оприлюднити %s…"
+
+msgid "Published"
+msgstr "Оприлюднено"
+
+msgid "Query failed"
+msgstr "Невдалий запит"
+
+#, php-format
+msgid "Query failed: %s"
+msgstr "Невдалий запит: %s"
+
+msgid "Refresh"
+msgstr "Оновити"
+
+msgid "Remove commit from this digest?"
+msgstr "Вилучити внесок з цього огляду?"
+
+#, php-format
+msgid "Remove the %d selected commits?"
+msgstr "Вилучити позначені внески (%d)?"
+
+msgid "Repeat password"
+msgstr "Повторіть пароль"
+
+msgid "Repositories"
+msgstr "Сховища"
+
+msgid ""
+"Repository passwords are stored as plaintext. Consider setting up a "
+"separate, read-only repository user if security is important."
+msgstr ""
+"Паролі до сховища зберігаються у форматі звичайного тексту. Вам варто "
+"створити окремий запис користувача сховища, якому буде дозволено лише "
+"читання даних, якщо для вас важлива безпека."
+
+msgid "Reset Password"
+msgstr "Скинути мій пароль"
+
+msgid "Reset password"
+msgstr "Скинути пароль"
+
+#, php-format
+msgid "Retrieving from %s (%s)..."
+msgstr "Звантаження з %s (%s)…"
+
+msgid "Review"
+msgstr "Рецензування"
+
+msgid "Review Status"
+msgstr "Стан рецензування"
+
+msgid "Review commits..."
+msgstr "Рецензувати внески…"
+
+msgid "Reviewed"
+msgstr "Рецензовано"
+
+msgid "Reviewed (Total)"
+msgstr "Рецензовано (загалом)"
+
+msgid "Reviewed (Week)"
+msgstr "Рецензовано (за тиждень)"
+
+#, php-format
+msgid "Reviewed by %s"
+msgstr "Рецензовано %s"
+
+msgid "Reviewer"
+msgstr "Рецензент"
+
+#, php-format
+msgid "Revision %s"
+msgstr "Модифікація %s"
+
+msgid "SMTP Mail Server"
+msgstr "Поштовий сервер SMTP"
+
+msgid "SMTP mail server has not been set!"
+msgstr "Не вказано поштовий сервер SMTP!"
+
+msgid "Save"
+msgstr "Зберегти"
+
+msgid "Save changes"
+msgstr "Зберегти зміни"
+
+msgid "Save new account?"
+msgstr "Зберегти новий обліковий запис?"
+
+msgid "Save new repository?"
+msgstr "Зберегти новий запис сховища?"
+
+msgid "Save unsuccessful"
+msgstr "Помилка збереження"
+
+#, php-format
+msgid "Saved %d commits"
+msgstr "Збережено дані %d внесків"
+
+msgid "Scheduled Feature Articles"
+msgstr "Заплановані описи можливостей"
+
+msgid "Security"
+msgstr "Безпека"
+
+msgid "Select a digest to manage..."
+msgstr "Вибрати огляд для керування…"
+
+msgid "Select settings and submit to start processing..."
+msgstr "Вкажіть параметри і накажіть системі почати обробку…"
+
+msgid "Select this commit for bulk actions..."
+msgstr "Вибрати цей внесок для подальших дій…"
+
+#, php-format
+msgid "Selected %s of %s commits reviewed (%s total)"
+msgstr "Вибрано %s з %s рецензованих внесків (загалом внесків: %s)"
+
+msgid "Selected Commits"
+msgstr "Вибрані внески"
+
+msgid "Server"
+msgstr "Сервер"
+
+msgid "Settings"
+msgstr "Параметри"
+
+msgid "Setup"
+msgstr "Налаштування"
+
+msgid "Setup database"
+msgstr "Налаштувати базу даних"
+
+msgid "Show Insert"
+msgstr "Показати вставки"
+
+msgid "Show Skipped?"
+msgstr "Показати пропущені?"
+
+#, php-format
+msgid "Skipped %s"
+msgstr "Пропущено %s"
+
+#, php-format
+msgid "Skipped: %d"
+msgstr "Пропущено: %d"
+
+#, php-format
+msgid "Skipping revision %s"
+msgstr "Пропуск модифікації %s"
+
+#, php-format
+msgid "Skipping: %s"
+msgstr "Пропускаємо: %s"
+
+msgid "Start"
+msgstr "Початок"
+
+msgid "Statistics"
+msgstr "Статистика"
+
+msgid "Statistics for this issue need generating..."
+msgstr "Слід створити статистику для цього випуску…"
+
+msgid "Status"
+msgstr "Стан"
+
+#, php-format
+msgid "Step %d of %d"
+msgstr "Крок %d з %d"
+
+#, php-format
+msgid "Successfully created table \"%s\""
+msgstr "Успішно створено таблицю «%s»"
+
+#, php-format
+msgid "Successfully imported data into table \"%s\""
+msgstr "Успішно імпортовано дані до таблиці «%s»"
+
+msgid "Svenska (Swedish)"
+msgstr "шведською (Swedish)"
+
+msgid "Synopsis"
+msgstr "Короткий опис"
+
+msgid "Target"
+msgstr "Призначення"
+
 msgid "Thanks for your application!"
 msgstr "Дякуємо за ваш запит!"
 
-#: C:\www\enzyme\src/classes/ui/loginui.php:146
+#, php-format
+msgid "Thanks, the %s team"
+msgstr "З вдячністю, команда %s"
+
 msgid ""
 "The administrator will email you at the address provided when your "
 "application has been reviewed."
@@ -1104,346 +1174,142 @@ msgstr ""
 "Адміністратор надішле вам листа на адресу, вказану у вашому проханні про "
 "участь, коли ваше прохання буде розглянуто."
 
-#: C:\www\enzyme\src/classes/ui/resetui.php:26
-msgid "Reset Password"
-msgstr "Скинути мій пароль"
-
-#: C:\www\enzyme\src/classes/ui/resetui.php:52
-msgid "Invalid reset code provided"
-msgstr "Вказано помилковий код скидання"
-
-#: C:\www\enzyme\src/classes/ui/resetui.php:64
-#: C:\www\enzyme\src/classes/ui/settingsui.php:154
-msgid "New password"
-msgstr "Новий пароль"
-
-#: C:\www\enzyme\src/classes/ui/resetui.php:71
-msgid "Reset password"
-msgstr "Скинути пароль"
-
-#: C:\www\enzyme\src/classes/ui/settingsui.php:56
-msgid "All"
-msgstr "Всі"
-
-#: C:\www\enzyme\src/classes/ui/settingsui.php:67
-msgid "Personal"
-msgstr "Особисті"
-
-#: C:\www\enzyme\src/classes/ui/settingsui.php:110
-msgid "Interface"
-msgstr "Інтерфейс"
-
-#: C:\www\enzyme\src/classes/ui/settingsui.php:121
-msgid "Permissions"
-msgstr "Права доступу"
-
-#: C:\www\enzyme\src/classes/ui/settingsui.php:138
-#: C:\www\enzyme\src/classes/ui/settingsui.php:141
-msgid "Change password"
-msgstr "Змінити пароль"
-
-#: C:\www\enzyme\src/classes/ui/settingsui.php:148
-msgid "Old password"
-msgstr "Старий пароль"
-
-#: C:\www\enzyme\src/classes/ui/settingsui.php:160
-msgid "Repeat password"
-msgstr "Повторіть пароль"
-
-#: C:\www\enzyme\src/classes/ui/setupui.php:66
-#: C:\www\enzyme\src/classes/ui/setupui.php:74
-#: C:\www\enzyme\src/classes/ui/setupui.php:79
 #, php-format
-msgid "Step %d of %d"
-msgstr "Крок %d з %d"
+msgid "There are %d selections this week"
+msgstr "Цього тижня вибрано %d внесків"
 
-#: C:\www\enzyme\src/classes/ui/setupui.php:169
 #, php-format
-msgid ""
-"Enzyme cannot find a compatible database at the location set at the top of %"
-"s:"
+msgid "There is an update for Enzyme available, version %.2f (released %s)."
+msgstr "Створено нову версію Enzyme, версію %.2f (випущено %s)."
+
+#, php-format
+msgid "This help content is a Wiki: help improve it @ %s"
 msgstr ""
-"Enzyme не вдалося знайти сумісну базу даних за адресою, вказаною на початку %"
-"s:"
+"Дані цієї довідки зберігаються у вікі: допоможіть у його покращенні за "
+"адресою %s"
 
-#: C:\www\enzyme\src/classes/ui/setupui.php:174
-msgid "Server"
-msgstr "Сервер"
-
-#: C:\www\enzyme\src/classes/ui/setupui.php:178
-msgid "Database"
-msgstr "База даних"
-
-#: C:\www\enzyme\src/classes/ui/setupui.php:185
-msgid ""
-"Click \"Setup database\" to let Enzyme create a compatible database ready "
-"for use."
-msgstr ""
-"Натисніть кнопку «Налаштувати базу даних», щоб дозволити Enzyme створити "
-"сумісну базу даних, якою можна буде скористатися."
-
-#: C:\www\enzyme\src/classes/ui/setupui.php:192
-msgid "Setup database"
-msgstr "Налаштувати базу даних"
-
-#: C:\www\enzyme\src/classes/ui/setupui.php:193
-msgid "Next"
-msgstr "Далі"
-
-#: C:\www\enzyme\src/classes/ui/setupui.php:197
-msgid ""
-"Errors were encountered when trying to create the database and tables, "
-"please try to fix them manually."
-msgstr ""
-"Під час спроби створення бази даних і таблиць сталися помилки, спробуйте "
-"виправити ці помилки вручну."
-
-#: C:\www\enzyme\src/classes/ui/setupui.php:206
-msgid "Next, we need to setup an admin user account for Enzyme."
-msgstr "Далі, нам слід налаштувати адміністративний обліковий запис Enzyme."
-
-#: C:\www\enzyme\src/classes/ui/setupui.php:244
-msgid "Create user"
-msgstr "Створити користувача"
-
-#: C:\www\enzyme\src/classes/ui/toolsui.php:91
-msgid "Parse Authors Data"
-msgstr "Обробити дані авторів"
-
-#: C:\www\enzyme\src/classes/ui/toolsui.php:96
-msgid "Parse I18n Teams"
-msgstr "Обробити дані команд перекладачів"
-
-#: C:\www\enzyme\src/classes/ui/toolsui.php:103
-msgid "Legacy Migration"
-msgstr "Міграція з застарілих версій"
-
-#: C:\www\enzyme\src/classes/ui/toolsui.php:108
-msgid "Import Digest Intro (Issues)"
-msgstr "Імпортувати вступ огляду (випуски)"
-
-#: C:\www\enzyme\src/classes/ui/toolsui.php:113
-msgid "Import Digest Intro (Archive)"
-msgstr "Імпортувати вступ огляду (архів)"
-
-#: C:\www\enzyme\src/classes/ui/toolsui.php:119
-msgid "Import Digest Stats (Issues)"
-msgstr "Імпортувати статистику огляду (випуски)"
-
-#: C:\www\enzyme\src/classes/ui/toolsui.php:124
-msgid "Import Digest Stats (Archive)"
-msgstr "Імпортувати статистику огляду (архів)"
-
-#: C:\www\enzyme\src/classes/ui/toolsui.php:130
-msgid "Import Digest Commits"
-msgstr "Імпортувати внески огляду"
-
-#: C:\www\enzyme\src/classes/ui/toolsui.php:141
-msgid "Parse Bugfixers"
-msgstr "Обробити дані мисливців за вадами"
-
-#: C:\www\enzyme\src/classes/ui/toolsui.php:146
-msgid "Parse Countries"
-msgstr "Обробити дані країн"
-
-#: C:\www\enzyme\src/classes/ui/toolsui.php:151
-msgid "Parse Filetypes"
-msgstr "Обробити типи файлів"
-
-#: C:\www\enzyme\src/classes/ui/toolsui.php:156
-msgid "Parse People"
-msgstr "Обробити дані осіб"
-
-#: C:\www\enzyme\src/classes/ui/toolsui.php:161
-msgid "Parse Links"
-msgstr "Обробити посилання"
-
-#: C:\www\enzyme\src/classes/ui/toolsui.php:185
-msgid "Parse authors"
-msgstr "Обробити дані авторів"
-
-#: C:\www\enzyme\src/classes/ui/usersui.php:62
-#, php-format
-msgid "%d users"
-msgstr "%d користувачів"
-
-#: C:\www\enzyme\src/classes/ui/usersui.php:64
-msgid "Add new user"
-msgstr "Додати нового користувача"
-
-#: C:\www\enzyme\src/classes/ui/usersui.php:112
-msgid "Available Jobs"
-msgstr "Доступні завдання"
-
-#: C:\www\enzyme\src/classes/ui/usersui.php:139
-msgid "Applications"
-msgstr "Запити"
-
-#: C:\www\enzyme\src/classes/ui/usersui.php:142
-#, php-format
-msgid "%d applications"
-msgstr "%d запитів"
-
-#: C:\www\enzyme\src/classes/ui/usersui.php:178
-msgid "Make this user inactive?"
-msgstr "Вимкнути запис цього користувача?"
-
-#: C:\www\enzyme\src/classes/ui/usersui.php:184
-msgid "Make this user active?"
-msgstr "Активізувати запис цього користувача?"
-
-#: C:\www\enzyme\src/classes/ui/usersui.php:241
-msgid "Save new account?"
-msgstr "Зберегти новий обліковий запис?"
-
-#: C:\www\enzyme\src/classes/ui/usersui.php:355
-msgid "Decline"
-msgstr "Відхилити"
-
-#: C:\www\enzyme\src/classes/ui/usersui.php:356
-msgid "Approve"
-msgstr "Прийняти"
-
-#: C:\www\enzyme\src/get/insert.php:23
-msgid "Please enter the start date!"
-msgstr "Будь ласка, вкажіть дату початку!"
-
-#: C:\www\enzyme\src/get/insert.php:27
-msgid "Please enter the end date!"
-msgstr "Будь ласка, вкажіть дату завершення!"
-
-#: C:\www\enzyme\src/get/insert.php:36
-msgid "Must be logged in!"
-msgstr "Вам слід увійти до системи!"
-
-#: C:\www\enzyme\src/get/people-references.php:30
-msgid "People References"
-msgstr "Посилання на авторів"
-
-#: C:\www\enzyme\src/get/people-references.php:32
-msgid "Add person"
-msgstr "Додати особу"
-
-#: C:\www\enzyme\src/get/people-references.php:39
-msgid "Number"
-msgstr "Номер"
-
-#: C:\www\enzyme\src/get/people-references.php:41
-msgid "Name"
-msgstr "Ім’я"
-
-#: C:\www\enzyme\src/get/prompt.php:26
-msgid "Statistics for this issue need generating..."
-msgstr "Слід створити статистику для цього випуску…"
-
-#: C:\www\enzyme\src/get/prompt.php:28
-msgid "Select settings and submit to start processing..."
-msgstr "Вкажіть параметри і накажіть системі почати обробку…"
-
-#: C:\www\enzyme\src/get/reset-password.php:72
-#, php-format
-msgid ""
-"%s, someone at the IP address %s has requested a password reset on your "
-"account."
-msgstr ""
-"%s, хтось, хто працює за IP-адресою %s, надіслав запит щодо скидання пароля "
-"для вашого облікового запису."
-
-#: C:\www\enzyme\src/get/reset-password.php:73
-#, php-format
-msgid "If you have requested the password reset, please go to %s"
-msgstr ""
-"Якщо ви надіслали запит щодо скидання паролів, будь ласка, перейдіть до %s"
-
-#: C:\www\enzyme\src/get/reset-password.php:74
 msgid "This link is valid for 6 hours, and one password change only."
 msgstr ""
 "Це посилання буде чинним протягом 6 годин, його призначено лише для зміни "
 "паролів."
 
-#: C:\www\enzyme\src/get/reset-password.php:75
+msgid "Time"
+msgstr "Час"
+
+msgid "Tools"
+msgstr "Інструменти"
+
+msgid "Total"
+msgstr "Загалом"
+
+msgid "Total Commits"
+msgstr "Загалом внесків"
+
+msgid "Total Files"
+msgstr "Всього файлів"
+
+msgid "Total Lines"
+msgstr "Загалом рядків"
+
+#, php-format
+msgid "Total: %d"
+msgstr "Загалом: %d"
+
+msgid "Translator"
+msgstr "Перекладач"
+
 msgid ""
-"Be sure to change your password immediately after logging in by going to "
-"\"Settings\" at the top right."
+"Translators increase the reach of the Commit-Digest and the work done across "
+"the project by making the weekly Commit-Digests available in the native "
+"language of people around the world."
 msgstr ""
-"Змініть ваш пароль одразу після входу до системи за допомогою пункту "
-"«Параметри», розташованого на сторінці згори праворуч."
+"Перекладачі збільшують кількість читачів оглядів внесків і роблять "
+"доступними рідною мовою огляди внесків людям з усього світу."
 
-#: C:\www\enzyme\src/get/reset-password.php:76
-msgid "If you have not requested the password reset, please ignore this email."
+msgid "Try unchecking \"Only show commits I reviewed\""
 msgstr ""
-"Якщо ви не надсилали запиту щодо скидання паролів, будь ласка, не зважайте "
-"на це повідомлення."
+"Спробуйте зняти позначку з пункту «Показувати лише рецензовані мною внески»"
 
-#: C:\www\enzyme\src/get/reset-password.php:77
+msgid "Type"
+msgstr "Тип"
+
+msgid "Types"
+msgstr "Типи"
+
+msgid "Ukrainian (Ukrainian)"
+msgstr "українською (Ukrainian)"
+
 #, php-format
-msgid "If you get any more unrequested reset messages, please contact %s"
-msgstr ""
-"Якщо ви продовжуватимете отримувати повідомлення про скидання пароля, будь "
-"ласка, повідомте про це %s"
+msgid "Unpublish %s..."
+msgstr "Вилучити з оприлюднених %s…"
 
-#: C:\www\enzyme\src/get/reset-password.php:78
+msgid "Updating translation strings..."
+msgstr "Оновлення рядків перекладу…"
+
+msgid "Uploading translation strings..."
+msgstr "Вивантаження рядків перекладу…"
+
+msgid "User Interface"
+msgstr "Інтерфейс користувача"
+
+msgid "Username"
+msgstr "Користувач"
+
+msgid "Users"
+msgstr "Користувачі"
+
+msgid "Utilities"
+msgstr "Інструменти"
+
 #, php-format
-msgid "Thanks, the %s team"
-msgstr "З вдячністю, команда %s"
+msgid "Version %.2f"
+msgstr "Версія %.2f"
 
-#: C:\www\enzyme\src/get/setup-database.php:58
+msgid "Volunteer"
+msgstr "Волонтер"
+
+msgid "Web Bug Tracker"
+msgstr "Стеження за вадами"
+
+msgid "Web Bug Tracker XML"
+msgstr "XML інтернет-стеження за вадами"
+
+msgid "Web viewer"
+msgstr "Інтернет-перегляд"
+
 #, php-format
-msgid "Successfully created table \"%s\""
-msgstr "Успішно створено таблицю «%s»"
+msgid "Welcome to Enzyme @ %s"
+msgstr "Ласкаво просимо до Enzyme на %s"
 
-#: C:\www\enzyme\src/get/setup-database.php:60
+msgid "Welcome to Enzyme!"
+msgstr "Ласкаво просимо до Enzyme!"
+
+msgid "What number should this section be?"
+msgstr "Яким має бути номер цього розділу?"
+
+msgid "Wishes Closed"
+msgstr "Закрито побажань"
+
+msgid "Wishes Opened"
+msgstr "Відкрито побажань"
+
+msgid "Yes"
+msgstr "Так"
+
 #, php-format
-msgid "Error creating table \"%s\""
-msgstr "Помилка під час спроби створення таблиці «%s»"
+msgid "You are running the latest version of Enzyme (version %.2f)."
+msgstr "Ви користуєтеся найсвіжішою версією Enzyme (версією %.2f)."
 
-#: C:\www\enzyme\src/get/setup-database.php:76
 #, php-format
-msgid "Successfully imported data into table \"%s\""
-msgstr "Успішно імпортовано дані до таблиці «%s»"
+msgid "You need to have the permission \"%s\" to view this section"
+msgstr "Для перегляду цього розділу вам потрібні права доступу «%s»"
 
-#: C:\www\enzyme\src/get/setup-database.php:78
-#, php-format
-msgid "Error importing data into table \"%s\""
-msgstr "Помилка під час спроби імпортування даних до таблиці «%s»"
-
-#: C:\www\enzyme\src/js/includes/common.php:22
-msgid "Error"
-msgstr "Помилка"
-
-#: C:\www\enzyme\src/js/includes/common.php:23
-msgid "Close"
-msgstr "Закрити"
-
-#: C:\www\enzyme\src/js/includes/common.php:24
-msgid "Loading"
-msgstr "Завантаження"
-
-#: C:\www\enzyme\src/js/includes/common.php:27
-msgid "Your password has been changed"
-msgstr "Ваш пароль змінено"
-
-#: C:\www\enzyme\src/js/includes/common.php:28
-msgid "Error: Password not changed"
-msgstr "Помилка: пароль не змінено"
-
-#: C:\www\enzyme\src/js/includes/common.php:30
 msgid "Your information has been changed"
 msgstr "Ваші дані було змінено"
 
-#: C:\www\enzyme\src/js/includes/common.php:31
-msgid "Error: Personal information not changed"
-msgstr "Помилка: особисті дані не змінено"
+msgid "Your password has been changed"
+msgstr "Ваш пароль змінено"
 
-#: C:\www\enzyme\src/js/includes/common.php:33
-msgid "Error: Application failed"
-msgstr "Помилка: помилка запиту"
-
-#: C:\www\enzyme\src/js/includes/common.php:35
-msgid "Failed to save settings"
-msgstr "Не вдалося зберегти параметри"
-
-#: C:\www\enzyme\src/js/includes/common.php:37
 msgid ""
 "Your password has been reset. Please check your registered email account for "
 "further instructions."
@@ -1451,104 +1317,17 @@ msgstr ""
 "Ваш пароль було скинуто. Будь ласка, скористайтеся подальшими настановами, "
 "які надіслано на вказану вами при створення запису адресу електронної пошти."
 
-#: C:\www\enzyme\src/js/includes/common.php:41
-msgid "Are you sure you want to remove this commit?"
-msgstr "Ви справді бажаєте вилучити дані цього внеску?"
+msgid "Русский язык (Russian)"
+msgstr "російською (Russian)"
 
-#: C:\www\enzyme\src/js/includes/common.php:258
-#, php-format
-msgid "Saved %d commits"
-msgstr "Збережено дані %d внесків"
+#~ msgid "Repository Type"
+#~ msgstr "Тип сховища"
 
-#: C:\www\enzyme\src/js/includes/common.php:285
-#: C:\www\enzyme\src/js/includes/common.php:291
-msgid "Save unsuccessful"
-msgstr "Помилка збереження"
+#~ msgid "Subversion"
+#~ msgstr "Subversion"
 
-#: C:\www\enzyme\src/js/includes/common.php:389
-msgid "Any unsaved changes will be lost. Continue?"
-msgstr "Всі незбережені зміни буде втрачено. Виконати дію?"
+#~ msgid "Repository URL"
+#~ msgstr "Адреса сховища"
 
-#: C:\www\enzyme\src/tool/digest-commits.php:181
-#: C:\www\enzyme\src/tool/digest-intro.php:156
-#: C:\www\enzyme\src/tool/digest-stats.php:316
-#, php-format
-msgid "Processed %s"
-msgstr "Оброблено %s"
-
-#: C:\www\enzyme\src/tool/digest-intro.php:50
-#: C:\www\enzyme\src/tool/digest-stats.php:46
-msgid "Invalid import type (needs to be \"issue\" or \"archive\")"
-msgstr ""
-"Некоректний тип імпортування (слід використовувати \"issue\" або \"archive\")"
-
-#: C:\www\enzyme\src/tool/digest-stats.php:64
-#, php-format
-msgid "File %s could not be found..."
-msgstr "Не вдалося знайти файл %s…"
-
-#: C:\www\enzyme\src/tool/digest-stats.php:94
-#, php-format
-msgid "Skipped %s"
-msgstr "Пропущено %s"
-
-#: C:\www\enzyme\src/tool/parse-authors.php:39
-#, php-format
-msgid "Skipped: %d"
-msgstr "Пропущено: %d"
-
-#: C:\www\enzyme\src/tool/parse-authors.php:41
-#, php-format
-msgid "Added: %d"
-msgstr "Додано: %d"
-
-#: C:\www\enzyme\src/tool/parse-authors.php:43
-#, php-format
-msgid "Malformed: %d"
-msgstr "Помилкове форматування: %d"
-
-#: C:\www\enzyme\src/tool/parse-authors.php:88
-#, php-format
-msgid "Entry \"%s\" malformed, not added"
-msgstr "Запис «%s» має помилковий формат, його не додано"
-
-#: C:\www\enzyme\src/tool/parse-authors.php:105
-#, php-format
-msgid "Skipping: %s"
-msgstr "Пропускаємо: %s"
-
-#: C:\www\enzyme\src/tool/parse-authors.php:118
-#, php-format
-msgid "Added %s (%s) to authors table"
-msgstr "Додано %s (%s) до списку авторів"
-
-#: C:\www\enzyme\src/tool/parse-bugfixers.php:46
-#: C:\www\enzyme\src/tool/parse-countries.php:46
-#: C:\www\enzyme\src/tool/parse-filetypes.php:46
-#: C:\www\enzyme\src/tool/parse-links.php:42
-#: C:\www\enzyme\src/tool/parse-people.php:42
-#, php-format
-msgid "Cannot find %s"
-msgstr "Не вдалося знайти %s"
-
-#: C:\www\enzyme\src/tool/parse-bugfixers.php:80
-#: C:\www\enzyme\src/tool/parse-people.php:85
-#, php-format
-msgid "Inserted %s"
-msgstr "Вставлено %s"
-
-#: C:\www\enzyme\src/tool/parse-countries.php:79
-#: C:\www\enzyme\src/tool/parse-links.php:75
-#, php-format
-msgid "Inserted %s (%s)"
-msgstr "Вставлено %s (%s)"
-
-#: C:\www\enzyme\src/tool/parse-i18n.php:61
-#, php-format
-msgid "Downloaded %d i18n teams"
-msgstr "Звантажено %d команд перекладачів"
-
-#: C:\www\enzyme\src/tool/parse-people.php:93
-#, php-format
-msgid "Error detected on line %d"
-msgstr "Виявлено помилку у рядку %d"
+#~ msgid "Web Repository Viewer"
+#~ msgstr "Нагляд за інтернет-сховищем"
