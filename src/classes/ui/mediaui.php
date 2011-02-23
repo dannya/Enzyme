@@ -124,7 +124,7 @@ class MediaUi extends BaseUi {
                   <div>';
 
       // sort by number
-      usort($mediaOnDate, 'self::sortMediaByNumber');
+      usort($mediaOnDate, 'MediaUi::sortMediaByNumber');
 
       foreach ($mediaOnDate as $media) {
         // create file link "breadcrumb"
