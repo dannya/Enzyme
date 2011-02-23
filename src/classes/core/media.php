@@ -16,14 +16,14 @@
 
 
 class Media {
-  private $ext              = null;
-  private $error            = false;
+  private $ext        = null;
+  private $error      = false;
 
-  private $file             = false;
-  private $filename         = false;
+  private $file       = false;
+  private $filename   = false;
 
-  private static $max       = array('width'   => 550,
-                                    'height'  => 600);
+  private static $max = array('width'   => 550,
+                              'height'  => 600);
 
   private static $allowed   = array('image' => array('png'   => 1,
                                                      'gif'   => 1,
@@ -190,7 +190,7 @@ class Media {
 
     if ($media['type'] == 'video') {
       if (is_file(BASE_DIR . $media['file'])) {
-        $media['size'] = Ui::filesize(filesize(BASE_DIR . $media['file']));
+        $media['size'] = Ui::filesize(filesize(BASE_DIR . $media['file']), 1000);
       } else {
         $media['size'] = false;
       }
@@ -199,7 +199,7 @@ class Media {
       if ($media['size']) {
         $link  = '<div class="link">
                     <a href="' . BASE_URL . $media['file'] . '" title="' . strip_tags($string) . '">' .
-                      sprintf(_('Download <b>%s</b> video (%s, %s)'), $media['name'], $size, $media['ext']) .
+                        sprintf(_('Download <b>%s</b> video (%s, %s)'), $media['name'], $media['size'], $media['ext']) .
                  '  </a>
                   </div>';
       }
@@ -226,16 +226,16 @@ class Media {
                '</div>';
 
     } else if ($media['type'] == 'video') {
-      $buf   = '<div class="video">
-                  <div class="v">
-                    <object height="350" width="425">
-                      <param value="http://www.youtube.com/v/' . $media['youtube'] . '" name="movie" />
-                      <param name="wmode" value="opaque" />
-                      <embed height="350" width="425" type="application/x-shockwave-flash" wmode="opaque" src="http://www.youtube.com/v/' . $media['youtube'] . '"></embed>
-                    </object>
-                  </div>' .
-                  $link .
-               '</div>';
+    $buf   = '<div class="video">
+                <div class="v">
+                  <object height="350" width="425">
+                    <param value="http://www.youtube.com/v/' . $media['youtube'] . '" name="movie" />
+                    <param name="wmode" value="opaque" />
+                    <embed height="350" width="425" type="application/x-shockwave-flash" wmode="opaque" src="http://www.youtube.com/v/' . $media['youtube'] . '"></embed>
+                  </object>
+                </div>' .
+                $link .
+             '</div>';
     }
 
     return $buf;

@@ -81,7 +81,7 @@ class Ui {
 
     // draw page end
     $buf .=  '  </body>
-              </html>';
+            </html>';
 
     return $buf;
   }
@@ -266,9 +266,9 @@ class Ui {
     $buf = '<div id="' . $id . '" class="item normal ' . $itemClass . '">
               <div class="commit-title">' .
                 sprintf(_('Commit %s by %s (%s)'),
-                        $revisionLink,
-                        '<span>' . Enzyme::getAuthorInfo('name', $data['author']) . '</span>',
-                        '<span>' . $data['author'] . '</span>') .
+                  $revisionLink,
+                  '<span>' . Enzyme::getAuthorInfo('name', $data['author']) . '</span>',
+                  '<span>' . $data['author'] . '</span>') .
            '    <br />' .
                 $repository . Enzyme::drawBasePath($data['basepath']) .
                 $date .
@@ -314,14 +314,14 @@ class Ui {
                       sprintf(_('Reviewed by %s'), $data['reviewer']) .
                  '  </div>
                     <div class="commit-classify mouse">
-                      <div>
-                        <label>Area</label>' .
-                        Ui::htmlSelector($id . '-area', $areas, $data['area'], 'setCurrentItem(\'' . $id . '\');') .
-                   '  </div>
-                      <div>
-                        <label>Type</label>' .
-                        Ui::htmlSelector($id . '-type', $types, $data['type'], 'setCurrentItem(\'' . $id . '\');') .
-                   '  </div>
+                    <div>
+                      <label>Area</label>' .
+                      Ui::htmlSelector($id . '-area', $areas, $data['area'], 'setCurrentItem(\'' . $id . '\');') .
+                 '  </div>
+                    <div>
+                      <label>Type</label>' .
+                      Ui::htmlSelector($id . '-type', $types, $data['type'], 'setCurrentItem(\'' . $id . '\');') .
+                 '  </div>
                     </div>
                   </div>';
 
@@ -330,12 +330,12 @@ class Ui {
         $buf  .= '<div class="commit-classify keyboard">
                     <label>' .
                       _('Area') . ' <input id="' . $id . '-area" type="text" onblur="setCurrentItem(\'' . $id . '\');" onfocus="scrollItem(\'' . $id . '\');" value="' . $data['area'] . '" />
-                    </label>
+                  </label>
                     <label>' .
                       _('Type') . ' <input id="' . $id . '-type" type="text" onblur="setCurrentItem(\'' . $id . '\');" onfocus="scrollItem(\'' . $id . '\');" value="' . $data['type'] . '" />
-                    </label>
-                  </div>';
-      }
+                  </label>
+                </div>';
+    }
     }
 
     $buf .=  '</div>';
@@ -433,15 +433,15 @@ class Ui {
       }
 
     } else {
-      if ($class) {
-        $class = ' class="' . $class . '"';
-      }
-
-      echo '<span' . $class . '>' . $msg . "</span><br />\n";
-
-      @ob_flush();
-      @flush();
+    if ($class) {
+      $class = ' class="' . $class . '"';
     }
+
+    echo '<span' . $class . '>' . $msg . "</span><br />\n";
+
+    @ob_flush();
+    @flush();
+  }
   }
 
 
@@ -457,14 +457,14 @@ class Ui {
 
 
     // pre-calculate totals
-    foreach ($summary as $entry) {
-      $total += $entry['value'];
-    }
+      foreach ($summary as $entry) {
+        $total += $entry['value'];
+      }
 
     // process values
     foreach ($summary as $entry) {
       // show totals inline
-      $percent  = round((($entry['value'] / $total) * 100), 1);
+      $percent = round((($entry['value'] / $total) * 100), 1);
       $values[] = sprintf($entry['title'] . _(' (%.1f percent of %d)'), $entry['value'], $percent, $total);
 
       // add to total
@@ -485,7 +485,7 @@ class Ui {
         $buf .= sprintf(_('Total: %d'), $total);
       } else {
         $buf .= '<span class="bold">' . sprintf(_('Total: %d'), $total) . '</span>';
-      }
+    }
     }
 
 
@@ -537,7 +537,7 @@ class Ui {
     // determine power to select correct units
     $power = floor(log($bytes) / log($base));
 
-    return ($bytes / pow($base, floor($power))) . ' ' . $units[$power];
+    return round(($bytes / pow($base, floor($power))), 2) . ' ' . $units[$power];
   }
 }
 
