@@ -44,7 +44,7 @@ if (!$content) {
 
 
   // extract content
-  $content = $page->find('div.wikistyle');
+  $content = $page->find(HELP_CONTAINER);
   $content = reset($content);
   $content = $content->innertext;
 
