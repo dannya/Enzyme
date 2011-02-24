@@ -152,7 +152,8 @@ class Enzyme {
 
     // set defaults if unset
     if (empty($existingSettings['HELP_URL']['value'])) {
-      $existingSettings['HELP_URL']['value'] = 'https://github.com/dannyakakong/Enzyme/wiki';
+      $existingSettings['HELP_URL']['value']        = 'https://github.com/dannyakakong/Enzyme/wiki';
+      $existingSettings['HELP_CONTAINER']['value']  = 'div#wiki-content';
     }
 
 
@@ -194,6 +195,10 @@ class Enzyme {
                                       'valid'   => null,
                                       'default' => null,
                                       'example' => 'https://github.com/dannyakakong/Enzyme/wiki');
+    $tmp['HELP_CONTAINER']    = array('title'   => _('Help Container Element'),
+                                      'valid'   => null,
+                                      'default' => null,
+                                      'example' => 'div#wiki-content');
     $tmp['SMTP']              = array('title'   => _('SMTP Mail Server'),
                                       'valid'   => null,
                                       'default' => null,
@@ -267,6 +272,7 @@ class Enzyme {
                                              'ENZYME_URL'             => $tmp['ENZYME_URL'],
                                              'DIGEST_URL'             => $tmp['DIGEST_URL'],
                                              'HELP_URL'               => $tmp['HELP_URL'],
+                                             'HELP_CONTAINER'         => $tmp['HELP_CONTAINER'],
                                              'SMTP'                   => $tmp['SMTP'],
                                              'SHOW_INSERT'            => $tmp['SHOW_INSERT']));
 

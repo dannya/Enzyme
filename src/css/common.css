@@ -231,6 +231,17 @@ h3 a.button-refresh:hover {
   background-position:-154px -0;
 }
 
+h3 a.button-back {
+  background-position:-198px -22px;
+
+  rotation:270deg;
+  -moz-transform:rotate(270deg);
+  -webkit-transform:rotate(270deg); 
+}
+h3 a.button-back:hover {
+  background-position:-198px -0;
+}
+
 
 
 
@@ -622,4 +633,33 @@ div.media-item span.media-item-file a.media-item-file-link {
 }
 div.media-item span.media-item-file a.media-item-file-link:hover {
   background-color:#000;
+}
+
+
+
+
+
+/*help section content*/
+body.help a {
+  border-bottom:2px dotted #000;
+}
+body.help a:hover {
+  border-bottom:2px solid #000;
+}
+
+
+body.help a[href="/Commit_Digest"] {
+  display:none;
+}
+
+
+body.help p:first-child {
+  margin-top:0;
+  padding-top:0;
+}
+
+
+body.help div#contentSub,
+body.help div.printfooter {
+  display:none;
 }

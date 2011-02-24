@@ -57,18 +57,20 @@ if (!$content) {
 
 
   // rewrite links
-  $pattern = array('<a href="' . $commonPath);
-  $replace = array('<a href="' . BASE_URL . '/get/help.php?page=');
+  $pattern = array('<a href="' . $commonPath,
+                   'class="external');
+  $replace = array('<a class="i" href="' . BASE_URL . '/get/help.php?page=',
+                   'target="_blank" class="external');
 
   $content = str_replace($pattern, $replace, $content);
 
 
-  // store in cache for an hour
-  Cache::save($cacheKey, $content, false, 3600);
+  // store in cache for 30 minutes
+  Cache::save($cacheKey, $content, false, 1800);
 }
 
 
 // output content
-echo Ui::drawHtmlPage($content, null, array('/css/common.css'));
+echo Ui::drawHtmlPage($content, null, array('/css/common.css'), array(), 'help');
 
 ?>

@@ -28,8 +28,10 @@ class Ui {
   }
 
 
-  public static function drawHtmlPage($content, $title = null, array $css = array(), array $js = array()) {
-    $buf = self::drawHtmlPageStart($title, $css, $js) .
+  public static function drawHtmlPage($content, $title = null, array $css = array(),
+                                      array $js = array(), $bodyClass = null) {
+
+    $buf = self::drawHtmlPageStart($title, $css, $js, $bodyClass) .
            $content .
            self::drawHtmlPageEnd();
 
@@ -37,9 +39,14 @@ class Ui {
   }
 
 
-  public static function drawHtmlPageStart($title = null, array $css = array(), array $js = array()) {
+  public static function drawHtmlPageStart($title = null, array $css = array(),
+                                           array $js = array(), $bodyClass = null) {
     $style   = null;
     $script  = null;
+
+    if ($bodyClass) {
+      $bodyClass = ' class="' . $bodyClass . '"';
+    }
 
     // draw css and js
     if ($css) {
@@ -66,7 +73,7 @@ class Ui {
                 $script .
            '  </head>
 
-              <body id="body-iframe">';
+              <body id="body-iframe"' . $bodyClass . '>';
 
     return $buf;
   }

@@ -18,6 +18,8 @@ function helpHome() {
   if ($('help-content')) {
   	$('help-content').src = BASE_URL + '/get/help.php';
   }
+
+  return false;
 }
 
 
@@ -26,4 +28,14 @@ function helpRefresh() {
   if ($('help-content')) {
     $('help-content').src = $('help-content').contentWindow.location.href + '&refresh=1';
   }
+
+  return false;
+}
+
+
+function helpBack() {
+  // go back one page in the history
+  history.back(-1);
+
+  return false;
 }
