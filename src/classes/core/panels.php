@@ -202,12 +202,12 @@ class Panels {
     foreach ($stats as $person => $row) {
       // show number of selected commits in hover titles
       $titleWeek  = sprintf(_('Selected %d commits (%s%%)'),
-                            $row['selected']['week'],
-                            round($row['selectedPercent']['week'], 1));
+                            (isset($row['selected']['week']) ? $row['selected']['week'] : 0),
+                            (isset($row['selectedPercent']['week']) ? round($row['selectedPercent']['week'], 1) : 0));
 
       $titleTotal = sprintf(_('Selected %d commits (%s%%)'),
-                            $row['selected']['total'],
-                            round($row['selectedPercent']['total'], 1));
+                            (isset($row['selected']['total']) ? $row['selected']['total'] : 0),
+                            (isset($row['selectedPercent']['total']) ? round($row['selectedPercent']['total'], 1) : 0));
 
       // draw row
       $buf  .= '<tr>
