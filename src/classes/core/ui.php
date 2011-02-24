@@ -421,7 +421,8 @@ class Ui {
               </div>' .
               $interfaceSelector .
            '  <div id="status-area-actions">
-                <div id="status-area-info" style="display:none;"></div>' .
+                <div id="status-area-info" style="display:none;">&nbsp;</div>
+                <img id="status-area-spinner" style="display:none;" src="' . BASE_URL . '/img/spinner-dark-small.gif" alt="" />' .
                 $buttons .
              '</div>
             </div>';

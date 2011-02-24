@@ -273,6 +273,11 @@ function save(theType) {
     return null;
   }
 
+  // show spinner
+  if ($('status-area-spinner')) {
+    $('status-area-spinner').show();
+  }
+
   if (theType == 'review') {
     var parameters = {
       type: theType,
@@ -307,6 +312,11 @@ function save(theType) {
 
     onSuccess: function(transport) {
       var result = transport.headerJSON;
+      
+		  // hide spinner
+		  if ($('status-area-spinner')) {
+		    $('status-area-spinner').hide();
+		  }
 
       if ((typeof result.success != 'undefined') && result.success) {
         // show success message

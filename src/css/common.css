@@ -171,7 +171,7 @@ input[type="submit"].selected {
   background-color:#464D7A;
 }
 
-input[disabled="disabled"] {
+input[disabled] {
   background-color:#e6e6e6 !important;
   opacity:0.4 !important;
   color:#000 !important;
@@ -435,6 +435,13 @@ div#status-area-info {
   color:#fff;
   font-weight:bold;
   font-style:italic;
+}
+
+img#status-area-spinner {
+  float:left;
+  position:relative;
+  right:4px;
+  top:3px;
 }
 
 div#status-area-actions div.success {
