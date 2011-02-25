@@ -62,7 +62,7 @@ class Db {
 
   public static function create($databaseName = DB_DATABASE, $select = true) {
     // create the database
-    $success = mysql_query('CREATE DATABASE ' . $databaseName) or trigger_error(sprintf(_('Query failed: %s'), mysql_error()));
+    $success = mysql_query('CREATE DATABASE ' . self::sanitise($databaseName, DB_DATABASE)) or trigger_error(sprintf(_('Query failed: %s'), mysql_error()));
 
     // switch to the newly-created database?
     if ($select) {
@@ -107,7 +107,11 @@ class Db {
   }
 
 
-  public static function sanitise($string, $default = null) {
+  public static function sanitise($string = null, $default = null) {
+    if ($string === null) {
+      return null;
+    }
+
     if (($default != null) && ($string == $default)) {
       // if string is same as default, do not run through sanitise
       return $string;
@@ -127,8 +131,10 @@ class Db {
   }
 
 
-  public static function loadCache($key, $table, $filter, $limit = null, $fields = '*', $explode = true) {
-    $data = self::load($table, $filter, $limit, $fields, $explode);
+  public static function loadCache($key, $table, $filter, $limit = null, $fields = '*', $explode = true, $order = null) {
+    if (!($data = Cache::load($key))) {
+      $data = self::load($table, $filter, $limit, $fields, $explode, $order);
+    }
 
     return $data;
   }
@@ -163,7 +169,7 @@ class Db {
 
     // order?
     if ($order) {
-      $selectQuery .= ' ORDER BY ' . $order;
+      $selectQuery .= ' ORDER BY ' . self::sanitise($order);
     }
 
     // limit?
@@ -255,8 +261,8 @@ class Db {
     }
 
     // create appropriate update query
-    $updateQuery = 'INSERT INTO ' . $table . ' ' . $fields . ' VALUES ' . self::createValues('updateMulti', $values) .
-                   ' ON DUPLICATE KEY UPDATE ' . implode(', ', $update) . ';';
+    $updateQuery = 'INSERT INTO ' . $table . ' ' . self::sanitise($fields) . ' VALUES ' . self::createValues('updateMulti', $values) .
+                   ' ON DUPLICATE KEY UPDATE ' . self::sanitise(implode(', ', $update)) . ';';
 
     // save data
     return mysql_query($updateQuery) or trigger_error(sprintf(_('Query failed: %s'), mysql_error()));
@@ -264,10 +270,15 @@ class Db {
 
 
   public static function insert($table, $values, $ignore = false, $delay = false, $execute = true) {
-    if ($ignore) {
+    // check if table is valid, and filter is provided
+    if (!in_array($table, self::$tables) || (count($values) == 0)) {
+      return null;
+    }
+
+    if ($ignore !== false) {
       $ignore = ' IGNORE';
     }
-    if ($delay) {
+    if ($delay !== false) {
       $delay = ' DELAYED';
     }
 
@@ -291,10 +302,15 @@ class Db {
 
 
   public static function delete($table, $values, $ignore = false, $delay = false) {
-    if ($ignore) {
+    // check if table is valid, and filter is provided
+    if (!in_array($table, self::$tables) || (count($values) == 0)) {
+      return null;
+    }
+
+    if ($ignore !== false) {
       $ignore = ' IGNORE';
     }
-    if ($delay) {
+    if ($delay !== false) {
       $delay = ' DELAYED';
     }
 
@@ -310,11 +326,11 @@ class Db {
 
   public static function exists($table, $filter = false) {
     // check if table is valid, and filter is provided
-    if (($filter !== false) && count($filter) == 0) {
+    if (!in_array($table, self::$tables)) {
       return null;
     }
 
-    if (!in_array($table, self::$tables)) {
+    if (($filter !== false) && count($filter) == 0) {
       return null;
     }
 
@@ -335,7 +351,7 @@ class Db {
       return null;
     }
 
-    $selectQuery  = 'SELECT MAX(' . $field .  ') + 1 FROM ' . $table;
+    $selectQuery  = 'SELECT MAX(' . self::sanitise($field) .  ') + 1 FROM ' . $table;
 
     $query        = mysql_query($selectQuery) or trigger_error(sprintf(_('Query failed: %s'), mysql_error()));
 
@@ -425,14 +441,14 @@ class Db {
       $filter = array();
 
       foreach ($value as $v) {
-        $filter[] = $key . ' ' . $operator . ' ' . self::quote($v);
+        $filter[] = self::sanitise($key) . ' ' . self::sanitise($operator) . ' ' . self::quote($v);
       }
 
       return implode(' AND ', $filter);
 
     } else {
       // single element
-      return $key . ' ' . $operator . ' ' . self::quote($value);
+      return self::sanitise($key) . ' ' . self::sanitise($operator) . ' ' . self::quote($value);
     }
 
     return $buf;
@@ -440,7 +456,7 @@ class Db {
 
 
   private static function createValues($context, $values) {
-    if (empty($values)) {
+    if (empty($values) || !is_array($values)) {
       trigger_error(_('Query failed'));
       return null;
     }
@@ -505,6 +521,12 @@ class Db {
 
 
   private static function createValuesMulti($context, $values) {
+    if (empty($values) || !is_array($values)) {
+      trigger_error(_('Query failed'));
+      return null;
+    }
+
+    // get first row to determine structure of values
     $firstRow = reset($values);
 
     // compose keys
@@ -586,7 +608,7 @@ class Db {
 
 
   public static function sql($sql, $index = false, $silentError = false) {
-    $data  = array();
+    $data = array();
 
     // determine how to handle errors
     if ($silentError) {
