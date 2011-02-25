@@ -335,42 +335,69 @@ div.commit div.selectors div.remove,
 div.commit div.selectors div.reviewer,
 div.commit div.selectors div.classifier {
   float:left;
-  margin:4px 6px 0 0;
-  width:22px;
-  height:22px;
+  width:26px;
+  height:26px;
+  padding:2px;
+  margin:0 4px 0 0;
 
-  background-color:#666;
-  background:url('../img/sprite.png') no-repeat;
+  cursor:help;
+}
+div.commit div.selectors div.remove {
   cursor:pointer;
 }
 
+div#floating-status div.remove i,
+div.commit div.selectors div.remove i,
+div.commit div.selectors div.reviewer i,
+div.commit div.selectors div.classifier i {
+  display:block;
+  width:22px;
+  height:22px;
+  margin:2px;
+
+  background-color:#666;
+  background:url('../img/sprite.png') no-repeat;
+}
+
+
 div#floating-status div.remove {
+  float:left;
+  width:22px;
+  height:22px;
+  padding:0;
   margin:1px 8px 0 -2px;
+
+  background-color:#666;
+  background:url('../img/sprite.png') no-repeat;
   background-position:-44px -0px;
+  cursor:pointer;
 }
 div#floating-status div.remove:hover {
   background-position:-44px -44px;
 }
 
-div.commit div.selectors div.remove {
+
+div.commit div.selectors div.remove i {
   background-position:-44px -66px;
 }
-div.commit div.selectors div.remove:hover {
+div.commit div.selectors div.remove:hover i {
   background-position:-44px -44px;
 }
 
 div.commit div.selectors div.classifier {
-  background-position:-132px -22px;
-  margin-right:22px;
+  margin-right:20px;
 }
-div.commit div.selectors div.classifier:hover {
+div.commit div.selectors div.classifier i {
+  background-position:-132px -22px;
+}
+div.commit div.selectors div.classifier:hover i {
   background-position:-132px -0;
 }
 
-div.commit div.selectors div.reviewer {
+div.commit div.selectors div.reviewer i {
   background-position:-110px -22px; 
 }
-div.commit div.selectors div.reviewer:hover {
+div.commit div.selectors div.reviewer:hover i {
   background-position:-110px -0;
 }
 

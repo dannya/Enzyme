@@ -317,7 +317,7 @@ class Ui {
         $types = array_values(Enzyme::getTypes(true));
 
         $buf  .= '<div class="commit-panel">
-                    <div class="commit-blame">' .
+                    <div class="commit-blame' . (($data['reviewer'] == $user->data['username']) ? ' me' : '') . '">' .
                       sprintf(_('Reviewed by %s'), $data['reviewer']) .
                  '  </div>
                     <div class="commit-classify mouse">

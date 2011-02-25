@@ -647,6 +647,16 @@ class Digest {
   }
 
 
+  public static function quoteRevision($revision, $char = "'") {
+    if (is_numeric($revision)) {
+      return $revision;
+
+    } else {
+      return $char . $revision . $char;
+    }
+  }
+
+
   public static function drawDiffs($commit, $issueDate) {
     $buf       = null;
     $str       = null;
