@@ -79,11 +79,13 @@ class Media {
 
     if (!is_dir($uploadDir)) {
       // create media directory
-      mkdir($uploadDir, 0777, true);
+      mkdir($uploadDir, 0775, true);
+      chgrp('commit-digest');
     }
     if (!is_writable($uploadDir)) {
       // make writable
-      chmod($uploadDir, 0777);
+      chmod($uploadDir, 0775);
+      chgrp('commit-digest');
     }
 
 

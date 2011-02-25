@@ -268,25 +268,29 @@ function buttonState(id, state) {
 }
 
 
-function save(theType) {
+function save(theType, theButton) {
   if (typeof theType == 'undefined') {
     return null;
   }
 
-  // show spinner
+  // show spinner, disable button?
   if ($('status-area-spinner')) {
     $('status-area-spinner').show();
   }
+  if (typeof theButton == 'object') {
+    theButton.disabled = true;
+  }
 
+
+  // collect data
   if (theType == 'review') {
     var parameters = {
-      type: theType,
-      read: readCommits.toJSON(),
+      type:   theType,
+      read:   readCommits.toJSON(),
       marked: markedCommits.toJSON()
     };
 
   } else if (theType == 'classify') {
-    // collect data
     var theData = [];
 
     $$('div.item').each(function(item) {
@@ -305,6 +309,7 @@ function save(theType) {
     };
   }
 
+
   // send off data
   new Ajax.Request(BASE_URL + '/get/save.php', {
     method: 'post',
@@ -313,14 +318,23 @@ function save(theType) {
     onSuccess: function(transport) {
       var result = transport.headerJSON;
       
-		  // hide spinner
+		  // hide spinner, enable button?
 		  if ($('status-area-spinner')) {
 		    $('status-area-spinner').hide();
+		  }
+		  if (typeof theButton == 'object') {
+		    theButton.disabled = false;
 		  }
 
       if ((typeof result.success != 'undefined') && result.success) {
         // show success message
-        information('success', sprintf('<?php echo _('Saved %d commits'); ?>', result.saved));
+        if (result.saved == 1) {
+          var successString = '<?php echo _('Saved %d commit'); ?>';
+        } else {
+        	var successString = '<?php echo _('Saved %d commits'); ?>';
+        } 
+
+        information('success', sprintf(successString, result.saved));
 
         // disable save button
         if (theType == 'review') {
@@ -341,7 +355,7 @@ function save(theType) {
 			    $('commit-selected').update(markedCommits.size());
 			  }
 			  if ($('commit-displayed')) {
-			    $('commit-displayed').update($$('div.item').size());
+			    $('commit-displayed').update(Math.min($$('div.item').size(), result.total));
 			  }
         if ($('commit-total')) {
           $('commit-total').update(result.total);
