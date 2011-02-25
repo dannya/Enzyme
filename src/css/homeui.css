@@ -59,3 +59,48 @@ table.display td.label {
   font-size:14px;
   color:#666; 
 }
+
+
+
+
+
+div#active-users table thead th.browser {
+  width:70px;
+  padding-right:0;
+}
+
+div#active-users table tbody td span.platform,
+div#active-users table tbody td span.browser {
+  display:inline-block;
+  width:22px;
+  height:22px;
+
+  background:url('../img/browsers.png') no-repeat;
+  cursor:help;
+}
+
+span.platform {
+  background-position:-66px -0 !important;
+}
+span.platform-linux {
+  background-position:-0 -0 !important;
+}
+span.platform-mac {
+  background-position:-22px -0 !important;
+}
+span.platform-windows {
+  background-position:-44px -0 !important;
+}
+
+span.browser {
+  background-position:-66px -22px !important;
+}
+span.browser-firefox {
+  background-position:-0 -22px !important;
+}
+span.browser-chrome {
+  background-position:-22px -22px !important;
+}
+span.browser-ie {
+  background-position:-44px -22px !important;
+}

@@ -235,21 +235,29 @@ class Panels {
     $buf = '<table class="display">
               <thead>
                 <tr>
-                  <th>' . _('Username') . '</th>
-                  <th>' . _('IP') . '</th>
-                  <th>' . _('Page') . '</th>
-                  <th>' . _('Time') . '</th>
+                  <th class="username">' . _('Username') . '</th>
+                  <th class="page">' . _('Page') . '</th>
+                  <th class="time">' . _('Time') . '</th>
+                  <th class="ip">' . _('IP') . '</th>
+                  <th class="browser">' . _('Browser') . '</th>
                 </tr>
               </thead>
 
               <tbody>';
 
     foreach ($users as $username => $data) {
+      // parse browser string so we can display representative icons
+      $browser = App::getBrowserInfo($data['browser'], true);
+
       $buf  .= '<tr>
                   <td>' . $username . '</td>
-                  <td>' . $data['ip'] . '</td>
                   <td>' . $data['page'] . '</td>
                   <td>' . date('H:i:s', $data['time']) . '</td>
+                  <td>' . $data['ip'] . '</td>
+                  <td title="' . $data['browser'] . '">
+                    <span class="platform platform-' . $browser['platform'] . '">&nbsp;</span>
+                    <span class="browser browser-' . $browser['name'] . '">&nbsp;</span>
+                  </td>
                 </tr>';
     }
 

@@ -286,7 +286,7 @@ class App {
 
 
   // adapted from http://www.php.net/manual/en/function.get-browser.php#92310
-  public static function getBrowserInfo($agent = null) {
+  public static function getBrowserInfo($agent = null, $getPlatform = false) {
     // Clean up agent and build regex that matches phrases for known browsers
     // (e.g. "Firefox/2.0" or "MSIE 6.0" (This only matches the major and minor
     // version numbers.  E.g. "2.0.0.6" is parsed as simply "2.0"
@@ -296,13 +296,31 @@ class App {
     // check if this is an iPhone/iPod (agent is in slightly different format)
     $iphone   = (strpos($agent, "iphone") !== false || strpos($agent, "ipod") !== false);
 
+    // get platfrom details?
+    $platform = false;
+
+    if ($getPlatform) {
+        // look for common platform identifiers
+        preg_match('/windows|win32|macintosh|mac os x|linux/i', $agent, $platformMatches);
+        $platformMatches = reset($platformMatches);
+
+        if (($platformMatches == 'windows') || ($platformMatches == 'win32')) {
+            $platform = 'windows';
+        } else if (($platformMatches == 'macintosh') || ($platformMatches == 'mac os x')) {
+            $platform = 'mac';
+        } else if ($platformMatches == 'linux') {
+            $platform = 'linux';
+        }
+    }
+
     // Find all phrases (or return empty array if none found)
     // single '&' operator is intentional!
     if (!$iphone & !preg_match_all($pattern, $agent, $matches)) {
       return array('name'         => '',
                    'version'      => 0,
                    'fullVersion'  => 0,
-                   'rawVersion'   => 0);
+                   'rawVersion'   => 0,
+                   'platform'     => $platform);
     }
 
     // determine agent
@@ -311,7 +329,8 @@ class App {
         return array('name'         => 'iphone',
                      'version'      => 0,
                      'fullVersion'  => 0,
-                     'rawVersion'   => 0);
+                     'rawVersion'   => 0,
+                     'platform'     => 'ios');
 
     } else {
       // Since some UAs have more than one phrase (e.g Firefox has a Gecko phrase,
@@ -333,7 +352,8 @@ class App {
       return array('name'         => $matches['browser'][$i],
                    'version'      => (int)$matches['version'][$i],
                    'fullVersion'  => rtrim($matches['version'][$i], '.0'),
-                   'rawVersion'   => $matches['version'][$i]);
+                   'rawVersion'   => $matches['version'][$i],
+                   'platform'     => $platform);
     }
   }
 

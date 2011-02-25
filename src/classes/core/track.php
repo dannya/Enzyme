@@ -27,9 +27,10 @@ class Track {
     }
 
     // set important tracking information
-    $data = array('time'  => time(),
-                  'page'  => $_SERVER['SCRIPT_NAME'],
-                  'ip'    => $_SERVER['REMOTE_ADDR']);
+    $data = array('time'    => time(),
+                  'page'    => $_SERVER['SCRIPT_NAME'],
+                  'ip'      => $_SERVER['REMOTE_ADDR'],
+                  'browser' => $_SERVER['HTTP_USER_AGENT']);
 
     // attempt to load existing tracking information from cache
     $users = Cache::load('users');

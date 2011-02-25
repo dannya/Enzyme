@@ -99,7 +99,7 @@ class EnzymeUi {
     }
 
     // get specific style
-    $this->style        = array_merge($this->style, $this->frame->getStyle());
+    $this->style = array_merge($this->style, $this->frame->getStyle());
 
     // draw browser-specific stylesheet?
     $browser = App::getBrowserInfo();
