@@ -129,7 +129,12 @@ function saveNewRepository(event) {
           });
 
         } else {
-          // error      
+          // error
+          if (typeof strings.failure == 'string') {
+            alert(strings.failure);
+          } else {
+            alert('Error');
+          }
         }
       }
     });

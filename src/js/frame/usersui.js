@@ -128,7 +128,12 @@ function saveNewAccount(event) {
           managePaths(username, false);
 
         } else {
-          // error      
+          // error
+          if (typeof strings.failure == 'string') {
+            alert(strings.failure);
+          } else {
+            alert('Error');
+          }
         }
       }
     });
@@ -375,7 +380,12 @@ function manageApplication(context, number) {
       	}
 
       } else {
-        // error      
+        // error
+        if (typeof strings.failure == 'string') {
+          alert(strings.failure);
+        } else {
+          alert('Error');
+        }
       }
     }
   });
@@ -408,7 +418,12 @@ function availableJob(event, theJob) {
         });
 
       } else {
-        // error      
+        // error
+        if (typeof strings.failure == 'string') {
+          alert(strings.failure);
+        } else {
+          alert('Error');
+        }      
       }
     }
   });
