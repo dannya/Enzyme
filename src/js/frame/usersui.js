@@ -301,8 +301,8 @@ function manageApplication(context, number) {
 	} else {
 		$('username-' + number).removeClassName('failure');
 	}
-	
-	
+
+
 	// check that email field is valid
   if ((context == 'approve') && !validateEmail($('email-' + number).value)) {
     $('email-' + number).addClassName('failure');
@@ -313,7 +313,12 @@ function manageApplication(context, number) {
   } else {
     $('email-' + number).removeClassName('failure');
   }
-	
+
+
+  // ask for confirmation?
+  if ((context == 'decline') && !confirm(strings.decline_application)) {
+    return false;
+  } 	
 
 
 	// collect data
@@ -340,8 +345,34 @@ function manageApplication(context, number) {
       var result = transport.headerJSON;
 
       if ((typeof result.success != 'undefined') && result.success) {
-        // reload page to reflect application + user changes
-        location.reload(true);
+      	if (context == 'approve') {
+	        // reload page to reflect application + user changes
+	        location.reload(true);
+
+      	} else if (context == 'decline') {
+          if ($('application-' + number)) {
+          	// remove element from the page
+          	new Effect.SlideUp($('application-' + number).up('div.application'),
+          	                   { duration: 0.3,
+	          	                   afterFinish: function() {
+	          	                   	 // ensure element is removed from the DOM
+	          	                   	 $('application-' + number).up('div.application').remove();
+	          	                   	 
+																	 // decrement applications counter
+                                   var numApplications = $('applications').select('div.application').size();
+
+																	 if ($('num-applications')) {
+																		 $('num-applications').update(sprintf(strings.num_applications, numApplications));
+																	 }
+
+																	 // remove whole container if no applications left
+																	 if ((numApplications < 1) && $('applications-container')) {
+																	 	 $('applications-container').remove();
+																	 }
+	          	                   }
+          	                   });
+          }
+      	}
 
       } else {
         // error      

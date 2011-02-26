@@ -135,10 +135,10 @@ class UsersUi extends BaseUi {
 
     // draw job applications?
     if ($this->applications) {
-      $buf  .= '<h3>' .
+      $buf  .= '<h3 id="applications-container">' .
                 _('Applications') .
                '  <span>
-                    <span class="status">' .
+                    <span id="num-applications" class="status">' .
                       sprintf(_('%d applications'), count($this->applications)) .
                '    </span>
                   </span>

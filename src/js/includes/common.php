@@ -57,6 +57,11 @@ strings.remove_commits          = '<?php echo _("Remove the %d selected commits?
 strings.delete_stats            = '<?php echo _("Are you sure you want to delete these statistics?"); ?>';
 strings.delete_idea             = '<?php echo _("Are you sure you want to delete this idea?"); ?>';
 
+strings.num_applications        = '<?php echo _("%d applications"); ?>'
+strings.decline_application     = '<?php echo _("Are you sure? An email will be sent notifying the applicant of this..."); ?>';
+
+strings.generic_prompt          = '<?php echo _("Are you sure?"); ?>';
+
 strings.button_user             = '<?php echo _("Make this user inactive?"); ?>';
 strings.button_repo             = '<?php echo _("Delete repository?"); ?>';
 

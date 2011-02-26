@@ -38,7 +38,7 @@ foreach ($validFields as $theField) {
 
 
 // insert application into database
-$json['success'] = Db::insert('applications', $fields, true);
+$json['success'] = Db::insert('applications', $fields, false, false, true, true);
 
 
 // report success

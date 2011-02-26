@@ -269,7 +269,7 @@ class Db {
   }
 
 
-  public static function insert($table, $values, $ignore = false, $delay = false, $execute = true) {
+  public static function insert($table, $values, $ignore = false, $delay = false, $execute = true, $silentError = false) {
     // check if table is valid, and filter is provided
     if (!in_array($table, self::$tables) || (count($values) == 0)) {
       return null;
@@ -294,7 +294,14 @@ class Db {
     $insertQuery = 'INSERT' . $delay . $ignore . ' INTO ' . $table . ' ' . $values . ';';
 
     if ($execute) {
-      return mysql_query($insertQuery) or trigger_error(sprintf(_('Query failed: %s'), mysql_error()));
+      // determine how to handle errors
+      if ($silentError) {
+        return mysql_query($insertQuery);
+
+      } else {
+        return mysql_query($insertQuery) or trigger_error(sprintf(_('Query failed: %s'), mysql_error()));
+      }
+
     } else {
       return $insertQuery;
     }

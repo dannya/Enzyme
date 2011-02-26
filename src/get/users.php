@@ -38,30 +38,31 @@ if (!$user->hasPermission('admin')) {
 }
 
 
-// process data
-if (($_REQUEST['dataType'] == 'new-user') || ($_REQUEST['dataType'] == 'approve-application')) {
-  // process data into format for database saving
-  parse_str($_REQUEST['data'], $tmpData);
+// process data into format for database manipulation
+parse_str($_REQUEST['data'], $tmpData);
 
-  // extract valid fields
-  $validFields = array('username', 'email', 'firstname', 'lastname', 'permission-admin',
-                       'permission-editor', 'permission-reviewer', 'permission-classifier',
-                       'permission-translator', 'paths');
+// extract valid fields
+$validFields = array('username', 'email', 'firstname', 'lastname', 'permission-admin',
+                     'permission-editor', 'permission-reviewer', 'permission-classifier',
+                     'permission-translator', 'paths');
 
-  foreach ($tmpData as $key => $value) {
-    if (in_array($key, $validFields)) {
-      if (strpos($key, 'permission-') !== false) {
-        // compile permissions
-        if ($value == "true") {
-          $permissions[] = str_replace('permission-', null, $key);
-        }
-
-      } else {
-        $data[$key] = $value;
+foreach ($tmpData as $key => $value) {
+  if (in_array($key, $validFields)) {
+    if (strpos($key, 'permission-') !== false) {
+      // compile permissions
+      if ($value == "true") {
+        $permissions[] = str_replace('permission-', null, $key);
       }
+
+    } else {
+      $data[$key] = $value;
     }
   }
+}
 
+
+// process data
+if (($_REQUEST['dataType'] == 'new-user') || ($_REQUEST['dataType'] == 'approve-application')) {
   // generate and set a password?
   if ($_REQUEST['dataType'] == 'approve-application') {
     $tmpPassword      = App::randomString();

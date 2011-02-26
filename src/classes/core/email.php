@@ -23,6 +23,8 @@ class Email {
   public $message  = null;
   public $isHtml   = false;
 
+  private $send    = true;
+
 
   public function __construct(array $to, $subject, $message, $isHtml = false, $from = null) {
     // check that a SMTP server has been set
@@ -54,14 +56,26 @@ class Email {
 
     // process address(es)
     if (isset($this->to[0])) {
-      // multiple
+      // multiple:
       foreach ($this->to as $name => $address) {
+        // check that email is valid
+        if (!filter_var($address, FILTER_VALIDATE_EMAIL)) {
+          $this->send = false;
+          return false;
+        }
+
         $this->fullAddresses[] = $name . ' <' . $address . '>';
         $this->addresses[]     = $address;
       }
 
     } else {
-      // single
+      // single:
+      // check that email is valid
+      if (!filter_var($this->to['address'], FILTER_VALIDATE_EMAIL)) {
+        $this->send = false;
+        return false;
+      }
+
       $this->fullAddresses[] = $this->to['name'] . ' <' . $this->to['address'] . '>';
       $this->addresses[]     = $this->to['address'];
     }
@@ -69,6 +83,10 @@ class Email {
 
 
   public function send() {
+    if (!$this->send) {
+      return false;
+    }
+
     // create HTML page structure around message?
     if ($this->isHtml && (stripos($this->message, '<html') === false)) {
       $this->message = '<html>
