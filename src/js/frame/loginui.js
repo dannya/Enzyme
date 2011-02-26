@@ -222,10 +222,17 @@ function submitApply(event) {
 
   $('apply-form').select('select, textarea, input[type="text"]').each(function(input) {
   	if (!input.disabled && !input.hasClassName('optional') && input.value.empty()) {
+  		// ensure required fields are not empty
   		input.addClassName('failure');
   		filled = false;
+  		
+  	} else if (input.hasClassName('email') && !validateEmail(input.value)) {
+  		// if field is an email address, check for validity
+      input.addClassName('failure');
+      filled = false;
 
   	} else {
+  		// all ok, proceed
   		input.removeClassName('failure');
   		
   		if (input.hasClassName('prompt')) {

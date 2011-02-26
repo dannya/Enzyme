@@ -188,6 +188,18 @@ function saveChange(user, event) {
   } else {
     var theData = element.value;
   }
+  
+  
+  // validate?
+  if (theDataType == 'email') {
+	  if (!validateEmail(theData)) {
+	    element.addClassName('failure');
+	    return false;
+
+	  } else {
+	  	element.removeClassName('failure');
+	  }
+  }
 
 
   // send off data
@@ -277,7 +289,8 @@ function manageApplication(context, number) {
 
 		return false;
 	}
-	
+
+
 	// ensure username is provided when approving
 	if ((context == 'approve') && $('username-' + number).value.empty()) {
 	  $('username-' + number).addClassName('failure');
@@ -288,6 +301,19 @@ function manageApplication(context, number) {
 	} else {
 		$('username-' + number).removeClassName('failure');
 	}
+	
+	
+	// check that email field is valid
+  if ((context == 'approve') && !validateEmail($('email-' + number).value)) {
+    $('email-' + number).addClassName('failure');
+    $('email-' + number).focus();
+
+    return false;
+
+  } else {
+    $('email-' + number).removeClassName('failure');
+  }
+	
 
 
 	// collect data

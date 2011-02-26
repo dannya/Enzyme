@@ -127,7 +127,7 @@ class LoginUi {
                       <div class="row">
                         <div class="left">' . _('Email') . '</div>
                         <div class="right">
-                          <input id="apply-email" type="text" />
+                          <input id="apply-email" type="text" class="email" />
                         </div>
                       </div>
                       <div class="row tall">
