@@ -402,7 +402,8 @@ class Ui {
 
 
       // buttons
-      $buttons = '<input id="review-save" type="button" onclick="save(\'' . $type . '\', this);" value="' . _('Save') . '" title="' . _('Save') . '" />';
+      $buttons = '<input id="review-save" type="button" onclick="save(\'' . $type . '\', this);" value="' . _('Save') . '" title="' . _('Save') . '" />
+                  <input id="review-cancel" class="cancel" type="button" onclick="location.reload(true); return false;" value="' . _('Cancel') . '" title="' . _('Cancel') . '" />';
 
 
     } else if ($type == 'review') {
@@ -416,7 +417,8 @@ class Ui {
                          '<span id="commit-total">' . $total . '</span>');
 
       $interfaceSelector = null;
-      $buttons = '<input id="review-save" type="button" disabled="disabled" onclick="save(\'' . $type . '\', this);" value="' . _('Save') . '" title="' . _('Save') . '" />';
+      $buttons = '<input id="review-save" type="button" disabled="disabled" onclick="save(\'' . $type . '\', this);" value="' . _('Save') . '" title="' . _('Save') . '" />
+                  <input id="review-cancel" class="cancel" type="button" onclick="location.reload(true); return false;" value="' . _('Cancel') . '" title="' . _('Cancel') . '" />';
     }
 
 

@@ -207,6 +207,13 @@ a.n:hover {
 }
 
 
+.cancel {
+  background:none !important;
+  font-style:italic !important;
+  color:#999 !important;
+}
+
+
 h3 a.button {
   display:block;
   float:left;

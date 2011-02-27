@@ -279,6 +279,9 @@ function save(theType, theButton) {
   }
 
   // show spinner, disable button?
+  if ($('cancel')) {
+    $('cancel').hide();
+  }
   if ($('status-area-spinner')) {
     $('status-area-spinner').show();
   }
@@ -326,6 +329,9 @@ function save(theType, theButton) {
 		  // hide spinner, enable button?
 		  if ($('status-area-spinner')) {
 		    $('status-area-spinner').hide();
+		  }
+		  if ($('cancel')) {
+		    $('cancel').show();
 		  }
 		  if (typeof theButton == 'object') {
 		    theButton.disabled = false;

@@ -1288,7 +1288,7 @@ class Enzyme {
 
   public static function processCommitMsg($revision, $msg) {
     // remove email addresses
-    $msg = preg_replace('/[<]?(CCMAIL)?[: ]*[a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}[>]?/', null, $msg);
+    $msg = preg_replace('/[ ]?[<]?(CCMAIL)?[: ]*[a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}[>]?/', null, $msg);
 
     // extract bugs
     do {
