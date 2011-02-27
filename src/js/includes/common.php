@@ -191,11 +191,11 @@ function selectItem(direction) {
 
       // set style of items?
       if (!currentItem.hasClassName('marked')) {
-        currentItem.className = 'item normal read';
+        currentItem.className = 'item normal read ' + context;
       }
 
       if (!newItem.hasClassName('marked')) {
-        newItem.className = 'item selected';
+        newItem.className = 'item selected ' + context;
       }
 
       return newItem;
@@ -238,7 +238,7 @@ function markCommit() {
   if (!currentItem.hasClassName('marked')) {
     // set commit as marked
     state = 'true';
-    class = 'item marked';
+    class = 'item marked ' + context;
 
     // add to marked commits array
     if (markedCommits.indexOf(revision) == -1) {
@@ -248,7 +248,7 @@ function markCommit() {
   } else {
     // unset commit as marked
     state = 'false';
-    class = 'item selected';
+    class = 'item selected ' + context;
 
     // remove from marked commits array
     index = markedCommits.indexOf(revision);

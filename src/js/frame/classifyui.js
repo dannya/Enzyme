@@ -13,6 +13,9 @@
 +--------------------------------------------------------*/
 
 
+var context = 'classify';
+
+
 function setCurrentItem(id) {
   if (!$(id) || !$(id + '-type') || !$(id + '-area')) {
     return null;

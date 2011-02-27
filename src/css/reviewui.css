@@ -91,13 +91,36 @@ div.mouse div.commit-msg {
   padding-right:230px !important;
 }
 
-div.item div.commit-msg div.bugs {
+
+
+div.review div.commit-msg div.bugs {
+  margin:10px -5px -5px -5px;
+  padding:5px;
+  background-color:#fff;
+  font-size:14px;
+}
+div.review div.commit-msg div.bugs div.bug {
+  padding:2px;
+}
+div.review div.commit-msg div.bugs div.bug div {
+  float:right;
+}
+div.review div.commit-msg div.bugs div.bug div span {
+  float:right;
+  font-style:italic;
+  color:#999;
+}
+
+
+
+
+div.classify div.commit-msg div.bugs {
   position:absolute;
   bottom:10px;
   right:10px;
 }
 
-div.item div.commit-msg div.bugs div {
+div.classify div.commit-msg div.bugs div {
   float:right;
   width:22px;
   height:22px;
@@ -107,9 +130,12 @@ div.item div.commit-msg div.bugs div {
   margin-left:6px;
   cursor:pointer;
 }
-div.item div.commit-msg div.bugs div:hover {
+div.classify div.commit-msg div.bugs div:hover {
   background-position:-66px -0;
 }
+
+
+
 
 
 div.item div.commit-panel {

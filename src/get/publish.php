@@ -28,7 +28,16 @@ if (empty($_REQUEST['date']) || !isset($_REQUEST['state'])) {
 $user = new User();
 
 if (empty($user->auth)) {
-  App::returnHeaderJson(true, array('success' => false));
+  if (isset($_REQUEST['iframe'])) {
+    // warn about failure
+    echo '<script type="text/javascript">
+            alert("' . _('Cannot find your user session. Login to Enzyme and try again.') . '");
+          </script>';
+    exit;
+
+  } else {
+    App::returnHeaderJson(true, array('success' => false));
+  }
 }
 
 
@@ -49,12 +58,21 @@ $json['success'] = Digest::setPublishedState($_REQUEST['date'], $newState);
 
 // clear issues list caches
 Cache::delete(array('issue_latest',
+                    'issue_latest_unpublished',
                     'issue_earliest',
                     'archive_latest',
+                    'archive_latest_unpublished',
                     'archive_earliest'), 'digest');
 
 
 // report success
-App::returnHeaderJson();
+if (isset($_REQUEST['iframe'])) {
+  // insert "success" element which can be recognised by observing scripts
+  echo '<span id="success">&nbsp;</span>';
+  exit;
+
+} else {
+  App::returnHeaderJson();
+}
 
 ?>

@@ -13,6 +13,8 @@
 +--------------------------------------------------------*/
 
 
+var context         = 'review';
+
 // setup 'marked commits' and 'read commits' array
 var markedCommits   = [];
 var readCommits     = [];

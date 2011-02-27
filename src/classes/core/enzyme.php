@@ -209,6 +209,14 @@ class Enzyme {
                                       'default' => '1',
                                       'example' => null);
 
+    $tmp['GENERATE_MAPS']     = array('title'   => _('Map Generation Service URL'),
+                                      'valid'   => null,
+                                      'default' => 'http://grafin.enzyme-project.org/index.php',
+                                      'example' => 'http://grafin.enzyme-project.org/index.php');
+    $tmp['RECENT_COMMITS']    = array('title'   => _('Recent Commits RSS URL'),
+                                      'valid'   => null,
+                                      'default' => null,
+                                      'example' => 'http://cia.vc/stats/project/KDE/.rss?ver=2&medium=plaintext&limit=10');
     $tmp['WEBBUG']            = array('title'   => _('Web Bug Tracker'),
                                       'valid'   => null,
                                       'default' => null,
@@ -277,7 +285,9 @@ class Enzyme {
                                              'SHOW_INSERT'            => $tmp['SHOW_INSERT']));
 
     $settings[] = array('title'     => _('Data Locations'),
-                        'settings'  => array('WEBBUG'                 => $tmp['WEBBUG'],
+                        'settings'  => array('GENERATE_MAPS'          => $tmp['GENERATE_MAPS'],
+                                             'RECENT_COMMITS'         => $tmp['RECENT_COMMITS'],
+                                             'WEBBUG'                 => $tmp['WEBBUG'],
                                              'WEBBUG_XML'             => $tmp['WEBBUG_XML'],
                                              'I18N_STATS'             => $tmp['I18N_STATS'],
                                              'I18N_TEAMS'             => $tmp['I18N_TEAMS'],

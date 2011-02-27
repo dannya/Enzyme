@@ -225,15 +225,20 @@ class Ui {
 
     // show bugs (as icons) if available
     if (isset($data['bug'])) {
-      $bugs = '<div class="bugs">';
+      if ($type == 'review') {
+        $bugs = Digest::drawBugs($data, 'bugs');
 
-      foreach ($data['bug'] as $bug) {
-        $bugs  .= '<div onclick="window.open(\'' . WEBBUG . $bug['bug'] . '\');" title="' . sprintf(_('Bug %d: %s'), $bug['bug'], App::truncate(htmlentities($bug['title']), 90, true)) . '">
-                     &nbsp;
-                   </div>';
+      } else if ($type == 'classify') {
+        $bugs = '<div class="bugs">';
+
+        foreach ($data['bug'] as $bug) {
+          $bugs  .= '<div onclick="window.open(\'' . WEBBUG . $bug['bug'] . '\');" title="' . sprintf(_('Bug %d: %s'), $bug['bug'], App::truncate(htmlentities($bug['title']), 90, true)) . '">
+                       &nbsp;
+                     </div>';
+        }
+
+        $bugs  .= '</div>';
       }
-
-      $bugs  .= '</div>';
 
     } else {
       $bugs = null;
@@ -270,7 +275,7 @@ class Ui {
 
 
     // draw commit
-    $buf = '<div id="' . $id . '" class="item normal ' . $itemClass . '">
+    $buf = '<div id="' . $id . '" class="item normal ' . $type . ' ' . $itemClass . '">
               <div class="commit-title">' .
                 sprintf(_('Commit %s by %s (%s)'),
                   $revisionLink,
@@ -280,8 +285,10 @@ class Ui {
                 $repository . Enzyme::drawBasePath($data['basepath']) .
                 $date .
            '  </div>
-              <div class="commit-msg">' .
-                Enzyme::formatMsg($data['msg']) .
+              <div class="commit-msg">
+                <span>' .
+                  Enzyme::formatMsg($data['msg']) .
+           '    </span>' .
                 $bugs .
            '  </div>';
 
