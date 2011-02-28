@@ -317,6 +317,16 @@ class Ui {
       }
 
 
+      // show remove button?
+      if ($user && $user->hasPermission(array('editor'))) {
+        $removeButton  = '<div onclick="removeCommit(1219767);" title="' . _('Unselect this commit?') . '" class="remove">
+                            &nbsp;
+                          </div>';
+      } else {
+        $removeButton  = null;
+      }
+
+
       // use mouse-oriented or keyboard-oriented interface?
       if ($user && ($user->data['interface'] == 'mouse')) {
         // mouse
@@ -326,16 +336,19 @@ class Ui {
         $buf  .= '<div class="commit-panel">
                     <div class="commit-blame' . (($data['reviewer'] == $user->data['username']) ? ' me' : '') . '">' .
                       sprintf(_('Reviewed by %s'), $data['reviewer']) .
-                 '  </div>
-                    <div class="commit-classify mouse">
-                    <div>
-                      <label>Area</label>' .
-                      Ui::htmlSelector($id . '-area', $areas, $data['area'], 'setCurrentItem(\'' . $id . '\');') .
-                 '  </div>
-                    <div>
-                      <label>Type</label>' .
-                      Ui::htmlSelector($id . '-type', $types, $data['type'], 'setCurrentItem(\'' . $id . '\');') .
-                 '  </div>
+                 '  </div>' .
+
+                    $removeButton .
+
+                 '  <div class="commit-classify mouse">
+                      <div>
+                        <label>Area</label>' .
+                        Ui::htmlSelector($id . '-area', $areas, $data['area'], 'setCurrentItem(\'' . $id . '\');') .
+                 '    </div>
+                      <div>
+                        <label>Type</label>' .
+                        Ui::htmlSelector($id . '-type', $types, $data['type'], 'setCurrentItem(\'' . $id . '\');') .
+                 '    </div>
                     </div>
                   </div>';
 
@@ -403,7 +416,7 @@ class Ui {
 
       // buttons
       $buttons = '<input id="review-save" type="button" onclick="save(\'' . $type . '\', this);" value="' . _('Save') . '" title="' . _('Save') . '" />
-                  <input id="review-cancel" class="cancel" type="button" onclick="location.reload(true); return false;" value="' . _('Cancel') . '" title="' . _('Cancel') . '" />';
+                  <input id="review-cancel" class="cancel" type="button" onclick="if (confirm(strings.confirm_dataloss)) { location.reload(true); } return false;" value="' . _('Cancel') . '" title="' . _('Cancel') . '" />';
 
 
     } else if ($type == 'review') {
@@ -418,7 +431,7 @@ class Ui {
 
       $interfaceSelector = null;
       $buttons = '<input id="review-save" type="button" disabled="disabled" onclick="save(\'' . $type . '\', this);" value="' . _('Save') . '" title="' . _('Save') . '" />
-                  <input id="review-cancel" class="cancel" type="button" onclick="location.reload(true); return false;" value="' . _('Cancel') . '" title="' . _('Cancel') . '" />';
+                  <input id="review-cancel" class="cancel" type="button" onclick="if (confirm(strings.confirm_dataloss)) { location.reload(true); } return false;" value="' . _('Cancel') . '" title="' . _('Cancel') . '" />';
     }
 
 

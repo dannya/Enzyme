@@ -42,6 +42,8 @@ strings.people_references       = '<?php echo _("People References"); ?>';
 strings.feature_articles        = '<?php echo _("Available Feature Articles"); ?>';
 strings.dot_blurb               = '<?php echo _("Dot Synopsis"); ?>';
 
+strings.confirm_dataloss        = '<?php echo _("Any unsaved changes will be lost. Continue?"); ?>';
+
 strings.change_section_num      = '<?php echo _("What number should this section be?"); ?>';
 strings.delete_section          = '<?php echo _("Are you sure you want to permanently delete this?"); ?>';
 
@@ -279,8 +281,8 @@ function save(theType, theButton) {
   }
 
   // show spinner, disable button?
-  if ($('cancel')) {
-    $('cancel').hide();
+  if ($('review-cancel')) {
+    $('review-cancel').hide();
   }
   if ($('status-area-spinner')) {
     $('status-area-spinner').show();
@@ -330,8 +332,8 @@ function save(theType, theButton) {
 		  if ($('status-area-spinner')) {
 		    $('status-area-spinner').hide();
 		  }
-		  if ($('cancel')) {
-		    $('cancel').show();
+		  if ($('review-cancel')) {
+		    $('review-cancel').show();
 		  }
 		  if (typeof theButton == 'object') {
 		    theButton.disabled = false;
@@ -491,7 +493,7 @@ function changeInterface(context) {
   }
   
   // warn of data loss
-  if (!confirm('<?php echo _('Any unsaved changes will be lost. Continue?'); ?>')) {
+  if (!confirm(strings.confirm_dataloss)) {
     return false;
   }
 

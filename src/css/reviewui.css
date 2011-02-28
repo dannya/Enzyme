@@ -152,7 +152,23 @@ div.item div.commit-panel div.commit-blame {
   color:#666;
 }
 
-div.item div.commit-panel div.commit-classify {
+div.item div.commit-panel div.remove {
+  display:inline-block;
+  float:left;
+  width:22px;
+  height:22px;
+  margin:3px 10px 0 0;
+
+  background-color:#666;
+  cursor:pointer;
+  background:url('../img/sprite.png') no-repeat;
+  background-position:-44px -66px;
+}
+div.item div.commit-panel div.remove:hover {
+  background-position:-44px -44px;
+}
+
+div.item div.commit-classify {
   float:right;
   background-color:#000;
   padding:6px;
@@ -161,6 +177,11 @@ div.item div.commit-panel div.commit-classify {
   border-radius:3px;
   -moz-border-radius:3px;
   -webkit-border-radius:3px;
+}
+div.keyboard div.commit-classify {
+  position:absolute;
+  top:10px;
+  right:10px;
 }
 
 div.item div.commit-classify label {
@@ -231,7 +252,7 @@ div#classify-key {
 
   z-index:1002;
   border-right:3px solid #999;
-  background:url(../img/bg.png) repeat scroll 0 0 transparent;
+  background-color:#fff;
 
   border-radius:3px;
   -moz-border-radius:3px;
@@ -254,7 +275,7 @@ div#classify-key-selector input[type="button"] {
   margin:0;
   padding:1px 0 5px 0;
   text-align:center;
-  background-color:#333;
+  background-color:#000;
   color:#fff;
   opacity:0.3;
   
