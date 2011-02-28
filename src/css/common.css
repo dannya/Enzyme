@@ -662,6 +662,7 @@ body.help a:hover {
 }
 
 
+body.help p:empty,
 body.help a[href="/Commit_Digest"] {
   display:none;
 }

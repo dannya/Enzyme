@@ -154,14 +154,6 @@ function addNewLink() {
 }
 
 
-
-
-
-
-
-
-
-
 function saveLinks() {
   if (!$('path-links-data')) {
     return false;
@@ -214,13 +206,13 @@ function saveLinks() {
       
       // update total display
       if ($('status')) {
-      	var numLinks = 0;
+      	var numItems = 0;
 
       	$('path-links-data').select('tbody').each(function(item) {
-      		numLinks += item.select('tr').size();
+      		numItems += item.select('tr').size();
         })
 
-        $('status').update(sprintf(strings.num_links_plural, (numLinks - 4)));
+        $('status').update(sprintf(strings.num_links_plural, (numItems - 4)));
       }
 
       return true;
@@ -232,17 +224,18 @@ function saveLinks() {
 }
 
 
-function deleteLink(elementId, theName) {
-  if ((typeof elementId != 'string') || (typeof theName != 'string')) {
+function deleteItem(theContext, elementId, theName) {
+  if ((typeof theContext != 'string') || (typeof elementId != 'string') || (typeof theName != 'string')) {
     return false;
   }
 
 
   // send off delete request
-  new Ajax.Request(BASE_URL + '/get/delete-link.php', {
+  new Ajax.Request(BASE_URL + '/get/delete-item.php', {
     method: 'post',
     parameters: {
-    	name: theName
+    	context: theContext,
+    	id:      theName
     },
     onSuccess: function(transport) {
       var result = transport.headerJSON;
@@ -257,20 +250,29 @@ function deleteLink(elementId, theName) {
 
 			        // update total display
 			        if ($('status')) {
-			          var numLinks = 0;
+			          var numItems = 0;
 
-			          $('path-links-data').select('tbody').each(function(item) {
-			            numLinks += item.select('tr').size();
-			          })
+                if (theContext == 'filter') {
+                	// filters
+                  numItems += $('path-filters-items').select('tr').size();
+  
+                  $('status').update(sprintf(strings.num_filters_plural, (numItems - 1)));
 
-			          $('status').update(sprintf(strings.num_links_plural, (numLinks - 4)));
+                } else if (theContext == 'link') {
+                  // links
+				          $('path-links-data').select('tbody').each(function(item) {
+				            numItems += item.select('tr').size();
+				          })
+	
+				          $('status').update(sprintf(strings.num_links_plural, (numItems - 4)));
+                }
 			        }
         		}
         	});
         }
 
       } else {
-        showIndicator('save-links', 'indicator-failure');
+        showIndicator('save-items', 'indicator-failure');
       }
 
       return true;

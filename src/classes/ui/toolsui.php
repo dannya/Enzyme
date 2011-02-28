@@ -373,7 +373,7 @@ class ToolsUi extends BaseUi {
              '    </span>
                   <input type="button" value="' . _('Save changes') . '" title="' . _('Save changes') . '" onclick="saveFilters();" />
                   <input type="button" value="' . _('Add new filter') . '" title="' . _('Add new filter') . '" onclick="addNewFilter();" />' .
-                  Ui::drawIndicator('save-filters') .
+                  Ui::drawIndicator('save-items') .
              '  </span>
               </h3>
 
@@ -381,6 +381,7 @@ class ToolsUi extends BaseUi {
                 <table id="path-filters">
                   <thead>
                     <tr>
+                      <th class="delete">&nbsp;</th>
                       <th>' . _('Target') . '</th>
                       <th>' . _('Match') . '</th>
                       <th>' . _('Area') . '</th>
@@ -390,7 +391,12 @@ class ToolsUi extends BaseUi {
                   <tbody id="path-filters-items">';
 
     foreach ($commitPaths as $id => $item) {
-      $buf  .= '<tr class="' . $id . '">
+      $buf  .= '<tr id="path-filter-' . $id . '"  class="' . $id . '">
+                  <td>
+                    <span class="delete-link indicator-failure" onclick="deleteItem(\'filter\', \'path-filter-' . $id . '\', \'' . $id . '\');" title="' . _('Delete this filter?') . '">
+                      <span>&nbsp;</span>
+                    </span>
+                  </td>
                   <td>
                     <input type="hidden" name="id[]" value="' . $id . '" />' .
                     Ui::htmlSelector('target-' . $id, $availableTargets, $item['target'], null, 'targets[]') .
@@ -406,6 +412,9 @@ class ToolsUi extends BaseUi {
 
     // draw empty row
     $buf  .= '      <tr id="path-filters-new" style="display:none;">
+                      <td>
+                        &nbsp;
+                      </td>
                       <td>
                         <input type="hidden" name="id[]" value="" style="display:none;" />' .
                         Ui::htmlSelector('target-new', $availableTargets, null, null, 'targets[]', 'display:none;') .
@@ -451,7 +460,7 @@ class ToolsUi extends BaseUi {
              '    </span>
                   <input type="button" value="' . _('Save changes') . '" title="' . _('Save changes') . '" onclick="saveLinks();" />
                   <input type="button" value="' . _('Add new link') . '" title="' . _('Add new link') . '" onclick="addNewLink();" />' .
-                  Ui::drawIndicator('save-links') .
+                  Ui::drawIndicator('save-items') .
              '  </span>
               </h3>
 
@@ -474,7 +483,7 @@ class ToolsUi extends BaseUi {
       foreach ($section as $id => $item) {
         $buf  .= '<tr id="path-link-' . $name . '-' . $id . '">
                     <td>
-                      <span class="delete-link indicator-failure" onclick="deleteLink(\'path-link-' . $name . '-' . $id . '\', \'' . $item['name'] . '\');" title="' . _('Delete this link?') . '">
+                      <span class="delete-link indicator-failure" onclick="deleteItem(\'link\', \'path-link-' . $name . '-' . $id . '\', \'' . $item['name'] . '\');" title="' . _('Delete this link?') . '">
                         <span>&nbsp;</span>
                       </span>
                     </td>
@@ -495,6 +504,9 @@ class ToolsUi extends BaseUi {
 
       // draw empty row
       $buf  .= '      <tr id="path-links-' . $name . '-new" style="display:none;">
+                        <td>
+                          &nbsp;
+                        </td>
                         <td>' .
                           Ui::htmlSelector('type-' . $name . '-new', $availableTypes, null, null, 'types[]', 'display:none;') .
                '        </td>

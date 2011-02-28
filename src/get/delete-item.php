@@ -18,12 +18,6 @@
 include($_SERVER['DOCUMENT_ROOT'] . '/autoload.php');
 
 
-// ensure needed params are set
-if (empty($_REQUEST['name'])) {
-  App::returnHeaderJson(true, array('missing' => true));
-}
-
-
 // check authentication
 $user = new User();
 
@@ -38,8 +32,31 @@ if (!$user->hasPermission(array('admin', 'reviewer', 'classifier'))) {
 }
 
 
-// delete link
-$json['success'] = Db::delete('links', array('name' => $_REQUEST['name']));
+// check context is valid
+if ($_REQUEST['context'] == 'filter') {
+  // ensure needed params are set
+  if (empty($_REQUEST['id'])) {
+    App::returnHeaderJson(true, array('missing' => true));
+  }
+
+  // delete filter
+  $json['success'] = Db::delete('commit_path_filters', array('id' => $_REQUEST['id']));
+
+
+} else if ($_REQUEST['context'] == 'link') {
+  // ensure needed params are set
+  if (empty($_REQUEST['id'])) {
+    App::returnHeaderJson(true, array('missing' => true));
+  }
+
+  // delete link
+  $json['success'] = Db::delete('links', array('name' => $_REQUEST['id']));
+
+
+} else {
+  // unknown context
+  App::returnHeaderJson(true, array('error' => true));
+}
 
 
 // report success
