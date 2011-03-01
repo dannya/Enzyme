@@ -317,9 +317,9 @@ class Ui {
       }
 
 
-      // show remove button?
-      if ($user && $user->hasPermission(array('editor'))) {
-        $removeButton  = '<div onclick="removeCommit(1219767);" title="' . _('Unselect this commit?') . '" class="remove">
+      // show remove button? (if user is admin, or reviewed this commit)
+      if ($user && ($user->hasPermission(array('editor')) || ($data['reviewer'] == $user->data['username']))) {
+        $removeButton  = '<div onclick="removeCommit(' . Digest::quoteRevision($data['revision']) . ', callbackRemoveCommit);" title="' . _('Unselect this commit?') . '" class="remove">
                             &nbsp;
                           </div>';
       } else {

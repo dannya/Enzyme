@@ -16,6 +16,20 @@
 var context = 'classify';
 
 
+// onload...
+document.observe('dom:loaded', function() {
+  // write counter total
+  if ($('commit-displayed')) {
+    $('commit-displayed').update($$('div.item').size());
+  }
+  
+  // focus first box
+  if ($('commit-item-1-area')) {
+    $('commit-item-1-area').focus();
+  }
+});
+
+
 function setCurrentItem(id) {
   if (!$(id) || !$(id + '-type') || !$(id + '-area')) {
     return null;
@@ -130,15 +144,22 @@ function setClassifyUserFilter(event) {
 }
 
 
-// onload...
-document.observe('dom:loaded', function() {
-  // write counter total
-  if ($('commit-displayed')) {
-    $('commit-displayed').update($$('div.item').size());
+function callbackRemoveCommit(removeRevisions) {
+  // sanity check
+  if (typeof removeRevisions == 'undefined') {
+    return false;
   }
-  
-  // focus first box
-  if ($('commit-item-1-area')) {
-  	$('commit-item-1-area').focus();
-  }
-});
+
+
+  // iterate
+  removeRevisions.evalJSON(true).each(function(item) {
+    if ($('r::' + item).up('div.item')) {
+      // remove commit from page
+      $('r::' + item).up('div.item').remove();
+    }
+  });
+
+
+  // update page counter
+  resetDisplays(parseInt($('commit-total').innerHTML) - 1);
+}

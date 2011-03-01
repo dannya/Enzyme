@@ -16,6 +16,7 @@
 // globally-available script variables
 var BASE_URL        = '<?php echo BASE_URL; ?>';
 var scrollFinished  = false;
+var bulkRevisions   = [];
 
 
 // define translatable strings
@@ -69,6 +70,8 @@ strings.button_repo             = '<?php echo _("Delete repository?"); ?>';
 
 strings.change_date             = '<?php echo _("Change the date?"); ?>';
 strings.change_filename         = '<?php echo _("Change the filename?"); ?>';
+
+
 
 
 function sprintf() {
@@ -364,16 +367,7 @@ function save(theType, theButton) {
         commitCounter = 0;
         
         // reset displays
-			  if ($('commit-selected')) {
-			    $('commit-selected').update(markedCommits.size());
-			  }
-			  if ($('commit-displayed')) {
-			    $('commit-displayed').update(Math.min($$('div.item').size(), result.total));
-			  }
-        if ($('commit-total')) {
-          $('commit-total').update(result.total);
-        }
-			  $('commit-counter').update(commitCounter);
+        resetDisplays(result.total);
 
       } else {
         // show error message
@@ -550,4 +544,73 @@ function validateEmail(email) {
 	} else {
 		return true;
 	}
+}
+
+
+function removeCommit(theRevision, callback) {
+  if (typeof theRevision == 'undefined') {
+    return false;
+  }
+  
+  // remove multiple commits?
+  if ((theRevision == 'bulk') || bulkRevisions.indexOf(theRevision) != -1) {
+    // ensure we have items selected for bulk remove
+    if ((theRevision == 'bulk') && (bulkRevisions.size() == 0)) {
+      return false;
+    }
+
+    // ask first
+    if (!confirm(sprintf(strings.remove_commits, bulkRevisions.size()))) {
+      return false;
+    }
+
+    var removeRevisions = bulkRevisions.toJSON();
+
+  } else {
+    // ask first
+    if (!confirm(strings.remove_commit)) {
+      return false;
+    }
+
+    // convert to JSON
+    var removeRevisions = '[' + quote(theRevision) + ']';
+  }
+
+
+  // send off change
+  new Ajax.Request(BASE_URL + '/get/change-value.php', {
+    method: 'post',
+    parameters: {
+      'context':  'remove',
+      'revision': removeRevisions,
+      'value':    true
+    },
+    onSuccess: function(transport) {
+      var result = transport.headerJSON;
+
+      // remove unneeded subheaders
+      if ((typeof result.success != 'undefined') && result.success) {
+      	if (typeof callback == 'function') {
+      	  callback(removeRevisions);
+      	}
+      }
+    }
+  }); 
+}
+
+
+function resetDisplays(newTotal) {
+  if ($('commit-selected')) {
+    $('commit-selected').update(markedCommits.size());
+  }
+
+  if ($('commit-displayed')) {
+    $('commit-displayed').update(Math.min($$('div.item').size(), newTotal));
+  }
+
+  if ($('commit-total')) {
+    $('commit-total').update(newTotal);
+  }
+
+  $('commit-counter').update(commitCounter);
 }

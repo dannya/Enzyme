@@ -60,7 +60,6 @@ document.observe('dom:loaded', function() {
 });
 
 
-var bulkRevisions = [];
 
 function bulkSelect(theRevision, forceAction) {
   if (typeof theRevision == 'undefined') {
@@ -699,84 +698,46 @@ function changeValue(theContext, theRevision) {
 }
 
 
-function removeCommit(theRevision) {
-  if (typeof theRevision == 'undefined') {
-    return false;
-  }
-  
-  // remove multiple commits?
-  if ((theRevision == 'bulk') || bulkRevisions.indexOf(theRevision) != -1) {
-  	// ensure we have items selected for bulk remove
-  	if ((theRevision == 'bulk') && (bulkRevisions.size() == 0)) {
-  		return false;
-  	}
 
-    // ask first
-	  if (!confirm(sprintf(strings.remove_commits, bulkRevisions.size()))) {
-	    return false;
-	  }
-
-  	var removeRevisions = bulkRevisions.toJSON();
-
-  } else {
-    // ask first
-    if (!confirm(strings.remove_commit)) {
-      return false;
-    }
-
-  	// convert to JSON
-  	var removeRevisions = '[' + quote(theRevision) + ']';
+function callbackRemoveCommit(removeRevisions) {
+  // sanity check
+  if (typeof removeRevisions == 'undefined') {
+  	return false;
   }
 
 
-  // send off change
-  new Ajax.Request(BASE_URL + '/get/change-value.php', {
-    method: 'post',
-    parameters: {
-      'context':  'remove',
-      'revision': removeRevisions,
-      'value':    true
-    },
-    onSuccess: function(transport) {
-      var result = transport.headerJSON;
+  // iterate
+  removeRevisions.evalJSON(true).each(function(item) {
+    if ($('commit-' + item)) {
+      var subheader = $('commit-' + item).previous('h3');
 
-      // remove unneeded subheaders
-      if ((typeof result.success != 'undefined') && result.success) {
-        // iterate
-      	removeRevisions.evalJSON(true).each(function(item) {
-	        if ($('commit-' + item)) {
-	          var subheader = $('commit-' + item).previous('h3');
-	
-	          // remove commit from page
-	          $('commit-' + item).remove();
-	
-	          // check if subheader has more items, if not, also remove
-	          if (!subheader.next() || (subheader.next().tagName != 'DIV')) {
-	            subheader.remove();
-	          }
-	        }
+      // remove commit from page
+      $('commit-' + item).remove();
 
-          // remove from bulk revisions list
-          bulkSelect(item, 'remove');
-      	});
-      }
-
-
-      // fix total displays
-      var newTotal = $('content').select('div.commit').size();
-
-      if ($('num-commits')) {
-      	if (newTotal == 1) {
-          $('num-commits').update(sprintf(strings.num_commits_singular, newTotal));
-      	} else {
-      		$('num-commits').update(sprintf(strings.num_commits_plural, newTotal));
-      	}
-
-      }
-
-      if ($('floating-status-total')) {
-      	$('floating-status-total').update(newTotal);
+      // check if subheader has more items, if not, also remove
+      if (!subheader.next() || (subheader.next().tagName != 'DIV')) {
+        subheader.remove();
       }
     }
-  }); 
+
+    // remove from bulk revisions list
+    bulkSelect(item, 'remove');
+  });
+
+
+  // fix total displays
+  var newTotal = $('content').select('div.commit').size();
+
+  if ($('num-commits')) {
+    if (newTotal == 1) {
+      $('num-commits').update(sprintf(strings.num_commits_singular, newTotal));
+    } else {
+      $('num-commits').update(sprintf(strings.num_commits_plural, newTotal));
+    }
+
+  }
+
+  if ($('floating-status-total')) {
+    $('floating-status-total').update(newTotal);
+  }
 }

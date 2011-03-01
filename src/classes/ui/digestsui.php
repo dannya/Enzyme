@@ -723,8 +723,8 @@ class DigestsUi extends BaseUi {
       return '<h2>' .
                 _('Selected Commits') .
              '  <span>
-                  <input type="button" value="' . _('Review commits...') . '" title="' . _('Review commits...') . '" onclick="top.location=\'' . BASE_URL . '/review/\';" />
                   <input type="button" value="' . _('Classify commits...') . '" title="' . _('Classify commits...') . '" onclick="top.location=\'' . BASE_URL . '/classify/\';" />
+                  <input type="button" value="' . _('Review commits...') . '" title="' . _('Review commits...') . '" onclick="top.location=\'' . BASE_URL . '/review/\';" />
                 </span>
               </h2>
 
@@ -758,7 +758,7 @@ class DigestsUi extends BaseUi {
 
             <div id="floating-status" style="display:none;">
               <div id="floating-status-remove" style="display:none;">
-                <div id="floating-status-remove-button" class="remove" onclick="removeCommit(\'bulk\');" title="Remove selected commits from this digest?">&nbsp;</div>
+                <div id="floating-status-remove-button" class="remove" onclick="removeCommit(\'bulk\', callbackRemoveCommit);" title="Remove selected commits from this digest?">&nbsp;</div>
                 <span id="floating-status-selected">1</span>
               </div>
               <span id="floating-status-total">' . $numCommits . '</span>
@@ -801,7 +801,7 @@ class DigestsUi extends BaseUi {
                     <div class="classifier' . (($commit['reviewer'] == $this->user->data['username']) ? ' me' : '') . '" title="' . sprintf(_('Classified by %s'), $commit['classifier']) . '"><i>&nbsp;</i></div>
 
                     <input id="bulk-' . $commit['revision'] . '" type="checkbox" title="' . _('Select this commit for bulk actions...') . '" onclick="bulkSelect(' . Digest::quoteRevision($commit['revision']) . ');" />
-                    <div class="remove" title="' . _('Remove commit from this digest?') . '" onclick="removeCommit(' . Digest::quoteRevision($commit['revision']) . ');"><i>&nbsp;</i></div>' .
+                    <div class="remove" title="' . _('Remove commit from this digest?') . '" onclick="removeCommit(' . Digest::quoteRevision($commit['revision']) . ', callbackRemoveCommit);"><i>&nbsp;</i></div>' .
                     Ui::htmlSelector('type-' . $commit['revision'], $numericTypes, $commit['type'], 'changeValue(\'type\', ' . Digest::quoteRevision($commit['revision']) . ');') .
                     Ui::htmlSelector('area-' . $commit['revision'], $numericAreas, $commit['area'], 'changeValue(\'area\', ' . Digest::quoteRevision($commit['revision']) . ');') .
                '  </div>
