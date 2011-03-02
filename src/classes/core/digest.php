@@ -42,7 +42,7 @@ class Digest {
   }
 
 
-  public static function getLastIssueDate($timewarp = null, $getValid = true, $onlyPublished = false) {
+  public static function getLastIssueDate($timewarp = null, $getValid = true, $onlyPublished = false, $accurate = false) {
     // use a specific timewarp value (6 months, etc)?
     if ($timewarp) {
       $timewarp = '-' . $timewarp;
@@ -61,7 +61,7 @@ class Digest {
         $issues = Cache::loadSave('issue_latest', 'Digest::loadDigests', array('issue', 'latest', true));
       }
 
-      $key = self::findIssueDate($date, $issues);
+      $key = self::findIssueDate($date, $issues, $accurate);
 
       if ($key === false) {
         $key = reset($issues);
@@ -77,12 +77,23 @@ class Digest {
   }
 
 
-  public static function findIssueDate($date, $issues) {
+  public static function findIssueDate($date, $issues, $keepLooking = false) {
     $numIssues = count($issues);
 
     for ($i = 0; $i < $numIssues; $i++) {
       if ($issues[$i]['date'] == $date) {
         return $i;
+      }
+    }
+
+    // if asked to keep looking, iterate back through issues, looking for closest date to request
+    if ($keepLooking) {
+      $dateCompare = intval(str_replace('-', null, $date));
+
+      foreach ($issues as $key => $issue) {
+        if (intval(str_replace('-', null, $issue['date'])) <= $dateCompare) {
+          return $key;
+        }
       }
     }
 
