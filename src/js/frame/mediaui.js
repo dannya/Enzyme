@@ -44,6 +44,10 @@ function addMediaForm(event) {
       }
     }
   });
+
+
+  // all ok, disable clicked button and run through to form submit
+  event.element().disabled = true;
 }
 
 
