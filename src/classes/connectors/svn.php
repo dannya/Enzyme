@@ -189,7 +189,7 @@ class Svn extends Connector {
       //  - email has no spaces, will always be last element
       //  - account has no spaces, will always be first element
       //  - name will be the remaining middle elements combined
-      $author['email']    = array_pop($elements);
+      $author['email']    = rtrim(array_pop($elements));
       $author['account']  = array_shift($elements);
       $author['name']     = implode(' ', $elements);
 
