@@ -261,7 +261,7 @@ class Imap extends Connector {
 
 
     // extract date
-    if (strpos($body[$i + 1], 'Committed on ') !== false) {
+    if (isset($body[$i + 1]) && (strpos($body[$i + 1], 'Committed on ') !== false)) {
       $pattern        = array('Committed on ', 'at');
       $replace        = null;
 
@@ -303,15 +303,21 @@ class Imap extends Connector {
 
 
     // extract author and branch
-    while (substr($body[$i + 1], 0, 6) !== 'Pushed') {
+    while (isset($body[$i + 1]) && (substr($body[$i + 1], 0, 6) !== 'Pushed')) {
       // handle text breaking onto next line
       ++$i;
     }
 
-    $tmp = preg_split('/\s+/', $body[$i + 1]);
+    if (isset($body[$i + 1])) {
+      $tmp = preg_split('/\s+/', $body[$i + 1]);
 
-    $parsed['commit']['author'] = $tmp[2];
-    $parsed['commit']['branch'] = end($tmp);
+      $parsed['commit']['author'] = $tmp[2];
+      $parsed['commit']['branch'] = end($tmp);
+
+    } else {
+      // cannot find author / branch, return error
+      return false;
+    }
 
 
     // pattern for file diff listings
