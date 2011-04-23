@@ -121,16 +121,20 @@ function forgotPassword(event) {
       if ((typeof result.success != 'undefined') && result.success) {
         // success
         if (typeof strings.reset_success == 'string') {
+        	// i18n
           alert(strings.reset_success);
         } else {
+          // fallback
           alert('Your password has been reset. Please check your registered email account for further instructions.');
         }
 
       } else {
         // error
         if (typeof strings.failure == 'string') {
+        	// i18n
           alert(strings.failure);
         } else {
+        	// fallback
           alert('Error');
         }
       }
