@@ -180,7 +180,11 @@ class ToolsUi extends BaseUi {
 
 
   private function getToolContext() {
-    if (empty($_REQUEST['tool']) || ($_REQUEST['tool'] == '/tools/')) {
+    // strip trailing slash from passed-in tool name
+    $_REQUEST['tool'] = rtrim($_REQUEST['tool'], '/');
+
+    // show menu / specific tool UI?
+    if (empty($_REQUEST['tool']) || (strpos($_REQUEST['tool'], 'tools') !== false)) {
       // draw menu UI
       return 'menu';
 
