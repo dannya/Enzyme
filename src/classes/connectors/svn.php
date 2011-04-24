@@ -191,7 +191,7 @@ class Svn extends Connector {
       //  - name will be the remaining middle elements combined
       $author['email']    = rtrim(array_pop($elements));
       $author['account']  = array_shift($elements);
-      $author['name']     = implode(' ', $elements);
+      $author['name']     = trim(implode(' ', $elements));
 
 
       // check if author has already been processed
