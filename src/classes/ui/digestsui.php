@@ -30,7 +30,7 @@ class DigestsUi extends BaseUi {
 
     } else {
       // set title to date of digest issue
-      $this->title = Date::get('full', $_REQUEST['digest']);
+      $this->title = Date::get('full', rtrim($_REQUEST['digest'], '/'));
     }
   }
 
