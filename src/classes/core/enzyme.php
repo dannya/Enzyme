@@ -579,6 +579,19 @@ class Enzyme {
   }
 
 
+  public static function getPeopleInfo($accounts = false, $sort = false) {
+    // load people, reindex by account
+    $people = Db::reindex(Db::load('people', $accounts), 'account');
+
+    // sort?
+    if ($sort) {
+      ksort($people);
+    }
+
+    return $people;
+  }
+
+
   public static function loadBugs() {
     $bugs = array();
 
@@ -938,7 +951,7 @@ class Enzyme {
 
 
     // load people data to derive extended statistics (country, stats, age, etc)
-    $peopleData = Db::reindex(Db::load('people', array('account' => array_keys($stats['person']))), 'account');
+    $peopleData = self::getPeopleInfo(array('account' => array_keys($stats['person'])));
 
 
     // get extended statistics

@@ -1,0 +1,61 @@
+div#content {
+  left:208px;
+}
+
+
+h3 {
+  position:relative;
+}
+h3 span {
+  position:absolute;
+  right:0;
+  top:-3px;
+}
+
+
+div#developers-container {
+  height:90%;
+  width:100%;
+
+  margin:40px auto 22px auto;
+  overflow:auto;
+}
+
+
+table#developers {
+  width:1500px;
+  border-collapse:collapse;
+}
+
+table#developers tbody tr:nth-child(even) {
+  background-color:#E1EAF3;
+}
+table#developers tbody tr:nth-child(odd) {
+  background-color:#fff;
+}
+
+table#developers thead tr th {
+  width:120px;
+  padding:0 8px;
+  
+  text-align:left;
+  font-weight:normal;
+  font-style:italic;
+  font-size:14px;
+  color:#666;
+}
+table#developers thead tr th:first-child {
+  width:auto;
+}
+table#developers thead tr th.permission {
+  width:16px;
+  text-align:center;
+}
+
+table#developers tbody tr td {
+  padding:4px;
+}
+
+table#developers td.padding {
+  padding-right:18px;
+}

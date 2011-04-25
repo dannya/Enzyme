@@ -24,37 +24,41 @@ abstract class BaseUi {
     $user = new User();
 
     // define items
-    $items = array('insert'   => array('url'        => BASE_URL . '/insert/',
-                                       'string'     => _('Insert'),
-                                       'permission' => 'editor'),
+    $items = array('insert'     => array('url'        => BASE_URL . '/insert/',
+                                         'string'     => _('Insert'),
+                                         'permission' => 'editor'),
 
-                   'review'   => array('url'        => BASE_URL . '/review/',
-                                       'string'     => _('Review'),
-                                       'permission' => 'reviewer'),
+                   'review'     => array('url'        => BASE_URL . '/review/',
+                                         'string'     => _('Review'),
+                                         'permission' => 'reviewer'),
 
-                   'classify' => array('url'        => BASE_URL . '/classify/',
-                                       'string'     => _('Classify'),
-                                       'permission' => 'classifier'),
+                   'classify'   => array('url'        => BASE_URL . '/classify/',
+                                         'string'     => _('Classify'),
+                                         'permission' => 'classifier'),
 
-                   'digests'  => array('url'        => BASE_URL . '/digests/',
-                                       'string'     => _('Digests'),
-                                       'permission' => 'editor'),
+                   'digests'    => array('url'        => BASE_URL . '/digests/',
+                                         'string'     => _('Digests'),
+                                         'permission' => 'editor'),
 
-                   'features' => array('url'        => BASE_URL . '/features/',
-                                       'string'     => _('Features'),
-                                       'permission' => 'feature-editor'),
+                   'features'   => array('url'        => BASE_URL . '/features/',
+                                         'string'     => _('Features'),
+                                         'permission' => 'feature-editor'),
 
-                   'media'    => array('url'        => BASE_URL . '/media/',
-                                       'string'     => _('Media'),
-                                       'permission' => 'feature-editor'),
+                   'media'      => array('url'        => BASE_URL . '/media/',
+                                         'string'     => _('Media'),
+                                         'permission' => 'feature-editor'),
 
-                   'tools'    => array('url'        => BASE_URL . '/tools/',
-                                       'string'     => _('Tools'),
-                                       'permission' => null),
+                   'developers' => array('url'        => BASE_URL . '/developers/',
+                                         'string'     => _('Developers'),
+                                         'permission' => 'admin'),
 
-                   'users'    => array('url'        => BASE_URL . '/users/',
-                                       'string'     => _('Users'),
-                                       'permission' => 'admin'));
+                   'tools'      => array('url'        => BASE_URL . '/tools/',
+                                         'string'     => _('Tools'),
+                                         'permission' => null),
+
+                   'users'      => array('url'        => BASE_URL . '/users/',
+                                         'string'     => _('Users'),
+                                         'permission' => 'admin'));
 
 
     // show import section?
