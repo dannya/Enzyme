@@ -65,21 +65,8 @@ for ($i = 0; $i < $numLines; $i++) {
     $person['employer']   = rtrim($data[$i + 13]);
     $person['colour']     = rtrim($data[$i + 14]);
 
-    // process data
-    if ($person['gender'] == 'male') {
-      $person['gender'] = 'm';
-    } else if ($person['gender'] == 'female') {
-      $person['gender'] = 'f';
-    }
-
-    if ($person['motivation'] == 'volunteer') {
-      $person['motivation'] = 1;
-    } else if ($person['motivation'] == 'commercial') {
-      $person['motivation'] = 2;
-    }
-
     // insert into DB
-    Db::insert('people', $person, true);
+    Db::saveMulti('developers', array($person));
 
     // report success
     Ui::displayMsg(sprintf(_('Inserted %s'), $person['account']));

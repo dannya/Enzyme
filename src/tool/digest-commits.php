@@ -66,12 +66,12 @@ foreach ($dirs as $dir) {
       $raw['basepath']     = trim($file[++$i]);
       $raw['area']         = trim($file[++$i]);
       $raw['type']         = trim($file[++$i]);
-      $raw['author']       = trim($file[$i += 2]);
+      $raw['developer']    = trim($file[$i += 2]);
 
       // insert into commits
       $data['revision']    = $revision;
       $data['date']        = $theDate;
-      $data['author']      = $raw['author'];
+      $data['developer']   = $raw['developer'];
       $data['basepath']    = $raw['basepath'];
       $data['msg']         = trim(Enzyme::formatMsg(trim($file[++$i])));
 

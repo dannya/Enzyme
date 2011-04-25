@@ -359,7 +359,7 @@ class Digest {
 
     // load people?
     if (isset($people)) {
-      $q = mysql_query('SELECT * FROM authors
+      $q = mysql_query('SELECT * FROM developers
                         WHERE account IN ("' . implode('","', $people) . '")') or trigger_error(sprintf(_('Query failed: %s'), mysql_error()));
 
       while ($row = mysql_fetch_assoc($q)) {
@@ -372,8 +372,8 @@ class Digest {
     $q = mysql_query('SELECT * FROM commits
                       LEFT JOIN commits_reviewed
                       ON commits.revision = commits_reviewed.revision
-                      LEFT JOIN authors
-                      ON commits.author = authors.account
+                      LEFT JOIN developers
+                      ON commits.developer = developers.account
                       WHERE date > \'' . date('Y-m-d', strtotime($date . ' - 7 days')) . '\'
                       AND date <= \'' . $date . '\'
                       AND type IS NOT NULL
@@ -385,7 +385,7 @@ class Digest {
     while ($row = mysql_fetch_assoc($q)) {
       if ($row['revision']) {
         $digest['commits'][$row['revision']] = $row;
-        $people[] = $row['author'];
+        $people[] = $row['developer'];
 
         // record reviewer and classifier so we can calculate contributors to this issue
         if (!isset($contributors[$row['reviewer']])) {
@@ -516,17 +516,17 @@ class Digest {
   public static function getLanguages() {
     return array('en_US'  => _('English'),
                  'de_DE'  => _('Deutsch (German)'),
-                 'fr_FR'  => _('Français (French)'),
-                 'es_ES'  => _('Español (Spanish)'),
+                 'fr_FR'  => _('FranÃ§ais (French)'),
+                 'es_ES'  => _('EspaÃ±ol (Spanish)'),
                  'nl_NL'  => _('Nederlands (Dutch)'),
                  'it_IT'  => _('Italiano (Italian)'),
-                 'ru_RU'  => _('Русский язык (Russian)'),
+                 'ru_RU'  => _('Ð ÑƒÑ�Ñ�ÐºÐ¸Ð¹ Ñ�Ð·Ñ‹Ðº (Russian)'),
                  'pl_PL'  => _('Polski (Polish)'),
-                 'pt_PT'  => _('Português (Portuguese)'),
-                 'pt_BR'  => _('Português Brasileiro (Brazilian Portuguese)'),
+                 'pt_PT'  => _('PortuguÃªs (Portuguese)'),
+                 'pt_BR'  => _('PortuguÃªs Brasileiro (Brazilian Portuguese)'),
                  'hu_HU'  => _('Magyar (Hungarian)'),
                  'uk_UA'  => _('Ukrainian (Ukrainian)'),
-                 'cs_CZ'  => _('Czech (Čeština)'),
+                 'cs_CZ'  => _('Czech (ÄŒeÅ¡tina)'),
                  'nds'    => _('Low Saxon (Low Saxon)'));
 
     // not yet ready for inclusion, here for translation purposes
@@ -600,15 +600,15 @@ class Digest {
   public static function getCommitTitle($commit) {
       if (empty($commit['format']) || ($commit['format'] == 'svn')) {
       $title  = sprintf(_('%s committed changes in %s:'),
-                '<a class="n" href="http://cia.vc/stats/author/' . $commit['author'] . '/" target="_blank">' . $commit['name'] . '</a>',
+                '<a class="n" href="http://cia.vc/stats/author/' . $commit['developer'] . '/" target="_blank">' . $commit['name'] . '</a>',
                 Enzyme::drawBasePath($commit['basepath']));
 
     } else if ($commit['format'] == 'git') {
       // do we have the name of the committer?
       if (!empty($commit['name'])) {
-        $committer = '<a class="n" href="http://cia.vc/stats/author/' . $commit['author'] . '/" target="_blank">' . $commit['name'] . '</a>';
+        $committer = '<a class="n" href="http://cia.vc/stats/author/' . $commit['developer'] . '/" target="_blank">' . $commit['name'] . '</a>';
       } else {
-        $committer = Ui::displayEmailAddress($commit['author']);
+        $committer = Ui::displayEmailAddress($commit['developer']);
       }
 
       // show name of repository?

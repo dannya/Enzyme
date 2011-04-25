@@ -47,8 +47,8 @@ class ReviewUi extends BaseUi {
     // attach bug data to revisions
     Enzyme::getBugs($revisions);
 
-    // get author data
-    $authors = Enzyme::getAuthors($revisions);
+    // get developer data
+    $developers = Enzyme::getDevelopers($revisions);
 
 
     // display revisions
@@ -84,7 +84,7 @@ class ReviewUi extends BaseUi {
         }
 
         $key = 'commit-item-' . $counter++;
-        $buf .= Ui::displayRevision('review', $key, $revision, $authors, $this->user);
+        $buf .= Ui::displayRevision('review', $key, $revision, $developers, $this->user);
       }
     }
 

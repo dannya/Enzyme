@@ -105,7 +105,7 @@ class Svn extends Connector {
 
       // get additional commit data
       $commit['date']       = date('Y-m-d H:i:s', strtotime((string)$entry->date));
-      $commit['author']     = (string)$entry->author;
+      $commit['developer']  = (string)$entry->author;
       $commit['msg']        = Enzyme::processCommitMsg($commit['revision'], (string)$entry->msg);
       $commit['format']     = 'svn';
 
@@ -145,16 +145,26 @@ class Svn extends Connector {
   }
 
 
-  public function parseAuthors() {
+  public function parseDevelopers() {
     // check we have initialised
-    if ($this->initialised != 'parseAuthors') {
-      throw new Exception('Call setupParseAuthors() on this object first');
+    if ($this->initialised != 'parseDevelopers') {
+      throw new Exception('Call setupParseDevelopers() on this object first');
     }
 
-    // get fresh authors data
+
+    // get existing authors data from db
+    $existingDevelopers = Enzyme::getDevelopers();
+
+
+    // get fresh developers data
     $cmd    = 'svn cat --non-interactive ' . $this->getRepoCmdAuth() . $this->repo['hostname'] . $this->repo['accounts_file'];
     $data   = shell_exec(escapeshellcmd($cmd));
     $data   = preg_split("/(\r?\n)/", $data);
+
+    if (!isset($data[1])) {
+      Ui::displayMsg(_('Could not download developer data'), 'error');
+      return false;
+    }
 
 
     // append accounts (if file present)
@@ -164,20 +174,20 @@ class Svn extends Connector {
 
 
     // iterate through file line-by-line, inserting into database where not present
-    foreach ($data as $theAuthor) {
-      if (empty($theAuthor)) {
+    foreach ($data as $theDeveloper) {
+      if (empty($theDeveloper)) {
         continue;
       }
 
 
       // split into parts by spaces
-      $elements = preg_split('/\s+/', $theAuthor, -1, PREG_SPLIT_NO_EMPTY);
+      $elements = preg_split('/\s+/', $theDeveloper, -1, PREG_SPLIT_NO_EMPTY);
 
 
       // check enough elements are present
       if (count($elements) <= 3) {
         // report malformed entry
-        Ui::displayMsg(sprintf(_('Entry "%s" malformed, not added'), $theAuthor), 'error');
+        Ui::displayMsg(sprintf(_('Entry "%s" malformed, not added'), $theDeveloper), 'error');
 
         // increment summary counter
         ++$this->summary['malformed']['value'];
@@ -189,15 +199,15 @@ class Svn extends Connector {
       //  - email has no spaces, will always be last element
       //  - account has no spaces, will always be first element
       //  - name will be the remaining middle elements combined
-      $author['email']    = rtrim(array_pop($elements));
-      $author['account']  = array_shift($elements);
-      $author['name']     = trim(implode(' ', $elements));
+      $developer['email']    = rtrim(array_pop($elements));
+      $developer['account']  = array_shift($elements);
+      $developer['name']     = trim(implode(' ', $elements));
 
 
-      // check if author has already been processed
-      if (isset($existingAuthors[$author['account']])) {
+      // check if developer has already been processed
+      if (isset($existingDevelopers[$developer['account']])) {
         if (!empty($_POST['show_skipped'])) {
-          Ui::displayMsg(sprintf(_('Skipping: %s'), $theAuthor));
+          Ui::displayMsg(sprintf(_('Skipping: %s'), $theDeveloper));
         }
 
         // increment summary counter
@@ -207,10 +217,10 @@ class Svn extends Connector {
 
 
       // insert into database
-      Db::insert('authors', $author, true);
+      Db::insert('developers', $developer, true);
 
       // report success
-      Ui::displayMsg(sprintf(_('Added %s (%s) to authors table'), $author['name'], $author['account']));
+      Ui::displayMsg(sprintf(_('Added %s (%s) to developers table'), $developer['name'], $developer['account']));
 
       // increment summary counter
       ++$this->summary['added']['value'];

@@ -72,8 +72,8 @@ class ClassifyUi extends BaseUi {
       }
 
     } else {
-      // get author data
-      $authors          = Enzyme::getAuthors($revisions);
+      // get developer data
+      $developers       = Enzyme::getDevelopers($revisions);
 
       // get common area classifications
       $classifications  = Enzyme::getClassifications();
@@ -83,7 +83,7 @@ class ClassifyUi extends BaseUi {
 
       foreach ($revisions as $revision) {
         $key = 'commit-item-' . $counter++;
-        $buf .= Ui::displayRevision('classify', $key, $revision, $authors, $this->user, $classifications);
+        $buf .= Ui::displayRevision('classify', $key, $revision, $developers, $this->user, $classifications);
       }
     }
 

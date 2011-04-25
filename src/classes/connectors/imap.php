@@ -193,15 +193,15 @@ class Imap extends Connector {
     }
 
 
-    // author
+    // developer
     $tmp = explode('<', $body[$i + 1]);
     $tmp = rtrim(str_replace('>', null, end($tmp)));
 
-    $parsed['commit']['author'] = Enzyme::getAuthorInfo('account', $tmp, 'email');
+    $parsed['commit']['developer'] = Enzyme::getDeveloperInfo('account', $tmp, 'email');
 
-    if (empty($parsed['commit']['author'])) {
+    if (empty($parsed['commit']['developer'])) {
       // cannot find email => username, log and set as email address
-      $parsed['commit']['author'] = $tmp;
+      $parsed['commit']['developer'] = $tmp;
     }
 
 
@@ -302,7 +302,7 @@ class Imap extends Connector {
     }
 
 
-    // extract author and branch
+    // extract developer and branch
     while (isset($body[$i + 1]) && (substr($body[$i + 1], 0, 6) !== 'Pushed')) {
       // handle text breaking onto next line
       ++$i;
@@ -311,11 +311,11 @@ class Imap extends Connector {
     if (isset($body[$i + 1])) {
       $tmp = preg_split('/\s+/', $body[$i + 1]);
 
-      $parsed['commit']['author'] = $tmp[2];
-      $parsed['commit']['branch'] = end($tmp);
+      $parsed['commit']['developer']  = $tmp[2];
+      $parsed['commit']['branch']     = end($tmp);
 
     } else {
-      // cannot find author / branch, return error
+      // cannot find developer / branch, return error
       return false;
     }
 

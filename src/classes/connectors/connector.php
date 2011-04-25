@@ -44,7 +44,7 @@ abstract class Connector {
   }
 
 
-  public function setupParseAuthors() {
+  public function setupParseDevelopers() {
     // setup summary
     $this->summary['skipped']['title']    = _('Skipped: %d');
     $this->summary['skipped']['value']    = 0;
@@ -54,7 +54,7 @@ abstract class Connector {
     $this->summary['malformed']['value']  = 0;
 
     // set initialised flag
-    $this->initialised = 'parseAuthors';
+    $this->initialised = 'parseDevelopers';
   }
 
 

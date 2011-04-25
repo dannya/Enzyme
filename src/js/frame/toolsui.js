@@ -21,7 +21,7 @@ document.observe('dom:loaded', function() {
 });
 
 
-function parseAuthors(event) {
+function parseDevelopers(event) {
   Event.stop(event);
 
   if (!$('show-skipped') || !$('result')) {
@@ -29,7 +29,7 @@ function parseAuthors(event) {
   }
 
   // change result iframe URL to start insert process (and show results!)
-  $('result').src = BASE_URL + '/tool/parse-authors.php?show_skipped=' + $('show-skipped').checked;
+  $('result').src = BASE_URL + '/tool/parse-developers.php?show_skipped=' + $('show-skipped').checked;
 }
 
 

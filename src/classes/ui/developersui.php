@@ -39,6 +39,31 @@ class DevelopersUi extends BaseUi {
       return $buf;
     }
 
+
+    // create interact bar elements
+    $interactType   = Ui::htmlSelector('interact-type', array('search'      => _('Search'),
+                                                              'filter'      => _('Filter')));
+
+    $interactField  = Ui::htmlSelector('interact-type', array('account'     => _('Account'),
+                                                              'nickname'    => _('Nickname'),
+                                                              'dob'         => _('DOB'),
+                                                              'gender'      => _('Gender'),
+                                                              'continent'   => _('Continent'),
+                                                              'country'     => _('Country'),
+                                                              'location'    => _('Location'),
+                                                              'latitude'    => _('Latitude'),
+                                                              'longitude'   => _('Longitude'),
+                                                              'motivation'  => _('Motivation'),
+                                                              'employer'    => _('Employer'),
+                                                              'colour'      => _('Colour')));
+
+    $interactOp     = Ui::htmlSelector('interact-op', array('eq'  => '=',
+                                                            'lt'  => '&lt;',
+                                                            'gt'  => '&gt;'));
+
+    $interactValue  = '<input id="interact-value" type="type" value="" />';
+
+
     // draw
     $buf = '<h3>' .
               _('Developers') .
@@ -49,6 +74,10 @@ class DevelopersUi extends BaseUi {
                 <input type="button" title="' . _('Add new developer record') . '" value="' . _('Add new developer record') . '" onclick="addUser();" />
               </span>
             </h3>
+
+            <div id="interact-bar">' .
+              $interactType . '<i>' . _('where') . '</i>' . $interactField . $interactOp . $interactValue .
+           '</div>
 
             <div id="developers-container">
               <table id="developers">
@@ -72,8 +101,13 @@ class DevelopersUi extends BaseUi {
 
                 <tbody id="users-body">';
 
+    $i = 0;
     foreach ($this->developers as $account => $developer) {
-        $buf .= $this->drawRow($developer);
+      if ($i++ > 50) {
+        break;
+      }
+
+      $buf .= $this->drawRow($developer);
     }
 
     // draw hidden row, to allow creation of new users

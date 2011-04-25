@@ -382,7 +382,7 @@ class Enzyme {
         $exclude = self::excludedAccounts();
       }
 
-      $filter .= ' AND commits.author NOT IN ("' . implode('","', $exclude) . '")';
+      $filter .= ' AND commits.developer NOT IN ("' . implode('","', $exclude) . '")';
     }
 
 
@@ -441,7 +441,7 @@ class Enzyme {
                           OR commits_reviewed.area = 0)';
       }
 
-      // do join to get commit authors
+      // do join to get commit developers
       $filter .= ' AND commits_reviewed.revision = commits.revision';
 
     } else {
@@ -496,22 +496,22 @@ class Enzyme {
   }
 
 
-  public static function getAuthors($revisions = null, $index = 'account') {
+  public static function getDevelopers($revisions = null, $index = 'account') {
     $filter       = null;
     $accountData  = array();
 
-    // filter by authors present in provided revision data?
+    // filter by developers present in provided revision data?
     if ($revisions) {
       foreach ($revisions as $revision) {
-        $authors[$revision['author']] = $revision['author'];
+        $developers[$revision['developer']] = $revision['developer'];
       }
 
-      $filter = ' WHERE account IN (\'' . implode('\', \'', $authors) . '\')';
+      $filter = ' WHERE account IN (\'' . implode('\', \'', $developers) . '\')';
     }
 
 
     // load from db
-    $q = mysql_query('SELECT * FROM authors' . $filter) or trigger_error(sprintf(_('Query failed: %s'), mysql_error()));
+    $q = mysql_query('SELECT * FROM developers' . $filter) or trigger_error(sprintf(_('Query failed: %s'), mysql_error()));
 
     while ($row = mysql_fetch_assoc($q)) {
       $accountData[$row[$index]] = $row;
@@ -560,19 +560,19 @@ class Enzyme {
   }
 
 
-  public static function getAuthorInfo($type, $key, $index = 'account') {
-    global $authors;
+  public static function getDeveloperInfo($type, $key, $index = 'account') {
+    global $developers;
 
     $string = null;
 
-    // if authors are not available, load
-    if (!isset($authors[$index])) {
-      $authors[$index] = self::getAuthors(null, $index);
+    // if developers are not available, load
+    if (!isset($developers[$index])) {
+      $developers[$index] = self::getDevelopers(null, $index);
     }
 
     // if field is available, return
-    if (!empty($authors[$index][$key][$type])) {
-      $string = $authors[$index][$key][$type];
+    if (!empty($developers[$index][$key][$type])) {
+      $string = $developers[$index][$key][$type];
     }
 
     return $string;
@@ -581,7 +581,7 @@ class Enzyme {
 
   public static function getPeopleInfo($accounts = false, $sort = false) {
     // load people, reindex by account
-    $people = Db::reindex(Db::load('people', $accounts), 'account');
+    $people = Db::reindex(Db::load('developers', $accounts), 'account');
 
     // sort?
     if ($sort) {
@@ -727,27 +727,30 @@ class Enzyme {
     foreach ($data as $entry) {
       ++$stats['totalCommits'];
 
+      // get commit developer, cast to string
+      $tmpDeveloper = (string)$entry->author;
+
       // skip if an excluded account!
-      if (in_array((string)$entry->author, $stats['excludedAccounts'])) {
+      if (in_array($tmpDeveloper, $stats['excludedAccounts'])) {
         ++$stats['excludedCommits'];
         continue;
       }
 
       // set data into useful data structure
-      if (!isset($stats['person'][(string)$entry->author]['commits'])) {
+      if (!isset($stats['person'][$tmpDeveloper]['commits'])) {
         // initialise counters
-        $stats['person'][(string)$entry->author]['commits']  = 0;
-        $stats['person'][(string)$entry->author]['files']    = 0;
+        $stats['person'][$tmpDeveloper]['commits']  = 0;
+        $stats['person'][$tmpDeveloper]['files']    = 0;
       }
 
       // increment commit counter
-      ++$stats['person'][(string)$entry->author]['commits'];
+      ++$stats['person'][$tmpDeveloper]['commits'];
 
       // increment files counter
       $numFiles             = count($entry->paths->path);
       $stats['totalFiles'] += $numFiles;
 
-      $stats['person'][(string)$entry->author]['files'] += $numFiles;
+      $stats['person'][$tmpDeveloper]['files'] += $numFiles;
 
 
       // extract module
@@ -854,26 +857,26 @@ class Enzyme {
       ++$stats['totalCommits'];
 
       // skip if an excluded account!
-      if (in_array($entry['author'], $stats['excludedAccounts'])) {
+      if (in_array($entry['developer'], $stats['excludedAccounts'])) {
         ++$stats['excludedCommits'];
         continue;
       }
 
       // set data into useful data structure
-      if (!isset($stats['person'][$entry['author']]['commits'])) {
+      if (!isset($stats['person'][$entry['developer']]['commits'])) {
         // initialise counters
-        $stats['person'][$entry['author']]['commits']  = 0;
-        $stats['person'][$entry['author']]['files']    = 0;
+        $stats['person'][$entry['developer']]['commits']  = 0;
+        $stats['person'][$entry['developer']]['files']    = 0;
       }
 
       // increment commit counter
-      ++$stats['person'][$entry['author']]['commits'];
+      ++$stats['person'][$entry['developer']]['commits'];
 
       // increment files counter
       $numFiles             = count($commitFiles[$entry['revision']]);
       $stats['totalFiles'] += $numFiles;
 
-      $stats['person'][$entry['author']]['files'] += $numFiles;
+      $stats['person'][$entry['developer']]['files'] += $numFiles;
 
 
       // extract module

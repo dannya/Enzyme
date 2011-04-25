@@ -35,10 +35,6 @@ ob_start();
 echo Ui::drawHtmlPageStart(null, array('/css/common.css'), array('/js/prototype.js'));
 
 
-// load accounts
-$accounts = Db::reindex(Db::load('authors', false), 'name');
-
-
 // load data
 $filename = 'filetypes.txt';
 

@@ -13,11 +13,38 @@ h3 span {
 }
 
 
+div#interact-bar {
+  margin:20px 0;
+}
+
+div#interact-bar i {
+  display:inline-block;
+  margin:0 10px;
+}
+
+div#interact-bar select {
+  width:auto;
+}
+div#interact-bar select option {
+  padding:0 20px 0 0;
+}
+
+div#interact-bar input {
+  border:2px solid #ccc;
+  font-size:14px;
+  padding:4px;
+}
+
+div#interact-bar #interact-op {
+  margin:0 10px;
+}
+
+
 div#developers-container {
-  height:90%;
+  height:80%;
   width:100%;
 
-  margin:40px auto 22px auto;
+  margin:0 auto 22px auto;
   overflow:auto;
 }
 
@@ -25,6 +52,7 @@ div#developers-container {
 table#developers {
   width:1500px;
   border-collapse:collapse;
+  margin-top:2px;
 }
 
 table#developers tbody tr:nth-child(even) {

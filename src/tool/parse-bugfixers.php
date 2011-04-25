@@ -36,7 +36,7 @@ echo Ui::drawHtmlPageStart(null, array('/css/common.css'), array('/js/prototype.
 
 
 // load accounts
-$accounts = Db::reindex(Db::load('authors', false), 'name');
+$accounts = Db::reindex(Db::load('developers', false), 'name');
 
 
 // load data

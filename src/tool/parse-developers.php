@@ -35,10 +35,6 @@ ob_start();
 echo Ui::drawHtmlPageStart(null, array('/css/common.css'), array('/js/prototype.js'));
 
 
-// get existing authors data from db
-$existingAuthors = Enzyme::getAuthors();
-
-
 // load list of defined repositories
 $repos = Connector::getRepositories();
 
@@ -53,14 +49,16 @@ foreach ($repos as $repo) {
     }
 
     // parse authors from set accounts file in defined repository
-    $repository->setupParseAuthors();
-    $repository->parseAuthors();
+    $repository->setupParseDevelopers();
+    $repository->parseDevelopers();
   }
 }
 
 
 // display summary
-echo Ui::processSummary($repository->summary, true);
+if ($repository->summary) {
+  echo Ui::processSummary($repository->summary, true);
+}
 
 
 // draw html page end

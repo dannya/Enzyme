@@ -40,11 +40,11 @@ class ToolsUi extends BaseUi {
 
 
     // setup available tools
-    $this->tools['general'][]     = array('id'          => 'parse-authors',
-                                          'string'      => _('Parse Authors Data'),
+    $this->tools['general'][]     = array('id'          => 'parse-developers',
+                                          'string'      => _('Parse Developers Data'),
                                           'permission'  => 'admin',
-                                          'url'         => BASE_URL . '/tools/parse-authors/',
-                                          'function'    => array($this, 'parseAuthors'),
+                                          'url'         => BASE_URL . '/tools/parse-developers/',
+                                          'function'    => array($this, 'parseDevelopers'),
                                           'params'      => null);
 
     $this->tools['general'][]     = array('id'          => 'parse-i18n-teams',
@@ -269,7 +269,7 @@ class ToolsUi extends BaseUi {
   }
 
 
-  private function parseAuthors() {
+  private function parseDevelopers() {
     if (!empty($_POST['show_skipped'])) {
       $skip = ' checked="checked"';
     } else {
@@ -283,7 +283,7 @@ class ToolsUi extends BaseUi {
                   <input id="show-skipped" type="checkbox" value="1"' . $skip . ' /> ' . _('Show Skipped?') .
            '    </label>
 
-                <input type="submit" value="' . _('Parse authors') . '" title="' . _('Parse authors') . '" onclick="parseAuthors(event);" />
+                <input type="submit" value="' . _('Parse developers') . '" title="' . _('Parse developers') . '" onclick="parseDevelopers(event);" />
               </form>
             </div>
 

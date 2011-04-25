@@ -17,7 +17,6 @@
 
 class Db {
   private static $tables  = array('applications',
-                                  'authors',
                                   'bugfixers',
                                   'commits',
                                   'commits_reviewed',
@@ -25,6 +24,7 @@ class Db {
                                   'commit_files',
                                   'commit_path_filters',
                                   'countries',
+                                  'developers',
                                   'digests',
                                   'digest_intro_people',
                                   'digest_intro_sections',
@@ -39,7 +39,6 @@ class Db {
                                   'filetypes',
                                   'languages',
                                   'links',
-                                  'people',
                                   'repositories',
                                   'settings',
                                   'users');

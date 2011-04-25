@@ -28,7 +28,7 @@ define('DB_DATABASE',       'enzyme');
 // define app constants
 define('APP_ID',            'enzyme');
 define('APP_NAME',          'Enzyme');
-define('VERSION',           '1.04');
+define('VERSION',           '1.06');
 
 
 // set initial values
@@ -44,7 +44,8 @@ if (empty($_SERVER['DOCUMENT_ROOT'])) {
 
 
 // add class dirs to include path
-$classDirs = array(BASE_DIR . '/classes/core/',
+$classDirs = array(BASE_DIR . '/classes/shared/',
+                   BASE_DIR . '/classes/specific/',
                    BASE_DIR . '/classes/ext/',
                    BASE_DIR . '/classes/ui/',
                    BASE_DIR . '/classes/connectors/');
