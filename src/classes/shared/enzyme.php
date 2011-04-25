@@ -579,9 +579,9 @@ class Enzyme {
   }
 
 
-  public static function getPeopleInfo($accounts = false, $sort = false) {
+  public static function getPeopleInfo($filter = false, $sort = false) {
     // load people, reindex by account
-    $people = Db::reindex(Db::load('developers', $accounts), 'account');
+    $people = Db::reindex(Db::load('developers', $filter, null, '*', false), 'account');
 
     // sort?
     if ($sort) {

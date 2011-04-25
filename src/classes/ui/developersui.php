@@ -19,7 +19,6 @@ class DevelopersUi extends BaseUi {
   public $id            = 'developers';
 
   private $user         = array();
-  private $developers   = array();
 
 
   public function __construct($user) {
@@ -27,9 +26,6 @@ class DevelopersUi extends BaseUi {
 
     // set title
     $this->title = _('Developers');
-
-    // load developer data
-    $this->developers = Enzyme::getPeopleInfo(false, true);
   }
 
 
@@ -44,24 +40,25 @@ class DevelopersUi extends BaseUi {
     $interactType   = Ui::htmlSelector('interact-type', array('search'      => _('Search'),
                                                               'filter'      => _('Filter')));
 
-    $interactField  = Ui::htmlSelector('interact-type', array('account'     => _('Account'),
-                                                              'nickname'    => _('Nickname'),
-                                                              'dob'         => _('DOB'),
-                                                              'gender'      => _('Gender'),
-                                                              'continent'   => _('Continent'),
-                                                              'country'     => _('Country'),
-                                                              'location'    => _('Location'),
-                                                              'latitude'    => _('Latitude'),
-                                                              'longitude'   => _('Longitude'),
-                                                              'motivation'  => _('Motivation'),
-                                                              'employer'    => _('Employer'),
-                                                              'colour'      => _('Colour')));
+    $interactField  = Ui::htmlSelector('interact-field', array('account'    => _('Account'),
+                                                               'nickname'   => _('Nickname'),
+                                                               'dob'        => _('DOB'),
+                                                               'gender'     => _('Gender'),
+                                                               'continent'  => _('Continent'),
+                                                               'country'    => _('Country'),
+                                                               'location'   => _('Location'),
+                                                               'latitude'   => _('Latitude'),
+                                                               'longitude'  => _('Longitude'),
+                                                               'motivation' => _('Motivation'),
+                                                               'employer'   => _('Employer'),
+                                                               'colour'     => _('Colour')));
 
     $interactOp     = Ui::htmlSelector('interact-op', array('eq'  => '=',
                                                             'lt'  => '&lt;',
                                                             'gt'  => '&gt;'));
 
-    $interactValue  = '<input id="interact-value" type="type" value="" />';
+    $interactValue  = '<input id="interact-value" type="text" value="" />';
+    $interactButton = '<input id="interact-button" type="button" value="' . _('Go') . '" onclick="interactSearch(event);" />';
 
 
     // draw
@@ -69,49 +66,47 @@ class DevelopersUi extends BaseUi {
               _('Developers') .
            '  <span>
                 <span class="status">' .
-                  sprintf(_('%d developer records'), count($this->developers)) .
+                  sprintf(_('%d developer records'), Db::count('developers', false)) .
            '    </span>
                 <input type="button" title="' . _('Add new developer record') . '" value="' . _('Add new developer record') . '" onclick="addUser();" />
               </span>
             </h3>
 
             <div id="interact-bar">' .
-              $interactType . '<i>' . _('where') . '</i>' . $interactField . $interactOp . $interactValue .
+              $interactType . '<i>' . _('where') . '</i>' . $interactField . $interactOp . $interactValue . $interactButton .
            '</div>
 
             <div id="developers-container">
-              <table id="developers">
+              <p id="developers-prompt" class="prompt">' .
+                _('Perform a search to begin...') .
+           '  </p>
+
+              <table id="developers-headers" style="display:none;">
                 <thead>
                   <tr>
-                    <th>&nbsp;</th>
-                    <th>' . _('Account') . '</th>
-                    <th>' . _('Nickname') . '</th>
-                    <th>' . _('DOB') . '</th>
-                    <th>' . _('Gender') . '</th>
-                    <th>' . _('Continent') . '</th>
-                    <th>' . _('Country') . '</th>
-                    <th>' . _('Location') . '</th>
-                    <th>' . _('Latitude') . '</th>
-                    <th>' . _('Longitude') . '</th>
-                    <th>' . _('Motivation') . '</th>
-                    <th>' . _('Employer') . '</th>
-                    <th>' . _('Colour') . '</th>
+                    <th class="column">&nbsp;</th>
+
+                    <th class="column column-account">' . _('Account') . '</th>
+                    <th class="column column-nickname">' . _('Nickname') . '</th>
+                    <th class="column column-dob">' . _('DOB') . '</th>
+                    <th class="column column-gender">' . _('Gender') . '</th>
+                    <th class="column column-continent">' . _('Continent') . '</th>
+                    <th class="column column-country">' . _('Country') . '</th>
+                    <th class="column column-location">' . _('Location') . '</th>
+                    <th class="column column-latitude">' . _('Latitude') . '</th>
+                    <th class="column column-longitude">' . _('Longitude') . '</th>
+                    <th class="column column-motivation">' . _('Motivation') . '</th>
+                    <th class="column column-employer">' . _('Employer') . '</th>
+                    <th class="column column-colour">' . _('Colour') . '</th>
                   </tr>
                 </thead>
+              </table>
 
-                <tbody id="users-body">';
-
-    $i = 0;
-    foreach ($this->developers as $account => $developer) {
-      if ($i++ > 50) {
-        break;
-      }
-
-      $buf .= $this->drawRow($developer);
-    }
+              <table id="developers" style="display:none;">
+                <tbody id="developers-body">';
 
     // draw hidden row, to allow creation of new users
-    $buf  .= $this->drawRow(null);
+    $buf  .= self::drawRow(null);
 
     $buf  .= '    </tbody>
                 </table>
@@ -132,7 +127,7 @@ class DevelopersUi extends BaseUi {
   }
 
 
-  private function drawRow($developer = null) {
+  public static function drawRow($developer = null) {
     if ($developer) {
       $rowId    = 'row-' . $developer['account'];
       $rowStyle = null;
@@ -172,25 +167,58 @@ class DevelopersUi extends BaseUi {
 
     // draw row
     $buf =   '<tr id="' . $rowId . '"' . $rowStyle . '>
-                <td>' .
+                <td class="column">' .
                   $accountButton .
              '  </td>
 
-                <td class="account">' . $developer['account'] . '</td>
-                <td class="nickname">' . $developer['nickname'] . '</td>
-                <td class="dob">' . $developer['dob'] . '</td>
-                <td class="gender">' . $developer['gender'] . '</td>
-                <td class="continent">' . $developer['continent'] . '</td>
-                <td class="country">' . $developer['country'] . '</td>
-                <td class="location">' . $developer['location'] . '</td>
-                <td class="latitude">' . $developer['latitude'] . '</td>
-                <td class="longitude">' . $developer['longitude'] . '</td>
-                <td class="motivation">' . $developer['motivation'] . '</td>
-                <td class="employer">' . $developer['employer'] . '</td>
-                <td class="colour">' . $developer['colour'] . '</td>
+                <td class="column column-account">' . $developer['account'] . '</td>
+                <td class="column column-nickname">' . $developer['nickname'] . '</td>
+                <td class="column column-dob">' . $developer['dob'] . '</td>
+                <td class="column column-gender">' . self::enumToString($developer['gender']) . '</td>
+                <td class="column column-continent">' . self::enumToString($developer['continent']) . '</td>
+                <td class="column column-country">' . $developer['country'] . '</td>
+                <td class="column column-location">' . $developer['location'] . '</td>
+                <td class="column column-latitude">' . $developer['latitude'] . '</td>
+                <td class="column column-longitude">' . $developer['longitude'] . '</td>
+                <td class="column column-motivation">' . self::enumToString($developer['motivation']) . '</td>
+                <td class="column column-employer">' . $developer['employer'] . '</td>
+                <td class="column column-colour">' . self::enumToString($developer['colour']) . '</td>
               </tr>';
 
     return $buf;
+  }
+
+
+  public static function enumToString($key) {
+    // map enums to i18n strings
+    $keys = array('male'            => _('Male'),
+                  'female'          => _('Female'),
+
+                  'europe'          => _('Europe'),
+                  'africa'          => _('Africa'),
+                  'asia'            => _('Asia'),
+                  'oceania'         => _('Oceania'),
+                  'north-america'   => _('North America'),
+                  'south-america'   => _('South America'),
+
+                  'volunteer'       => _('Volunteer'),
+                  'commercial'      => _('Commercial'),
+
+                  'red'             => _('Red'),
+                  'blue'            => _('Blue'),
+                  'green'           => _('Green'),
+                  'black'           => _('Black'),
+                  'yellow'          => _('Yellow'),
+                  'purple'          => _('Purple'),
+                  'brown'           => _('Brown'));
+
+    // return
+    if (isset($keys[$key])) {
+      return $keys[$key];
+
+    } else {
+      return $key;
+    }
   }
 }
 

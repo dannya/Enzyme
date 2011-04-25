@@ -13,7 +13,9 @@ h3 span {
 }
 
 
+
 div#interact-bar {
+  display:inline-block;
   margin:20px 0;
 }
 
@@ -22,14 +24,15 @@ div#interact-bar i {
   margin:0 10px;
 }
 
-div#interact-bar select {
+div#interact-bar select,
+div#interact-bar input {
   width:auto;
 }
 div#interact-bar select option {
   padding:0 20px 0 0;
 }
 
-div#interact-bar input {
+div#interact-bar input[type="text"] {
   border:2px solid #ccc;
   font-size:14px;
   padding:4px;
@@ -40,19 +43,81 @@ div#interact-bar #interact-op {
 }
 
 
+
 div#developers-container {
+  position:relative;
   height:80%;
   width:100%;
 
-  margin:0 auto 22px auto;
+  margin:0 auto 26px auto;
   overflow:auto;
+  
+  border:2px solid #ccc;
+  
+  border-radius:5px;
+  -moz-border-radius:5px;
+  -webkit-border-radius:5px;
 }
+
+
+
+table .column {
+  width:120px;
+  
+  text-align:left;
+  font-size:14px;
+}
+table .column:first-child {
+  width:32px;
+}
+table .column-gender {
+  width:90px;
+}
+table .column-continent {
+  width:110px;
+}
+table .column-country {
+  width:80px;
+}
+table .column-location {
+  width:200px;
+}
+table .column-employer {
+  width:180px;
+}
+table .column-colour {
+  width:100px;
+}
+
+
+
+
+table#developers-headers {
+  position:absolute;
+  top:0;
+
+  width:1500px;
+  border-collapse:collapse;
+  border-bottom:1px solid #ccc;
+  z-index:1;
+}
+
+table#developers-headers .column {
+  padding:6px 4px;
+
+  font-weight:normal;
+  font-style:italic;
+  color:#666;
+  background-color:#fff;
+}
+
+
 
 
 table#developers {
   width:1500px;
   border-collapse:collapse;
-  margin-top:2px;
+  margin-top:32px;
 }
 
 table#developers tbody tr:nth-child(even) {
@@ -62,28 +127,7 @@ table#developers tbody tr:nth-child(odd) {
   background-color:#fff;
 }
 
-table#developers thead tr th {
-  width:120px;
-  padding:0 8px;
-  
-  text-align:left;
-  font-weight:normal;
-  font-style:italic;
-  font-size:14px;
-  color:#666;
-}
-table#developers thead tr th:first-child {
-  width:auto;
-}
-table#developers thead tr th.permission {
-  width:16px;
-  text-align:center;
-}
-
 table#developers tbody tr td {
   padding:4px;
-}
-
-table#developers td.padding {
-  padding-right:18px;
+  font-size:14px;
 }

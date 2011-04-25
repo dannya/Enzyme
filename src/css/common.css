@@ -691,3 +691,46 @@ body.help div.printfooter {
   -moz-border-radius:5px;
   -webkit-border-radius:5px;
 }
+
+
+
+
+
+
+div.account-status {
+  position:relative;
+  float:left;
+  padding:4px;
+  margin:0;
+
+  opacity:0.6;
+  cursor:pointer;
+
+  border-radius:5px;
+  -moz-border-radius:5px;
+  -webkit-border-radius:5px; 
+}
+div.account-status:hover {
+  opacity:1;
+}
+div.account-status div {
+  position:relative;
+  top:1px;
+  width:22px;
+  height:22px;
+  background:url("../img/sprite.png") repeat scroll 0 0 transparent;
+}
+
+div.active {
+  background-color:green;
+}
+div.active div {
+  background-position:-22px -22px;
+}
+
+div.inactive {
+  background-color:red;
+}
+div.inactive div {
+  background-position:-44px -22px;
+}
