@@ -14,32 +14,49 @@ h3 span {
 
 
 
-div#interact-bar {
-  display:inline-block;
+form#interact-bar {
   margin:20px 0;
 }
 
-div#interact-bar i {
+form#interact-bar i {
   display:inline-block;
   margin:0 10px;
+  color:#999;
 }
 
-div#interact-bar select,
-div#interact-bar input {
+form#interact-bar select,
+form#interact-bar input {
   width:auto;
 }
-div#interact-bar select option {
+form#interact-bar select option {
   padding:0 20px 0 0;
 }
 
-div#interact-bar input[type="text"] {
+form#interact-bar input[type="text"] {
   border:2px solid #ccc;
   font-size:14px;
   padding:4px;
 }
 
-div#interact-bar #interact-op {
+form#interact-bar #interact-op {
   margin:0 10px;
+  min-width:130px;
+}
+
+form#interact-bar #interact-button {
+  float:none;
+}
+
+form#interact-bar #interact-spinner {
+  float:right;
+  margin:-2px 0 0 6px;
+}
+
+form#interact-bar #interact-results {
+  float:right;
+  margin:4px;
+  color:#666;
+  font-style:italic;
 }
 
 
@@ -63,12 +80,12 @@ div#developers-container {
 
 table .column {
   width:120px;
-  
+
   text-align:left;
   font-size:14px;
 }
 table .column:first-child {
-  width:32px;
+  width:28px;
 }
 table .column-gender {
   width:90px;
@@ -91,12 +108,30 @@ table .column-colour {
 
 
 
+table .empty {
+  background:url("../img/sidebar-bg.png") repeat transparent;
+  opacity:0.4;
+}
+
+table .editing {
+  padding:0 !important;
+  opacity:1 !important;
+}
+table .editing input {
+  width:95% !important;
+  margin:-1px 5% 0 0 !important;
+  border:1px solid #999 !important;
+  padding:5px 3px 6px 3px !important;
+}
+
+
+
 
 table#developers-headers {
   position:absolute;
   top:0;
 
-  width:1500px;
+  width:1612px;
   border-collapse:collapse;
   border-bottom:1px solid #ccc;
   z-index:1;
@@ -115,7 +150,7 @@ table#developers-headers .column {
 
 
 table#developers {
-  width:1500px;
+  width:1612px;
   border-collapse:collapse;
   margin-top:32px;
 }
@@ -130,4 +165,17 @@ table#developers tbody tr:nth-child(odd) {
 table#developers tbody tr td {
   padding:4px;
   font-size:14px;
+  cursor:pointer;
+}
+table#developers tbody tr td:hover {
+  background-color:rgba(0, 0, 0, 0.1);
+}
+table#developers tbody tr td.empty:hover {
+  opacity:1;
+}
+
+
+table#developers div.account-status div {
+  width:16px;
+  height:16px;
 }

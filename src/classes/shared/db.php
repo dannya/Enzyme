@@ -386,7 +386,11 @@ class Db {
           $query[] = $key . ' IN (' . implode(',', $tmpValue) . ')';
 
         } else if (isset($tmpValue['type'])) {
-          if ($tmpValue['type'] == 'gt') {
+          if ($tmpValue['type'] == 'eq') {
+            // equal to
+            $query[] = self::createFilterElement($key, '=', $tmpValue['value']);
+
+          } else if ($tmpValue['type'] == 'gt') {
             // greater than
             $query[] = self::createFilterElement($key, '>', $tmpValue['value']);
 
@@ -411,6 +415,22 @@ class Db {
             sort($tmpValue['args']);
 
             $query[] = $key . ' >= ' . self::quote($tmpValue['args'][0]) . ' AND ' . $key . ' <= ' . self::quote($tmpValue['args'][1]);
+
+          } else if ($tmpValue['type'] == 'start') {
+            // starts with
+            $query[] = self::createFilterElement($key, 'LIKE', self::prepareLike($tmpValue['value']) . '%');
+
+          } else if ($tmpValue['type'] == 'end') {
+            // ends with
+            $query[] = self::createFilterElement($key, 'LIKE', '%' . self::prepareLike($tmpValue['value']));
+
+          } else if ($tmpValue['type'] == 'contain') {
+            // contains with
+            $query[] = self::createFilterElement($key, 'LIKE', '%' . self::prepareLike($tmpValue['value']) . '%');
+
+          } else {
+            // invalid type provided
+            throw new Exception('Invalid type provided to Db::createFilter()');
           }
 
         } else {
@@ -509,7 +529,7 @@ class Db {
         $theValues[] = $value;
 
       } else if ($context == 'updateMulti') {
-        $query[] = '(' . implode(',', $value) . ')';
+        $query[] = '(' . App::implode(',', $value, false, true) . ')';
       }
     }
 
@@ -667,6 +687,12 @@ class Db {
     } else {
       return $value;
     }
+  }
+
+
+  public static function prepareLike($value) {
+    // remove & and _
+    return str_replace(array('%', '_'), null, $value);
   }
 }
 

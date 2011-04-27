@@ -69,14 +69,41 @@ class App {
   }
 
 
-  public static function implode($delimiter, $content, $trim = true) {
+  public static function implode($delimiter, $content, $trim = true, $representNull = false) {
     if (!is_array($content)) {
       return $content;
+
     } else {
-      if ($trim) {
-        return trim(implode($delimiter, $content));
+      if ($representNull) {
+        // manually implode array so we can represent null elements with NULL
+        $str    = null;
+
+        $i      = 0;
+        $total  = count($content);
+
+        foreach ($content as $item) {
+          if ($item === null) {
+            $str .= 'null';
+          } else {
+            $str .= $item;
+          }
+
+          // add delimiter?
+          if (++$i != $total) {
+            $str .= $delimiter;
+          }
+        }
+
       } else {
-        return implode($delimiter, $content);
+        // use PHP implode
+        $str = implode($delimiter, $content);
+      }
+
+      // return
+      if (!$trim) {
+        return $str;
+      } else {
+        return trim($str);
       }
     }
   }

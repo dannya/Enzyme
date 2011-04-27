@@ -52,6 +52,7 @@ $numLines = count($data);
 for ($i = 0; $i < $numLines; $i++) {
   if (isset($data[$i]) && (rtrim($data[$i]) == '[person]')) {
     // assign data
+    $person               = array();
     $person['account']    = rtrim($data[$i + 2]);
     $person['nickname']   = rtrim($data[$i + 3]);
     $person['dob']        = rtrim($data[$i + 5]);
@@ -64,6 +65,13 @@ for ($i = 0; $i < $numLines; $i++) {
     $person['motivation'] = rtrim($data[$i + 12]);
     $person['employer']   = rtrim($data[$i + 13]);
     $person['colour']     = rtrim($data[$i + 14]);
+
+    // set to null if empty
+    foreach ($person as &$value) {
+      if (empty($value)) {
+        $value = null;
+      }
+    }
 
     // insert into DB
     Db::saveMulti('developers', array($person));

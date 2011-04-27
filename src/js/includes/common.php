@@ -53,6 +53,7 @@ strings.num_commits_plural      = '<?php echo _("There are %d selections this we
 
 strings.num_filters_plural      = '<?php echo _("%d filters"); ?>';
 strings.num_links_plural        = '<?php echo _("%d links"); ?>';
+strings.num_results_plural      = '<?php echo _("%d results"); ?>';
 
 strings.remove_commit           = '<?php echo _("Are you sure you want to remove this commit?"); ?>';
 strings.remove_commits          = '<?php echo _("Remove the %d selected commits?"); ?>';

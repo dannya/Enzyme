@@ -37,28 +37,33 @@ class DevelopersUi extends BaseUi {
 
 
     // create interact bar elements
-    $interactType   = Ui::htmlSelector('interact-type', array('search'      => _('Search'),
-                                                              'filter'      => _('Filter')));
+    $interactType     = Ui::htmlSelector('interact-type', array('search'      => _('Search'),
+                                                                'filter'      => _('Filter')), null, 'changeInteractType(event);');
 
-    $interactField  = Ui::htmlSelector('interact-field', array('account'    => _('Account'),
-                                                               'nickname'   => _('Nickname'),
-                                                               'dob'        => _('DOB'),
-                                                               'gender'     => _('Gender'),
-                                                               'continent'  => _('Continent'),
-                                                               'country'    => _('Country'),
-                                                               'location'   => _('Location'),
-                                                               'latitude'   => _('Latitude'),
-                                                               'longitude'  => _('Longitude'),
-                                                               'motivation' => _('Motivation'),
-                                                               'employer'   => _('Employer'),
-                                                               'colour'     => _('Colour')));
+    $interactField    = Ui::htmlSelector('interact-field', array('account'    => _('Account'),
+                                                                 'nickname'   => _('Nickname'),
+                                                                 'dob'        => _('DOB'),
+                                                                 'gender'     => _('Gender'),
+                                                                 'continent'  => _('Continent'),
+                                                                 'country'    => _('Country'),
+                                                                 'location'   => _('Location'),
+                                                                 'latitude'   => _('Latitude'),
+                                                                 'longitude'  => _('Longitude'),
+                                                                 'motivation' => _('Motivation'),
+                                                                 'employer'   => _('Employer'),
+                                                                 'colour'     => _('Colour')), null, 'changeInteractField(event);');
 
-    $interactOp     = Ui::htmlSelector('interact-op', array('eq'  => '=',
-                                                            'lt'  => '&lt;',
-                                                            'gt'  => '&gt;'));
+    $interactOp       = Ui::htmlSelector('interact-op', array('eq'      => _('equals'),
+                                                              'lt'      => _('less than'),
+                                                              'gt'      => _('greater than'),
+                                                              'start'   => _('starts with'),
+                                                              'end'     => _('ends with'),
+                                                              'contain' => _('contains')));
 
-    $interactValue  = '<input id="interact-value" type="text" value="" />';
-    $interactButton = '<input id="interact-button" type="button" value="' . _('Go') . '" onclick="interactSearch(event);" />';
+    $interactValue    = '<input id="interact-value" type="text" value="" />';
+    $interactButton   = '<input id="interact-button" type="button" value="' . _('Go') . '" onclick="interactSearch(event);" />';
+    $interactSpinner  = '<img id="interact-spinner" style="display:none;" src="' . BASE_URL . '/img/spinner.gif" alt="" />';
+    $interactResults  = '<span id="interact-results" style="display:none;"></span>';
 
 
     // draw
@@ -72,13 +77,17 @@ class DevelopersUi extends BaseUi {
               </span>
             </h3>
 
-            <div id="interact-bar">' .
-              $interactType . '<i>' . _('where') . '</i>' . $interactField . $interactOp . $interactValue . $interactButton .
-           '</div>
+            <form id="interact-bar" action="">' .
+              $interactType . '<i>' . _('where') . '</i>' . $interactField . $interactOp . $interactValue . $interactButton . $interactSpinner . $interactResults .
+           '</form>
 
             <div id="developers-container">
               <p id="developers-prompt" class="prompt">' .
                 _('Perform a search to begin...') .
+           '  </p>
+
+              <p id="developers-again" class="prompt" style="display:none;">' .
+                _('No results found - try a less restrictive search...') .
            '  </p>
 
               <table id="developers-headers" style="display:none;">
@@ -171,18 +180,18 @@ class DevelopersUi extends BaseUi {
                   $accountButton .
              '  </td>
 
-                <td class="column column-account">' . $developer['account'] . '</td>
-                <td class="column column-nickname">' . $developer['nickname'] . '</td>
-                <td class="column column-dob">' . $developer['dob'] . '</td>
-                <td class="column column-gender">' . self::enumToString($developer['gender']) . '</td>
-                <td class="column column-continent">' . self::enumToString($developer['continent']) . '</td>
-                <td class="column column-country">' . $developer['country'] . '</td>
-                <td class="column column-location">' . $developer['location'] . '</td>
-                <td class="column column-latitude">' . $developer['latitude'] . '</td>
-                <td class="column column-longitude">' . $developer['longitude'] . '</td>
-                <td class="column column-motivation">' . self::enumToString($developer['motivation']) . '</td>
-                <td class="column column-employer">' . $developer['employer'] . '</td>
-                <td class="column column-colour">' . self::enumToString($developer['colour']) . '</td>
+                <td class="column column-account' . (empty($developer['account']) ? ' empty' : '') . '">' . $developer['account'] . '</td>
+                <td class="column column-nickname' . (empty($developer['nickname']) ? ' empty' : '') . '">' . $developer['nickname'] . '</td>
+                <td class="column column-dob' . (empty($developer['dob']) ? ' empty' : '') . '">' . $developer['dob'] . '</td>
+                <td class="column column-gender' . (empty($developer['gender']) ? ' empty' : '') . '">' . self::enumToString($developer['gender']) . '</td>
+                <td class="column column-continent' . (empty($developer['continent']) ? ' empty' : '') . '">' . self::enumToString($developer['continent']) . '</td>
+                <td class="column column-country' . (empty($developer['country']) ? ' empty' : '') . '">' . $developer['country'] . '</td>
+                <td class="column column-location' . (empty($developer['location']) ? ' empty' : '') . '">' . $developer['location'] . '</td>
+                <td class="column column-latitude' . (empty($developer['latitude']) ? ' empty' : '') . '">' . $developer['latitude'] . '</td>
+                <td class="column column-longitude' . (empty($developer['longitude']) ? ' empty' : '') . '">' . $developer['longitude'] . '</td>
+                <td class="column column-motivation' . (empty($developer['motivation']) ? ' empty' : '') . '">' . self::enumToString($developer['motivation']) . '</td>
+                <td class="column column-employer' . (empty($developer['employer']) ? ' empty' : '') . '">' . $developer['employer'] . '</td>
+                <td class="column column-colour' . (empty($developer['colour']) ? ' empty' : '') . '">' . self::enumToString($developer['colour']) . '</td>
               </tr>';
 
     return $buf;
