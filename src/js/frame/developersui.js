@@ -20,6 +20,14 @@ var editable    = null;
 
 
 
+// make 'esc' cancel field editing without save
+Hotkey.add(['ESC'], function(event) { finishEdit(); }, 1, true);
+
+// make 'enter' finish field editing with save
+Hotkey.add(['ENTER'], function(event) { finishEdit(true); }, 2, true);
+
+
+
 document.observe('dom:loaded', function() {
   if ($('interact-bar') && $('interact-value')) {
     // intercept regular form submit
@@ -62,8 +70,10 @@ document.observe('dom:loaded', function() {
   $('body').observe('click', function(event) {
   	var element = event.element();
 
-  	// catch clicks anywhere to finish editing
-    finishEdit();
+  	// catch clicks anywhere (except editable cells!) to finish editing
+  	if (!element.hasClassName('editable')) {
+      finishEdit(true);
+  	}
 
     // catch clicks on cells to initiate editing
   	if (element.hasClassName('column')) {
@@ -73,11 +83,23 @@ document.observe('dom:loaded', function() {
   		element.addClassName('editing');
   		
   		// setup editable element
-  		editable = new Element('input', { type:   'text',
-  		                                  value:  'boo' });
+  		if (element.readAttribute('data-type') == 'enum') {
+  			// select field, fetch from form
+	  		editable = new Element('input', { type:   'text',
+	  		                                  class:  'editable',
+	  		                                  value:  element.readAttribute('data-value') });
+  		} else {
+  			// input field
+        editable = new Element('input', { type:   'text',
+                                          class:  'editable',
+                                          value:  element.readAttribute('data-value') });  			
+  		}
 
   		// put editable element into field
   		element.update(editable);
+  		
+  		// focus inserted editable element
+  		editable.focus();
   	}
   });
 });
@@ -89,17 +111,70 @@ function finishEdit(doSave) {
 	if ((typeof editable != 'object') || (editable === null)) {
 		return false;
 	}
+	
+
+  // get elements
+	var theParent  = editable.up('td.editing');
+
 
 	// save changes?
 	if ((typeof doSave == 'boolean') && doSave) {
-		
+		// get grandparent, account
+    var theAccount  = theParent.up('tr').down('td.column-account').readAttribute('data-value').trim();
+    var theField    = theParent.readAttribute('data-field').trim();
+    var theValue    = editable.value.trim();
+
+    // only save if value has changed
+	  if (!theAccount.empty() &&
+	      (theValue != theParent.readAttribute('data-value').trim())) {
+
+		  // show spinner
+		  $('interact-spinner').show();
+
+		  // send off data
+		  new Ajax.Request(BASE_URL + '/get/developer-data.php', {
+		    method: 'post',
+		    parameters: {
+		      context:  'save', 
+		      account:  theAccount,
+		      field:    theField,
+		      value:    theValue
+		    },
+		    onSuccess: function(transport) {
+		      var result = transport.headerJSON;
+
+		      if ((typeof result.success != 'undefined') && result.success) {
+		      	// change data-value to new value for future saves
+		      	theParent.writeAttribute('data-value', theValue);
+	        
+		        // hide spinner
+		        $('interact-spinner').hide();
+
+		      } else {
+		      	// failure
+		      }
+		    }
+		  });
+	  }
+
+	} else {
+		// don't save:
+		// define original value to put back into static cell
+	  if (theParent.readAttribute('data-type') == 'enum') {
+      // run value through display method?
+	    var theValue = enumToString(theParent.readAttribute('data-value').trim());
+
+	  } else {
+	    var theValue = theParent.readAttribute('data-value').trim();   
+	  }		
 	}
 
+
 	// put static value back into cell
-	editable.insert({ after: 'boo' });
+	editable.insert({ after: theValue });
 	
   // remove editing cell class
-  editable.up('td.editing').removeClassName('editing');
+  theParent.removeClassName('editing');
 
 	// remove editable input from document
 	editable.remove();
@@ -124,7 +199,8 @@ function interactSearch(event) {
   // send off data
   new Ajax.Request(BASE_URL + '/get/developer-data.php', {
     method: 'post',
-    parameters: { 
+    parameters: {
+    	context:  'draw', 
       field:    $('interact-field').value,
       operator: $('interact-op').value,
       value:    $('interact-value').value
@@ -161,7 +237,8 @@ function interactSearch(event) {
         }
         
         // scroll to top of developers container
-        $('developers-container').scrollTop = 0;
+        $('developers-container').scrollTop   = 0;
+        $('developers-container').scrollLeft  = 0;
         
 			  // hide spinner, show button
 			  $('interact-spinner').hide();
@@ -234,4 +311,17 @@ function changeInteractField(event) {
 
   // reset to first element so we don't show hidden options
   $('interact-op').selectedIndex = 0;
+}
+
+
+function enumToString(key) {
+  var tmpKey = key.gsub('-', '_');
+
+  // return
+  if (typeof enums[tmpKey] == 'string') {
+    return enums[tmpKey];
+
+  } else {
+    return key;
+  }
 }

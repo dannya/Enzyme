@@ -16,9 +16,22 @@
 
 
 class DevelopersUi extends BaseUi {
-  public $id            = 'developers';
+  public $id                      = 'developers';
 
-  private $user         = array();
+  private $user                   = array();
+
+  private static $displayFields   = array('account'     => array('type' => 'string'),
+                                          'nickname'    => array('type' => 'string'),
+                                          'dob'         => array('type' => 'date'),
+                                          'gender'      => array('type' => 'enum'),
+                                          'continent'   => array('type' => 'enum'),
+                                          'country'     => array('type' => 'string'),
+                                          'location'    => array('type' => 'string'),
+                                          'latitude'    => array('type' => 'float'),
+                                          'longitude'   => array('type' => 'float'),
+                                          'motivation'  => array('type' => 'enum'),
+                                          'employer'    => array('type' => 'string'),
+                                          'colour'      => array('type' => 'enum'));
 
 
   public function __construct($user) {
@@ -36,22 +49,31 @@ class DevelopersUi extends BaseUi {
     }
 
 
+    // define fields / string mappings
+    $fields  = array('account'    => _('Account'),
+                     'nickname'   => _('Nickname'),
+                     'dob'        => _('DOB'),
+                     'gender'     => _('Gender'),
+                     'continent'  => _('Continent'),
+                     'country'    => _('Country'),
+                     'location'   => _('Location'),
+                     'latitude'   => _('Latitude'),
+                     'longitude'  => _('Longitude'),
+                     'motivation' => _('Motivation'),
+                     'employer'   => _('Employer'),
+                     'colour'     => _('Colour'));
+
+    // add strings to display fields
+    foreach ($fields as $key => $string) {
+      self::$displayFields[$key]['string'] = $string;
+    }
+
+
     // create interact bar elements
     $interactType     = Ui::htmlSelector('interact-type', array('search'      => _('Search'),
                                                                 'filter'      => _('Filter')), null, 'changeInteractType(event);');
 
-    $interactField    = Ui::htmlSelector('interact-field', array('account'    => _('Account'),
-                                                                 'nickname'   => _('Nickname'),
-                                                                 'dob'        => _('DOB'),
-                                                                 'gender'     => _('Gender'),
-                                                                 'continent'  => _('Continent'),
-                                                                 'country'    => _('Country'),
-                                                                 'location'   => _('Location'),
-                                                                 'latitude'   => _('Latitude'),
-                                                                 'longitude'  => _('Longitude'),
-                                                                 'motivation' => _('Motivation'),
-                                                                 'employer'   => _('Employer'),
-                                                                 'colour'     => _('Colour')), null, 'changeInteractField(event);');
+    $interactField    = Ui::htmlSelector('interact-field', $fields, null, 'changeInteractField(event);');
 
     $interactOp       = Ui::htmlSelector('interact-op', array('eq'      => _('equals'),
                                                               'lt'      => _('less than'),
@@ -93,21 +115,13 @@ class DevelopersUi extends BaseUi {
               <table id="developers-headers" style="display:none;">
                 <thead>
                   <tr>
-                    <th class="column">&nbsp;</th>
+                    <th class="column">&nbsp;</th>';
 
-                    <th class="column column-account">' . _('Account') . '</th>
-                    <th class="column column-nickname">' . _('Nickname') . '</th>
-                    <th class="column column-dob">' . _('DOB') . '</th>
-                    <th class="column column-gender">' . _('Gender') . '</th>
-                    <th class="column column-continent">' . _('Continent') . '</th>
-                    <th class="column column-country">' . _('Country') . '</th>
-                    <th class="column column-location">' . _('Location') . '</th>
-                    <th class="column column-latitude">' . _('Latitude') . '</th>
-                    <th class="column column-longitude">' . _('Longitude') . '</th>
-                    <th class="column column-motivation">' . _('Motivation') . '</th>
-                    <th class="column column-employer">' . _('Employer') . '</th>
-                    <th class="column column-colour">' . _('Colour') . '</th>
-                  </tr>
+    foreach (self::$displayFields as $key => $value) {
+      $buf  .= self::drawHeader($key, $value['string']);
+    }
+
+    $buf  .= '    </tr>
                 </thead>
               </table>
 
@@ -178,56 +192,52 @@ class DevelopersUi extends BaseUi {
     $buf =   '<tr id="' . $rowId . '"' . $rowStyle . '>
                 <td class="column">' .
                   $accountButton .
-             '  </td>
+             '  </td>';
 
-                <td class="column column-account' . (empty($developer['account']) ? ' empty' : '') . '">' . $developer['account'] . '</td>
-                <td class="column column-nickname' . (empty($developer['nickname']) ? ' empty' : '') . '">' . $developer['nickname'] . '</td>
-                <td class="column column-dob' . (empty($developer['dob']) ? ' empty' : '') . '">' . $developer['dob'] . '</td>
-                <td class="column column-gender' . (empty($developer['gender']) ? ' empty' : '') . '">' . self::enumToString($developer['gender']) . '</td>
-                <td class="column column-continent' . (empty($developer['continent']) ? ' empty' : '') . '">' . self::enumToString($developer['continent']) . '</td>
-                <td class="column column-country' . (empty($developer['country']) ? ' empty' : '') . '">' . $developer['country'] . '</td>
-                <td class="column column-location' . (empty($developer['location']) ? ' empty' : '') . '">' . $developer['location'] . '</td>
-                <td class="column column-latitude' . (empty($developer['latitude']) ? ' empty' : '') . '">' . $developer['latitude'] . '</td>
-                <td class="column column-longitude' . (empty($developer['longitude']) ? ' empty' : '') . '">' . $developer['longitude'] . '</td>
-                <td class="column column-motivation' . (empty($developer['motivation']) ? ' empty' : '') . '">' . self::enumToString($developer['motivation']) . '</td>
-                <td class="column column-employer' . (empty($developer['employer']) ? ' empty' : '') . '">' . $developer['employer'] . '</td>
-                <td class="column column-colour' . (empty($developer['colour']) ? ' empty' : '') . '">' . self::enumToString($developer['colour']) . '</td>
-              </tr>';
+    if ($developer) {
+      foreach ($developer as $key => $value) {
+        if (isset(self::$displayFields[$key])) {
+          $buf  .= self::drawField($key, $value);
+        }
+      }
+
+    } else {
+      // blank row
+      foreach (self::$displayFields as $key => $type) {
+        $buf  .= self::drawField($key);
+      }
+    }
+
+    $buf  .= '</tr>';
 
     return $buf;
   }
 
 
-  public static function enumToString($key) {
-    // map enums to i18n strings
-    $keys = array('male'            => _('Male'),
-                  'female'          => _('Female'),
+  private static function drawField($key, $value = null) {
+    // initialise
+    $type     = 'string';
+    $display  = $value;
 
-                  'europe'          => _('Europe'),
-                  'africa'          => _('Africa'),
-                  'asia'            => _('Asia'),
-                  'oceania'         => _('Oceania'),
-                  'north-america'   => _('North America'),
-                  'south-america'   => _('South America'),
+    // run value through display method?
+    if (isset(self::$displayFields[$key])) {
+      if (isset(self::$displayFields[$key]['type'])) {
+        $type = self::$displayFields[$key]['type'];
+      }
 
-                  'volunteer'       => _('Volunteer'),
-                  'commercial'      => _('Commercial'),
-
-                  'red'             => _('Red'),
-                  'blue'            => _('Blue'),
-                  'green'           => _('Green'),
-                  'black'           => _('Black'),
-                  'yellow'          => _('Yellow'),
-                  'purple'          => _('Purple'),
-                  'brown'           => _('Brown'));
-
-    // return
-    if (isset($keys[$key])) {
-      return $keys[$key];
-
-    } else {
-      return $key;
+      if ($value) {
+        if (self::$displayFields[$key]['type'] == 'enum') {
+          $display = App::enumToString($value);
+        }
+      }
     }
+
+    return '<td class="column column-' . $key . (empty($value) ? ' empty' : '') . '" data-field="' . $key . '" data-value="' . $value . '" data-type="' . $type . '">' . $display . '</td>';
+  }
+
+
+  private static function drawHeader($key, $string) {
+    return '<th class="column column-' . $key . '">' . $string . '</th>';
   }
 }
 

@@ -19,6 +19,7 @@ var scrollFinished  = false;
 var bulkRevisions   = [];
 
 
+
 // define translatable strings
 var strings  = {};
 
@@ -72,6 +73,31 @@ strings.button_repo             = '<?php echo _("Delete repository?"); ?>';
 strings.change_date             = '<?php echo _("Change the date?"); ?>';
 strings.change_filename         = '<?php echo _("Change the filename?"); ?>';
 
+
+
+// define enum mapping (also update App::enumToString())
+var enums  = {};
+
+enums.male                      = '<?php echo _("Male"); ?>';
+enums.female                    = '<?php echo _("Female"); ?>';
+
+enums.europe                    = '<?php echo _("Europe"); ?>';
+enums.africa                    = '<?php echo _("Africa"); ?>';
+enums.asia                      = '<?php echo _("Asia"); ?>';
+enums.oceania                   = '<?php echo _("Oceania"); ?>';
+enums.north_america             = '<?php echo _("North America"); ?>';
+enums.south_america             = '<?php echo _("South America"); ?>';
+
+enums.volunteer                 = '<?php echo _("Volunteer"); ?>';
+enums.commercial                = '<?php echo _("Commercial"); ?>';
+
+enums.red                       = '<?php echo _("Red"); ?>';
+enums.blue                      = '<?php echo _("Blue"); ?>';
+enums.green                     = '<?php echo _("Green"); ?>';
+enums.black                     = '<?php echo _("Black"); ?>';
+enums.yellow                    = '<?php echo _("Yellow"); ?>';
+enums.purple                    = '<?php echo _("Purple"); ?>';
+enums.brown                     = '<?php echo _("Brown"); ?>';
 
 
 

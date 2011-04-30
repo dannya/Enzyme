@@ -32,7 +32,7 @@ if (!$user->hasPermission('admin')) {
 }
 
 
-// check params are valid
+// define valid
 $validFields    = array('account',
                         'nickname',
                         'dob',
@@ -48,35 +48,56 @@ $validFields    = array('account',
 
 $validOperators = array('eq', 'lt', 'gt', 'start', 'end', 'contain');
 
-if ((empty($_REQUEST['field']) || !in_array($_REQUEST['field'], $validFields)) ||
-    (empty($_REQUEST['operator']) || !in_array($_REQUEST['operator'], $validOperators)) ||
-    empty($_REQUEST['value'])) {
 
-  App::returnHeaderJson(true, array('error' => true));
+if ($_REQUEST['context'] == 'draw') {
+  // draw requested developer data:
+  // check params are valid
+  if ((empty($_REQUEST['field']) || !in_array($_REQUEST['field'], $validFields)) ||
+      (empty($_REQUEST['operator']) || !in_array($_REQUEST['operator'], $validOperators)) ||
+      empty($_REQUEST['value'])) {
+
+    App::returnHeaderJson(true, array('error' => true));
+  }
+
+
+  // create filter for loading developer data based on selected operator
+  $filter     = array($_REQUEST['field'] => array('type'  => $_REQUEST['operator'],
+                                                  'value' => $_REQUEST['value']));
+
+
+  // load developer data
+  $developers = Enzyme::getPeopleInfo($filter, true);
+
+
+  // return success, number of results
+  App::returnHeaderJson(false, array('success'  => true,
+                                     'results'  => count($developers)));
+
+
+  // draw rows
+  $buf = null;
+
+  foreach ($developers as $account => $developer) {
+    $buf .= DevelopersUi::drawRow($developer);
+  }
+
+  echo $buf;
+
+
+} else if ($_REQUEST['context'] == 'save') {
+  // save developer data:
+  // check params are valid
+  if ((empty($_REQUEST['field']) || !in_array($_REQUEST['field'], $validFields)) ||
+      empty($_REQUEST['account']) || empty($_REQUEST['value'])) {
+
+    App::returnHeaderJson(true, array('error' => true));
+  }
+
+  // do save
+  $json['success'] = Db::save('developers', array('account' => $_REQUEST['account']), array($_REQUEST['field'] => $_REQUEST['value']));
+
+  // return success
+  App::returnHeaderJson();
 }
-
-
-// create filter for loading developer data based on selected operator
-$filter     = array($_REQUEST['field'] => array('type'  => $_REQUEST['operator'],
-                                                'value' => $_REQUEST['value']));
-
-
-// load developer data
-$developers = Enzyme::getPeopleInfo($filter, true);
-
-
-// return success, number of results
-App::returnHeaderJson(false, array('success'  => true,
-                                   'results'  => count($developers)));
-
-
-// draw rows
-$buf = null;
-
-foreach ($developers as $account => $developer) {
-  $buf .= DevelopersUi::drawRow($developer);
-}
-
-echo $buf;
 
 ?>

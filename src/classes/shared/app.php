@@ -397,6 +397,40 @@ class App {
 
     return implode('.', $tmp);
   }
+
+
+  // also update /js/includes/common.php
+  public static function enumToString($key) {
+    // map enums to i18n strings
+    $keys = array('male'            => _('Male'),
+                  'female'          => _('Female'),
+
+                  'europe'          => _('Europe'),
+                  'africa'          => _('Africa'),
+                  'asia'            => _('Asia'),
+                  'oceania'         => _('Oceania'),
+                  'north-america'   => _('North America'),
+                  'south-america'   => _('South America'),
+
+                  'volunteer'       => _('Volunteer'),
+                  'commercial'      => _('Commercial'),
+
+                  'red'             => _('Red'),
+                  'blue'            => _('Blue'),
+                  'green'           => _('Green'),
+                  'black'           => _('Black'),
+                  'yellow'          => _('Yellow'),
+                  'purple'          => _('Purple'),
+                  'brown'           => _('Brown'));
+
+    // return
+    if (isset($keys[$key])) {
+      return $keys[$key];
+
+    } else {
+      return $key;
+    }
+  }
 }
 
 ?>
