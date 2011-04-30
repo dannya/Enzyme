@@ -184,7 +184,7 @@ class DevelopersUi extends BaseUi {
 
       if ($value) {
         if (self::$displayFields[$key]['type'] == 'enum') {
-          $display = App::enumToString($value);
+          $display = Enzyme::enumToString('key', $value);
         }
       }
     }

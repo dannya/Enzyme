@@ -1479,6 +1479,61 @@ class Enzyme {
       return 1;
     }
   }
+
+
+  // context can be:
+  //  - 'all'
+  //  - 'category'
+  //  - 'key' (default)
+  public static function enumToString($context = 'key', $key = null) {
+    $keys               = array();
+
+    // map enums to i18n strings
+    $keys['gender']     = array('male'            => _('Male'),
+                                'female'          => _('Female'));
+
+    $keys['continent']  = array('europe'          => _('Europe'),
+                                'africa'          => _('Africa'),
+                                'asia'            => _('Asia'),
+                                'oceania'         => _('Oceania'),
+                                'north-america'   => _('North America'),
+                                'south-america'   => _('South America'));
+
+    $keys['motivation'] = array('volunteer'       => _('Volunteer'),
+                                'commercial'      => _('Commercial'));
+
+    $keys['colours']    = array('red'             => _('Red'),
+                                'blue'            => _('Blue'),
+                                'green'           => _('Green'),
+                                'black'           => _('Black'),
+                                'yellow'          => _('Yellow'),
+                                'purple'          => _('Purple'),
+                                'brown'           => _('Brown'));
+
+    // return...
+    if ($context == 'all') {
+      // return all
+      return $keys;
+
+    } else if ($context == 'category') {
+      // return a whole category
+      if (isset($keys[$key])) {
+        return $keys[$key];
+      }
+
+    } else if ($key) {
+      // return a single key
+      foreach ($keys as $section) {
+        if (isset($section[$key])) {
+          return $section[$key];
+        }
+      }
+
+      return $key;
+    }
+
+    return false;
+  }
 }
 
 ?>
