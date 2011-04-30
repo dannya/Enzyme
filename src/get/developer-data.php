@@ -98,6 +98,20 @@ if ($_REQUEST['context'] == 'draw') {
 
   // return success
   App::returnHeaderJson();
+
+
+} else if ($_REQUEST['context'] == 'delete') {
+  // delete developer record:
+  // check params are valid
+  if (empty($_REQUEST['account'])) {
+    App::returnHeaderJson(true, array('error' => true));
+  }
+
+  // delete record
+  $json['success'] = Db::delete('developers', array('account' => $_REQUEST['account']));
+
+  // return success
+  App::returnHeaderJson();
 }
 
 ?>

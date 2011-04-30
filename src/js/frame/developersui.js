@@ -28,8 +28,12 @@ Hotkey.add(['ENTER'], function(event) { finishEdit(true); }, 2, true);
 
 
 
+// onload...
 document.observe('dom:loaded', function() {
-  if ($('interact-bar') && $('interact-value')) {
+  if ($('interact-bar') && $('interact-field') && $('interact-value')) {
+  	// ensure we don't show operations unsupported by field type
+  	changeInteractField(null, $('interact-field'));
+
     // intercept regular form submit
     Event.observe($('interact-bar'), 'submit', function(event) {
       Event.stop(event);
@@ -76,7 +80,7 @@ document.observe('dom:loaded', function() {
   	}
 
     // catch clicks on cells to initiate editing
-  	if (element.hasClassName('column')) {
+  	if ((element.tagName == 'TD') && element.hasClassName('column')) {
   		var type = element.readAttribute('class').sub('column-', '').sub('column', '').sub('empty', '').trim();
   		
   		// add editing class
@@ -114,48 +118,43 @@ function finishEdit(doSave) {
 	
 
   // get elements
-	var theParent  = editable.up('td.editing');
+	var theParent   = editable.up('td.editing');
+  var theAccount  = theParent.up('tr').down('td.column-account').readAttribute('data-value').trim();
+  var theField    = theParent.readAttribute('data-field').trim();
+  var theValue    = editable.value.trim();
 
 
-	// save changes?
-	if ((typeof doSave == 'boolean') && doSave) {
-		// get grandparent, account
-    var theAccount  = theParent.up('tr').down('td.column-account').readAttribute('data-value').trim();
-    var theField    = theParent.readAttribute('data-field').trim();
-    var theValue    = editable.value.trim();
+	// save changes? (only save if value has changed)
+	if ((typeof doSave == 'boolean') && doSave && 
+	    !theAccount.empty() && (theValue != theParent.readAttribute('data-value').trim())) {
 
-    // only save if value has changed
-	  if (!theAccount.empty() &&
-	      (theValue != theParent.readAttribute('data-value').trim())) {
+	  // show spinner
+	  $('interact-spinner').show();
 
-		  // show spinner
-		  $('interact-spinner').show();
+	  // send off data
+	  new Ajax.Request(BASE_URL + '/get/developer-data.php', {
+	    method: 'post',
+	    parameters: {
+	      context:  'save', 
+	      account:  theAccount,
+	      field:    theField,
+	      value:    theValue
+	    },
+	    onSuccess: function(transport) {
+	      var result = transport.headerJSON;
 
-		  // send off data
-		  new Ajax.Request(BASE_URL + '/get/developer-data.php', {
-		    method: 'post',
-		    parameters: {
-		      context:  'save', 
-		      account:  theAccount,
-		      field:    theField,
-		      value:    theValue
-		    },
-		    onSuccess: function(transport) {
-		      var result = transport.headerJSON;
+	      if ((typeof result.success != 'undefined') && result.success) {
+	      	// change data-value to new value for future saves
+	      	theParent.writeAttribute('data-value', theValue);
+        
+	        // hide spinner
+	        $('interact-spinner').hide();
 
-		      if ((typeof result.success != 'undefined') && result.success) {
-		      	// change data-value to new value for future saves
-		      	theParent.writeAttribute('data-value', theValue);
-	        
-		        // hide spinner
-		        $('interact-spinner').hide();
-
-		      } else {
-		      	// failure
-		      }
-		    }
-		  });
-	  }
+	      } else {
+	      	// failure
+	      }
+	    }
+	  });
 
 	} else {
 		// don't save:
@@ -278,13 +277,18 @@ function changeInteractType(event) {
 }
 
 
-function changeInteractField(event) {
-  if ((typeof event == 'undefined') || !$('interact-op')) {
+function changeInteractField(event, element) {
+  if (((typeof event != 'object') && (typeof element != 'object')) || 
+      !$('interact-op')) {
+
     return false;
   }
   
-  var element = event.element();
-  
+  // get element
+  if (typeof element != 'object') {
+    var element = event.element();
+  }
+
   if ((element.value == 'gender') || (element.value == 'continent') || (element.value == 'motivation')) {
   	// enum
     $('interact-op').select('option').each(function(item) {
@@ -311,6 +315,36 @@ function changeInteractField(event) {
 
   // reset to first element so we don't show hidden options
   $('interact-op').selectedIndex = 0;
+}
+
+
+function deleteDeveloper(event) {
+	Event.stop(event);
+
+  if (confirm(confirm_dev_delete)) {
+	  // get username
+	  var theParent   = Event.element(event).up('tr');
+    var theAccount  = theParent.down('td.column-account').readAttribute('data-value').trim();
+
+	  // send off delete request
+	  new Ajax.Request(BASE_URL + '/get/developer-data.php', {
+	    method: 'post',
+	    parameters: {
+	      context:  'delete', 
+	      account:  theAccount
+	    },
+	    onSuccess: function(transport) {
+	      var result = transport.headerJSON;
+
+	      if ((typeof result.success != 'undefined') && result.success) {
+	      	// remove row from DOM
+	      	theParent.remove();
+	      }
+	    }
+	  });
+  }
+
+	return false;
 }
 
 

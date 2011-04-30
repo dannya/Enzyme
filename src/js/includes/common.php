@@ -45,6 +45,7 @@ strings.feature_articles        = '<?php echo _("Available Feature Articles"); ?
 strings.dot_blurb               = '<?php echo _("Dot Synopsis"); ?>';
 
 strings.confirm_dataloss        = '<?php echo _("Any unsaved changes will be lost. Continue?"); ?>';
+strings.confirm_dev_delete      = '<?php echo _("Delete this developer record?"); ?>';
 
 strings.change_section_num      = '<?php echo _("What number should this section be?"); ?>';
 strings.delete_section          = '<?php echo _("Are you sure you want to permanently delete this?"); ?>';

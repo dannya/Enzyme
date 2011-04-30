@@ -84,7 +84,8 @@ table .column {
   text-align:left;
   font-size:14px;
 }
-table .column:first-child {
+table td.column-button,
+table th.column:first-child {
   width:28px;
 }
 table .column-gender {
@@ -164,10 +165,12 @@ table#developers tbody tr:nth-child(odd) {
 
 table#developers tbody tr td {
   padding:4px;
+}
+table#developers tbody tr td.column {
   font-size:14px;
   cursor:pointer;
 }
-table#developers tbody tr td:hover {
+table#developers tbody tr td.column:hover {
   background-color:rgba(0, 0, 0, 0.1);
 }
 table#developers tbody tr td.empty:hover {
@@ -175,7 +178,11 @@ table#developers tbody tr td.empty:hover {
 }
 
 
+table#developers div.account-status {
+  background-color:red;
+}
 table#developers div.account-status div {
   width:16px;
   height:16px;
+  background-position:-44px -88px;
 }

@@ -69,6 +69,10 @@ class DevelopersUi extends BaseUi {
     }
 
 
+    // define enumerations
+
+
+
     // create interact bar elements
     $interactType     = Ui::htmlSelector('interact-type', array('search'      => _('Search'),
                                                                 'filter'      => _('Filter')), null, 'changeInteractType(event);');
@@ -126,14 +130,10 @@ class DevelopersUi extends BaseUi {
               </table>
 
               <table id="developers" style="display:none;">
-                <tbody id="developers-body">';
-
-    // draw hidden row, to allow creation of new users
-    $buf  .= self::drawRow(null);
-
-    $buf  .= '    </tbody>
-                </table>
-              </div>';
+                <tbody id="developers-body">
+                </tbody>
+              </table>
+            </div>';
 
 
     return $buf;
@@ -150,61 +150,18 @@ class DevelopersUi extends BaseUi {
   }
 
 
-  public static function drawRow($developer = null) {
-    if ($developer) {
-      $rowId    = 'row-' . $developer['account'];
-      $rowStyle = null;
-      $pathsId  = ' id="paths-' . $developer['account'] . '"';
-
-      // set onchange function
-      $onChange = ' onchange="saveChange(\'' . $developer['account'] . '\', event);"';
-
-      // set account status button
-      $buttonClass = 'inactive';
-      $buttonState = 'true';
-      $buttonTitle = _('Delete this developer record?');
-
-
-
-      // don't allow user to disable their own account!
-      $accountButton    = '<div id="active-' . $developer['account'] . '" class="account-status ' . $buttonClass . '" title="' . $buttonTitle . '" onclick="setAccountActive(\'' . $developer['account'] . '\', ' . $buttonState . ');">
-                             <div>&nbsp;</div>
-                           </div>';
-      $usernameOnChange = $onChange;
-
-
-    } else {
-      // draw a blank row
-      $rowId             = 'row-new-0';
-      $rowStyle          = ' style="display:none;"';
-      $pathsId           = null;
-      $onChange          = null;
-      $usernameOnChange  = null;
-      $pathsState        = null;
-
-      $accountButton     = '<div class="account-status" title="' . _('Save new account?') . '" onclick="saveNewAccount(event);">
-                              <div>&nbsp;</div>
-                            </div>';
-    }
-
-
+  public static function drawRow($developer) {
     // draw row
-    $buf =   '<tr id="' . $rowId . '"' . $rowStyle . '>
-                <td class="column">' .
-                  $accountButton .
-             '  </td>';
+    $buf =   '<tr id="row-' . $developer['account'] . '">
+                <td class="column-button">
+                  <div id="active-' . $developer['account'] . '" class="account-status" title="' . _('Delete this developer record?') . '" onclick="deleteDeveloper(event);">
+                    <div>&nbsp;</div>
+                  </div>
+                </td>';
 
-    if ($developer) {
-      foreach ($developer as $key => $value) {
-        if (isset(self::$displayFields[$key])) {
-          $buf  .= self::drawField($key, $value);
-        }
-      }
-
-    } else {
-      // blank row
-      foreach (self::$displayFields as $key => $type) {
-        $buf  .= self::drawField($key);
+    foreach ($developer as $key => $value) {
+      if (isset(self::$displayFields[$key])) {
+        $buf  .= self::drawField($key, $value);
       }
     }
 
