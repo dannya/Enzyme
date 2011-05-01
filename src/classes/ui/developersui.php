@@ -69,10 +69,6 @@ class DevelopersUi extends BaseUi {
     }
 
 
-    // define enumerations
-
-
-
     // create interact bar elements
     $interactType     = Ui::htmlSelector('interact-type', array('search'      => _('Search'),
                                                                 'filter'      => _('Filter')), null, 'changeInteractType(event);');
@@ -134,6 +130,14 @@ class DevelopersUi extends BaseUi {
                 </tbody>
               </table>
             </div>';
+
+
+    // create select boxes for enum data types
+    $enums = Enzyme::enumToString('all');
+
+    foreach ($enums as $type => $section) {
+      $buf .= Ui::htmlSelector('enum-' . $type, $section, null, null, null, 'display:none;');
+    }
 
 
     return $buf;

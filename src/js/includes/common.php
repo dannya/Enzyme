@@ -316,8 +316,8 @@ function save(theType, theButton) {
   if (theType == 'review') {
     var parameters = {
       type:   theType,
-      read:   readCommits.toJSON(),
-      marked: markedCommits.toJSON()
+      read:   Object.toJSON(readCommits),
+      marked: Object.toJSON(markedCommits)
     };
 
   } else if (theType == 'classify') {
@@ -581,7 +581,7 @@ function removeCommit(theRevision, callback) {
       return false;
     }
 
-    var removeRevisions = bulkRevisions.toJSON();
+    var removeRevisions = Object.toJSON(bulkRevisions);
 
   } else {
     // ask first

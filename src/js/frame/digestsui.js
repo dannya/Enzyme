@@ -654,7 +654,7 @@ function changeValue(theContext, theRevision) {
   if (((theContext == 'area') || (theContext == 'type')) && 
       (bulkRevisions.indexOf(theRevision) != -1)) {
 
-    var changeRevisions = bulkRevisions.toJSON();
+    var changeRevisions = Object.toJSON(bulkRevisions);
 
   } else {
     // convert to JSON

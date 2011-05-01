@@ -19,7 +19,7 @@ var panelUpdateInterval = 180000;
 document.observe('dom:loaded', function() {
   $$('div.container').each(function(panel) {
     if ($(panel.id)) {
-      setInterval('panelRefresh(\'' + panel.id + '\')', panelUpdateInterval);
+      setInterval('panelRefresh(null, \'' + panel.id + '\')', panelUpdateInterval);
     }
   });
 });
@@ -42,7 +42,11 @@ function changelog(event) {
 }
 
 
-function panelRefresh(thePanel) {
+function panelRefresh(event, thePanel) {
+	if (typeof event == 'object') {
+    Event.stop(event);
+	}
+
   // clear cache, refresh frame
   if ((typeof thePanel == 'undefined') || !$(thePanel)) {
     return false;
@@ -56,6 +60,7 @@ function panelRefresh(thePanel) {
     },
     onSuccess: function(transport) {
       var result = transport.headerJSON;
+      console.debug(transport);
 
       if ((typeof result.success != 'undefined') && result.success) {
         // success
@@ -63,10 +68,12 @@ function panelRefresh(thePanel) {
         
         // highlight container
 	      new Effect.Highlight($(thePanel), {
-	        startcolor: '#d0f1c0',
-	        duration: 0.5
+	        startcolor:  '#d0f1c0',
+	        duration:    0.5
 	      });
       }
     }
   });
+  
+  return false;
 }

@@ -85,7 +85,7 @@ class Panels {
     if ($drawContainer) {
       $buf = '<h3>' .
                 $this->panels[$id]['title'] .
-             '  <a class="button-refresh button n" href="#" onclick="panelRefresh(\'' . $id . '\');" title="' . _('Refresh') . '">
+             '  <a class="button-refresh button n" href="#" onclick="panelRefresh(event, \'' . $id . '\');" title="' . _('Refresh') . '">
                   &nbsp;
                 </a>
               </h3>
@@ -184,43 +184,50 @@ class Panels {
     // get participation stats
     $stats = Enzyme::getParticipationStats(true, $refresh);
 
-
     // draw
-    $buf = '<table class="display">
-              <thead>
-                <tr>
-                  <th>' . _('Username') . '</th>
-                  <th>' . _('Reviewed (Week)') . '</th>
-                  <th>' . _('Classified (Week)') . '</th>
-                  <th>' . _('Reviewed (Total)') . '</th>
-                  <th>' . _('Classified (Total)') . '</th>
-                </tr>
-              </thead>
+    if ($stats) {
+      $buf = '<table class="display">
+                <thead>
+                  <tr>
+                    <th>' . _('Username') . '</th>
+                    <th>' . _('Reviewed (Week)') . '</th>
+                    <th>' . _('Classified (Week)') . '</th>
+                    <th>' . _('Reviewed (Total)') . '</th>
+                    <th>' . _('Classified (Total)') . '</th>
+                  </tr>
+                </thead>
 
-              <tbody>';
+                <tbody>';
 
-    foreach ($stats as $person => $row) {
-      // show number of selected commits in hover titles
-      $titleWeek  = sprintf(_('Selected %d commits (%s%%)'),
-                            (isset($row['selected']['week']) ? $row['selected']['week'] : 0),
-                            (isset($row['selectedPercent']['week']) ? round($row['selectedPercent']['week'], 1) : 0));
+      foreach ($stats as $person => $row) {
+        // show number of selected commits in hover titles
+        $titleWeek  = sprintf(_('Selected %d commits (%s%%)'),
+                              (isset($row['selected']['week']) ? $row['selected']['week'] : 0),
+                              (isset($row['selectedPercent']['week']) ? round($row['selectedPercent']['week'], 1) : 0));
 
-      $titleTotal = sprintf(_('Selected %d commits (%s%%)'),
-                            (isset($row['selected']['total']) ? $row['selected']['total'] : 0),
-                            (isset($row['selectedPercent']['total']) ? round($row['selectedPercent']['total'], 1) : 0));
+        $titleTotal = sprintf(_('Selected %d commits (%s%%)'),
+                              (isset($row['selected']['total']) ? $row['selected']['total'] : 0),
+                              (isset($row['selectedPercent']['total']) ? round($row['selectedPercent']['total'], 1) : 0));
 
-      // draw row
-      $buf  .= '<tr>
-                  <td>' . $person . '</td>
-                  <td title="' . $titleWeek . '">' . $row['reviewed']['week'] . '</td>
-                  <td title="' . $titleWeek . '">' . $row['classified']['week'] . '</td>
-                  <td title="' . $titleTotal . '">' . $row['reviewed']['total'] . '</td>
-                  <td title="' . $titleTotal . '">' . $row['classified']['total'] . '</td>
-                </tr>';
+        // draw row
+        $buf  .= '<tr>
+                    <td>' . $person . '</td>
+                    <td title="' . $titleWeek . '">' . $row['reviewed']['week'] . '</td>
+                    <td title="' . $titleWeek . '">' . $row['classified']['week'] . '</td>
+                    <td title="' . $titleTotal . '">' . $row['reviewed']['total'] . '</td>
+                    <td title="' . $titleTotal . '">' . $row['classified']['total'] . '</td>
+                  </tr>';
+      }
+
+      $buf  .= '  </tbody>
+                </table>';
+
+    } else {
+      // no data found for leaderboard table
+      $buf = '<p class="prompt-compact">' .
+                _('No data found') .
+             '</p>';
     }
-
-    $buf  .= '  </tbody>
-              </table>';
 
     return $buf;
   }

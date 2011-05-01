@@ -85,13 +85,14 @@ document.observe('dom:loaded', function() {
   		
   		// add editing class
   		element.addClassName('editing');
-  		
+
   		// setup editable element
   		if (element.readAttribute('data-type') == 'enum') {
   			// select field, fetch from form
-	  		editable = new Element('input', { type:   'text',
-	  		                                  class:  'editable',
-	  		                                  value:  element.readAttribute('data-value') });
+  			if ($('enum-' + type)) {
+  				editable = $('enum-' + type).clone(true);
+  			}
+
   		} else {
   			// input field
         editable = new Element('input', { type:   'text',

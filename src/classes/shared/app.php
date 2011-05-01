@@ -115,7 +115,7 @@ class App {
       global $json;
     }
 
-    header('X-JSON: (' . json_encode($json) . ')');
+    header('X-JSON: ' . json_encode($json));
 
     if ($finish) {
       exit;
