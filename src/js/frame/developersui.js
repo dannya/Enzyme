@@ -380,7 +380,7 @@ function changeInteractField(event, element) {
   	$('interact-op').selectedIndex = 5;
   	
     // change to input box
-    $('interact-value').remove();
+    Element.remove($('interact-value'));
     Element.insert($('interact-op'), { after: '<input id="interact-value" type="text" value="" />' });
   }
 }
@@ -406,7 +406,7 @@ function deleteDeveloper(event) {
 
 	      if ((typeof result.success != 'undefined') && result.success) {
 	      	// remove row from DOM
-	      	theParent.remove();
+	      	Element.remove(theParent);
 	      	
 	      	// decrement counter displays
 	        if ($('developers-num-records')) {

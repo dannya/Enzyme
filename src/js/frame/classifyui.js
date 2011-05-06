@@ -155,7 +155,7 @@ function callbackRemoveCommit(removeRevisions) {
   removeRevisions.evalJSON(true).each(function(item) {
     if ($('r::' + item).up('div.item')) {
       // remove commit from page
-      $('r::' + item).up('div.item').remove();
+      Element.remove($('r::' + item).up('div.item'));
     }
   });
 

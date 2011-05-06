@@ -49,7 +49,7 @@ function deleteRepository(repo) {
       if ((typeof result.success != 'undefined') && result.success) {
         // remove repository row from table
         if ($('row-' + repo)) {
-        	$('row-' + repo).remove();
+        	Element.remove($('row-' + repo));
         }
       }
     }

@@ -383,7 +383,7 @@ function deleteSection(theDate, number) {
 	
 	  if (success && $('intro-section-' + number)) {
 	  	// remove item from page
-	    $('intro-section-' + number).remove();
+	    Element.remove($('intro-section-' + number));
 	  }
 	}
 }
@@ -712,11 +712,11 @@ function callbackRemoveCommit(removeRevisions) {
       var subheader = $('commit-' + item).previous('h3');
 
       // remove commit from page
-      $('commit-' + item).remove();
+      Element.remove($('commit-' + item));
 
       // check if subheader has more items, if not, also remove
       if (!subheader.next() || (subheader.next().tagName != 'DIV')) {
-        subheader.remove();
+        Element.remove(subheader);
       }
     }
 

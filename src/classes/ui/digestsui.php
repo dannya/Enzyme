@@ -369,7 +369,7 @@ class DigestsUi extends BaseUi {
       $rowStyle       = ' style="display:none;"';
 
       $saveAction     = 'insertSection(event, \'' . $this->data['date'] . '\', \'introduction\', ' . $number . ');';
-      $deleteAction   = '$(\'' . $rowId . '\').remove();';
+      $deleteAction   = 'Element.remove($(\'' . $rowId . '\'));';
     }
 
 

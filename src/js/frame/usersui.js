@@ -361,7 +361,7 @@ function manageApplication(context, number) {
           	                   { duration: 0.3,
 	          	                   afterFinish: function() {
 	          	                   	 // ensure element is removed from the DOM
-	          	                   	 $('application-' + number).up('div.application').remove();
+	          	                   	 Element.remove($('application-' + number).up('div.application'));
 	          	                   	 
 																	 // decrement applications counter
                                    var numApplications = $('applications').select('div.application').size();
@@ -372,7 +372,7 @@ function manageApplication(context, number) {
 
 																	 // remove whole container if no applications left
 																	 if ((numApplications < 1) && $('applications-container')) {
-																	 	 $('applications-container').remove();
+																	 	 Element.remove($('applications-container'));
 																	 }
 	          	                   }
           	                   });

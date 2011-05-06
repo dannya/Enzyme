@@ -137,7 +137,7 @@ function deleteIdea(itemNum) {
       if ((typeof result.success != 'undefined') && result.success) {
         // remove from page
         if ($('idea_' + itemNum)) {
-        	$('idea_' + itemNum).remove();
+        	Element.remove($('idea_' + itemNum));
 
         } else {
         	location.reload(true);
@@ -252,7 +252,7 @@ function previewMedia(theDate, theNumber) {
   // if preview already in place, remove and switch buttons
   if (false && $('media_' + theDate).down('div').down('div.preview-container-' + theNumber)) {
     // remove preview
-    $('media_' + theDate).down('div').down('div.preview-container-' + theNumber).remove();
+    Element.remove($('media_' + theDate).down('div').down('div.preview-container-' + theNumber));
 
     // switch buttons
     $('media_' + theDate + '_' + theNumber + '-preview').toggle();

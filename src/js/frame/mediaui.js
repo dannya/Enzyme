@@ -169,7 +169,7 @@ function previewMedia(theDate, theNumber) {
   // if preview already in place, remove and switch buttons
 	if ($('media_' + theDate).down('div').down('div.preview-container-' + theNumber)) {
 		// remove preview
-		$('media_' + theDate).down('div').down('div.preview-container-' + theNumber).remove();
+		Element.remove($('media_' + theDate).down('div').down('div.preview-container-' + theNumber));
 
     // switch buttons
 		$('media_' + theDate + '_' + theNumber + '-preview').toggle();

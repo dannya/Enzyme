@@ -246,7 +246,7 @@ function deleteItem(theContext, elementId, theName) {
         	new Effect.Fade(elementId, {
         		duration: 0.3,
         		afterFinish: function() {
-        			$(elementId).remove();
+        			Element.remove($(elementId));
 
 			        // update total display
 			        if ($('status')) {
