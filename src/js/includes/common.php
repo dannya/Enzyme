@@ -44,6 +44,7 @@ strings.people_references       = '<?php echo _("People References"); ?>';
 strings.feature_articles        = '<?php echo _("Available Feature Articles"); ?>';
 strings.dot_blurb               = '<?php echo _("Dot Synopsis"); ?>';
 
+strings.num_developer_records   = '<?php echo _("%d developer records"); ?>';
 strings.confirm_dataloss        = '<?php echo _("Any unsaved changes will be lost. Continue?"); ?>';
 strings.confirm_dev_delete      = '<?php echo _("Delete this developer record?"); ?>';
 
@@ -63,7 +64,7 @@ strings.remove_commits          = '<?php echo _("Remove the %d selected commits?
 strings.delete_stats            = '<?php echo _("Are you sure you want to delete these statistics?"); ?>';
 strings.delete_idea             = '<?php echo _("Are you sure you want to delete this idea?"); ?>';
 
-strings.num_applications        = '<?php echo _("%d applications"); ?>'
+strings.num_applications        = '<?php echo _("%d applications"); ?>';
 strings.decline_application     = '<?php echo _("Are you sure? An email will be sent notifying the applicant of this..."); ?>';
 
 strings.generic_prompt          = '<?php echo _("Are you sure?"); ?>';
@@ -80,7 +81,7 @@ strings.change_filename         = '<?php echo _("Change the filename?"); ?>';
 var enums  = {};
 
 <?php
-  $enums = Enzyme::enumToString('all');
+  $enums = Developer::enumToString('all');
 
   foreach ($enums as $section) {
   	foreach ($section as $key => $value) {
@@ -259,8 +260,8 @@ function markCommit() {
 
   if (!currentItem.hasClassName('marked')) {
     // set commit as marked
-    state = 'true';
-    class = 'item marked ' + context;
+    theState = 'true';
+    theClass = 'item marked ' + context;
 
     // add to marked commits array
     if (markedCommits.indexOf(revision) == -1) {
@@ -269,8 +270,8 @@ function markCommit() {
 
   } else {
     // unset commit as marked
-    state = 'false';
-    class = 'item selected ' + context;
+    theState = 'false';
+    theClass = 'item selected ' + context;
 
     // remove from marked commits array
     index = markedCommits.indexOf(revision);
@@ -280,15 +281,15 @@ function markCommit() {
   }
 
   // set style
-  currentItem.className = class;
+  currentItem.className = theClass;
 }
 
 
-function buttonState(id, state) {
-  if ($(id) && (typeof state != 'undefined')) {
-    if (state == 'enabled') {
+function buttonState(id, theState) {
+  if ($(id) && (typeof theState != 'undefined')) {
+    if (theState == 'enabled') {
       $(id).disabled = false;
-    } else if (state == 'disabled') {
+    } else if (theState == 'disabled') {
       $(id).disabled = true;
     }
   }

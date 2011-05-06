@@ -512,8 +512,8 @@ function saveSection(theDate, theContext, number, theAction) {
 }
 
 
-function setPublished(element, date, state) {
-  if ((typeof element == 'undefined') || (typeof date == 'undefined') || (typeof state == 'undefined')) {
+function setPublished(element, date, theState) {
+  if ((typeof element == 'undefined') || (typeof date == 'undefined') || (typeof theState == 'undefined')) {
     return false;
   }
 
@@ -522,7 +522,7 @@ function setPublished(element, date, state) {
     method: 'post',
     parameters: {
       'date':  date,
-      'state': state
+      'state': theState
     },
     onSuccess: function(transport) {
       var result = transport.headerJSON;
@@ -531,15 +531,15 @@ function setPublished(element, date, state) {
           (typeof result.newState != 'undefined')) {
 
         // change class, title, and onclick of button
-        if (state) {
-          var class = 'indicator-success'; 
+        if (theState) {
+          var theClass = 'indicator-success'; 
         } else {
-          var class = 'indicator-failure';
+          var theClass = 'indicator-failure';
         }
 
         element.writeAttribute('title', '');
-        element.writeAttribute('class', class);
-        element.writeAttribute('onclick', "setPublished(this, '" + date + "', " + !state +");");
+        element.writeAttribute('class', theClass);
+        element.writeAttribute('onclick', "setPublished(this, '" + date + "', " + !theState + ");");
       }
     }
   });

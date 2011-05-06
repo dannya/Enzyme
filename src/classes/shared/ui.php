@@ -127,7 +127,7 @@ class Ui {
 
 
   public static function htmlSelector($id, $items, $preselectKey = null,
-                                      $onChange = null, $name = null, $style = null) {
+                                      $onChange = null, $name = null, $style = null, $emptyEntry = false) {
     // set onchange?
     if ($onChange) {
       $onChange = ' onchange="' . $onChange . '"';
@@ -143,6 +143,14 @@ class Ui {
       $style = ' style="' . $style . '"';
     }
 
+    // add empty entry at top?
+    if ($emptyEntry) {
+      $items[''] = '';
+      ksort($items);
+    }
+
+
+    // draw
     $buf = '<select id="' . $id . '" name="' . $name . '"' . $onChange . $style . '>';
 
     foreach ($items as $key => $value) {

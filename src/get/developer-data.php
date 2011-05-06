@@ -33,26 +33,13 @@ if (!$user->hasPermission('admin')) {
 
 
 // define valid
-$validFields    = array('account',
-                        'nickname',
-                        'dob',
-                        'gender',
-                        'continent',
-                        'country',
-                        'location',
-                        'latitude',
-                        'longitude',
-                        'motivation',
-                        'employer',
-                        'colour');
-
 $validOperators = array('eq', 'lt', 'gt', 'start', 'end', 'contain');
 
 
 if ($_REQUEST['context'] == 'draw') {
   // draw requested developer data:
   // check params are valid
-  if ((empty($_REQUEST['field']) || !in_array($_REQUEST['field'], $validFields)) ||
+  if ((empty($_REQUEST['field']) || !isset(Developer::$fields[$_REQUEST['field']])) ||
       (empty($_REQUEST['operator']) || !in_array($_REQUEST['operator'], $validOperators)) ||
       empty($_REQUEST['value'])) {
 
@@ -87,14 +74,22 @@ if ($_REQUEST['context'] == 'draw') {
 } else if ($_REQUEST['context'] == 'save') {
   // save developer data:
   // check params are valid
-  if ((empty($_REQUEST['field']) || !in_array($_REQUEST['field'], $validFields)) ||
-      empty($_REQUEST['account']) || empty($_REQUEST['value'])) {
+  if ((empty($_REQUEST['field']) ||
+      !isset(Developer::$fields[$_REQUEST['field']])) ||
+      empty($_REQUEST['account'])) {
 
     App::returnHeaderJson(true, array('error' => true));
   }
 
+  // make empty values be saved as NULL in db
+  if ($_REQUEST['value'] === '') {
+    $_REQUEST['value'] = null;
+  }
+
   // do save
-  $json['success'] = Db::save('developers', array('account' => $_REQUEST['account']), array($_REQUEST['field'] => $_REQUEST['value']));
+  $json['success'] = Db::save('developers',
+                              array('account'           => $_REQUEST['account']),
+                              array($_REQUEST['field']  => $_REQUEST['value']));
 
   // return success
   App::returnHeaderJson();

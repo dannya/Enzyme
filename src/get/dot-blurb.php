@@ -38,7 +38,7 @@ $buf = '<h3>' .
        '</h3>
 
         <div id="dot-blurb">
-          <input type="text" value="' . sprintf(_('KDE Commit-Digest for %s'), date('jS F Y', strtotime($_REQUEST['date']))) . '" />
+          <input type="text" value="' . sprintf(_('%s for %s'), PROJECT_NAME, date('jS F Y', strtotime($_REQUEST['date']))) . '" />
           <textarea>' . $dotBlurb . '</textarea>
         </div>';
 

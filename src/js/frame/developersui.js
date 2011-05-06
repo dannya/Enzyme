@@ -50,7 +50,7 @@ document.observe('dom:loaded', function() {
     // observe keypress so we can do filtering
     Event.observe($('interact-value'), 'keyup', function(event) {
       Event.stop(event);
-      
+
       if ($('interact-type').value == 'filter') {
       	console.debug($('interact-value').value);
       }
@@ -75,7 +75,7 @@ document.observe('dom:loaded', function() {
   	var element = event.element();
 
   	// catch clicks anywhere (except editable cells!) to finish editing
-  	if (!element.hasClassName('editable')) {
+  	if ((element.tagName != 'OPTION') && !element.hasClassName('editable')) {
       finishEdit(true);
   	}
 
@@ -90,7 +90,35 @@ document.observe('dom:loaded', function() {
   		if (element.readAttribute('data-type') == 'enum') {
   			// select field, fetch from form
   			if ($('enum-' + type)) {
+  				// clone field
   				editable = $('enum-' + type).clone(true);
+  				editable.writeAttribute('id', null);
+
+
+          // set existing value as selected option
+          var selectIndex = 0;
+
+          Object.values(editable.options).each(function(item) {
+          	if (item.tagName == 'OPTION') {
+          		if (item.value == element.readAttribute('data-value')) {
+          			// matching option
+          	    throw $break;
+              }
+              
+              ++selectIndex;
+          	}
+          });
+          
+          if (selectIndex >= editable.options.length) {
+            selectIndex = 0;
+          }
+
+          editable.selectedIndex = selectIndex;
+
+
+          // make new select element visible
+          editable.addClassName('editable');
+          editable.show();
   			}
 
   		} else {
@@ -147,38 +175,45 @@ function finishEdit(doSave) {
 	      if ((typeof result.success != 'undefined') && result.success) {
 	      	// change data-value to new value for future saves
 	      	theParent.writeAttribute('data-value', theValue);
-        
-	        // hide spinner
-	        $('interact-spinner').hide();
-
+	        
 	      } else {
 	      	// failure
+	      	alert('Failure');
 	      }
+
+	      // hide spinner
+        $('interact-spinner').hide();
 	    }
 	  });
 
 	} else {
 		// don't save:
 		// define original value to put back into static cell
-	  if (theParent.readAttribute('data-type') == 'enum') {
-      // run value through display method?
-	    var theValue = enumToString(theParent.readAttribute('data-value').trim());
-
-	  } else {
-	    var theValue = theParent.readAttribute('data-value').trim();   
-	  }		
+	  var theValue = theParent.readAttribute('data-value').trim();   
 	}
 
 
+  // run value through display method?
+  if (theParent.readAttribute('data-type') == 'enum') {
+    theValue = enumToString(theValue);
+  }
+
+  // remove / add empty class to cell?
+  if (theValue.empty() && !editable.hasClassName('empty')) {
+  	theParent.addClassName('empty');
+  } else {
+    theParent.removeClassName('empty');
+  }
+
 	// put static value back into cell
 	editable.insert({ after: theValue });
-	
+
   // remove editing cell class
   theParent.removeClassName('editing');
 
 	// remove editable input from document
-	editable.remove();
-	
+	Element.remove(editable);
+
   // set editable pointer to null
 	editable = null;
 }
@@ -239,13 +274,17 @@ function interactSearch(event) {
         // scroll to top of developers container
         $('developers-container').scrollTop   = 0;
         $('developers-container').scrollLeft  = 0;
-        
-			  // hide spinner, show button
-			  $('interact-spinner').hide();
-        $('interact-button').show();
 
-        searching = false;
+      } else {
+        // failure
+        alert('Failure');
       }
+      
+      // hide spinner, show button
+      $('interact-spinner').hide();
+      $('interact-button').show();
+
+      searching = false;
     }
   });
 
@@ -289,9 +328,11 @@ function changeInteractField(event, element) {
   if (typeof element != 'object') {
     var element = event.element();
   }
-
-  if ((element.value == 'gender') || (element.value == 'continent') || (element.value == 'motivation')) {
+  
+  if ((element.value == 'gender') || (element.value == 'continent') || (element.value == 'motivation') || (element.value == 'microblog_type')) {
   	// enum
+  	var isEnum = true;
+
     $('interact-op').select('option').each(function(item) {
       item.hide();
     });
@@ -300,12 +341,16 @@ function changeInteractField(event, element) {
 
   } else if ((element.value == 'dob') || (element.value == 'latitude') || (element.value == 'longitude')) {
     // numeric
+    var isEnum = false;
+
     $('interact-op').select('option').each(function(item) {
     	item.show();
     });
 
   } else {
   	// textual
+    var isEnum = false;
+
     $('interact-op').select('option').each(function(item) {
       item.show();
     });
@@ -313,9 +358,31 @@ function changeInteractField(event, element) {
     $('interact-op').select('option[value="lt"]').first().hide();
     $('interact-op').select('option[value="gt"]').first().hide();
   }
+  
+  
+  // enum / not-enum specific actions
+  if (isEnum) {
+    // reset to default element so we don't show hidden options
+    $('interact-op').selectedIndex = 0;
 
-  // reset to first element so we don't show hidden options
-  $('interact-op').selectedIndex = 0;
+    // change to select box
+    if ($('interact-value')) {
+      Element.remove($('interact-value'));
+    }
+
+    var enumElement = $('enum-' + element.value).clone(true);
+    enumElement.writeAttribute('id', 'interact-value');
+    enumElement.show();
+    Element.insert($('interact-op'), { after: enumElement });
+
+  } else {
+  	// select 'contains' as default option
+  	$('interact-op').selectedIndex = 5;
+  	
+    // change to input box
+    $('interact-value').remove();
+    Element.insert($('interact-op'), { after: '<input id="interact-value" type="text" value="" />' });
+  }
 }
 
 
@@ -340,6 +407,14 @@ function deleteDeveloper(event) {
 	      if ((typeof result.success != 'undefined') && result.success) {
 	      	// remove row from DOM
 	      	theParent.remove();
+	      	
+	      	// decrement counter displays
+	        if ($('developers-num-records')) {
+	          $('developers-num-records').update(sprintf(strings.num_developer_records, (parseInt($('developers-num-records').innerHTML) - 1)));
+	        }
+	        if ($('interact-results')) {
+            $('interact-results').update(sprintf(strings.num_results_plural, (parseInt($('interact-results').innerHTML)) - 1));
+	        }
 	      }
 	    }
 	  });

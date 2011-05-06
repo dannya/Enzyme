@@ -16,22 +16,9 @@
 
 
 class DevelopersUi extends BaseUi {
-  public $id                      = 'developers';
+  public $id      = 'developers';
 
-  private $user                   = array();
-
-  private static $displayFields   = array('account'     => array('type' => 'string'),
-                                          'nickname'    => array('type' => 'string'),
-                                          'dob'         => array('type' => 'date'),
-                                          'gender'      => array('type' => 'enum'),
-                                          'continent'   => array('type' => 'enum'),
-                                          'country'     => array('type' => 'string'),
-                                          'location'    => array('type' => 'string'),
-                                          'latitude'    => array('type' => 'float'),
-                                          'longitude'   => array('type' => 'float'),
-                                          'motivation'  => array('type' => 'enum'),
-                                          'employer'    => array('type' => 'string'),
-                                          'colour'      => array('type' => 'enum'));
+  private $user   = array();
 
 
   public function __construct($user) {
@@ -50,28 +37,17 @@ class DevelopersUi extends BaseUi {
 
 
     // define fields / string mappings
-    $fields  = array('account'    => _('Account'),
-                     'nickname'   => _('Nickname'),
-                     'dob'        => _('DOB'),
-                     'gender'     => _('Gender'),
-                     'continent'  => _('Continent'),
-                     'country'    => _('Country'),
-                     'location'   => _('Location'),
-                     'latitude'   => _('Latitude'),
-                     'longitude'  => _('Longitude'),
-                     'motivation' => _('Motivation'),
-                     'employer'   => _('Employer'),
-                     'colour'     => _('Colour'));
+    $fields = Developer::getFieldStrings();
 
     // add strings to display fields
     foreach ($fields as $key => $string) {
-      self::$displayFields[$key]['string'] = $string;
+      Developer::$fields[$key]['string'] = $string;
     }
 
 
     // create interact bar elements
-    $interactType     = Ui::htmlSelector('interact-type', array('search'      => _('Search'),
-                                                                'filter'      => _('Filter')), null, 'changeInteractType(event);');
+    $interactType     = Ui::htmlSelector('interact-type', array('search'  => _('Search'),
+                                                                'filter'  => _('Filter')), null, 'changeInteractType(event);');
 
     $interactField    = Ui::htmlSelector('interact-field', $fields, null, 'changeInteractField(event);');
 
@@ -80,7 +56,7 @@ class DevelopersUi extends BaseUi {
                                                               'gt'      => _('greater than'),
                                                               'start'   => _('starts with'),
                                                               'end'     => _('ends with'),
-                                                              'contain' => _('contains')));
+                                                              'contain' => _('contains')), 'contain');
 
     $interactValue    = '<input id="interact-value" type="text" value="" />';
     $interactButton   = '<input id="interact-button" type="button" value="' . _('Go') . '" onclick="interactSearch(event);" />';
@@ -92,7 +68,7 @@ class DevelopersUi extends BaseUi {
     $buf = '<h3>' .
               _('Developers') .
            '  <span>
-                <span class="status">' .
+                <span id="developers-num-records" class="status">' .
                   sprintf(_('%d developer records'), Db::count('developers', false)) .
            '    </span>
                 <input type="button" title="' . _('Add new developer record') . '" value="' . _('Add new developer record') . '" onclick="addUser();" />
@@ -117,7 +93,7 @@ class DevelopersUi extends BaseUi {
                   <tr>
                     <th class="column">&nbsp;</th>';
 
-    foreach (self::$displayFields as $key => $value) {
+    foreach (Developer::$fields as $key => $value) {
       $buf  .= self::drawHeader($key, $value['string']);
     }
 
@@ -133,10 +109,10 @@ class DevelopersUi extends BaseUi {
 
 
     // create select boxes for enum data types
-    $enums = Enzyme::enumToString('all');
+    $enums = Developer::enumToString('all');
 
     foreach ($enums as $type => $section) {
-      $buf .= Ui::htmlSelector('enum-' . $type, $section, null, null, null, 'display:none;');
+      $buf .= Ui::htmlSelector('enum-' . $type, $section, null, null, null, 'display:none;', true);
     }
 
 
@@ -164,7 +140,7 @@ class DevelopersUi extends BaseUi {
                 </td>';
 
     foreach ($developer as $key => $value) {
-      if (isset(self::$displayFields[$key])) {
+      if (isset(Developer::$fields[$key])) {
         $buf  .= self::drawField($key, $value);
       }
     }
@@ -181,14 +157,14 @@ class DevelopersUi extends BaseUi {
     $display  = $value;
 
     // run value through display method?
-    if (isset(self::$displayFields[$key])) {
-      if (isset(self::$displayFields[$key]['type'])) {
-        $type = self::$displayFields[$key]['type'];
+    if (isset(Developer::$fields[$key])) {
+      if (isset(Developer::$fields[$key]['type'])) {
+        $type = Developer::$fields[$key]['type'];
       }
 
       if ($value) {
-        if (self::$displayFields[$key]['type'] == 'enum') {
-          $display = Enzyme::enumToString('key', $value);
+        if (Developer::$fields[$key]['type'] == 'enum') {
+          $display = Developer::enumToString('key', $value);
         }
       }
     }

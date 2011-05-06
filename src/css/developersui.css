@@ -43,6 +43,13 @@ form#interact-bar #interact-op {
   min-width:130px;
 }
 
+form#interact-bar input#interact-value {
+  width:160px;
+}
+form#interact-bar select#interact-value {
+  width:172px;
+}
+
 form#interact-bar #interact-button {
   float:none;
 }
@@ -92,12 +99,17 @@ table .column-gender {
   width:90px;
 }
 table .column-continent {
-  width:110px;
+  width:120px;
 }
 table .column-country {
   width:80px;
 }
-table .column-location {
+table .column-location,
+table .column-homepage,
+table .column-blog,
+table .column-lastfm,
+table .column-microblog_type,
+table .column-microblog_user {
   width:200px;
 }
 table .column-employer {
@@ -128,11 +140,18 @@ table .editing input {
 
 
 
+table#developers,
+table#developers-headers {
+  width:2892px;
+}
+
+
+
+
 table#developers-headers {
   position:absolute;
   top:0;
 
-  width:1612px;
   border-collapse:collapse;
   border-bottom:1px solid #ccc;
   z-index:1;
@@ -151,7 +170,6 @@ table#developers-headers .column {
 
 
 table#developers {
-  width:1612px;
   border-collapse:collapse;
   margin-top:32px;
 }
