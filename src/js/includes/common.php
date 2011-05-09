@@ -289,6 +289,7 @@ function buttonState(id, theState) {
   if ($(id) && (typeof theState != 'undefined')) {
     if (theState == 'enabled') {
       $(id).disabled = false;
+
     } else if (theState == 'disabled') {
       $(id).disabled = true;
     }
@@ -349,23 +350,12 @@ function save(theType, theButton) {
     onSuccess: function(transport) {
       var result = transport.headerJSON;
       
-		  // hide spinner, enable button?
-		  if ($('status-area-spinner')) {
-		    $('status-area-spinner').hide();
-		  }
-		  if ($('review-cancel')) {
-		    $('review-cancel').show();
-		  }
-		  if (typeof theButton == 'object') {
-		    theButton.disabled = false;
-		  }
-
       if ((typeof result.success != 'undefined') && result.success) {
         // show success message
         if (result.saved == 1) {
-          var successString = '<?php echo _('Saved %d commit'); ?>';
+          var successString = '<?php echo _("Saved %d commit"); ?>';
         } else {
-        	var successString = '<?php echo _('Saved %d commits'); ?>';
+        	var successString = '<?php echo _("Saved %d commits"); ?>';
         } 
 
         information('success', sprintf(successString, result.saved));
@@ -376,8 +366,19 @@ function save(theType, theButton) {
         }
 
         // refresh page to show updated data
-        loadPage(theType, true);
-        
+        loadPage(theType, true, function() {
+		      // hide spinner, enable button?
+		      if ($('status-area-spinner')) {
+		        $('status-area-spinner').hide();
+		      }
+		      if ($('review-cancel')) {
+		        $('review-cancel').show();
+		      }
+		      if (typeof theButton == 'object') {
+		        theButton.disabled = false;
+		      }
+        });
+
         // reset counters
         readCommits   = [];
         markedCommits = [];
@@ -389,19 +390,30 @@ function save(theType, theButton) {
 
       } else {
         // show error message
-        information('failure', '<?php echo _('Save unsuccessful'); ?>');
+        information('failure', '<?php echo _("Save unsuccessful"); ?>');
       }
     },
 
     onFailure: function() {
       // show error message
-      information('failure', '<?php echo _('Save unsuccessful'); ?>');
+      information('failure', '<?php echo _("Save unsuccessful"); ?>');
+
+      // hide spinner, enable button?
+      if ($('status-area-spinner')) {
+        $('status-area-spinner').hide();
+      }
+      if ($('review-cancel')) {
+        $('review-cancel').show();
+      }
+      if (typeof theButton == 'object') {
+        theButton.disabled = false;
+      }
     }
   });
 }
 
 
-function loadPage(thePage, scroll) {
+function loadPage(thePage, scroll, callback) {
   if (typeof thePage == 'undefined' || !$('content')) {
     return false;
   }
@@ -417,6 +429,11 @@ function loadPage(thePage, scroll) {
       // scroll to top of page?
       if ((typeof scroll != 'undefined') && scroll) {
         $('content').scrollTop = 0;
+      }
+      
+      // execute callback?
+      if (typeof callback == 'function') {
+        callback();
       }
     }
   });

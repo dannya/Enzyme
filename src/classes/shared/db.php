@@ -25,6 +25,7 @@ class Db {
                                   'commit_path_filters',
                                   'countries',
                                   'developers',
+                                  'developer_privacy',
                                   'digests',
                                   'digest_intro_people',
                                   'digest_intro_sections',
