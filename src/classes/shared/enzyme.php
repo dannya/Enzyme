@@ -208,6 +208,10 @@ class Enzyme {
                                                          '1'  => _('Yes')),
                                       'default' => '1',
                                       'example' => null);
+    $tmp['DATA_TERMS_VERSION']  = array('title'   => _('Data Terms Version'),
+                                        'valid'   => null,
+                                        'default' => 0.1,
+                                        'example' => null);
 
     $tmp['GENERATE_MAPS']     = array('title'   => _('Map Generation Service URL'),
                                       'valid'   => null,
@@ -282,7 +286,8 @@ class Enzyme {
                                              'HELP_URL'               => $tmp['HELP_URL'],
                                              'HELP_CONTAINER'         => $tmp['HELP_CONTAINER'],
                                              'SMTP'                   => $tmp['SMTP'],
-                                             'SHOW_INSERT'            => $tmp['SHOW_INSERT']));
+                                             'SHOW_INSERT'            => $tmp['SHOW_INSERT'],
+                                             'DATA_TERMS_VERSION'     => $tmp['DATA_TERMS_VERSION']));
 
     $settings[] = array('title'     => _('Data Locations'),
                         'settings'  => array('GENERATE_MAPS'          => $tmp['GENERATE_MAPS'],

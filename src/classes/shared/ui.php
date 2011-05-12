@@ -145,8 +145,14 @@ class Ui {
 
     // add empty entry at top?
     if ($emptyEntry) {
+      if (!isset($items[0])) {
+        array_unshift($items, '');
+
+      } else {
+        // if items are numerically-indexed, use safer method
       $items[''] = '';
       ksort($items);
+    }
     }
 
 

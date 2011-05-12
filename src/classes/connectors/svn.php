@@ -216,8 +216,9 @@ class Svn extends Connector {
       }
 
 
-      // insert into database
-      Db::insert('developers', $developer, true);
+      // insert into database (update if existing)
+      Db::saveMulti('developers', array($developer));
+      Db::insert('developer_privacy', array('account' => $developer['account']), true);
 
       // report success
       Ui::displayMsg(sprintf(_('Added %s (%s) to developers table'), $developer['name'], $developer['account']));
