@@ -740,7 +740,7 @@ class Digest {
         $countries = array();
 
         foreach ($tmp as $country) {
-          $countries[$country['code']] = $country['name'];
+          $countries[$country['code']] = htmlspecialchars($country['name']);
         }
 
         // sort by country name
@@ -753,18 +753,33 @@ class Digest {
       return $countries;
 
     } else {
-      // full
-    $countries = Cache::load('countries');
+      // simple / full
+      $countries = Cache::load('countries_' . $type);
 
-    if (empty($countries)) {
-      // get countries from database
-      $countries = Db::reindex(Db::load('countries', false), 'code');
+      if (empty($countries)) {
+        // get countries from database
+        $countries = Db::reindex(Db::load('countries', false), 'code');
 
-      // cache
-      Cache::save('countries', $countries);
-    }
+        // do extra processing?
+        if ($type == 'simple') {
+          // load basic list
+          $tmp        = $countries;
+          $countries  = self::getCountries('basic');
 
-    return $countries;
+          // recreate based on basic list (as it will be correctly ordered by country name)
+          foreach ($countries as $code => &$value) {
+            $value = array('class'  => $tmp[$code]['continent'],
+                           'value'  => htmlspecialchars($tmp[$code]['name']));
+          }
+
+          unset($tmp);
+        }
+
+        // cache
+        Cache::save('countries_' . $type, $countries);
+      }
+
+      return $countries;
     }
   }
 

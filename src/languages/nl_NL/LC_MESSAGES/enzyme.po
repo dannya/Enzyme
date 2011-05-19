@@ -1,10 +1,10 @@
-# Freek de Kruijf <freekdekruijf@kde.nl>, 2010.
+# Freek de Kruijf <freekdekruijf@kde.nl>, 2010, 2011.
 msgid ""
 msgstr ""
 "Project-Id-Version: Enzyme\n"
 "Report-Msgid-Bugs-To: danny@commit-digest.org\n"
 "POT-Creation-Date: 2011-01-12 00:29+0000\n"
-"PO-Revision-Date: 2010-12-05 23:47+0100\n"
+"PO-Revision-Date: 2011-04-05 22:05+0200\n"
 "Last-Translator: Freek de Kruijf <freekdekruijf@kde.nl>\n"
 "Language-Team: Dutch <kde-i18n-nl@kde.org>\n"
 "MIME-Version: 1.0\n"
@@ -21,15 +21,15 @@ msgstr ""
 
 #, php-format
 msgid " (%.1f percent of %d)"
-msgstr ""
+msgstr " (%.1f procent van %d)"
 
 #, php-format
 msgid "%d applications"
-msgstr ""
+msgstr "%d toepassingen"
 
 #, php-format
 msgid "%d days"
-msgstr ""
+msgstr "%d dagen"
 
 #, php-format
 msgid "%d days ago"
@@ -47,10 +47,9 @@ msgstr "%d minuten geleden"
 msgid "%d months ago"
 msgstr "%d maanden geleden"
 
-#, fuzzy, php-format
-#| msgid "Repository"
+#, php-format
 msgid "%d repositories"
-msgstr "Opslagruimte"
+msgstr "%d repositories"
 
 #, php-format
 msgid "%d seconds ago"
@@ -58,7 +57,7 @@ msgstr "%d seconden geleden"
 
 #, php-format
 msgid "%d users"
-msgstr ""
+msgstr "%d gebruikers"
 
 #, php-format
 msgid "%d weeks ago"
@@ -70,7 +69,7 @@ msgstr "%d jaren geleden"
 
 #, php-format
 msgid "%s commits classified (%s total)"
-msgstr ""
+msgstr "%s geclassificeerde vastleggingen (%s totaal)"
 
 #, php-format
 msgid "%s committed changes in %s:"
@@ -81,28 +80,30 @@ msgid ""
 "%s, someone at the IP address %s has requested a password reset on your "
 "account."
 msgstr ""
+"%s, iemand op het IP-adres %s heeft een reset van het wachtwoord gevraagd op "
+"uw account."
 
 #, php-format
 msgid "(+ %d more)"
-msgstr ""
+msgstr "(+ %d meer)"
 
 msgid "1. Idea"
-msgstr ""
+msgstr "1. Idee"
 
 msgid "2. Contacting"
-msgstr ""
+msgstr "2. Contact leggen"
 
 msgid "3. More information needed"
-msgstr ""
+msgstr "3. Meer informatie nodig"
 
 msgid "4. Needs proofreading"
-msgstr ""
+msgstr "4. Proeflezen nodig"
 
 msgid "5. Ready for selection"
-msgstr ""
+msgstr "5. Gereed voor selectie"
 
 msgid "6. Selected"
-msgstr ""
+msgstr "6. Geselecteerd"
 
 msgid "About"
 msgstr "Info over"
@@ -113,33 +114,29 @@ msgstr "Toegankelijkheid"
 msgid "Account"
 msgstr "Account"
 
-#, fuzzy
-#| msgid "Account"
 msgid "Accounts file"
-msgstr "Account"
+msgstr "Bestand met accounts"
 
 msgid "Active Developers"
 msgstr "Actieve ontwikkelaars"
 
 msgid "Active Users"
-msgstr ""
+msgstr "Actieve gebruikers"
 
 msgid "Add Links"
-msgstr ""
+msgstr "Koppelingen toevoegen"
 
 msgid "Add new filter"
-msgstr ""
+msgstr "Nieuw filter toevoegen"
 
 msgid "Add new user"
-msgstr ""
+msgstr "Nieuwe gebruiker toevoegen"
 
 msgid "Add person"
-msgstr ""
+msgstr "Persoon toevoegen"
 
-#, fuzzy
-#| msgid "Repository"
 msgid "Add repository"
-msgstr "Opslagruimte"
+msgstr "Repository toevoegen"
 
 msgid "Add section"
 msgstr ""
@@ -156,7 +153,7 @@ msgid "Admin"
 msgstr "Admin"
 
 msgid "Admin Email"
-msgstr ""
+msgstr "E-mail van admin"
 
 msgid "All"
 msgstr "Alles"
@@ -201,22 +198,22 @@ msgstr ""
 
 #, php-format
 msgid "Bug %d: %s"
-msgstr ""
+msgstr "Bug %d: %s"
 
 msgid "Bug Fixes"
 msgstr "Bug-fixes"
 
 msgid "Bug Stats URL"
-msgstr ""
+msgstr "Bugstatistieken-URL"
 
 msgid "Bugs"
 msgstr "Fouten/bugs"
 
 msgid "Bugs Closed"
-msgstr ""
+msgstr "Gesloten bugs"
 
 msgid "Bugs Opened"
-msgstr ""
+msgstr "Geopende bugs"
 
 msgid "Buzz"
 msgstr "Buzz"
@@ -251,7 +248,7 @@ msgid "Classified by %s"
 msgstr ""
 
 msgid "Classifier"
-msgstr ""
+msgstr "Classificatie"
 
 msgid "Classify"
 msgstr ""
@@ -278,56 +275,63 @@ msgstr ""
 
 #, php-format
 msgid "Commit %s by %s (%s)"
-msgstr ""
+msgstr "Commit %s door %s (%s)"
 
 msgid "Commit Classifier"
-msgstr ""
+msgstr "Commit-classificatie"
 
 msgid ""
 "Commit Classifiers sort the selected commits into areas (which is partly "
 "automated), and by type (such as bug fix, feature, etc)."
 msgstr ""
+"Commit-classificaties sorteert de geselecteerde commits in gebieden (wat "
+"gedeeltelijk is geautomatiseerd) en in typen (zoals bugfix, feature, etc)."
 
 msgid "Commit Path Sorting"
 msgstr ""
 
 msgid "Commit Reviewer"
-msgstr ""
+msgstr "Commit-controleur"
 
 msgid ""
 "Commit Reviewers look at all the recent commits, selecting those which are "
 "significant and interesting enough to be included into the weekly Commit-"
 "Digest."
 msgstr ""
+"Commit-controleurs kijken naar alle recente commits, waarbij die worden "
+"geselecteerd die belangrijk en interessant genoeg zijn om te worden "
+"meegenomen in de wekelijkse Commit-Digest."
 
 msgid "Commit Summary"
-msgstr ""
+msgstr "Commit-samenvatting"
 
 #, php-format
 msgid "Commit data past %s has not been collected yet."
-msgstr ""
+msgstr "Commitgegevens na %s zijn nog niet verzameld."
 
 msgid "Commits"
 msgstr "Vastleggingen (commits)"
 
 msgid "Configuration"
-msgstr ""
+msgstr "Configuratie"
 
 msgid "Contributors"
 msgstr "Met dank aan:"
 
 #, php-format
 msgid "Converted %s"
-msgstr ""
+msgstr "%s geconverteerd"
 
 msgid "Converting translations..."
-msgstr ""
+msgstr "Vertalingen converteren..."
 
 #, php-format
 msgid ""
 "Couldn't connect to database: ensure you have set the correct values at the "
 "top of %s/autoload.php"
 msgstr ""
+"Kan niet met de database verbinden: controleer dat u de juiste waarden "
+"bovenaan %s/autoload.php hebt gezet"
 
 msgid "Create a New Digest"
 msgstr ""
@@ -342,7 +346,7 @@ msgid "Create user"
 msgstr ""
 
 msgid "Data Locations"
-msgstr ""
+msgstr "Gegevenslocaties"
 
 msgid "Database"
 msgstr "Database"
@@ -357,20 +361,16 @@ msgid "Default Language"
 msgstr "Standaardtaal"
 
 msgid "Default Timezone"
-msgstr ""
+msgstr "Standaard tijdzone"
 
-#, fuzzy
-#| msgid "Decline"
 msgid "Delete"
-msgstr "Afwijzen"
+msgstr "Verwijderen"
 
-#, fuzzy
-#| msgid "Repository"
 msgid "Delete repository?"
-msgstr "Opslagruimte"
+msgstr "Repository verwijderen?"
 
 msgid "Delete statistics"
-msgstr ""
+msgstr "Statistieken verwijderen"
 
 msgid "Deutsch (German)"
 msgstr "Deutsch (Duits)"
@@ -380,39 +380,36 @@ msgstr "Ontwikkelhulpmiddelen"
 
 #, php-format
 msgid "Diffs: %s"
-msgstr ""
+msgstr "Diffs: %s"
 
 msgid "Digest Information"
-msgstr ""
+msgstr "Informatie over Digest"
 
 msgid "Digest URL"
-msgstr ""
+msgstr "Digest URL"
 
 msgid "Digests"
-msgstr ""
+msgstr "Digests"
 
 msgid "Display Defaults"
-msgstr ""
+msgstr "Standaarden tonen"
 
-#, fuzzy
-#| msgid "Synopsis"
 msgid "Dot Synopsis"
-msgstr "Samenvatting"
+msgstr "Dot Synopsis"
 
 msgid "Download"
 msgstr "Downloaden"
 
 #, php-format
 msgid "Downloaded %d i18n teams"
-msgstr ""
+msgstr "%d i18n-teams gedownload"
 
-#, fuzzy, php-format
-#| msgid "Download"
+#, php-format
 msgid "Downloaded %s (%s)"
-msgstr "Downloaden"
+msgstr "Gedownload %s (%s)"
 
 msgid "Downloading translations..."
-msgstr ""
+msgstr "Vertalingen downloaden..."
 
 msgid "Editor"
 msgstr "Editor"
@@ -424,7 +421,7 @@ msgid "Email"
 msgstr "E-mail"
 
 msgid "Enable Legacy Import"
-msgstr ""
+msgstr "Oud importeren inschakelen"
 
 msgid "End"
 msgstr "Einde"
@@ -437,21 +434,23 @@ msgid "Entry \"%s\" malformed, not added"
 msgstr "Item \"%s\" is misvormd, niet toegevoegd"
 
 msgid "Enzyme Administrator"
-msgstr ""
+msgstr "Enzyme-beheerder"
 
 msgid ""
 "Enzyme Administrators can manage all aspects of the system, including "
 "various import tools and user accounts."
 msgstr ""
+"Enzyme-beheerders kunnen alle aspecten van het systeem beheren, inclusief "
+"verschillende importhulpmiddelen en gebruikeraccounts."
 
 msgid "Enzyme Settings"
-msgstr ""
+msgstr "Instellingen van Enzyme"
 
 msgid "Enzyme URL"
-msgstr ""
+msgstr "Enzyme-URL"
 
 msgid "Enzyme Updates"
-msgstr ""
+msgstr "Bijwerkzaken van Enzyme"
 
 #, php-format
 msgid ""
@@ -492,18 +491,16 @@ msgid "Español (Spanish)"
 msgstr "Español (Spaans)"
 
 msgid "Existing Archive"
-msgstr ""
+msgstr "Bestaand archief"
 
 msgid "Existing Data"
-msgstr ""
+msgstr "Bestaande gegevens"
 
 msgid "Existing Issues"
-msgstr ""
+msgstr "Bestaande onderwerpen"
 
-#, fuzzy
-#| msgid "End"
 msgid "Expand"
-msgstr "Einde"
+msgstr "Uitvouwen"
 
 #, php-format
 msgid "Exported %s"
@@ -520,31 +517,32 @@ msgid "Exporting database schema..."
 msgstr ""
 
 msgid "Extracting extended statistics..."
-msgstr ""
+msgstr "Uitgebreide statistieken verzamelen.."
 
 msgid "Failed to save settings"
 msgstr ""
 
 msgid "Feature Editor"
-msgstr ""
+msgstr "Redacteur van functies"
 
 msgid ""
 "Feature Editors contact people working on interesting projects and assist "
 "them in writing original pieces which are presented in the introduction of "
 "each Commit-Digest."
 msgstr ""
+"Redacteurs van functies nemen contact op met mensen die aan interessante "
+"projecten werken en helpen hen om originele stukken te schrijven ter "
+"introductie in elke Commit-Digest."
 
-#, fuzzy
-#| msgid "Features"
 msgid "Feature editor"
-msgstr "Mogelijkheden"
+msgstr "Bewerker van mogelijkheid"
 
 msgid "Features"
 msgstr "Mogelijkheden"
 
 #, php-format
 msgid "Fetched details for bug %d"
-msgstr ""
+msgstr "Opgehaalde details van bug %d"
 
 #, php-format
 msgid "File %s could not be found..."
@@ -572,16 +570,16 @@ msgid "Generate statistics"
 msgstr ""
 
 msgid "Getting available translations..."
-msgstr ""
+msgstr "Beschikbare vertalingen ophalen..."
 
 msgid "Getting bug stats..."
-msgstr ""
+msgstr "Statistieken van bugs ophalen..."
 
 msgid "Getting internationalization (i18n) stats..."
-msgstr ""
+msgstr "Statistieken van internationalisatie (i18n) ophalen..."
 
 msgid "Getting revision data..."
-msgstr ""
+msgstr "Revisiegegevens ophalen..."
 
 msgid "Graphics"
 msgstr "Grafisch"
@@ -590,21 +588,19 @@ msgid "Help"
 msgstr "Help"
 
 msgid "Help URL"
-msgstr ""
+msgstr "Hulp-URL"
 
 msgid "Home"
 msgstr "Home"
 
-#, fuzzy
-#| msgid "Last name"
 msgid "Hostname"
-msgstr "Achternaam"
+msgstr "Hostnaam"
 
 msgid "I18n Stats URL"
-msgstr ""
+msgstr "URL met I18n-statistieken"
 
 msgid "I18n Teams URL"
-msgstr ""
+msgstr "URL met I18n-teams"
 
 msgid "ID"
 msgstr "ID"
@@ -659,13 +655,13 @@ msgid "Inserted %s (%s)"
 msgstr ""
 
 msgid "Inserted general stats"
-msgstr ""
+msgstr "Ingevoegde algemene statistieken"
 
 msgid "Inserted module stats"
-msgstr ""
+msgstr "Ingevoegde statistieken over modules"
 
 msgid "Inserted people stats"
-msgstr ""
+msgstr "Ingevoegde statistieken over mensen"
 
 msgid "Interface"
 msgstr "Interface"
@@ -678,7 +674,7 @@ msgstr "Inleiding"
 
 #, php-format
 msgid "Invalid data type in %s"
-msgstr ""
+msgstr "Ongeldig type gegeven in %s"
 
 msgid "Invalid import type (needs to be \"issue\" or \"archive\")"
 msgstr ""
@@ -691,7 +687,7 @@ msgstr "Uitgave"
 
 #, php-format
 msgid "Issue %d: %s"
-msgstr ""
+msgstr "Uitgave %d: %s"
 
 msgid "Italiano (Italian)"
 msgstr "Italiano (Italiaans)"
@@ -728,7 +724,7 @@ msgid "Leaderboard"
 msgstr ""
 
 msgid "Legacy Import"
-msgstr ""
+msgstr "Oude zaken importeren"
 
 msgid "Legacy Migration"
 msgstr ""
@@ -749,7 +745,7 @@ msgid "Low Saxon (Low Saxon)"
 msgstr ""
 
 msgid "Magyar (Hungarian)"
-msgstr ""
+msgstr "Magyar (Hongaars)"
 
 msgid "Make this user active?"
 msgstr ""
@@ -789,7 +785,7 @@ msgid "Nederlands (Dutch)"
 msgstr "Nederlands"
 
 msgid "Networking Tools"
-msgstr ""
+msgstr "Hulpmiddelen voor netwerken"
 
 msgid "New Files"
 msgstr ""
@@ -816,38 +812,34 @@ msgid "No introduction sections found"
 msgstr ""
 
 msgid "No items found"
-msgstr ""
+msgstr "Geen items gevonden."
 
 msgid "No revisions available"
-msgstr ""
+msgstr "Geen revisies beschikbaar"
 
 msgid "Not enough data to generate statistics."
-msgstr ""
+msgstr "Niet genoeg gegevens om statistieken te maken."
 
 msgid "Number"
-msgstr ""
+msgstr "Aantal"
 
-#, fuzzy
-#| msgid "KOffice"
 msgid "Office"
-msgstr "KOffice"
+msgstr "Kantoor"
 
 msgid "Old password"
 msgstr ""
 
 msgid "Only show commits I reviewed"
-msgstr ""
+msgstr "Toont alleen commits die ik heb herzien"
 
 msgid "Open Bugs"
-msgstr ""
+msgstr "Open bugs"
 
 msgid "Open Wishes"
-msgstr ""
+msgstr "Open wensen"
 
-#, fuzzy
-#| msgid "Optimize"
 msgid "Optimization"
-msgstr "Optimaliseren"
+msgstr "Optimalisatie"
 
 msgid "Optimize"
 msgstr "Optimaliseren"
@@ -890,7 +882,7 @@ msgid "Parse authors"
 msgstr ""
 
 msgid "Parsing revision data..."
-msgstr ""
+msgstr "Revisiegegevens ontleden..."
 
 msgid "Password"
 msgstr "Wachtwoord"
@@ -898,10 +890,8 @@ msgstr "Wachtwoord"
 msgid "Past Week"
 msgstr ""
 
-#, fuzzy
-#| msgid "Paths"
 msgid "Path"
-msgstr "Paden"
+msgstr "Pad"
 
 msgid "Paths"
 msgstr "Paden"
@@ -937,7 +927,7 @@ msgid "Polski (Polish)"
 msgstr "Polski (Pools)"
 
 msgid "Port"
-msgstr ""
+msgstr "Poort"
 
 msgid "Português (Portuguese)"
 msgstr "Português (Portugees)"
@@ -949,11 +939,11 @@ msgid "Preview"
 msgstr "Voorbeeld"
 
 msgid "Priority"
-msgstr ""
+msgstr "Prioriteit"
 
 #, php-format
 msgid "Processed %s"
-msgstr ""
+msgstr "Verwerkt %s"
 
 #, php-format
 msgid "Processed revision %s"
@@ -977,11 +967,11 @@ msgid "Published"
 msgstr "Gepubliceerd"
 
 msgid "Query failed"
-msgstr ""
+msgstr "Zoeken is niet gelukt"
 
 #, php-format
 msgid "Query failed: %s"
-msgstr ""
+msgstr "Zoekenopdracht is misgelukt: %s"
 
 msgid "Refresh"
 msgstr "Verversen"
@@ -996,10 +986,8 @@ msgstr ""
 msgid "Repeat password"
 msgstr "Wachtwoord herhalen"
 
-#, fuzzy
-#| msgid "Repository"
 msgid "Repositories"
-msgstr "Opslagruimte"
+msgstr "Repositories"
 
 msgid ""
 "Repository passwords are stored as plaintext. Consider setting up a "
@@ -1036,18 +1024,17 @@ msgstr ""
 
 #, php-format
 msgid "Reviewed by %s"
-msgstr ""
+msgstr "Nagelezen door %s"
 
 msgid "Reviewer"
 msgstr "Nalezer"
 
-#, fuzzy, php-format
-#| msgid "Permissions"
+#, php-format
 msgid "Revision %s"
-msgstr "Toegangsrechten"
+msgstr "Revisie %s"
 
 msgid "SMTP Mail Server"
-msgstr ""
+msgstr "SMTP-e-mailserver"
 
 msgid "SMTP mail server has not been set!"
 msgstr ""
@@ -1061,10 +1048,8 @@ msgstr "Wijzigingen opslaan"
 msgid "Save new account?"
 msgstr ""
 
-#, fuzzy
-#| msgid "Repository"
 msgid "Save new repository?"
-msgstr "Opslagruimte"
+msgstr "Nieuwe repository opslaan?"
 
 msgid "Save unsuccessful"
 msgstr ""
@@ -1090,7 +1075,7 @@ msgstr ""
 
 #, php-format
 msgid "Selected %s of %s commits reviewed (%s total)"
-msgstr ""
+msgstr "Geselecteerd %s uit %s commits nagelezen (%s totaal)"
 
 msgid "Selected Commits"
 msgstr ""
@@ -1107,26 +1092,23 @@ msgstr "Instellingen"
 msgid "Setup database"
 msgstr ""
 
-#, fuzzy
-#| msgid "Insert"
 msgid "Show Insert"
-msgstr "Invoegen"
+msgstr "Invoeging tonen"
 
 msgid "Show Skipped?"
-msgstr ""
+msgstr "Wat is overgeslagen tonen?"
 
 #, php-format
 msgid "Skipped %s"
-msgstr ""
+msgstr "%s overgeslagen"
 
 #, php-format
 msgid "Skipped: %d"
-msgstr ""
+msgstr "Overgeslagen: %d"
 
-#, fuzzy, php-format
-#| msgid "Skipping: %s"
+#, php-format
 msgid "Skipping revision %s"
-msgstr "Overslaan: %s"
+msgstr "Revisie %s overslaan"
 
 #, php-format
 msgid "Skipping: %s"
@@ -1141,10 +1123,8 @@ msgstr "Statistieken"
 msgid "Statistics for this issue need generating..."
 msgstr ""
 
-#, fuzzy
-#| msgid "Start"
 msgid "Status"
-msgstr "Starten"
+msgstr "Status"
 
 #, php-format
 msgid "Step %d of %d"
@@ -1164,10 +1144,8 @@ msgstr "Svenska (Zweeds)"
 msgid "Synopsis"
 msgstr "Samenvatting"
 
-#, fuzzy
-#| msgid "Page"
 msgid "Target"
-msgstr "Pagina"
+msgstr "Doel"
 
 msgid "Thanks for your application!"
 msgstr ""
@@ -1183,7 +1161,7 @@ msgstr ""
 
 #, php-format
 msgid "There are %d selections this week"
-msgstr ""
+msgstr "Er zijn %d selecties deze week"
 
 #, php-format
 msgid "There is an update for Enzyme available, version %.2f (released %s)."
@@ -1216,7 +1194,7 @@ msgstr ""
 
 #, php-format
 msgid "Total: %d"
-msgstr ""
+msgstr "Totaal: %d"
 
 msgid "Translator"
 msgstr "Vertaler"
@@ -1226,6 +1204,9 @@ msgid ""
 "the project by making the weekly Commit-Digests available in the native "
 "language of people around the world."
 msgstr ""
+"Vertalers verhogen het bereik van Commit-Digest en het werk gedaan overal in "
+"het project door het weekblad Commit-Digests beschikbaar te maken in de "
+"landseigen taal van de mensen in de wereld."
 
 msgid "Try unchecking \"Only show commits I reviewed\""
 msgstr ""
@@ -1237,17 +1218,17 @@ msgid "Types"
 msgstr "Typen"
 
 msgid "Ukrainian (Ukrainian)"
-msgstr ""
+msgstr "Oekraïens"
 
 #, php-format
 msgid "Unpublish %s..."
-msgstr ""
+msgstr "Publiceren van %s intrekken..."
 
 msgid "Updating translation strings..."
-msgstr ""
+msgstr "Te vertalen tekenreeksen bijwerken..."
 
 msgid "Uploading translation strings..."
-msgstr ""
+msgstr "Te vertalen tekenreeksen uploaden..."
 
 msgid "User Interface"
 msgstr "Gebruikersinterface"
@@ -1263,31 +1244,29 @@ msgstr "Hulpmiddelen"
 
 #, php-format
 msgid "Version %.2f"
-msgstr ""
+msgstr "Versie %.2f"
 
 msgid "Volunteer"
 msgstr "Vrijwilliger"
 
 msgid "Web Bug Tracker"
-msgstr ""
+msgstr "Web Bug Tracker"
 
 msgid "Web Bug Tracker XML"
-msgstr ""
+msgstr "Web Bug Tracker XML"
 
-#, fuzzy
-#| msgid "Reviewer"
 msgid "Web viewer"
-msgstr "Nalezer"
+msgstr "Webviewer"
 
 #, php-format
 msgid "Welcome to Enzyme @ %s"
-msgstr ""
+msgstr "Welkom bij Enzyme @ %s"
 
 msgid "Welcome to Enzyme!"
-msgstr ""
+msgstr "Welkom bij Enzyme!"
 
 msgid "What number should this section be?"
-msgstr ""
+msgstr "Welk nummer moet deze sectie zijn?"
 
 msgid "Wishes Closed"
 msgstr ""
@@ -1318,7 +1297,7 @@ msgid ""
 msgstr ""
 
 msgid "Русский язык (Russian)"
-msgstr ""
+msgstr "Русский язык (Russisch)"
 
 #~ msgid "Repository Type"
 #~ msgstr "Type opslagruimte"

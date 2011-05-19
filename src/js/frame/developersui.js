@@ -435,3 +435,9 @@ function enumToString(key) {
     return key;
   }
 }
+
+
+function addDeveloper() {
+	// XX:todo
+	alert('Not implemented yet');
+}

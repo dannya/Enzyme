@@ -19,6 +19,7 @@ class Developer {
   public $data = null;
   public $privacy               = null;
   public $access                = null;
+  public $surveyDone            = false;
 
   public static $fieldSections  = array('core'            => array('account', 'name', 'email', 'nickname', 'dob', 'gender', 'motivation', 'employer', 'colour'),
                                         'geographic'      => array('continent', 'country', 'location', 'latitude', 'longitude'),
@@ -109,15 +110,15 @@ class Developer {
                                                                    'privacy'  => 'microblog'),
 
                                         'access_ip'       => array('type'     => 'string',
-                                                                   'display'  => 'admin',
+                                                                   'display'  => 'hidden',
                                                                    'editable' => false,
                                                                    'stored'   => 'privacy'),
                                         'access_code'     => array('type'     => 'string',
-                                                                   'display'  => 'admin',
+                                                                   'display'  => 'hidden',
                                                                    'editable' => true,
                                                                    'stored'   => 'privacy'),
                                         'access_timeout'  => array('type'     => 'string',
-                                                                   'display'  => 'admin',
+                                                                   'display'  => 'hidden',
                                                                    'editable' => true,
                                                                    'stored'   => 'privacy'));
 
@@ -126,15 +127,15 @@ class Developer {
   private $internalPrivacy  = null;
 
 
-  public function __construct($value = null, $field = 'account') {
+  public function __construct($value = null, $field = 'account', $createBuffer = false) {
     // load in constructor?
     if ($value) {
-      $this->load($value, $field);
+      $this->load($value, $field, $createBuffer);
     }
   }
 
 
-  public function load($value = null, $field = 'account') {
+  public function load($value = null, $field = 'account', $createBuffer = false) {
     if (!$value) {
       if (!isset($this->data['account'])) {
         return false;
@@ -153,15 +154,26 @@ class Developer {
     }
 
     // if loading by access_code, ensure code has not expired
-    if (($field == 'access_code') &&
-        (empty($privacy['access_timeout']) || (time() > strtotime($privacy['access_timeout'])))) {
+    if ($field == 'access_code') {
+      if (empty($privacy['access_timeout']) || (time() > strtotime($privacy['access_timeout']))) {
+        return false;
 
-      return false;
+      } else if ($createBuffer && (time() > (strtotime($privacy['access_timeout']) - 1800))) {
+        // create buffer of 30 mins so user doesn't run out of time while completing form
+        $privacy['access_timeout'] = Date('Y-m-d H:i:s', strtotime('Now + 30 minutes'));
+
+        Db::saveSingleField('developer_privacy',
+                            array($field => $value),
+                            array('access_timeout' => $privacy['access_timeout']));
+      }
     }
 
 
     // load developer data
     if ($this->data = Db::load('developers', array('account' => $privacy['account']), 1)) {
+      // check if survey has been completed
+      $this->surveyDone = Db::exists('developer_survey', array('account' => $privacy['account']));
+
     // set privacy settings to each data value
     foreach (self::$fields as $id => $spec) {
       if (!isset($spec['privacy'])) {
@@ -213,6 +225,15 @@ class Developer {
 
 
   public function save() {
+    // make empty values be null
+    foreach ($this->internalData as &$value) {
+      $value = trim($value);
+
+      if (empty($value)) {
+        $value = null;
+      }
+    }
+
     // save changes to internal data structures into database
     return Db::save('developers', array('account' => $this->internalData['account']), $this->internalData);
   }
@@ -230,6 +251,28 @@ class Developer {
     // change privacy value
     $this->internalData[$field] = $newValue;
 
+
+    if ($save) {
+      // save new value to database
+      return $this->save();
+
+    } else {
+      return true;
+    }
+  }
+
+
+  public function changeValues($data, $save = false) {
+    // ensure we only try and save valid fields
+    foreach ($data as $field => $value) {
+      if (!isset(self::$fields[$field]) ||
+        ($field == 'account') || ($field == 'access_ip') || ($field == 'access_code') || ($field == 'access_timeout')) {
+
+        continue;
+      }
+
+      $this->internalData[$field] = $value;
+    }
 
     if ($save) {
       // save new value to database
@@ -320,7 +363,7 @@ class Developer {
   //  - 'all'
   //  - 'category'
   //  - 'key' (default)
-  public static function enumToString($context = 'key', $key = null) {
+  public static function enumToString($context = 'key', $key = null, $enhanced = false) {
     $keys                   = array();
 
     // map enums to i18n strings
@@ -349,7 +392,11 @@ class Developer {
                                     'north-america'   => _('North America'),
                                     'south-america'   => _('South America'));
 
+    if ($enhanced) {
+      $keys['country']      = Digest::getCountries('simple');
+    } else {
     $keys['country']        = Digest::getCountries('basic');
+    }
 
     $keys['microblog_type'] = array('twitter'         => _('twitter.com'),
                                     'identica'        => _('identi.ca'));

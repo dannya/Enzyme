@@ -102,7 +102,7 @@ table .column-continent {
   width:120px;
 }
 table .column-country {
-  width:80px;
+  width:200px;
 }
 table .column-location,
 table .column-homepage,
@@ -142,7 +142,7 @@ table .editing input {
 
 table#developers,
 table#developers-headers {
-  width:2892px;
+  width:3012px;
 }
 
 

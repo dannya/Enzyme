@@ -1,0 +1,22 @@
+CREATE TABLE `developer_privacy` (
+  `account` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
+  `access_ip` varchar(15) COLLATE utf8_unicode_ci NOT NULL,
+  `access_code` varchar(20) COLLATE utf8_unicode_ci NOT NULL,
+  `access_timeout` datetime NOT NULL,
+  `terms_accepted` decimal(3,1) unsigned NOT NULL DEFAULT '1.0',
+  `email` int(1) unsigned NOT NULL DEFAULT '1',
+  `nickname` int(1) unsigned NOT NULL DEFAULT '1',
+  `dob` enum('0','birthday','age','1') COLLATE utf8_unicode_ci NOT NULL DEFAULT '1',
+  `gender` int(1) unsigned NOT NULL DEFAULT '1',
+  `motivation` int(1) unsigned NOT NULL DEFAULT '1',
+  `employer` int(1) unsigned NOT NULL DEFAULT '1',
+  `colour` int(1) unsigned NOT NULL DEFAULT '0',
+  `continent` int(1) unsigned NOT NULL DEFAULT '1',
+  `country` int(1) unsigned NOT NULL DEFAULT '1',
+  `location` int(1) unsigned NOT NULL DEFAULT '1',
+  `homepage` int(1) unsigned NOT NULL DEFAULT '1',
+  `blog` int(1) unsigned NOT NULL DEFAULT '1',
+  `lastfm` int(1) unsigned NOT NULL DEFAULT '1',
+  `microblog` int(1) unsigned NOT NULL DEFAULT '1',
+  UNIQUE KEY `unique` (`account`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci

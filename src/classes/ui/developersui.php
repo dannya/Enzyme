@@ -71,7 +71,7 @@ class DevelopersUi extends BaseUi {
                 <span id="developers-num-records" class="status">' .
                   sprintf(_('%d developer records'), Db::count('developers', false)) .
            '    </span>
-                <input type="button" title="' . _('Add new developer record') . '" value="' . _('Add new developer record') . '" onclick="addUser();" />
+                <input type="button" title="' . _('Add new developer record') . '" value="' . _('Add new developer record') . '" onclick="addDeveloper();" />
               </span>
             </h3>
 
@@ -140,7 +140,7 @@ class DevelopersUi extends BaseUi {
                 </td>';
 
     foreach ($developer as $key => $value) {
-      if (isset(Developer::$fields[$key])) {
+      if (isset(Developer::$fields[$key]) && (Developer::$fields[$key]['display'] != 'hidden')) {
         $buf  .= self::drawField($key, $value);
       }
     }
@@ -174,7 +174,9 @@ class DevelopersUi extends BaseUi {
 
 
   private static function drawHeader($key, $string) {
-    return '<th class="column column-' . $key . '">' . $string . '</th>';
+    if (isset(Developer::$fields[$key]) && (Developer::$fields[$key]['display'] != 'hidden')) {
+      return '<th class="column column-' . $key . '">' . $string . '</th>';
+    }
   }
 }
 

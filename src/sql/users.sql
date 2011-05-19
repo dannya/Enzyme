@@ -1,7 +1,7 @@
 CREATE TABLE `users` (
-  `username` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
+  `username` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
   `password` varchar(40) COLLATE utf8_unicode_ci NOT NULL,
-  `email` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
+  `email` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
   `firstname` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
   `lastname` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
   `active` tinyint(1) NOT NULL,

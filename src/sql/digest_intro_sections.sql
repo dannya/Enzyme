@@ -3,7 +3,7 @@ CREATE TABLE `digest_intro_sections` (
   `number` int(2) DEFAULT NULL,
   `type` enum('message','comment') COLLATE utf8_unicode_ci NOT NULL,
   `status` enum('idea','contacting','more-info','proofread','ready','selected') COLLATE utf8_unicode_ci NOT NULL DEFAULT 'idea',
-  `author` varchar(30) COLLATE utf8_unicode_ci NOT NULL,
+  `author` varchar(50) COLLATE utf8_unicode_ci NOT NULL,
   `intro` text COLLATE utf8_unicode_ci NOT NULL,
   `body` text COLLATE utf8_unicode_ci,
   UNIQUE KEY `unique` (`date`,`number`)

@@ -45,7 +45,7 @@ foreach ($tmpData as $key => $value) {
 
 
 // set as useful permissions (admin, editor, etc)
-$data['permissions'] = 'admin, editor, classifier, reviewer';
+$data['permissions'] = 'admin, editor, feature-editor, classifier, reviewer';
 
 // set hashed password
 $data['password'] = Db::getHash(trim($tmpData['password']));

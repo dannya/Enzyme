@@ -160,18 +160,31 @@ class Ui {
     $buf = '<select id="' . $id . '" name="' . $name . '"' . $onChange . $style . '>';
 
     foreach ($items as $key => $value) {
+      $params = null;
+
       if ($key == $preselectKey) {
-        $selected = ' selected="selected"';
+        $params .= ' selected="selected"';
+      }
+
+      // check if value is array of options
+      if (is_array($value)) {
+        $string = $value['value'];
+
+        if (isset($value['class'])) {
+          $params .= ' class="' . $value['class'] . '"';
+        }
+
       } else {
-        $selected = null;
+        $string = $value;
       }
 
-      // fill with space character if value is empty
-      if ($value == '') {
-        $value = '&nbsp;';
+      // set string to space character if value is empty
+      if ($string == '') {
+        $string = '&nbsp;';
       }
 
-      $buf .= '<option value="' . $key . '"' . $selected . '>' . $value . '</option>';
+      // draw
+      $buf .= '<option value="' . $key . '"' . $params . '>' . $string . '</option>';
     }
 
     $buf .= '</select>';

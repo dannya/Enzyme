@@ -163,6 +163,10 @@ class Cache {
 
 
   public static function getMinInlineJs($script, $cacheKey = null) {
+    if (!LIVE_SITE) {
+      return $script;
+    }
+
     // look in cache
     if ($cacheKey) {
       $cacheKey  = $cacheKey;

@@ -249,7 +249,12 @@ function scrollToOffset(id, offset) {
 
   // make sure current item is visible in browser viewport!
   var pos = $(id).cumulativeOffset();
-  window.scrollTo(pos[0], pos[1] + offset);
+  var newPos = pos[1] + offset;
+  if (newPos < 0) {
+  	newPos = 0;
+  }
+
+  window.scrollTo(pos[0], newPos);
 }
 
 

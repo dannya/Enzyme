@@ -27,6 +27,7 @@ class Db {
                                   'data_terms',
                                   'developers',
                                   'developer_privacy',
+                                  'developer_survey',
                                   'digests',
                                   'digest_intro_people',
                                   'digest_intro_sections',
@@ -360,7 +361,8 @@ class Db {
 
     // create appropriate select query
     $selectQuery = 'SELECT * FROM ' . $table .
-                   ' WHERE ' . self::createFilter($table, $filter);
+                   ' WHERE ' . self::createFilter($table, $filter) .
+                   ' LIMIT 1';
 
     $query = mysql_query($selectQuery) or trigger_error(sprintf(_('Query failed: %s'), mysql_error()));
 
