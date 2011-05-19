@@ -39,7 +39,17 @@ if (empty($_SERVER['DOCUMENT_ROOT'])) {
 } else {
   define('COMMAND_LINE',    false);
   define('BASE_DIR',        rtrim($_SERVER['DOCUMENT_ROOT'], '/'));
-  define('BASE_URL',        'http://' . $_SERVER['HTTP_HOST']);
+
+  // set protocol
+  if (isset($_SERVER['HTTPS']) && ($_SERVER['HTTPS'] == 'on')) {
+    define('PROTOCOL',      'https://');
+  } else {
+    define('PROTOCOL',      'http://');
+  }
+
+  define('BASE_URL',        PROTOCOL . $_SERVER['HTTP_HOST']);
+  define('BASE_URL_HTTP',   'https://' . $_SERVER['HTTP_HOST']);
+  define('BASE_URL_HTTPS',  'https://' . $_SERVER['HTTP_HOST']);
 }
 
 

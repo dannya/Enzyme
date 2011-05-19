@@ -629,8 +629,8 @@ class Enzyme {
 
 
   public static function insertRevisions($start = null, $end = null, $showErrors = true) {
-    // ensure script doesn't reach execution limits
-    set_time_limit(0);
+    // ensure script doesn't reach execution limits (set to just under an hour)
+    set_time_limit(3500);
     ini_set('memory_limit', '256M');
 
     // show cmd errors?
@@ -679,8 +679,8 @@ class Enzyme {
 
 
   public static function generateStatsFromSvn($start, $end, $repoId) {
-    // ensure script doesn't reach execution limits
-    set_time_limit(0);
+    // ensure script doesn't reach execution limits (set to just under an hour)
+    set_time_limit(3500);
     ini_set('memory_limit', '256M');
 
     // allow start and end to be passed in any order
@@ -784,7 +784,7 @@ class Enzyme {
 
   public static function generateStatsFromDb($start, $end) {
     // ensure script doesn't reach execution limits
-    set_time_limit(0);
+    set_time_limit(3500);
     ini_set('memory_limit', '256M');
 
     // allow start and end to be passed in any order

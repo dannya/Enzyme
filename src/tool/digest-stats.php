@@ -27,7 +27,7 @@ if (empty($user->auth)) {
 }
 
 
-set_time_limit(0);
+set_time_limit(3500);
 ob_start();
 
 
