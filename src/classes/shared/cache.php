@@ -126,7 +126,7 @@ class Cache {
   }
 
 
-  public static function getMinJs($key, $script) {
+  public static function getMinJs($key, $script, $minScript = null) {
     // output filename
     $filename = '/js/min/' . $key . '.js';
 
@@ -148,6 +148,13 @@ class Cache {
 
       // minify
       $min = MinifyJs::minify($buf);
+
+      // append script already minified
+      if (is_array($minScript) && $minScript) {
+        foreach ($minScript as $file) {
+          $min .= file_get_contents($base . $file) . "\n\n";
+        }
+      }
 
       // write to file
       file_put_contents(BASE_DIR . $filename, $min);
