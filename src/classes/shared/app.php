@@ -115,7 +115,14 @@ class App {
       global $json;
     }
 
-    header('X-JSON: ' . json_encode($json));
+    if (JAVASCRIPT_LIBRARY == 'prototype') {
+      // prototype (send as header)
+      header('X-JSON: ' . json_encode($json));
+
+    } else {
+      // jQuery
+      echo json_encode($json);
+    }
 
     if ($finish) {
       exit;

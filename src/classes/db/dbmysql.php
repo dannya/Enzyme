@@ -39,6 +39,7 @@ abstract class DbMysql extends Db {
                                   'digest_stats_extended',
                                   'digest_stats_i18n',
                                   'digest_stats_modules',
+                                  'errors',
                                   'filetypes',
                                   'languages',
                                   'links',

@@ -16,41 +16,43 @@
 
 
 // define database settings
-define('DB_TYPE',           'Mysql');
-define('DB_HOST',           'localhost');
-define('DB_USER',           'root');
-define('DB_PASSWORD',       'hello1');
-define('DB_DATABASE',       'enzyme');
+define('DB_TYPE',             'Mysql');
+define('DB_HOST',             'localhost');
+define('DB_USER',             'root');
+define('DB_PASSWORD',         'hello1');
+define('DB_DATABASE',         'enzyme');
 
 
 // ------- YOU SHOULDN'T NEED TO MODIFY BELOW HERE --------
 
 
 // define app constants
-define('APP_ID',            'enzyme');
-define('APP_NAME',          'Enzyme');
-define('VERSION',           '1.11');
+define('APP_ID',              'enzyme');
+define('APP_NAME',            'Enzyme');
+define('VERSION',             '1.11');
+
+define('JAVASCRIPT_LIBRARY',  'prototype');
 
 
 // set initial values
 if (empty($_SERVER['DOCUMENT_ROOT'])) {
-  define('COMMAND_LINE',    true);
-  define('BASE_DIR',        dirname(__FILE__));
+  define('COMMAND_LINE',      true);
+  define('BASE_DIR',          dirname(__FILE__));
 
 } else {
-  define('COMMAND_LINE',    false);
-  define('BASE_DIR',        rtrim($_SERVER['DOCUMENT_ROOT'], '/'));
+  define('COMMAND_LINE',      false);
+  define('BASE_DIR',          rtrim($_SERVER['DOCUMENT_ROOT'], '/'));
 
   // set protocol
   if (isset($_SERVER['HTTPS']) && ($_SERVER['HTTPS'] == 'on')) {
-    define('PROTOCOL',      'https://');
+    define('PROTOCOL',        'https://');
   } else {
-    define('PROTOCOL',      'http://');
+    define('PROTOCOL',        'http://');
   }
 
-  define('BASE_URL',        PROTOCOL . $_SERVER['HTTP_HOST']);
-  define('BASE_URL_HTTP',   'http://' . $_SERVER['HTTP_HOST']);
-  define('BASE_URL_HTTPS',  'https://' . $_SERVER['HTTP_HOST']);
+  define('BASE_URL',          PROTOCOL . $_SERVER['HTTP_HOST']);
+  define('BASE_URL_HTTP',     'http://' . $_SERVER['HTTP_HOST']);
+  define('BASE_URL_HTTPS',    'https://' . $_SERVER['HTTP_HOST']);
 }
 
 
@@ -182,10 +184,10 @@ if (COMMAND_LINE) {
 // set live site vars
 if (LIVE_SITE) {
   ini_set('display_errors', false);
-  ini_set('log_errors', true);
+  ini_set('log_errors',     true);
 } else {
   ini_set('display_errors', true);
-  ini_set('log_errors', false);
+  ini_set('log_errors',     false);
 }
 
 
