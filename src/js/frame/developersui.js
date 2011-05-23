@@ -52,7 +52,7 @@ document.observe('dom:loaded', function() {
       Event.stop(event);
 
       if ($('interact-type').value == 'filter') {
-      	console.debug($('interact-value').value);
+      	//console.debug($('interact-value').value);
       }
 
       return false;

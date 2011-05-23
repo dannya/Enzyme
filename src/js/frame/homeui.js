@@ -60,7 +60,6 @@ function panelRefresh(event, thePanel) {
     },
     onSuccess: function(transport) {
       var result = transport.headerJSON;
-      console.debug(transport);
 
       if ((typeof result.success != 'undefined') && result.success) {
         // success

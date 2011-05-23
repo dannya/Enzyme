@@ -15,7 +15,7 @@
  +--------------------------------------------------------*/
 
 
-class Db {
+abstract class DbMysql extends Db {
   private static $tables  = array('applications',
                                   'bugfixers',
                                   'commits',
@@ -120,16 +120,6 @@ class Db {
     }
 
     return mysql_real_escape_string($string);
-  }
-
-
-  public static function serialize($data) {
-    return base64_encode(serialize($data));
-  }
-
-
-  public static function unserialize($data) {
-    return unserialize(base64_decode($data));
   }
 
 
@@ -243,8 +233,8 @@ class Db {
       return mysql_query($updateQuery);
 
     } else {
-      return mysql_query($updateQuery) or trigger_error(sprintf(_('Query failed: %s'), mysql_error()));
-    }
+    return mysql_query($updateQuery) or trigger_error(sprintf(_('Query failed: %s'), mysql_error()));
+  }
   }
 
 
@@ -316,7 +306,7 @@ class Db {
         return mysql_query($insertQuery);
 
       } else {
-        return mysql_query($insertQuery) or trigger_error(sprintf(_('Query failed: %s'), mysql_error()));
+      return mysql_query($insertQuery) or trigger_error(sprintf(_('Query failed: %s'), mysql_error()));
       }
 
     } else {
@@ -544,12 +534,12 @@ class Db {
         }
 
       } else if ($context == 'insert') {
-        $theKeys[] = $key;
+        $theKeys[]   = $key;
 
         if ($value === null) {
           $theValues[] = 'NULL';
         } else {
-          $theValues[] = $value;
+        $theValues[] = $value;
         }
 
       } else if ($context == 'updateMulti') {
@@ -621,7 +611,7 @@ class Db {
 
         } else {
           // use standard key processing function
-          $theKey = self::key($item[$key]);
+        $theKey = self::key($item[$key]);
         }
 
       } else {
@@ -640,16 +630,6 @@ class Db {
   }
 
 
-  public static function key($key) {
-    $pattern = array('/amp;/',
-                     '/( *)/',
-                     '/[^a-zA-Z0-9\s]/');
-    $replace = array(null);
-
-    return App::truncate(strtolower(preg_replace($pattern, $replace, $key)), 100);
-  }
-
-
   public static function id() {
     $query = mysql_query('SELECT LAST_INSERT_ID();') or trigger_error(sprintf(_('Query failed: %s'), mysql_error()));
 
@@ -658,7 +638,7 @@ class Db {
 
 
   public static function sql($sql, $index = false, $silentError = false) {
-    $data = array();
+    $data  = array();
 
     // determine how to handle errors
     if ($silentError) {
@@ -689,11 +669,6 @@ class Db {
   }
 
 
-  public static function getHash($string) {
-    return hash('ripemd160', $string);
-  }
-
-
   public static function quote($value, $sanitised = false, $isEnum = false) {
     // sanitise first?
     if (!$sanitised) {
@@ -708,6 +683,18 @@ class Db {
       return $value;
     } else if ($isEnum || (is_string($value) && ($value != 'NOW()'))) {
       return "'" . $value . "'";
+    } else {
+      return $value;
+    }
+  }
+
+
+  public static function convertDatatype($value) {
+    if ($value === 'Y') {
+      return true;
+    } else if ($value === 'N') {
+      return false;
+
     } else {
       return $value;
     }

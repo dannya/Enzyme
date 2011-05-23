@@ -277,7 +277,7 @@ class Panels {
 
   private function enzymeUpdates($refresh = false) {
     // check for updates
-    $updates = json_decode(Cache::loadSave('updates', 'file_get_contents', array('http://enzyme-project.org/get/update.php?project=' . urlencode(PROJECT_NAME) . '&version=' . VERSION . '&url=' . BASE_URL)));
+    $updates = json_decode(@Cache::loadSave('updates', 'file_get_contents', array('http://enzyme-project.org/get/update.php?project=' . urlencode(PROJECT_NAME) . '&version=' . VERSION . '&url=' . BASE_URL)));
 
 
     // set message

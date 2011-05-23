@@ -16,6 +16,7 @@
 
 
 // define database settings
+define('DB_TYPE',           'Mysql');
 define('DB_HOST',           'localhost');
 define('DB_USER',           'root');
 define('DB_PASSWORD',       'hello1');
@@ -28,7 +29,7 @@ define('DB_DATABASE',       'enzyme');
 // define app constants
 define('APP_ID',            'enzyme');
 define('APP_NAME',          'Enzyme');
-define('VERSION',           '1.10');
+define('VERSION',           '1.11');
 
 
 // set initial values
@@ -48,13 +49,14 @@ if (empty($_SERVER['DOCUMENT_ROOT'])) {
   }
 
   define('BASE_URL',        PROTOCOL . $_SERVER['HTTP_HOST']);
-  define('BASE_URL_HTTP',   'https://' . $_SERVER['HTTP_HOST']);
+  define('BASE_URL_HTTP',   'http://' . $_SERVER['HTTP_HOST']);
   define('BASE_URL_HTTPS',  'https://' . $_SERVER['HTTP_HOST']);
 }
 
 
 // add class dirs to include path
-$classDirs = array(BASE_DIR . '/classes/shared/',
+$classDirs = array(BASE_DIR . '/classes/db/',
+                   BASE_DIR . '/classes/shared/',
                    BASE_DIR . '/classes/specific/',
                    BASE_DIR . '/classes/ext/',
                    BASE_DIR . '/classes/ui/',
