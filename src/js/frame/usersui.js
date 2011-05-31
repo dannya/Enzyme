@@ -29,7 +29,7 @@ function addUser() {
     
     // scroll to and highlight new row
     if ($('row-new-' + newRowCounter)) {
-    	$('row-new-' + newRowCounter).scrollTo();
+    	scrollToOffset($('row-new-1'), -50);
     	
       new Effect.Highlight($('row-new-' + newRowCounter), {
         startcolor: '#d0f1c0',

@@ -77,6 +77,16 @@ class DigestsUi extends BaseUi {
 
 
   private function drawMenu() {
+    // get editors, preselect editor?
+    $editors = Digest::getUsersByPermission('editor');
+
+    if (isset($editors['team'])) {
+      $preselectEditor = 'team';
+    } else {
+      $preselectEditor = null;
+    }
+
+
     // draw "create a new digest" form
     $buf = '<h3>' .
               _('Create a New Digest') .
@@ -109,7 +119,7 @@ class DigestsUi extends BaseUi {
                 <tr>
                   <td class="label">' . _('Editor') . '</td>
                     <td class="value">' .
-                      Ui::htmlSelector('info-editor', Digest::getUsersByPermission('editor')) .
+                      Ui::htmlSelector('info-editor', $editors, $preselectEditor) .
            '        </td>
                 </tr>
               </tbody>

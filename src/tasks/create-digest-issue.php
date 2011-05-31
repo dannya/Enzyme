@@ -43,11 +43,21 @@ $issue = Digest::loadDigest($date);
 
 // create digest issue?
 if (!$issue) {
+  // choose appropriate editor
+  $editors = Digest::getUsersByPermission('editor');
+
+  if (isset($editors['team'])) {
+    $preselectEditor = 'team';
+  } else {
+    $preselectEditor = key($editors);
+  }
+
+  // set initial data for issue
   $data    = array('id'        => Db::count('digests', array('type' => 'issue')) + 1,
                    'date'      => $date,
                    'type'      => 'issue',
                    'language'  => 'en_US',
-                   'author'    => 'dannya');
+                   'author'    => $preselectEditor);
 
   // insert new digest
   $success = Db::insert('digests', $data, true);
