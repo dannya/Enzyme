@@ -375,8 +375,15 @@ class Enzyme {
   }
 
 
-  public static function formatMsg($msg) {
-    return str_ireplace(array('<br>', "\n", '&'), array('<br />', '<br />', '&amp;'), $msg);
+  public static function formatMsg($msg, $htmlLiteral = false) {
+    if ($htmlLiteral) {
+      $msg = htmlspecialchars($msg, ENT_NOQUOTES, 'UTF-8', false);
+
+      return str_ireplace(array('<br>', "\n"), array('<br />', '<br />'), $msg);
+
+    } else {
+      return str_ireplace(array('<br>', "\n", '&'), array('<br />', '<br />', '&amp;'), $msg);
+    }
   }
 
 

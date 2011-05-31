@@ -314,7 +314,7 @@ class Ui {
            '  </div>
               <div class="commit-msg">
                 <span>' .
-                  Enzyme::formatMsg($data['msg']) .
+                  Enzyme::formatMsg($data['msg'], true) .
            '    </span>' .
                 $bugs .
            '  </div>';
