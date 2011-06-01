@@ -613,7 +613,7 @@ class Digest {
 
       // show name of repository?
       if (!empty($commit['repository'])) {
-        $repository = Ui::formatRepositoryName($commit['repository']);
+        $repository = Enzyme::formatRepositoryName($commit['repository']);
       } else {
         $repository = null;
       }

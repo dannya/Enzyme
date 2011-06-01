@@ -84,7 +84,7 @@ class ReviewUi extends BaseUi {
         }
 
         $key = 'commit-item-' . $counter++;
-        $buf .= Ui::displayRevision('review', $key, $revision, $developers, $this->user);
+        $buf .= Enzyme::displayRevision('review', $key, $revision, $developers, $this->user);
       }
     }
 
@@ -104,7 +104,7 @@ class ReviewUi extends BaseUi {
 
   public function drawFooter() {
     // draw status/action area
-    $buf = Ui::statusArea($this->id);
+    $buf = Enzyme::statusArea($this->id);
 
     return $buf;
   }

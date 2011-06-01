@@ -83,7 +83,7 @@ class ClassifyUi extends BaseUi {
 
       foreach ($revisions as $revision) {
         $key = 'commit-item-' . $counter++;
-        $buf .= Ui::displayRevision('classify', $key, $revision, $developers, $this->user, $classifications);
+        $buf .= Enzyme::displayRevision('classify', $key, $revision, $developers, $this->user, $classifications);
       }
     }
 
@@ -104,9 +104,9 @@ class ClassifyUi extends BaseUi {
   public function drawFooter() {
     // draw status/action area
     if ($this->user->data['interface'] == 'mouse') {
-      $buf = Ui::statusArea($this->id, $this->user);
+      $buf = Enzyme::statusArea($this->id, $this->user);
     } else {
-      $buf = $this->classifyKey() . Ui::statusArea($this->id, $this->user);
+      $buf = $this->classifyKey() . Enzyme::statusArea($this->id, $this->user);
     }
 
     return $buf;
