@@ -48,7 +48,7 @@ class Enzyme {
       // extract data
       if ($page) {
         $bug['date']       = (string)$page->bug->creation_ts;
-        $bug['title']      = (string)$page->bug->short_desc;
+        $bug['title']      = self::stripSmartQuotes((string)$page->bug->short_desc);
         $bug['product']    = (string)$page->bug->product;
         $bug['component']  = (string)$page->bug->component;
         $bug['votes']      = (string)$page->bug->votes;
@@ -1754,6 +1754,23 @@ class Enzyme {
 
   public static function formatRepositoryName($repositoryName) {
     return '[' . $repositoryName . '] ';
+  }
+
+
+  public static function stripSmartQuotes($string) {
+    $search = array(chr(145),
+                    chr(146),
+                    chr(147),
+                    chr(148),
+                    chr(151));
+
+    $replace = array("'",
+                     "'",
+                     '"',
+                     '"',
+                     '-');
+
+    return str_replace($search, $replace, $string);
   }
 }
 

@@ -19,6 +19,10 @@ class Date {
   public static function get($type, $date) {
     if ($type == 'full') {
       $format = 'jS F Y';
+    } else if ($type == 'full-day') {
+      $format = 'l, jS F Y';
+    } else if ($type == 'full-day-time') {
+      $format = 'l, jS F Y @ g:ia';
     } else if ($type == 'short') {
       $format = 'd/m/Y';
     }
@@ -60,6 +64,48 @@ class Date {
     $difference = round($difference);
 
     return sprintf($periods[$j], $difference);
+  }
+
+
+  public static function getSelectData($context, $prependBlank = false) {
+    if ($prependBlank) {
+      $data = array(0 => '&nbsp;');
+    } else {
+      $data = array();
+    }
+
+    if ($context == 'days') {
+      for ($i = 1; $i <= 31; $i++) {
+        $data[$i] = $i;
+      }
+
+    } else if ($context == 'months') {
+      $data = array('01' => _('January'),
+                    '02' => _('February'),
+                    '03' => _('March'),
+                    '04' => _('April'),
+                    '05' => _('May'),
+                    '06' => _('June'),
+                    '07' => _('July'),
+                    '08' => _('August'),
+                    '09' => _('September'),
+                    '10' => _('October'),
+                    '11' => _('November'),
+                    '12' => _('December'));
+
+      if ($prependBlank) {
+        $data = array_merge(array(0 => '&nbsp;'), $data);
+      }
+
+    } else if ($context == 'years') {
+      $time = self::load();
+
+      for ($i = ($time['year'] - 12); $i >= ($time['year'] - 80); $i--) {
+        $data[$i] = $i;
+      }
+    }
+
+    return $data;
   }
 }
 

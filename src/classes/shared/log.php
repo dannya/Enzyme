@@ -16,12 +16,11 @@
 
 
 class Log {
-  public static function error($error) {
+  public static function error($error, $userData = false) {
     $backtrace  = debug_backtrace();
     $source     = reset($backtrace);
 
     // set error details
-    $data['date']       = date('Y-m-d H:i:s');
     $data['file']       = $source['file'];
     $data['line']       = $source['line'];
     $data['page']       = $_SERVER['SCRIPT_NAME'];
@@ -29,6 +28,16 @@ class Log {
     $data['browser']    = $_SERVER['HTTP_USER_AGENT'];
     $data['string']     = $error;
     $data['backtrace']  = Db::serialize($backtrace);
+
+    // add user data?
+    if ($userData && class_exists('User')) {
+      if ($userData === true) {
+        // try and load user data
+        $userData = new User();
+      }
+
+      $data['user'] = Db::serialize($userData);
+    }
 
     // insert into errors table
     Db::insert('errors', $data);

@@ -50,7 +50,7 @@ abstract class DbMysql extends Db {
 
   public static function connect() {
     // connect to database server
-    mysql_pconnect(DB_HOST, DB_USER, DB_PASSWORD) or trigger_error(sprintf(_("Couldn't connect to database: ensure you have set the correct values at the top of %s/autoload.php"), BASE_DIR));
+    mysql_connect(DB_HOST, DB_USER, DB_PASSWORD) or trigger_error(sprintf(_("Couldn't connect to database: ensure you have set the correct values at the top of %s/autoload.php"), BASE_DIR));
 
     // select database
     $success = @mysql_select_db(DB_DATABASE);
@@ -705,6 +705,29 @@ abstract class DbMysql extends Db {
   public static function prepareLike($value) {
     // remove & and _
     return str_replace(array('%', '_'), null, $value);
+  }
+
+
+  public static function objectify($class, $data) {
+    if (!$data) {
+      return $data;
+    }
+
+    if (isset($data[0])) {
+      // numerically-indexed, create list of objects
+      $list = array();
+
+      foreach ($data as $item) {
+         $list[] = new $class($item);
+      }
+
+      return $list;
+
+    } else {
+      // create single object
+      return new $class($data);
+    }
+
   }
 }
 
