@@ -29,7 +29,17 @@ define('DB_DATABASE',         'enzyme');
 // define app constants
 define('APP_ID',              'enzyme');
 define('APP_NAME',            'Enzyme');
-define('VERSION',             '1.12');
+define('VERSION',             '1.13');
+
+
+// define meta tags
+define('META_DESCRIPTION',    'A project-independent tool for creating regular project reports and assisting interesting statistical analysis.');
+define('META_KEYWORDS',       'enzyme, digest, open source');
+
+
+// make APP_ID's consistently available
+define('DIGEST_APP_ID',       'commit-digest');
+define('ENZYME_APP_ID',       APP_ID);
 
 define('JAVASCRIPT_LIBRARY',  'prototype');
 
@@ -152,11 +162,6 @@ if (($_SERVER['SCRIPT_NAME'] == '/js/index.php') ||
     }
   }
 }
-
-
-// define meta tags
-define('META_DESCRIPTION',  'A project-independent tool for creating regular project reports and assisting interesting statistical analysis.');
-define('META_KEYWORDS',     'enzyme, digest, open source');
 
 
 // define environment settings

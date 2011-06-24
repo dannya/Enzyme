@@ -62,7 +62,8 @@ Cache::delete(array('issue_latest',
                     'issue_earliest',
                     'archive_latest',
                     'archive_latest_unpublished',
-                    'archive_earliest'), 'digest');
+                    'archive_earliest'),
+              DIGEST_APP_ID);
 
 
 // report success
