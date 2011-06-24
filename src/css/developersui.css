@@ -95,6 +95,12 @@ table td.column-button,
 table th.column:first-child {
   width:28px;
 }
+table .column-name {
+  width:180px;
+}
+table .column-email {
+  width:260px;
+}
 table .column-gender {
   width:90px;
 }
@@ -142,7 +148,8 @@ table .editing input {
 
 table#developers,
 table#developers-headers {
-  width:3012px;
+  table-layout:fixed;
+  width:3212px;
 }
 
 
