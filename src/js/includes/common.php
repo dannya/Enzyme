@@ -549,14 +549,14 @@ function changeInterface(context) {
 }
 
 
-function showIndicator(context, class) {
-  if ((typeof context == 'undefined') || (typeof class == 'undefined')) {
+function showIndicator(context, theClass) {
+  if ((typeof context == 'undefined') || (typeof theClass == 'undefined')) {
     return false;
   }
 
   if ($('indicator-' + context)) {
     // change class
-    $('indicator-' + context).writeAttribute('class', class);
+    $('indicator-' + context).writeAttribute('class', theClass);
 
     // show for x seconds, then hide
     new Effect.Appear('indicator-' + context, {
