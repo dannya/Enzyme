@@ -72,7 +72,7 @@ document.observe('dom:loaded', function() {
   
   // observe clicks on table so we can fields edit-on-click
   $('body').observe('click', function(event) {
-  	var element = event.element();
+  	var element = Event.element(event);
 
   	// catch clicks anywhere (except editable cells!) to finish editing
   	if ((element.tagName != 'OPTION') && !element.hasClassName('editable')) {
@@ -297,7 +297,7 @@ function changeInteractType(event) {
 		return false;
 	}
 	
-	var element = event.element();
+	var element = Event.element(event);
 
 	if (element.value == 'filter') {
 		// hide button
@@ -326,7 +326,7 @@ function changeInteractField(event, element) {
   
   // get element
   if (typeof element != 'object') {
-    var element = event.element();
+    var element = Event.element(event);
   }
   
   if ((element.value == 'gender') || (element.value == 'continent') || (element.value == 'motivation') || (element.value == 'microblog_type')) {

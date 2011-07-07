@@ -46,7 +46,7 @@ function saveNewAccount(event) {
   }
 
   // get data fields
-  var parentRow = event.element().up('tr');
+  var parentRow = Event.element(event).up('tr');
   var fields    = parentRow.select('input');
 
   // check that needed fields are filled
@@ -182,7 +182,7 @@ function saveChange(user, event) {
     return false;
   }
 
-  var element     = event.element();
+  var element     = Event.element(event);
 
   // get new data
   var elementType = element.readAttribute('type');  
@@ -397,7 +397,7 @@ function availableJob(event, theJob) {
     return false;
   }
 
-  var element = event.element();
+  var element = Event.element(event);
 
   // send off change
   new Ajax.Request(BASE_URL + '/get/available-jobs.php', {

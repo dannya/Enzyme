@@ -70,7 +70,7 @@ function actionNext(event) {
 function actionSelect(event) {
   if (event.type == 'click') {
     // set clicked item as currentItem
-    itemCounter = parseInt(event.element().up('div.item').readAttribute('id').split('-')[2]);
+    itemCounter = parseInt(Event.element(event).up('div.item').readAttribute('id').split('-')[2]);
   }
 
   markCommit();

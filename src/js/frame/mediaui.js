@@ -47,12 +47,12 @@ function addMediaForm(event) {
 
 
   // all ok, disable clicked button and run through to form submit
-  event.element().disabled = true;
+  Event.element(event).disabled = true;
 }
 
 
 function changeNewMediaType(event) {	
-	var element  = event.element();
+	var element  = Event.element(event);
 	var selected = element.options[element.selectedIndex].value;
 
   // change elements
@@ -221,7 +221,7 @@ function saveChange(theDate, theNumber, event) {
   }
 
 
-  var element     = event.element();
+  var element     = Event.element(event);
 
   // get new data
   var elementType = element.readAttribute('type');  

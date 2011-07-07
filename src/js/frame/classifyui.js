@@ -120,7 +120,7 @@ function changeKey(theType) {
 
 function setClassifyUserFilter(event) { 
   // convert checkbox into actual setting
-  if ((typeof event != 'undefined') && event.element().checked) {
+  if ((typeof event != 'undefined') && Event.element(event).checked) {
   	var setFilter = 'Y';
   } else {
   	var setFilter = 'N';

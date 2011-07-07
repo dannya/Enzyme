@@ -181,7 +181,7 @@ function checkPathsInput(event) {
     return false;
   }
 
-  var element   = event.element();
+  var element   = Event.element(event);
   var selected  = element.options[element.selectedIndex].value;
 
   if ((selected == 'reviewer') || (selected == 'classifier')) {
@@ -338,7 +338,7 @@ function changeLanguage(event) {
     return false;
   }
   
-  var element   = event.element();
+  var element   = Event.element(event);
   var language  = element.options[element.selectedIndex].value;
 
   // change location with language set

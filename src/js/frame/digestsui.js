@@ -370,7 +370,7 @@ function insertSection(event, theDate, theContext, number) {
 
   if (success) {
     // change onclick action
-  	var button = event.element().up('div.save-introduction');
+  	var button = Event.element(event).up('div.save-introduction');
 
   	button.writeAttribute('onclick', "saveSection('" + theDate + "', '" + theContext + "', " + number + ");");
   }
@@ -423,11 +423,11 @@ function changeSectionNumber(event, theDate, itemNum) {
           }
 
 			    // write new number into box
-			    event.element().update(newItemNum);
+			    Event.element(event).update(newItemNum);
 
 	      } else {
 	        // failure (chosen number probably already in use)
-		      new Effect.Highlight(event.element(), {
+		      new Effect.Highlight(Event.element(event), {
 		        startcolor: '#d40000',
 		        duration:   2
 		      });

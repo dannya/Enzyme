@@ -395,7 +395,7 @@ class Developer {
     if ($enhanced) {
       $keys['country']      = Digest::getCountries('simple');
     } else {
-    $keys['country']        = Digest::getCountries('basic');
+      $keys['country']      = Digest::getCountries('basic');
     }
 
     $keys['microblog_type'] = array('twitter'         => _('twitter.com'),

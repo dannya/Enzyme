@@ -85,7 +85,7 @@ var enums  = {};
 
   foreach ($enums as $section) {
   	foreach ($section as $key => $value) {
-  	  echo 'enums.' . str_replace('-', '_', $key) . ' = "' . $value . '";' . "\n";	
+  	  echo 'enums["' . str_replace('-', '_', $key) . '"] = "' . $value . '";' . "\n";	
   	}
   }
 ?>
@@ -489,7 +489,7 @@ function checkScroll() {
 
 
 function inputPrompt(event) {
-  var element = event.element();
+  var element = Event.element(event);
   var tagname = element.tagName;
 
   if (event.type == 'focus') {

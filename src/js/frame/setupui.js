@@ -63,7 +63,7 @@ function saveNewRepository(event) {
   }
 
   // get data fields
-  var parentRow = event.element().up('tr');
+  var parentRow = Event.element(event).up('tr');
   var fields    = parentRow.select('input, select');
 
   // check that needed fields are filled
@@ -147,7 +147,7 @@ function saveChange(repo, event) {
     return false;
   }
 
-  var element     = event.element();
+  var element     = Event.element(event);
 
   // get new data
   var theDataType = element.readAttribute('name');
