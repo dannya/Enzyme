@@ -55,10 +55,20 @@ class Digest {
     if ($getValid) {
       // load list of issues
       if (!$onlyPublished) {
-        $issues = Cache::loadSave('issue_latest_unpublished', 'Digest::loadDigests', array('issue', 'latest', false));
+        $issues = Cache::loadSave(array('base'  => DIGEST_APP_ID,
+                                        'id'    => 'issue_latest_unpublished'),
+                                  'Digest::loadDigests',
+                                  array('issue',
+                                        'latest',
+                                        false));
       } else {
         // only get published
-        $issues = Cache::loadSave('issue_latest', 'Digest::loadDigests', array('issue', 'latest', true));
+        $issues = Cache::loadSave(array('base'  => DIGEST_APP_ID,
+                                        'id'    => 'issue_latest'),
+                                  'Digest::loadDigests',
+                                  array('issue',
+                                        'latest',
+                                        true));
       }
 
       $key = self::findIssueDate($date, $issues, $accurate);

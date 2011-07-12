@@ -57,13 +57,13 @@ $json['success'] = Digest::setPublishedState($_REQUEST['date'], $newState);
 
 
 // clear issues list caches
-Cache::delete(array('issue_latest',
-                    'issue_latest_unpublished',
-                    'issue_earliest',
-                    'archive_latest',
-                    'archive_latest_unpublished',
-                    'archive_earliest'),
-              DIGEST_APP_ID);
+Cache::delete(array('base' => DIGEST_APP_ID,
+                    'id'   => array('issue_latest',
+                                    'issue_latest_unpublished',
+                                    'issue_earliest',
+                                    'archive_latest',
+                                    'archive_latest_unpublished',
+                                    'archive_earliest')));
 
 
 // report success

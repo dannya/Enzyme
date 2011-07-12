@@ -17,16 +17,20 @@
 
 class Cache {
   public static function exists($key) {
-    return apc_exists(APP_ID . '_' . $key);
+    self::getKey($key);
+
+    return apc_exists($key['full']);
   }
 
 
   public static function load($key, $unserialize = false) {
+    self::getKey($key);
+
     if ($unserialize) {
-      return Db::unserialize(apc_fetch(APP_ID . '_' . $key));
+      return Db::unserialize(apc_fetch($key['full']));
 
     } else {
-      return apc_fetch(APP_ID . '_' . $key);
+      return apc_fetch($key['full']);
     }
   }
 
@@ -34,6 +38,9 @@ class Cache {
   public static function loadSave($key, $function, $args = array(), $newData = null,
                                   $serialize = false, $ttl = 0) {
 
+    self::getKey($key);
+
+    // attempt to load data
     $data = self::load($key, $serialize);
 
     if (!empty($data)) {
@@ -54,16 +61,18 @@ class Cache {
   }
 
 
-  public static function delete($key, $baseKey = APP_ID) {
-    if (is_array($key)) {
+  public static function delete($key) {
+    self::getKey($key);
+
+    if (is_array($key['id'])) {
       $success = true;
 
-      foreach ($key as $theKey) {
-        if ($baseKey === false) {
+      foreach ($key['id'] as $theKey) {
+        if ($key['base'] === false) {
           // sometimes, we can only pass the full key name
           $tmpSuccess = apc_delete($theKey);
         } else {
-          $tmpSuccess = apc_delete($baseKey . '_' . $theKey);
+          $tmpSuccess = apc_delete($key['base'] . '_' . $theKey);
         }
 
         // report any failures
@@ -75,23 +84,26 @@ class Cache {
       return $success;
 
     } else {
-      if ($baseKey === false) {
+      if ($key['base'] === false) {
         // sometimes, we can only pass the full key name
-        return apc_delete($key);
+        return apc_delete($key['id']);
+
       } else {
-        return apc_delete($baseKey . '_' . $key);
+        return apc_delete($key['full']);
       }
     }
   }
 
 
-  public static function deletePartial($key, $baseKey = APP_ID) {
+  public static function deletePartial($key) {
+    self::getKey($key);
+
     $deleted  = 0;
     $cache    = apc_cache_info('user');
 
     foreach ($cache['cache_list'] as $item) {
-      if ((strpos($item['info'], $baseKey . '_') !== false) &&
-          (strpos($item['info'], $key) !== false)) {
+      if ((strpos($item['info'], $key['base'] . '_') !== false) &&
+          (strpos($item['info'], $key['id']) !== false)) {
 
         // partial key found (in app namespace!), delete
         self::delete($item['info'], false);
@@ -104,12 +116,14 @@ class Cache {
 
 
   public static function store($key, $data, $serialize = false, $ttl = 0) {
+    self::getKey($key);
+
     if (function_exists('apc_add')) {
       if ($serialize) {
         $data = Db::serialize($data);
       }
 
-      return apc_add(APP_ID . '_' . $key, $data, $ttl);
+      return apc_add($key['full'], $data, $ttl);
 
     } else {
       return self::save($key, $data, $serialize, $ttl);
@@ -118,17 +132,21 @@ class Cache {
 
 
   public static function save($key, $data, $serialize = false, $ttl = 0) {
+    self::getKey($key);
+
     if ($serialize) {
       $data = Db::serialize($data);
     }
 
-    return apc_store(APP_ID . '_' . $key, $data, $ttl);
+    return apc_store($key['full'], $data, $ttl);
   }
 
 
   public static function getMinJs($key, $script, $minScript = null) {
+    self::getKey($key);
+
     // output filename
-    $filename = '/js/min/' . $key . '.js';
+    $filename = '/js/min/' . $key['id'] . '.js';
 
     if (!is_file(BASE_DIR . $filename)) {
       // minify script
@@ -193,6 +211,28 @@ class Cache {
     }
 
     return $min;
+  }
+
+
+  private static function getKey(&$key) {
+    if (is_array($key)) {
+      if (isset($key['base']) || isset($key['id'])) {
+        // already set, return
+        return true;
+      }
+
+      $tmp['base']  = $key[0];
+      $tmp['id']    = $key[1];
+
+    } else {
+      $tmp['base']  = APP_ID;
+      $tmp['id']    = $key;
+    }
+
+    $tmp['full']    = $tmp['base'] . '_' . $tmp['id'];
+
+    // set
+    $key = $tmp;
   }
 }
 
