@@ -642,7 +642,7 @@ class Enzyme {
     }
 
     // load from db
-    return Db::reindex(Db::load('links', false), $indexBy, $lowercase, false);
+    return Db::reindex(Db::load('links', false), $indexBy, $lowercase);
   }
 
 

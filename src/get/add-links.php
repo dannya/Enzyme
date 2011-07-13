@@ -43,7 +43,7 @@ if (!$user->hasPermission('admin')) {
 
 
 // load links (lowercase)
-$links = Cache::loadSave('linksLowercase', 'Enzyme::loadLinks', array(true));
+$links = Cache::loadSave('links_lowercase', 'Enzyme::loadLinks', array(true));
 
 
 // split data into individual words
