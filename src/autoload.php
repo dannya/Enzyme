@@ -29,7 +29,7 @@ define('DB_DATABASE',         'enzyme');
 // define app constants
 define('APP_ID',              'enzyme');
 define('APP_NAME',            'Enzyme');
-define('VERSION',             '1.14');
+define('VERSION',             '1.15');
 
 
 // define meta tags

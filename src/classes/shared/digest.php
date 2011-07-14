@@ -657,7 +657,7 @@ class Digest {
         }
 
         $buf .= '<div class="bug">
-                   <a class="n" href="' . WEBBUG . $bug['bug'] . '" target="_blank">' . sprintf(_('Bug %d: %s'), $bug['bug'], App::truncate(htmlentities($bug['title']), 90, true)) . '</a>
+                   <a class="n" href="' . Enzyme::getSettingUrl(WEBBUG, $bug['bug']) . '" target="_blank">' . sprintf(_('Bug %d: %s'), $bug['bug'], App::truncate(htmlentities($bug['title']), 90, true)) . '</a>
 
                    <div>' .
                      $icon .

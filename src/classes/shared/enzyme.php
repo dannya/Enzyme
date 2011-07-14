@@ -30,7 +30,7 @@ class Enzyme {
 
     // TODO: sanity check
     if ($bug['bug'] == 0) {
-      print_r($bug);
+      Log::error('Bug ID == 0');
       exit;
     }
 
@@ -43,7 +43,7 @@ class Enzyme {
 
     } else {
       // get bug page
-      $page = simplexml_load_string(file_get_contents(WEBBUG_XML . $bug['bug']));
+      $page = simplexml_load_string(file_get_contents(self::getSettingUrl(WEBBUG_XML, $bug['bug'])));
 
       // extract data
       if ($page) {
@@ -208,7 +208,7 @@ class Enzyme {
                                                              '1'  => _('Yes')),
                                           'default' => '1',
                                           'example' => null);
-    $tmp['AUTO_DISCARD_COMMITS']  = array('title'   => _('Auto Discard Commits'),
+    $tmp['AUTO_REVIEW_COMMITS']   = array('title'   => _('Auto Review Commits'),
                                           'valid'   => array('0'  => _('No'),
                                                              '1'  => _('Yes')),
                                           'default' => '1',
@@ -232,14 +232,18 @@ class Enzyme {
                                           'valid'   => null,
                                           'default' => null,
                                           'example' => 'http://cia.vc/stats/project/KDE/.rss?ver=2&medium=plaintext&limit=10');
-    $tmp['WEBBUG']                = array('title'   => _('Web Bug Tracker'),
+    $tmp['WEBBUG']                = array('title'   => _('Web Bug Tracker URL'),
                                           'valid'   => null,
                                           'default' => null,
                                           'example' => null);
-    $tmp['WEBBUG_XML']            = array('title'   => _('Web Bug Tracker XML'),
+    $tmp['WEBBUG_XML']            = array('title'   => _('Web Bug Tracker (XML) URL'),
                                           'valid'   => null,
                                           'default' => null,
                                           'example' => null);
+    $tmp['REVIEWBOARD']           = array('title'   => _('ReviewBoard URL'),
+                                          'valid'   => null,
+                                          'default' => null,
+                                          'example' => 'https://git.reviewboard.kde.org/r/[number]/');
     $tmp['I18N_STATS']            = array('title'   => _('I18n Stats URL'),
                                           'valid'   => null,
                                           'default' => null,
@@ -298,7 +302,7 @@ class Enzyme {
                                              'HELP_CONTAINER'         => $tmp['HELP_CONTAINER'],
                                              'SMTP'                   => $tmp['SMTP'],
                                              'SHOW_INSERT'            => $tmp['SHOW_INSERT'],
-                                             'AUTO_DISCARD_COMMITS'   => $tmp['AUTO_DISCARD_COMMITS'],
+                                             'AUTO_REVIEW_COMMITS'    => $tmp['AUTO_REVIEW_COMMITS'],
                                              'DATA_TERMS_VERSION'     => $tmp['DATA_TERMS_VERSION'],
                                              'SURVEY_ACTIVE'          => $tmp['SURVEY_ACTIVE']));
 
@@ -307,6 +311,7 @@ class Enzyme {
                                              'RECENT_COMMITS'         => $tmp['RECENT_COMMITS'],
                                              'WEBBUG'                 => $tmp['WEBBUG'],
                                              'WEBBUG_XML'             => $tmp['WEBBUG_XML'],
+                                             'REVIEWBOARD'            => $tmp['REVIEWBOARD'],
                                              'I18N_STATS'             => $tmp['I18N_STATS'],
                                              'I18N_TEAMS'             => $tmp['I18N_TEAMS'],
                                              'BUG_STATS'              => $tmp['BUG_STATS']));
@@ -387,14 +392,44 @@ class Enzyme {
 
 
   public static function formatMsg($msg, $htmlLiteral = false) {
+    // replace with correct new-lines
     if ($htmlLiteral) {
       $msg = htmlspecialchars($msg, ENT_NOQUOTES, 'UTF-8', false);
-
-      return str_ireplace(array('<br>', "\n"), array('<br />', '<br />'), $msg);
+      $msg = str_ireplace(array('<br>', "\n"), array('<br />', '<br />'), $msg);
 
     } else {
-      return str_ireplace(array('<br>', "\n", '&'), array('<br />', '<br />', '&amp;'), $msg);
+      $msg = str_ireplace(array('<br>', "\n", '&'), array('<br />', '<br />', '&amp;'), $msg);
     }
+
+
+    // replace URL's with hyperlinks
+    if (strpos($msg, 'http') !== false) {
+      preg_match_all('#\bhttps?://[^\s()<>]+(?:\([\w\d]+\)|([^[:punct:]\s]|/))#', $msg, $matches);
+
+      if (isset($matches[0])) {
+        foreach ($matches[0] as $match) {
+          $msg = str_replace($match, '<a href="' . $match . '" target="_blank">' . $match . '</a>', $msg);
+        }
+      }
+    }
+
+
+    // replace REVIEW:XXXXX with links
+    if (REVIEWBOARD && (stripos($msg, 'REVIEW:') !== false)) {
+      preg_match_all('/(REVIEW)[:]?[=]?[ ]?[#]?[0-9]{4,7}/', $msg, $matches);
+
+      if (isset($matches[0])) {
+        foreach ($matches[0] as $match) {
+          // extract review number
+          preg_match('/[0-9]{4,7}/', $match, $tmp);
+
+          $msg = str_replace($match, '<a href="' . self::getSettingUrl(REVIEWBOARD, $tmp[0]) . '" target="_blank">' . $match . '</a>', $msg);
+        }
+      }
+    }
+
+
+    return $msg;
   }
 
 
@@ -1538,7 +1573,7 @@ class Enzyme {
         $bugs = '<div class="bugs">';
 
         foreach ($data['bug'] as $bug) {
-          $bugs  .= '<div onclick="window.open(\'' . WEBBUG . $bug['bug'] . '\');" title="' . sprintf(_('Bug %d: %s'), $bug['bug'], App::truncate(htmlentities($bug['title']), 90, true)) . '">
+          $bugs  .= '<div onclick="window.open(\'' . self::getSettingUrl(WEBBUG, $bug['bug']) . '\');" title="' . sprintf(_('Bug %d: %s'), $bug['bug'], App::truncate(htmlentities($bug['title']), 90, true)) . '">
                        &nbsp;
                      </div>';
         }
@@ -1778,6 +1813,54 @@ class Enzyme {
                      '-');
 
     return str_replace($search, $replace, $string);
+  }
+
+
+  public static function autoReview($commit, $lastPublishedIssue = null) {
+    $autoReview = false;
+
+    if (AUTO_REVIEW_COMMITS) {
+      if (!$lastPublishedIssue) {
+        $lastPublishedIssue = strtotime(Digest::getLastIssueDate(null, true, true)) - 1209600;
+      }
+
+      // check whether to auto-review
+      if (!empty($commit['commit']['format']) && ($commit['commit']['format'] == 'git')) {
+        // auto review if:
+        //  * commit date is less than last published issue
+        //  * commit message is less than 14 chars long
+        if (($commit['tmp']['date'] < $lastPublishedIssue) ||
+            (strlen($commit['commit']['msg']) < 14)) {
+
+          $autoReview = true;
+        }
+
+      } else {
+        // auto review if:
+        //  * commit message is less than 14 chars long
+        if (strlen($commit['commit']['msg']) < 14) {
+          $autoReview = true;
+        }
+      }
+
+
+      // do auto-review if set
+      if ($autoReview) {
+        $reviewed = array('revision'  => $commit['commit']['revision'],
+                          'marked'    => 1,
+                          'reviewer'  => 'enzyme',
+                          'reviewed'  => date('Y-m-d H:i:s'));
+
+        Db::insert('commits_reviewed', $reviewed, true);
+      }
+    }
+
+    return $autoReview;
+  }
+
+
+  public static function getSettingUrl($url, $replace, $type = 'number') {
+    return str_replace('[number]', $replace, $url);
   }
 }
 

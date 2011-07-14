@@ -81,19 +81,29 @@ class Svn extends Connector {
     $data   = simplexml_load_string(utf8_encode($data));
 
 
+    // get date of last published issue (+ 14 day safety margin) for commit comparison?
+    if (AUTO_REVIEW_COMMITS) {
+      $lastPublishedIssue = strtotime(Digest::getLastIssueDate(null, true, true)) - 1209600;
+    }
+
+
     // process and store data
     foreach ($data as $entry) {
-      // set data into useful data structure
-      unset($commit);
+      // initialise
+      $parsed['commit']       = array();
+      $parsed['commitFiles']  = array();
+      $parsed['tmp']          = array();
+      $parsed['tmp']['paths'] = array();
+
 
       // get commit revision
-      $commit['revision'] = (int)$entry->attributes()->revision;
+      $parsed['commit']['revision'] = (int)$entry->attributes()->revision;
 
 
       // check if revision has already been processed
-      if (isset($processedRevisions[$commit['revision']])) {
+      if (isset($processedRevisions[$parsed['commit']['revision']])) {
         if (COMMAND_LINE || !empty($_REQUEST['show_skipped'])) {
-          Ui::displayMsg(sprintf(_('Skipping revision %s'), $commit['revision']), 'msg_skip');
+          Ui::displayMsg(sprintf(_('Skipping revision %s'), $parsed['commit']['revision']), 'msg_skip');
         }
 
         // increment summary counter
@@ -104,40 +114,44 @@ class Svn extends Connector {
 
 
       // get additional commit data
-      $commit['date']       = date('Y-m-d H:i:s', strtotime((string)$entry->date));
-      $commit['developer']  = (string)$entry->author;
-      $commit['msg']        = Enzyme::processCommitMsg($commit['revision'], (string)$entry->msg);
-      $commit['format']     = 'svn';
+      $parsed['tmp']['date']          = strtotime((string)$entry->date);
+
+      $parsed['commit']['date']       = date('Y-m-d H:i:s', $parsed['tmp']['date']);
+      $parsed['commit']['developer']  = (string)$entry->author;
+      $parsed['commit']['msg']        = Enzyme::processCommitMsg($parsed['commit']['revision'], (string)$entry->msg);
+      $parsed['commit']['format']     = 'svn';
 
 
       // insert commit files into database
       if (!empty($entry->paths->path[0])) {
-        $tmpPaths               = array();
-        $commitFile['revision'] = $commit['revision'];
+        $parsed['commitFiles']['revision'] = $parsed['commit']['revision'];
 
         // hold in tmp variable to fix PHP memory issues
         $paths = $entry->paths->path;
 
         foreach ($paths as $path) {
-          $commitFile['path']       = (string)$path;
-          $commitFile['operation']  = (string)$path->attributes()->action;
+          $parsed['commitFiles']['path']       = (string)$path;
+          $parsed['commitFiles']['operation']  = (string)$path->attributes()->action;
 
-          Db::insert('commit_files', $commitFile, true);
+          Db::insert('commit_files', $parsed['commitFiles'], true);
 
           // save data to enable base path calculation below
-          $tmpPaths[] = $commitFile['path'];
+          $parsed['tmp']['paths'][] = $parsed['commitFiles']['path'];
         }
 
         // determine base commit path
-        $commit['basepath'] = Enzyme::getBasePath($tmpPaths);
+        $parsed['commit']['basepath'] = Enzyme::getBasePath($parsed['tmp']['paths']);
       }
 
 
       // insert commit into database
-      Db::insert('commits', $commit, true);
+      Db::insert('commits', $parsed['commit'], true);
 
       // report successful process/insertion
-      Ui::displayMsg(sprintf(_('Processed revision %s'), $commit['revision']));
+      Ui::displayMsg(sprintf(_('Processed revision %s'), $parsed['commit']['revision']));
+
+      // auto-mark as reviewed?
+      Enzyme::autoReview($parsed, $lastPublishedIssue);
 
       // increment summary counter
       ++$this->summary['processed']['value'];

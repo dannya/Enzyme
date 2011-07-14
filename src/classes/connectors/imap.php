@@ -43,11 +43,17 @@ class Imap extends Connector {
     $emails = imap_search($inbox, 'ALL');
 
     if ($emails) {
+      // get date of last published issue (+ 14 day safety margin) for commit comparison?
+      if (AUTO_REVIEW_COMMITS) {
+        $lastPublishedIssue = strtotime(Digest::getLastIssueDate(null, true, true)) - 1209600;
+      }
+
       foreach ($emails as $emailNumber) {
         // initialise
         $parsed['commit']       = array();
         $parsed['commitFiles']  = array();
-        $parsed['tmpPaths']     = array();
+        $parsed['tmp']          = array();
+        $parsed['tmp']['paths'] = array();
 
 
         // get message header
@@ -75,7 +81,7 @@ class Imap extends Connector {
 
         // get message body
         $bodyText = trim(imap_fetchbody($inbox, $emailNumber, 1));
-        $body     = explode("\n", imap_qprint($bodyText));
+        $body     = explode("\n", quoted_printable_decode($bodyText));
 
 
         // use parser based on inferred format
@@ -93,7 +99,7 @@ class Imap extends Connector {
 
 
         // determine base commit path
-        $parsed['commit']['basepath'] = Enzyme::getBasePath($parsed['tmpPaths']);
+        $parsed['commit']['basepath'] = Enzyme::getBasePath($parsed['tmp']['paths']);
 
 
         // insert modified/added/deleted files?
@@ -114,6 +120,9 @@ class Imap extends Connector {
 
           // report successful process/insertion
           Ui::displayMsg(sprintf(_('Processed revision %s'), $parsed['commit']['revision']));
+
+          // auto-mark as reviewed?
+          Enzyme::autoReview($parsed, $lastPublishedIssue);
 
           // delete email message
           imap_delete($inbox, $emailNumber);
@@ -156,7 +165,7 @@ class Imap extends Connector {
                                                     'path'      => $tmpPath);
 
           // remember path so we can calculate basepath later
-          $parsed['tmpPaths'][] = $tmpPath;
+          $parsed['tmp']['paths'][] = $tmpPath;
         }
       }
 
@@ -206,7 +215,8 @@ class Imap extends Connector {
 
 
     // extract date
-    $parsed['commit']['date'] = date('Y-m-d H:i:s', strtotime(trim(str_replace('Date:', null, $body[$i + 2]))));
+    $parsed['tmp']['date']    = strtotime(trim(str_replace('Date:', null, $body[$i + 2])));
+    $parsed['commit']['date'] = date('Y-m-d H:i:s', $parsed['tmp']['date']);
 
 
     // extract message text
@@ -238,7 +248,7 @@ class Imap extends Connector {
                                                 'path'      => $tmp);
 
           // remember path so we can calculate basepath later
-          $parsed['tmpPaths'][] = $tmp;
+          $parsed['tmp']['paths'][] = $tmp;
         }
       }
 
@@ -281,23 +291,25 @@ class Imap extends Connector {
       }
 
       $parsed['commit']['date'] = date('Y-m-d H:i:s', mktime($extractedDate[3],
-                                                             intval($extractedDate[4]),
-                                                             0,
-                                                             $extractedDate[1],
-                                                             $extractedDate[0],
-                                                             $extractedDate[2]));
+                                                      intval($extractedDate[4]),
+                                                      0,
+                                                      $extractedDate[1],
+                                                      $extractedDate[0],
+                                                      $extractedDate[2]));
+
+      $parsed['tmp']['date'] = strtotime($parsed['commit']['date']);
 
     } else {
       // get date from headers
-      $header        = imap_header($inbox, $emailNumber);
+      $header                   = imap_header($inbox, $emailNumber);
 
-      $extractedDate = strtotime($header->date);
-      $parsed['commit']['date'] = date('Y-m-d H:i:s', $extractedDate);
+      $parsed['tmp']['date']    = strtotime($header->date);
+      $parsed['commit']['date'] = date('Y-m-d H:i:s', $parsed['tmp']['date']);
     }
 
 
     // protect against errors in date parsing
-    if (!$extractedDate) {
+    if (!$parsed['tmp']['date']) {
       return false;
     }
 
@@ -358,7 +370,7 @@ class Imap extends Connector {
                                                     'path'      => $tmpFile);
 
           // remember path so we can calculate basepath later
-          $parsed['tmpPaths'][] = $tmpFile;
+          $parsed['tmp']['paths'][] = $tmpFile;
         }
 
       } else if (substr($body[$i], 0, 7) == 'http://') {
@@ -368,7 +380,6 @@ class Imap extends Connector {
 
       ++$i;
     }
-
 
     return true;
   }

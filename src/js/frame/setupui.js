@@ -34,6 +34,11 @@ function deleteRepository(repo) {
   if (typeof repo == 'undefined') {
     return false;
   }
+  
+  // ask for confirmation
+  if (!confirm(strings.delete_section)) {
+    return false;
+  }
 
   // send off data
   new Ajax.Request(BASE_URL + '/get/repositories.php', {

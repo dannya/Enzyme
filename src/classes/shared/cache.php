@@ -218,6 +218,7 @@ class Cache {
     if (is_array($key)) {
       if (isset($key['base']) || isset($key['id'])) {
         // already set, return
+        $key['full'] = $key['base'] . '_' . $key['id'];
         return true;
       }
 
@@ -229,7 +230,7 @@ class Cache {
       $tmp['id']    = $key;
     }
 
-    $tmp['full']    = $tmp['base'] . '_' . $tmp['id'];
+    $tmp['full'] = $tmp['base'] . '_' . $tmp['id'];
 
     // set
     $key = $tmp;
