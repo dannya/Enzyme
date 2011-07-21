@@ -869,9 +869,10 @@ class Enzyme {
     // get revision information (from database)
     Ui::displayMsg(_('Getting revision data...'));
 
-    $data  = Db::load('commits',
+
+    $data = Db::load('commits',
                       array('date' => array('type' => 'range',
-                                            'args' => array($boundaries['start'], $boundaries['end']))),
+                            'args' => array($boundaries['start'], $boundaries['end']))),
                       null,
                       '*',
                       true,
@@ -894,16 +895,23 @@ class Enzyme {
 
 
     // get all files linked to commits within data range
-    $revisionsList      = array();
+    // get revision data and put into tmp table for later query
+    Db::load('commits',
+              array('date' => array('type' => 'range',
+                                    'args' => array($boundaries['start'], $boundaries['end']))),
+              null,
+              'revision',
+              true,
+              null,
+              'tmp_commits');
 
-    foreach ($data as $entry) {
-      $revisionsList[]  = $entry['revision'];
-    }
 
-    $commitFiles        = Db::reindex(Db::load('commit_files', array('revision' => $revisionsList)),
-                                      'revision',
-                                      false,
-                                      false);
+    // load from tmp table,
+    $commitFiles = Db::sql('SELECT commit_files.* FROM commit_files, tmp_commits
+                            WHERE commit_files.revision = tmp_commits.revision',
+                           'revision');
+
+    Db::clear('tmp_commits');
 
 
     // initialise totals
@@ -937,10 +945,12 @@ class Enzyme {
       ++$stats['person'][$entry['developer']]['commits'];
 
       // increment files counter
-      $numFiles             = count($commitFiles[$entry['revision']]);
-      $stats['totalFiles'] += $numFiles;
+      if (isset($commitFiles[$entry['revision']])) {
+        $numFiles             = count($commitFiles[$entry['revision']]);
+        $stats['totalFiles'] += $numFiles;
 
-      $stats['person'][$entry['developer']]['files'] += $numFiles;
+        $stats['person'][$entry['developer']]['files'] += $numFiles;
+      }
 
 
       // extract module
@@ -1179,9 +1189,14 @@ class Enzyme {
 
 
     // get general stats
+    if (is_int($revision['start'])) {
+      $stats['general']['revision_start']   = $revision['start'];
+    }
+    if (is_int($revision['end'])) {
+      $stats['general']['revision_end']     = $revision['end'];
+    }
+
     $stats['general']['date']               = $date;
-    $stats['general']['revision_start']     = $revision['start'];
-    $stats['general']['revision_end']       = $revision['end'];
     $stats['general']['total_commits']      = $stats['totalCommits'];
     $stats['general']['total_files']        = $stats['totalFiles'];
     $stats['general']['active_developers']  = count($stats['person']);
@@ -1847,7 +1862,7 @@ class Enzyme {
       // do auto-review if set
       if ($autoReview) {
         $reviewed = array('revision'  => $commit['commit']['revision'],
-                          'marked'    => 1,
+                          'marked'    => 0,
                           'reviewer'  => 'enzyme',
                           'reviewed'  => date('Y-m-d H:i:s'));
 

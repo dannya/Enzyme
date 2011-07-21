@@ -45,6 +45,7 @@ abstract class DbMysql extends Db {
                                   'links',
                                   'repositories',
                                   'settings',
+                                  'tmp_commits',
                                   'users');
 
 
@@ -133,7 +134,8 @@ abstract class DbMysql extends Db {
   }
 
 
-  public static function load($table, $filter, $limit = null, $fields = '*', $explode = true, $order = null) {
+  public static function load($table, $filter, $limit = null, $fields = '*',
+                              $explode = true, $order = null, $fillTable = null) {
     $data = null;
 
     // ensure table(s) is valid
@@ -175,28 +177,47 @@ abstract class DbMysql extends Db {
     }
 
 
-    // print debug SQL?
-    if (isset($_REQUEST['debug'])) {
-      echo $selectQuery;
-    }
-
-
-    // get and return data
-    $query   = mysql_query($selectQuery) or trigger_error(sprintf(_('Query failed: %s'), mysql_error()));
-    $numRows = mysql_num_rows($query);
-
-    if ($numRows != 0) {
-      while ($tmp = mysql_fetch_assoc($query)) {
-        $data[] = $tmp;
+    // load into, or process and return?
+    if ($fillTable) {
+      // check fill table is valid
+      if (!in_array($fillTable, self::$tables)) {
+        return false;
       }
 
-      // for convenience, explode data array if only one row
-      if ($explode && ($numRows == 1)) {
-        $data = reset($data);
-      }
-    }
+      // prepend insert statement to select query
+      $selectQuery = 'INSERT INTO ' . $fillTable . ' ' . $selectQuery;
 
-    return $data;
+      // print debug SQL?
+      if (isset($_REQUEST['debug'])) {
+        echo $selectQuery . "\n";
+      }
+
+      return mysql_query($selectQuery) or trigger_error(sprintf(_('Query failed: %s'), mysql_error()));
+
+
+    } else {
+      // print debug SQL?
+      if (isset($_REQUEST['debug'])) {
+        echo $selectQuery . "\n";
+      }
+
+      // get and return data
+      $query   = mysql_query($selectQuery) or trigger_error(sprintf(_('Query failed: %s'), mysql_error()));
+      $numRows = mysql_num_rows($query);
+
+      if ($numRows != 0) {
+        while ($tmp = mysql_fetch_assoc($query)) {
+          $data[] = $tmp;
+        }
+
+        // for convenience, explode data array if only one row
+        if ($explode && ($numRows == 1)) {
+          $data = reset($data);
+        }
+      }
+
+      return $data;
+    }
   }
 
 
@@ -313,6 +334,16 @@ abstract class DbMysql extends Db {
     } else {
       return $insertQuery;
     }
+  }
+
+
+  public static function clear($table) {
+    // check if table is valid, and filter is provided
+    if (!in_array($table, self::$tables)) {
+      return null;
+    }
+
+    return mysql_query('TRUNCATE TABLE ' . $table) or trigger_error(sprintf(_('Query failed: %s'), mysql_error()));
   }
 
 
@@ -658,7 +689,13 @@ abstract class DbMysql extends Db {
     if ($index) {
       if (mysql_num_rows($query) != 0) {
         while ($tmp = mysql_fetch_assoc($query)) {
-          $data[] = $tmp;
+          if ($index === true) {
+            $data[] = $tmp;
+
+          } else {
+            // index by specific field
+            $data[$tmp[$index]] = $tmp;
+          }
         }
       }
 

@@ -80,12 +80,12 @@ class Media {
     if (!is_dir($uploadDir)) {
       // create media directory
       mkdir($uploadDir, 0775, true);
-      chgrp('commit-digest');
+      chgrp($uploadDir, 'commit-digest');
     }
     if (!is_writable($uploadDir)) {
       // make writable
       chmod($uploadDir, 0775);
-      chgrp('commit-digest');
+      chgrp($uploadDir, 'commit-digest');
     }
 
 
@@ -165,6 +165,11 @@ class Media {
     } else if (($ext == 'jpg') || ($ext == 'jpeg')) {
       imagejpeg($imageResized, DIGEST_BASE_DIR . $outputPath, 95);
     }
+
+
+    // change permissions of new thumb image
+    chmod(DIGEST_BASE_DIR . $outputPath, 0664);
+    chgrp($uploadDir, 'commit-digest');
 
 
     // return path of resized image

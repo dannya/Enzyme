@@ -104,7 +104,7 @@ if (($_REQUEST['dataType'] == 'name') ||
     }
     if (!is_writable($newBaseLocation)) {
       // make writable
-      chmod($newBaseLocation, 0777);
+      chmod($newBaseLocation, 0775);
     }
 
     // move file
