@@ -1,9 +1,9 @@
 <?php
 
 /*-------------------------------------------------------+
- | Enzyme
- | Copyright 2010-2011 Danny Allen <danny@enzyme-project.org>
- | http://www.enzyme-project.org/
+ | PHPzy (Web Application Framework)
+ | Copyright 2010-2011 Danny Allen <me@dannya.com>
+ | http://www.dannya.com/
  +--------------------------------------------------------+
  | This program is released as free software under the
  | Affero GPL license. You can redistribute it and/or
@@ -18,7 +18,7 @@
 class Db {
   public static function __callStatic($name, $args) {
     try {
-      return call_user_func_array(array('Db' . constant('DB_TYPE'), $name), $args);
+      return call_user_func_array(array('Db' . Config::$db['type'], $name), $args);
 
     } catch (Exception $e) {
       throw new Exception('Invalid database method ' . $name);

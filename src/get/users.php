@@ -44,7 +44,7 @@ parse_str($_REQUEST['data'], $tmpData);
 // extract valid fields
 $validFields = array('username', 'email', 'firstname', 'lastname', 'permission-admin',
                      'permission-editor', 'permission-reviewer', 'permission-classifier',
-                     'permission-translator', 'paths');
+                     'permission-translator', 'paths', 'repos');
 
 foreach ($tmpData as $key => $value) {
   if (in_array($key, $validFields)) {
@@ -130,7 +130,7 @@ if (($_REQUEST['dataType'] == 'new-user') || ($_REQUEST['dataType'] == 'approve-
   $json['success'] = $user->changePermission($permission, $_REQUEST['data']);
 
 } else {
-  $allowedTypes = array('active', 'username', 'email', 'firstname', 'lastname', 'paths');
+  $allowedTypes = array('active', 'username', 'email', 'firstname', 'lastname', 'paths', 'repos');
 
   if (in_array($_REQUEST['dataType'], $allowedTypes)) {
     $filter = array('username' => $_REQUEST['username']);

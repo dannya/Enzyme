@@ -27,7 +27,7 @@ class AboutUi {
 
   public function draw() {
     $buf = 'Enzyme<br />' .
-            sprintf(_('Version %.2f'), VERSION) . '<br />
+            sprintf(_('Version %.2f'), Config::$app['version']) . '<br />
             Copyright 2010-2011 Danny Allen<br />
             <a href="http://enzyme-project.org/">http://enzyme-project.org/</a>';
 

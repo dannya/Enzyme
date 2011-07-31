@@ -394,8 +394,9 @@ class Enzyme {
   public static function formatMsg($msg, $htmlLiteral = false) {
     // replace with correct new-lines
     if ($htmlLiteral) {
-      $msg = htmlspecialchars($msg, ENT_NOQUOTES, 'UTF-8', false);
-      $msg = str_ireplace(array('<br>', "\n"), array('<br />', '<br />'), $msg);
+      // preserve <br> new-lines only
+      $msg = str_ireplace(array('<br>', '<br/>', '<br />'), "\n", $msg);
+      $msg = nl2br(htmlspecialchars($msg, ENT_NOQUOTES, 'UTF-8', false));
 
     } else {
       $msg = str_ireplace(array('<br>', "\n", '&'), array('<br />', '<br />', '&amp;'), $msg);

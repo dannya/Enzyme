@@ -73,7 +73,7 @@ foreach ($dirs as $dir) {
       $data['date']        = $theDate;
       $data['developer']   = $raw['developer'];
       $data['basepath']    = $raw['basepath'];
-      $data['msg']         = trim(Enzyme::formatMsg(trim($file[++$i])));
+      $data['msg']         = trim(str_ireplace(array('<br>', '<br/>', '<br />'), "\n", $file[++$i]));
 
       Db::insert('commits', $data, true);
       unset($data);

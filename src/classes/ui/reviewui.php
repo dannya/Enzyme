@@ -63,24 +63,8 @@ class ReviewUi extends BaseUi {
       $counter      = 1;
 
       foreach ($revisions as $revision) {
-        // filter by path?
-        if (!empty($revision['basepath'])) {
-          // filter commits by user review areas?
-          if (!empty($this->user->paths)) {
-            $pathUserIgnored = true;
-
-            foreach ($this->user->paths as $path) {
-              if (strpos($revision['basepath'], $path) !== false) {
-                $pathUserIgnored = false;
-                break;
-              }
-            }
-          }
-
-          // don't show this commit if in global ignore path, or not in user path
-          if (isset($pathUserIgnored) && $pathUserIgnored) {
-            continue;
-          }
+        if ($this->filterCommit($revision)) {
+          continue;
         }
 
         $key = 'commit-item-' . $counter++;
@@ -107,6 +91,43 @@ class ReviewUi extends BaseUi {
     $buf = Enzyme::statusArea($this->id);
 
     return $buf;
+  }
+
+
+  private function filterCommit($revision) {
+    // filter by path?
+    if ($revision['format'] == 'svn') {
+      if (!empty($revision['basepath'])) {
+        // filter commits by user review areas?
+        if (!empty($this->user->paths)) {
+          foreach ($this->user->paths as $path) {
+            if (strpos($revision['basepath'], $path) !== false) {
+              // don't show this commit if in global ignore path, or not in user path
+              return false;
+            }
+          }
+
+          return true;
+        }
+      }
+
+      return false;
+
+    } else if ($revision['format'] == 'git') {
+      print_R($revision);
+      exit;
+
+      if (!empty($this->user->repos)) {
+        foreach ($this->user->repos as $repo) {
+          if (strpos($revision['repository'], $repo) !== false) {
+            // don't show this commit if in global ignore path, or not in user path
+            return false;
+          }
+        }
+
+        return true;
+      }
+    }
   }
 }
 

@@ -162,11 +162,14 @@ function apply(event, job) {
 	}
 	
 	// enable paths input?
-	if ($('apply-paths')) {
+	if ($('apply-paths') && $('apply-repos')) {
 		if ((job == 'reviewer') || (job == 'classifier')) {
 			$('apply-paths').disabled = false;
+			$('apply-repos').disabled = false;
+
 		} else {
 		  $('apply-paths').disabled = true;
+		  $('apply-repos').disabled = true;
 		}
 	}
 
@@ -186,8 +189,11 @@ function checkPathsInput(event) {
 
   if ((selected == 'reviewer') || (selected == 'classifier')) {
   	$('apply-paths').disabled = false;
+  	$('apply-repos').disabled = false;
+
   } else {
   	$('apply-paths').disabled = true;
+  	$('apply-repos').disabled = true;
   }
 }
 

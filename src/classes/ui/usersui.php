@@ -22,6 +22,9 @@ class UsersUi extends BaseUi {
   private $users                = array();
 
   private $availablePermissions = array();
+  private $possibleJobs         = array();
+  private $availableJobs        = array();
+  private $activeRepoTypes      = array();
 
   private $applications         = array();
 
@@ -40,8 +43,11 @@ class UsersUi extends BaseUi {
     $this->availablePermissions = Digest::getPermissions();
 
     // get possible / available jobs
-    $this->possibleJobs   = Enzyme::getAllJobs();
-    $this->availableJobs  = Enzyme::getAvailableJobsList();
+    $this->possibleJobs     = Enzyme::getAllJobs();
+    $this->availableJobs    = Enzyme::getAvailableJobsList();
+
+    // get active repository types
+    $this->activeRepoTypes  = Connector::getActiveTypes();
 
     // load applications
     $this->applications = Db::load('applications', false, null, '*', false);
@@ -53,6 +59,7 @@ class UsersUi extends BaseUi {
     if ($buf = App::checkPermission($this->user, 'admin')) {
       return $buf;
     }
+
 
     // draw
     $buf = '<h3>' .
@@ -81,8 +88,15 @@ class UsersUi extends BaseUi {
                '</th>';
     }
 
-    $buf .=  '    <th>' . _('Paths') . '</th>
-                </tr>
+    // draw columns for repo types
+    if (isset($this->activeRepoTypes['svn'])) {
+      $buf .=  '    <th>' . _('SVN Paths') . '</th>';
+    }
+    if (isset($this->activeRepoTypes['imap'])) {
+      $buf .=  '    <th>' . _('Git Repos') . '</th>';
+    }
+
+    $buf .=  '  </tr>
               </thead>
 
               <tbody id="users-body">';
@@ -166,6 +180,7 @@ class UsersUi extends BaseUi {
       $rowId    = 'row-' . $user['data']['username'];
       $rowStyle = null;
       $pathsId  = ' id="paths-' . $user['data']['username'] . '"';
+      $reposId  = ' id="repos-' . $user['data']['username'] . '"';
 
       // set onchange function
       $onChange = ' onchange="saveChange(\'' . $user['data']['username'] . '\', event);"';
@@ -239,6 +254,7 @@ class UsersUi extends BaseUi {
       $rowId             = 'row-new-0';
       $rowStyle          = ' style="display:none;"';
       $pathsId           = null;
+      $reposId           = null;
       $onChange          = null;
       $usernameOnChange  = null;
       $pathsState        = null;
@@ -274,11 +290,21 @@ class UsersUi extends BaseUi {
                 <td class="padding">
                   <input type="text" value="' . $user['data']['lastname'] . '" name="lastname"' . $onChange . ' />
                 </td>' .
-                $permissionsString .
-             '  <td>
+                $permissionsString;
+
+    // draw paths / repos?
+    if (isset($this->activeRepoTypes['svn'])) {
+      $buf  .= '<td>
                   <input' . $pathsId . ' type="text" value="' . $user['data']['paths'] . '" name="paths"' . $onChange . $pathsState . ' />
-                </td>
-              </tr>';
+                </td>';
+    }
+      if (isset($this->activeRepoTypes['imap'])) {
+      $buf  .= '<td>
+                  <input' . $reposId . ' type="text" value="' . $user['data']['repos'] . '" name="repos"' . $onChange . $pathsState . ' />
+                </td>';
+    }
+
+    $buf  .= '</tr>';
 
     return $buf;
   }

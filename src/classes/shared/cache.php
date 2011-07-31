@@ -1,9 +1,9 @@
 <?php
 
 /*-------------------------------------------------------+
- | Enzyme
- | Copyright 2010-2011 Danny Allen <danny@enzyme-project.org>
- | http://www.enzyme-project.org/
+ | PHPzy (Web Application Framework)
+ | Copyright 2010-2011 Danny Allen <me@dannya.com>
+ | http://www.dannya.com/
  +--------------------------------------------------------+
  | This program is released as free software under the
  | Affero GPL license. You can redistribute it and/or
@@ -178,11 +178,11 @@ class Cache {
       file_put_contents(BASE_DIR . $filename, $min);
 
       // return filename
-      return $filename . '?version=' . VERSION;
+      return $filename . '?version=' . Config::$app['version'];
 
     } else {
       // already minified, return filename
-      return $filename . '?version=' . VERSION;
+      return $filename . '?version=' . Config::$app['version'];
     }
   }
 
@@ -226,7 +226,7 @@ class Cache {
       $tmp['id']    = $key[1];
 
     } else {
-      $tmp['base']  = APP_ID;
+      $tmp['base']  = Config::$app['id'];
       $tmp['id']    = $key;
     }
 

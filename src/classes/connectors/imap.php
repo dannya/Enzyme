@@ -115,6 +115,11 @@ class Imap extends Connector {
 
 
         if ($parseSuccess) {
+          // check for issues which should be logged
+          if (strpos($parsed['commit']['developer'], 'Committed on') !== false) {
+            Log::error('Could not extract developer account for ' . $parsed['commit']['revision'], false, $body);
+          }
+
           // insert commit into database
           Db::insert('commits', $parsed['commit'], true);
 

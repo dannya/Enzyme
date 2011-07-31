@@ -1,9 +1,9 @@
 <?php
 
 /*-------------------------------------------------------+
- | Enzyme
- | Copyright 2010-2011 Danny Allen <danny@enzyme-project.org>
- | http://www.enzyme-project.org/
+ | PHPzy (Web Application Framework)
+ | Copyright 2010-2011 Danny Allen <me@dannya.com>
+ | http://www.dannya.com/
  +--------------------------------------------------------+
  | This program is released as free software under the
  | Affero GPL license. You can redistribute it and/or
@@ -109,7 +109,7 @@ class Email {
 
     // set headers
     $headers .= 'To: ' . App::implode(', ', $this->fullAddresses) . "\r\n";
-    $headers .= 'From: ' . APP_NAME . ' <' . $this->from . '>' . "\r\n";
+    $headers .= 'From: ' . Config::$app['name'] . ' <' . $this->from . '>' . "\r\n";
 
     // send email
     return mail(App::implode(', ', $this->addresses), $this->subject, $this->message, $headers);

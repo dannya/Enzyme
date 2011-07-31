@@ -1,9 +1,9 @@
 <?php
 
 /*-------------------------------------------------------+
- | Enzyme
- | Copyright 2010-2011 Danny Allen <danny@enzyme-project.org>
- | http://www.enzyme-project.org/
+ | PHPzy (Web Application Framework)
+ | Copyright 2010-2011 Danny Allen <me@dannya.com>
+ | http://www.dannya.com/
  +--------------------------------------------------------+
  | This program is released as free software under the
  | Affero GPL license. You can redistribute it and/or
@@ -16,57 +16,28 @@
 
 
 abstract class DbMysql extends Db {
-  private static $tables  = array('applications',
-                                  'bugfixers',
-                                  'commits',
-                                  'commits_reviewed',
-                                  'commit_bugs',
-                                  'commit_files',
-                                  'commit_path_filters',
-                                  'countries',
-                                  'data_terms',
-                                  'developers',
-                                  'developer_privacy',
-                                  'developer_survey',
-                                  'digests',
-                                  'digest_intro_people',
-                                  'digest_intro_sections',
-                                  'digest_intro_media',
-                                  'digest_stats',
-                                  'digest_stats_bugfixers',
-                                  'digest_stats_buzz',
-                                  'digest_stats_developers',
-                                  'digest_stats_extended',
-                                  'digest_stats_i18n',
-                                  'digest_stats_modules',
-                                  'errors',
-                                  'filetypes',
-                                  'languages',
-                                  'links',
-                                  'repositories',
-                                  'settings',
-                                  'tmp_commits',
-                                  'users');
-
-
   public static function connect() {
     // connect to database server
-    mysql_connect(DB_HOST, DB_USER, DB_PASSWORD) or trigger_error(sprintf(_("Couldn't connect to database: ensure you have set the correct values at the top of %s/autoload.php"), BASE_DIR));
+    mysql_connect(Config::$db['host'], Config::$db['user'], Config::$db['password']) or trigger_error(sprintf(_("Couldn't connect to database: ensure you have set the correct values at the top of %s/autoload.php"), BASE_DIR));
 
     // select database
-    $success = @mysql_select_db(DB_DATABASE);
+    $success = @mysql_select_db(Config::$db['database']);
 
     // ensure database communicates using utf8
-    mysql_query('SET NAMES \'utf8\'');
+    self::query('SET NAMES \'utf8\'', true);
 
     // return select database success
     return $success;
   }
 
 
-  public static function create($databaseName = DB_DATABASE, $select = true) {
+  public static function create($databaseName = null, $select = true) {
+    if (!$databaseName) {
+      $databaseName = Config::$db['database'];
+    }
+
     // create the database
-    $success = mysql_query('CREATE DATABASE ' . self::sanitise($databaseName, DB_DATABASE)) or trigger_error(sprintf(_('Query failed: %s'), mysql_error()));
+    $success = self::query('CREATE DATABASE ' . self::sanitise($databaseName, Config::$db['database']));
 
     // switch to the newly-created database?
     if ($select) {
@@ -79,18 +50,18 @@ abstract class DbMysql extends Db {
 
 
   public static function getTables() {
-    return self::$tables;
+    return Config::$db['tables'];
   }
 
 
   public static function getCreateSql($table) {
     // check specified table is valid
-    if (!in_array($table, self::$tables)) {
+    if (!in_array($table, Config::$db['tables'])) {
       return null;
     }
 
     // get schema
-    $query  = mysql_query('SHOW CREATE TABLE ' . $table) or trigger_error(sprintf(_('Query failed: %s'), mysql_error()));
+    $query  = self::query('SHOW CREATE TABLE ' . $table);
     $schema = mysql_fetch_row($query);
 
     return array_pop($schema);
@@ -99,7 +70,7 @@ abstract class DbMysql extends Db {
 
   public static function getDataSql($table) {
     // check specified table is valid
-    if (!in_array($table, self::$tables)) {
+    if (!in_array($table, Config::$db['tables'])) {
       return null;
     }
 
@@ -141,14 +112,14 @@ abstract class DbMysql extends Db {
     // ensure table(s) is valid
     if (is_array($table)) {
       foreach ($table as $theTable) {
-        if (!in_array($theTable, self::$tables)) {
+        if (!in_array($theTable, Config::$db['tables'])) {
           return null;
         }
       }
 
       $table = implode(',', $table);
 
-    } else if (!in_array($table, self::$tables)) {
+    } else if (!in_array($table, Config::$db['tables'])) {
       return null;
     }
 
@@ -180,29 +151,19 @@ abstract class DbMysql extends Db {
     // load into, or process and return?
     if ($fillTable) {
       // check fill table is valid
-      if (!in_array($fillTable, self::$tables)) {
+      if (!in_array($fillTable, Config::$db['tables'])) {
         return false;
       }
 
       // prepend insert statement to select query
       $selectQuery = 'INSERT INTO ' . $fillTable . ' ' . $selectQuery;
 
-      // print debug SQL?
-      if (isset($_REQUEST['debug'])) {
-        echo $selectQuery . "\n";
-      }
-
-      return mysql_query($selectQuery) or trigger_error(sprintf(_('Query failed: %s'), mysql_error()));
+      return self::query($selectQuery);
 
 
     } else {
-      // print debug SQL?
-      if (isset($_REQUEST['debug'])) {
-        echo $selectQuery . "\n";
-      }
-
       // get and return data
-      $query   = mysql_query($selectQuery) or trigger_error(sprintf(_('Query failed: %s'), mysql_error()));
+      $query   = self::query($selectQuery);
       $numRows = mysql_num_rows($query);
 
       if ($numRows != 0) {
@@ -223,7 +184,7 @@ abstract class DbMysql extends Db {
 
   public static function count($table, $filter) {
     // ensure table is valid
-    if (!in_array($table, self::$tables)) {
+    if (!in_array($table, Config::$db['tables'])) {
       return null;
     }
 
@@ -242,7 +203,7 @@ abstract class DbMysql extends Db {
 
   public static function save($table, $filter, $values, $silentError = false) {
     // check if table is valid, and filter is provided
-    if (!in_array($table, self::$tables) || (count($filter) == 0)) {
+    if (!in_array($table, Config::$db['tables']) || (count($filter) == 0)) {
       return null;
     }
 
@@ -251,18 +212,13 @@ abstract class DbMysql extends Db {
                    ' WHERE ' . self::createFilter($table, $filter);
 
     // save data
-    if ($silentError) {
-      return mysql_query($updateQuery);
-
-    } else {
-    return mysql_query($updateQuery) or trigger_error(sprintf(_('Query failed: %s'), mysql_error()));
-  }
+    return self::query($updateQuery, $silentError);
   }
 
 
   public static function saveMulti($table, $values) {
     // check if table is valid, and filter is provided
-    if (!in_array($table, self::$tables) || (count($values) == 0)) {
+    if (!in_array($table, Config::$db['tables']) || (count($values) == 0)) {
       return null;
     }
 
@@ -279,13 +235,13 @@ abstract class DbMysql extends Db {
                    ' ON DUPLICATE KEY UPDATE ' . self::sanitise(implode(', ', $update)) . ';';
 
     // save data
-    return mysql_query($updateQuery) or trigger_error(sprintf(_('Query failed: %s'), mysql_error()));
+    return self::query($updateQuery);
   }
 
 
   public static function saveSingleField($table, $filter, $values, $isEnum = false) {
     // check if table is valid, and filter is provided
-    if (!in_array($table, self::$tables) || (count($filter) == 0) || (count($values) != 1)) {
+    if (!in_array($table, Config::$db['tables']) || (count($filter) == 0) || (count($values) != 1)) {
       return null;
     }
 
@@ -294,13 +250,13 @@ abstract class DbMysql extends Db {
                    ' WHERE ' . self::createFilter($table, $filter);
 
     // save data
-    return mysql_query($updateQuery) or trigger_error(sprintf(_('Query failed: %s'), mysql_error()));
+    return self::query($updateQuery);
   }
 
 
   public static function insert($table, $values, $ignore = false, $delay = false, $execute = true, $silentError = false) {
     // check if table is valid, and filter is provided
-    if (!in_array($table, self::$tables) || (count($values) == 0)) {
+    if (!in_array($table, Config::$db['tables']) || (count($values) == 0)) {
       return null;
     }
 
@@ -323,13 +279,7 @@ abstract class DbMysql extends Db {
     $insertQuery = 'INSERT' . $delay . $ignore . ' INTO ' . $table . ' ' . $values . ';';
 
     if ($execute) {
-      // determine how to handle errors
-      if ($silentError) {
-        return mysql_query($insertQuery);
-
-      } else {
-      return mysql_query($insertQuery) or trigger_error(sprintf(_('Query failed: %s'), mysql_error()));
-      }
+      return self::query($insertQuery, $silentError);
 
     } else {
       return $insertQuery;
@@ -339,17 +289,17 @@ abstract class DbMysql extends Db {
 
   public static function clear($table) {
     // check if table is valid, and filter is provided
-    if (!in_array($table, self::$tables)) {
+    if (!in_array($table, Config::$db['tables'])) {
       return null;
     }
 
-    return mysql_query('TRUNCATE TABLE ' . $table) or trigger_error(sprintf(_('Query failed: %s'), mysql_error()));
+    return self::query('TRUNCATE TABLE ' . $table);
   }
 
 
   public static function delete($table, $values, $ignore = false, $delay = false) {
     // check if table is valid, and filter is provided
-    if (!in_array($table, self::$tables) || (count($values) == 0)) {
+    if (!in_array($table, Config::$db['tables']) || (count($values) == 0)) {
       return null;
     }
 
@@ -366,13 +316,13 @@ abstract class DbMysql extends Db {
     // create appropriate delete query
     $deleteQuery = 'DELETE' . $delay . $ignore . ' FROM ' . $table . ' WHERE ' . $values . ';';
 
-    return mysql_query($deleteQuery) or trigger_error(sprintf(_('Query failed: %s'), mysql_error()));
+    return self::query($deleteQuery);
   }
 
 
   public static function exists($table, $filter = false) {
     // check if table is valid, and filter is provided
-    if (!in_array($table, self::$tables)) {
+    if (!in_array($table, Config::$db['tables'])) {
       return null;
     }
 
@@ -386,7 +336,7 @@ abstract class DbMysql extends Db {
                    ' WHERE ' . self::createFilter($table, $filter) .
                    ' LIMIT 1';
 
-    $query = mysql_query($selectQuery) or trigger_error(sprintf(_('Query failed: %s'), mysql_error()));
+    $query = self::query($selectQuery);
 
     return (bool)mysql_num_rows($query);
   }
@@ -394,13 +344,13 @@ abstract class DbMysql extends Db {
 
   public static function getNextId($table, $field = 'id') {
     // check if table is valid
-    if (!in_array($table, self::$tables)) {
+    if (!in_array($table, Config::$db['tables'])) {
       return null;
     }
 
     $selectQuery  = 'SELECT MAX(' . self::sanitise($field) .  ') + 1 FROM ' . $table;
 
-    $query        = mysql_query($selectQuery) or trigger_error(sprintf(_('Query failed: %s'), mysql_error()));
+    $query        = self::query($selectQuery);
 
     return array_pop(mysql_fetch_row($query));
   }
@@ -663,7 +613,7 @@ abstract class DbMysql extends Db {
 
 
   public static function id() {
-    $query = mysql_query('SELECT LAST_INSERT_ID();') or trigger_error(sprintf(_('Query failed: %s'), mysql_error()));
+    $query = self::query('SELECT LAST_INSERT_ID();');
 
     return reset(mysql_fetch_assoc($query));
   }
@@ -674,14 +624,14 @@ abstract class DbMysql extends Db {
 
     // determine how to handle errors
     if ($silentError) {
-      $query = mysql_query($sql);
+      $query = self::query($sql, true);
 
       if (!$query) {
         return false;
       }
 
     } else {
-      $query = mysql_query($sql) or trigger_error(sprintf(_('Query failed: %s'), mysql_error()));
+      $query = self::query($sql);
     }
 
 
@@ -764,7 +714,28 @@ abstract class DbMysql extends Db {
       // create single object
       return new $class($data);
     }
+  }
 
+
+  private static function query($sql, $silentError = false) {
+    // print debug SQL?
+    if (isset($_REQUEST['debug'])) {
+      echo $sql . "\n<br />";
+    }
+
+    // run query silently?
+    if ($silentError) {
+      return mysql_query($sql);
+
+    } else {
+      $result = mysql_query($sql);
+
+      if (!$result) {
+        trigger_error(sprintf(_('Query failed: %s'), mysql_error()));
+      }
+
+      return $result;
+    }
   }
 }
 

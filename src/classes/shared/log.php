@@ -1,9 +1,9 @@
 <?php
 
 /*-------------------------------------------------------+
- | Enzyme
- | Copyright 2010-2011 Danny Allen <danny@enzyme-project.org>
- | http://www.enzyme-project.org/
+ | PHPzy (Web Application Framework)
+ | Copyright 2010-2011 Danny Allen <me@dannya.com>
+ | http://www.dannya.com/
  +--------------------------------------------------------+
  | This program is released as free software under the
  | Affero GPL license. You can redistribute it and/or
@@ -16,7 +16,7 @@
 
 
 class Log {
-  public static function error($error, $userData = false) {
+  public static function error($error, $userData = false, $additionalData = false) {
     $backtrace  = debug_backtrace();
     $source     = reset($backtrace);
 
@@ -30,13 +30,19 @@ class Log {
     $data['backtrace']  = Db::serialize($backtrace);
 
     // add user data?
-    if ($userData && class_exists('User')) {
-      if ($userData === true) {
+    if ($userData) {
+      if (($userData === true) && class_exists('User')) {
         // try and load user data
-        $userData = new User();
-      }
+        $data['user'] = Db::serialize(new User());
 
-      $data['user'] = Db::serialize($userData);
+      } else {
+        $data['user'] = Db::serialize($userData);
+      }
+    }
+
+    // add additional data?
+    if ($additionalData) {
+      $data['additional'] = Db::serialize($additionalData);
     }
 
     // insert into errors table

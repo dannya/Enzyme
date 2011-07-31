@@ -27,7 +27,7 @@ if (empty($_REQUEST['data'])) {
 // extract only valid fields
 parse_str($_REQUEST['data'], $data);
 
-$validFields  = array('apply-job', 'apply-paths', 'apply-firstname', 'apply-lastname', 'apply-email', 'apply-message');
+$validFields  = array('apply-job', 'apply-paths', 'apply-repos', 'apply-firstname', 'apply-lastname', 'apply-email', 'apply-message');
 $fields       = array();
 
 foreach ($validFields as $theField) {

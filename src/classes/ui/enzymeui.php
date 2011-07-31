@@ -19,8 +19,6 @@ class EnzymeUi {
   public $user              = null;
   public $frame             = null;
 
-  private $title            = APP_NAME;
-
   private $style            = array('/css/common.css');
   private $appScript        = array('/js/prototype.js',
                                     '/js/effects.js',
@@ -117,15 +115,15 @@ class EnzymeUi {
 
 
   public function drawTitle() {
-    $buf = '<title>' . APP_NAME . ' - ' . $this->frame->title . '</title>';
+    $buf = '<title>' . Config::$app['name'] . ' - ' . $this->frame->title . '</title>';
 
     return $buf;
   }
 
 
   public function drawMeta() {
-    $buf = '<meta name="description" content="' . META_DESCRIPTION . '" />
-            <meta name="keywords" content="' . META_KEYWORDS . '" />
+    $buf = '<meta name="description" content="' . Config::$meta['description'] . '" />
+            <meta name="keywords" content="' . Config::$meta['keywords'] . '" />
             <meta name="viewport" content="width=device-width; initial-scale=1.0" />
 
             <link rel="shortcut icon" href="' . BASE_URL .'/favicon.ico" type="image/x-icon" />
@@ -139,7 +137,7 @@ class EnzymeUi {
     $buf = null;
 
     foreach ($this->style as $style) {
-      $buf .= '<link rel="stylesheet" href="' . BASE_URL . $style . '?version=' . VERSION . '" type="text/css" media="screen" />' . "\n";
+      $buf .= '<link rel="stylesheet" href="' . BASE_URL . $style . '?version=' . Config::$app['version'] . '" type="text/css" media="screen" />' . "\n";
     }
 
     return $buf;

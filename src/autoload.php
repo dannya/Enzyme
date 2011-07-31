@@ -15,35 +15,6 @@
  +--------------------------------------------------------*/
 
 
-// define database settings
-define('DB_TYPE',             'Mysql');
-define('DB_HOST',             'localhost');
-define('DB_USER',             'root');
-define('DB_PASSWORD',         'hello1');
-define('DB_DATABASE',         'enzyme');
-
-
-// ------- YOU SHOULDN'T NEED TO MODIFY BELOW HERE --------
-
-
-// define app constants
-define('APP_ID',              'enzyme');
-define('APP_NAME',            'Enzyme');
-define('VERSION',             '1.16');
-
-
-// define meta tags
-define('META_DESCRIPTION',    'A project-independent tool for creating regular project reports and assisting interesting statistical analysis.');
-define('META_KEYWORDS',       'enzyme, digest, open source');
-
-
-// make APP_ID's consistently available
-define('DIGEST_APP_ID',       'commit-digest');
-define('ENZYME_APP_ID',       APP_ID);
-
-define('JAVASCRIPT_LIBRARY',  'prototype');
-
-
 // set initial values
 if (empty($_SERVER['DOCUMENT_ROOT'])) {
   define('COMMAND_LINE',      true);
@@ -70,25 +41,9 @@ if (empty($_SERVER['DOCUMENT_ROOT'])) {
 $classDirs = array(BASE_DIR . '/classes/db/',
                    BASE_DIR . '/classes/shared/',
                    BASE_DIR . '/classes/specific/',
-                   BASE_DIR . '/classes/ext/',
                    BASE_DIR . '/classes/ui/',
-                   BASE_DIR . '/classes/connectors/');
-
-
-// stop APC cache slam errors
-ini_set('apc.slam_defense', 'Off');
-
-
-// ensure get variables can always be accessed, even when provided in q= format
-if (isset($_GET['q'])) {
-  $tmp = explode('=', $_GET['q']);
-
-  if (isset($tmp[1])) {
-    $_GET[$tmp[0]] = $tmp[1];
-  } else {
-    $_GET[$tmp[0]] = true;
-  }
-}
+                   BASE_DIR . '/classes/connectors/',
+                   BASE_DIR . '/classes/ext/');
 
 
 // setup autoloader
@@ -117,6 +72,30 @@ if (COMMAND_LINE) {
 }
 
 
+// make APP_ID's consistently available
+define('DIGEST_APP_ID',       'commit-digest');
+define('ENZYME_APP_ID',       Config::$app['id']);
+
+
+define('JAVASCRIPT_LIBRARY',  'prototype');
+
+
+// stop APC cache slam errors
+ini_set('apc.slam_defense', 'Off');
+
+
+// ensure get variables can always be accessed, even when provided in q= format
+if (isset($_GET['q'])) {
+  $tmp = explode('=', $_GET['q']);
+
+  if (isset($tmp[1])) {
+    $_GET[$tmp[0]] = $tmp[1];
+  } else {
+    $_GET[$tmp[0]] = true;
+  }
+}
+
+
 // connect to database
 $databaseExists = Db::connect();
 
@@ -135,7 +114,7 @@ if (($_SERVER['SCRIPT_NAME'] == '/js/index.php') ||
     $setup = new SetupUi(true);
 
     echo Ui::drawHtmlPage($setup->drawPage(),
-                          APP_NAME . ' - ' . _('Setup'),
+                          Config::$app['name'] . ' - ' . _('Setup'),
                           array('/css/common.css', '/css/setupui.css'),
                           array_merge(array('/js/prototype.js', '/js/effects.js', '/js/index.php?script=common'), $setup->getScript()));
     exit;
@@ -149,7 +128,7 @@ if (($_SERVER['SCRIPT_NAME'] == '/js/index.php') ||
       $setup = new SetupUi();
 
       echo Ui::drawHtmlPage($setup->drawPage(),
-                            APP_NAME . ' - ' . _('Setup'),
+                            Config::$app['name'] . ' - ' . _('Setup'),
                             array('/css/common.css', '/css/setupui.css'),
                             array_merge(array('/js/prototype.js', '/js/effects.js', '/js/index.php?script=common'), $setup->getScript()));
       exit;
@@ -178,7 +157,7 @@ if (COMMAND_LINE) {
   session_start();
 
   // set environment (live / development)
-  if ($_SERVER['HTTP_HOST'] == APP_ID) {
+  if ($_SERVER['HTTP_HOST'] == Config::$app['id']) {
     define('LIVE_SITE', false);
   } else {
     define('LIVE_SITE', true);

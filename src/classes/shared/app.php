@@ -1,9 +1,9 @@
 <?php
 
 /*-------------------------------------------------------+
- | Enzyme
- | Copyright 2010-2011 Danny Allen <danny@enzyme-project.org>
- | http://www.enzyme-project.org/
+ | PHPzy (Web Application Framework)
+ | Copyright 2010-2011 Danny Allen <me@dannya.com>
+ | http://www.dannya.com/
  +--------------------------------------------------------+
  | This program is released as free software under the
  | Affero GPL license. You can redistribute it and/or
@@ -49,8 +49,8 @@ class App {
     // load language strings for set language
     putenv('LC_ALL=' . LANGUAGE);
     setlocale(LC_ALL, array(LANGUAGE . '.utf8', LANGUAGE . '.utf-8', LANGUAGE));
-    bindtextdomain(APP_ID, BASE_DIR . '/languages');
-    textdomain(APP_ID);
+    bindtextdomain(Config::$app['id'], BASE_DIR . '/languages');
+    textdomain(Config::$app['id']);
   }
 
 

@@ -20,6 +20,7 @@ class User {
   public $data        = null;
 
   public $paths       = null;
+  public $repos       = null;
   public $permissions = null;
 
   public $authFail    = null;
@@ -59,7 +60,7 @@ class User {
     }
 
 
-    if (!isset($_SESSION[APP_ID . '_user'])) {
+    if (!isset($_SESSION[Config::$app['id'] . '_user'])) {
       // setup language
       App::setLanguage();
 
@@ -68,7 +69,7 @@ class User {
         // check if username and password are valid
         if ($id = $this->authenticate($username, $password)) {
           // password is correct, store user in session
-          $_SESSION[APP_ID . '_user'] = $id;
+          $_SESSION[Config::$app['id'] . '_user'] = $id;
 
           if ($redirect) {
             Ui::redirect('/');
@@ -86,7 +87,7 @@ class User {
 
     } else {
       // user has been authenticated, check user type
-      $this->load($_SESSION[APP_ID . '_user']);
+      $this->load($_SESSION[Config::$app['id'] . '_user']);
 
       // add user to logged in status
       Track::user($this->data['username']);
@@ -114,6 +115,9 @@ class User {
     // process arrays stored as strings
     if (!empty($this->data['paths'])) {
       $this->paths       = App::splitCommaList($this->data['paths']);
+    }
+    if (!empty($this->data['repos'])) {
+      $this->repos       = App::splitCommaList($this->data['repos']);
     }
     if (!empty($this->data['permissions'])) {
       $this->permissions = App::splitCommaList($this->data['permissions']);
@@ -146,6 +150,9 @@ class User {
     // serialise arrays as strings for storage
     if (!empty($this->paths)) {
       $this->data['paths']        = App::combineCommaList($this->paths);
+    }
+    if (!empty($this->repos)) {
+      $this->data['repos']        = App::combineCommaList($this->repos);
     }
     if (!empty($this->permissions)) {
       $this->data['permissions']  = App::combineCommaList($this->permissions);
@@ -306,7 +313,7 @@ class User {
 
   public static function logout($redirect = true) {
     // unset variables, destroy session
-    unset($_SESSION[APP_ID . '_user']);
+    unset($_SESSION[Config::$app['id'] . '_user']);
 
     @session_unset();
     @session_destroy();

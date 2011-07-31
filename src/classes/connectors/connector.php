@@ -63,6 +63,20 @@ abstract class Connector {
   }
 
 
+  public static function getActiveTypes() {
+    $active = array();
+    $repos  = self::getRepositories();
+
+    foreach ($repos as $repo) {
+      if ($repo['enabled'] === 'Y') {
+        $active[$repo['type']] = $repo['type'];
+      }
+    }
+
+    return $active;
+  }
+
+
   public static function getRepositories() {
     $repos = Cache::load('repositories');
 

@@ -310,11 +310,11 @@ class SetupUi extends BaseUi {
                   <tbody>
                     <tr>
                       <td class="label">' . _('Server') . '<td>
-                      <td class="value">' . DB_HOST . '</td>
+                      <td class="value">' . Config::$db['host'] . '</td>
                     </tr>
                     <tr>
                       <td class="label">' . _('Database') . '<td>
-                      <td class="value">' . DB_DATABASE . '</td>
+                      <td class="value">' . Config::$db['database'] . '</td>
                     </tr>
                   </tbody>
                 </table>
