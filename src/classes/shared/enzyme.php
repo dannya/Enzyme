@@ -43,7 +43,7 @@ class Enzyme {
 
     } else {
       // get bug page
-      $page = simplexml_load_string(file_get_contents(self::getSettingUrl(WEBBUG_XML, $bug['bug'])));
+      $page = simplexml_load_string(file_get_contents(self::getSettingUrl(Config::getSetting('data', 'WEBBUG_XML'), $bug['bug'])));
 
       // extract data
       if ($page) {
@@ -133,9 +133,10 @@ class Enzyme {
   public static function loadSettings($cacheIfEmpty = true, $getKey = false) {
     // load settings (from cache if possible)
     $existingSettings = Cache::load('settings');
+
     if (!$existingSettings) {
       // load from db and reindex
-      $existingSettings = Db::reindex(Db::load('settings', false), 'setting');
+      $existingSettings = Db::reindex(Db::load('settings2', false), 'setting', false, 'key');
 
       if ($cacheIfEmpty) {
         // cache settings
@@ -162,6 +163,7 @@ class Enzyme {
       // return specified setting key
       if (isset($existingSettings[$getKey])) {
         return $existingSettings[$getKey];
+
       } else {
         return false;
       }
@@ -232,6 +234,10 @@ class Enzyme {
                                           'valid'   => null,
                                           'default' => null,
                                           'example' => 'http://cia.vc/stats/project/KDE/.rss?ver=2&medium=plaintext&limit=10');
+    $tmp['WEBSVN']                = array('title'   => _('Web SVN viewer URL'),
+                                          'valid'   => null,
+                                          'default' => null,
+                                          'example' => null);
     $tmp['WEBBUG']                = array('title'   => _('Web Bug Tracker URL'),
                                           'valid'   => null,
                                           'default' => null,
@@ -309,6 +315,7 @@ class Enzyme {
     $settings[] = array('title'     => _('Data Locations'),
                         'settings'  => array('GENERATE_MAPS'          => $tmp['GENERATE_MAPS'],
                                              'RECENT_COMMITS'         => $tmp['RECENT_COMMITS'],
+                                             'WEBSVN'                 => $tmp['WEBSVN'],
                                              'WEBBUG'                 => $tmp['WEBBUG'],
                                              'WEBBUG_XML'             => $tmp['WEBBUG_XML'],
                                              'REVIEWBOARD'            => $tmp['REVIEWBOARD'],
@@ -382,7 +389,7 @@ class Enzyme {
 
   public static function getAvailableJobsList() {
     // load "available jobs" setting
-    $available = self::loadSettings(true, 'AVAILABLE_JOBS');
+    $available = Config::getSetting('system', 'AVAILABLE_JOBS');
 
     // split into array
     $availableJobs = App::splitCommaList($available['value']);
@@ -416,7 +423,7 @@ class Enzyme {
 
 
     // replace REVIEW:XXXXX with links
-    if (REVIEWBOARD && (stripos($msg, 'REVIEW:') !== false)) {
+    if (Config::getSetting('data', 'REVIEWBOARD') && (stripos($msg, 'REVIEW:') !== false)) {
       preg_match_all('/(REVIEW)[:]?[=]?[ ]?[#]?[0-9]{4,7}/', $msg, $matches);
 
       if (isset($matches[0])) {
@@ -424,7 +431,7 @@ class Enzyme {
           // extract review number
           preg_match('/[0-9]{4,7}/', $match, $tmp);
 
-          $msg = str_replace($match, '<a href="' . self::getSettingUrl(REVIEWBOARD, $tmp[0]) . '" target="_blank">' . $match . '</a>', $msg);
+          $msg = str_replace($match, '<a href="' . self::getSettingUrl(Config::getSetting('data', 'REVIEWBOARD'), $tmp[0]) . '" target="_blank">' . $match . '</a>', $msg);
         }
       }
     }
@@ -1125,10 +1132,10 @@ class Enzyme {
 
 
     // get i18n stats
-    if (I18N_STATS) {
+    if (Config::getSetting('data', 'I18N_STATS')) {
       Ui::displayMsg(_('Getting internationalization (i18n) stats...'));
 
-      $page = Dom::file_get_html(I18N_STATS);
+      $page = Dom::file_get_html(Config::getSetting('data', 'I18N_STATS'));
 
       foreach ($page->find('table#topList tr') as $row) {
         if (isset($row->children[1]->children[0]->attr) && isset($row->children[3])) {
@@ -1149,10 +1156,10 @@ class Enzyme {
 
 
     // get bug stats
-    if (BUG_STATS) {
+    if (Config::getSetting('data', 'BUG_STATS')) {
       Ui::displayMsg(_('Getting bug stats...'));
 
-      $page   = Dom::file_get_html(BUG_STATS);
+      $page   = Dom::file_get_html(Config::getSetting('data', 'BUG_STATS'));
       $table  = $page->find('table', 1);
 
       // get known bugfixers
@@ -1528,7 +1535,7 @@ class Enzyme {
       $digest['synopsis'] = preg_split('/\.\s+/', $digest['synopsis']);
 
       // combine blurb text
-      $buf = 'In <a href="' . DIGEST_URL . '/issues/' . $date . '/">this week\'s ' . PROJECT_NAME . '</a>:
+      $buf = 'In <a href="' . Config::getSetting('enzyme', 'DIGEST_URL') . '/issues/' . $date . '/">this week\'s ' . Config::getSetting('enzyme', 'PROJECT_NAME') . '</a>:
 
               <ul>';
 
@@ -1538,7 +1545,7 @@ class Enzyme {
 
       $buf  .= '</ul>
 
-                <a href="' . DIGEST_URL . '/issues/' . $date . '/">Read the rest of the Digest here</a>.';
+                <a href="' . Config::getSetting('enzyme', 'DIGEST_URL') . '/issues/' . $date . '/">Read the rest of the Digest here</a>.';
 
       return $buf;
 
@@ -1589,7 +1596,7 @@ class Enzyme {
         $bugs = '<div class="bugs">';
 
         foreach ($data['bug'] as $bug) {
-          $bugs  .= '<div onclick="window.open(\'' . self::getSettingUrl(WEBBUG, $bug['bug']) . '\');" title="' . sprintf(_('Bug %d: %s'), $bug['bug'], App::truncate(htmlentities($bug['title']), 90, true)) . '">
+          $bugs  .= '<div onclick="window.open(\'' . self::getSettingUrl(Config::getSetting('data', 'WEBBUG'), $bug['bug']) . '\');" title="' . sprintf(_('Bug %d: %s'), $bug['bug'], App::truncate(htmlentities($bug['title']), 90, true)) . '">
                        &nbsp;
                      </div>';
         }
@@ -1625,7 +1632,7 @@ class Enzyme {
 
     } else {
       // SVN
-      $revisionLink  = '<a id="r::' . $data['revision'] . '" class="revision" href="' . WEBSVN . '?view=revision&amp;revision=' . $data['revision'] . '" target="_blank" tabindex="0">' .
+      $revisionLink  = '<a id="r::' . $data['revision'] . '" class="revision" href="' . Config::getSetting('data', 'WEBSVN') . '?view=revision&amp;revision=' . $data['revision'] . '" target="_blank" tabindex="0">' .
                           $data['revision'] .
                        '</a>';
     }
@@ -1835,7 +1842,7 @@ class Enzyme {
   public static function autoReview($commit, $lastPublishedIssue = null) {
     $autoReview = false;
 
-    if (AUTO_REVIEW_COMMITS) {
+    if (Config::getSetting('enzyme', 'AUTO_REVIEW_COMMITS')) {
       if (!$lastPublishedIssue) {
         $lastPublishedIssue = strtotime(Digest::getLastIssueDate(null, true, true)) - 1209600;
       }

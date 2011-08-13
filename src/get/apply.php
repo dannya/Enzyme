@@ -45,13 +45,13 @@ $json['success'] = Db::insert('applications', $fields, false, false, true, true)
 if ($json['success']) {
   // define email message
   $to       = array('name'    => _('Enzyme administrator'),
-                    'address' => ADMIN_EMAIL);
+                    'address' => Config::getSetting('enzyme', 'ADMIN_EMAIL'));
 
   $message  = sprintf(_('A new application for %s has been made by %s (%s).'), $fields['job'], $fields['firstname'] . ' ' . $fields['lastname'], $fields['email']) . "\n";
-              sprintf(_('Login at %s to decline or approve this application.'), ENZYME_URL);
+              sprintf(_('Login at %s to decline or approve this application.'), Config::getSetting('enzyme', 'ENZYME_URL'));
 
   // send email
-  $email    = new Email($to, sprintf('New Application at %s', PROJECT_NAME), $message);
+  $email    = new Email($to, sprintf('New Application at %s', Config::getSetting('enzyme', 'PROJECT_NAME')), $message);
   $email->send();
 }
 

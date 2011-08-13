@@ -75,7 +75,7 @@ class Media {
 
 
     // ensure target directory is available and writable
-    $uploadDir = DIGEST_BASE_DIR . $uploadDir;
+    $uploadDir = Config::getSetting('system', 'DIGEST_BASE_DIR') . $uploadDir;
 
     if (!is_dir($uploadDir)) {
       // create media directory
@@ -109,7 +109,7 @@ class Media {
 
   private static function resize($originalImage) {
     // do we need to resize?
-    list($width, $height) = getimagesize(DIGEST_BASE_DIR . $originalImage);
+    list($width, $height) = getimagesize(Config::getSetting('system', 'DIGEST_BASE_DIR') . $originalImage);
 
     if (($width <= self::$max['width']) && ($height <= self::$max['height'])) {
       // don't resize
@@ -139,11 +139,11 @@ class Media {
     $imageResized = imagecreatetruecolor($newWidth, $newHeight);
 
     if ($ext == 'png') {
-      $imageTmp   = imagecreatefrompng(DIGEST_BASE_DIR . $originalImage);
+      $imageTmp   = imagecreatefrompng(Config::getSetting('system', 'DIGEST_BASE_DIR') . $originalImage);
     } else if ($ext == 'gif') {
-      $imageTmp   = imagecreatefromgif(DIGEST_BASE_DIR . $originalImage);
+      $imageTmp   = imagecreatefromgif(Config::getSetting('system', 'DIGEST_BASE_DIR') . $originalImage);
     } else if (($ext == 'jpg') || ($ext == 'jpeg')) {
-      $imageTmp   = imagecreatefromjpeg(DIGEST_BASE_DIR . $originalImage);
+      $imageTmp   = imagecreatefromjpeg(Config::getSetting('system', 'DIGEST_BASE_DIR') . $originalImage);
 
     } else {
       // unknown file type
@@ -159,16 +159,16 @@ class Media {
     $outputPath = App::stripExtension($originalImage) . '_thumb.' . $ext;
 
     if ($ext == 'gif') {
-      imagegif($imageResized, DIGEST_BASE_DIR . $outputPath);
+      imagegif($imageResized, Config::getSetting('system', 'DIGEST_BASE_DIR') . $outputPath);
     } else if ($ext == 'png') {
-      imagepng($imageResized, DIGEST_BASE_DIR . $outputPath, 95);
+      imagepng($imageResized, Config::getSetting('system', 'DIGEST_BASE_DIR') . $outputPath, 95);
     } else if (($ext == 'jpg') || ($ext == 'jpeg')) {
-      imagejpeg($imageResized, DIGEST_BASE_DIR . $outputPath, 95);
+      imagejpeg($imageResized, Config::getSetting('system', 'DIGEST_BASE_DIR') . $outputPath, 95);
     }
 
 
     // change permissions of new thumb image
-    chmod(DIGEST_BASE_DIR . $outputPath, 0664);
+    chmod(Config::getSetting('system', 'DIGEST_BASE_DIR') . $outputPath, 0664);
     chgrp($uploadDir, 'commit-digest');
 
 
@@ -219,12 +219,12 @@ class Media {
     if ($media['type'] == 'image') {
       // show thumbnail and link to larger image?
       if (!empty($media['thumbnail'])) {
-        $image = '<a href="' . DIGEST_URL . $media['file'] . '" target="_blank">
-                    <img src="' . DIGEST_URL . $media['thumbnail'] . '" alt="" />
+        $image = '<a href="' . Config::getSetting('enzyme', 'DIGEST_URL') . $media['file'] . '" target="_blank">
+                    <img src="' . Config::getSetting('enzyme', 'DIGEST_URL') . $media['thumbnail'] . '" alt="" />
                   </a>';
 
       } else {
-        $image = '<img src="' . DIGEST_URL . $media['file'] . '" alt="" />';
+        $image = '<img src="' . Config::getSetting('enzyme', 'DIGEST_URL') . $media['file'] . '" alt="" />';
       }
 
       $buf   = '<div class="img">' .

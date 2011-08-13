@@ -31,8 +31,8 @@ class InsertUi extends BaseUi {
 
   public function draw() {
     // check permission (and insert is set to show)
-    if ($buf = App::checkPermission($this->user, 'editor') ||
-        (defined('SHOW_INSERT') && !SHOW_INSERT)) {
+    if (($buf = App::checkPermission($this->user, 'editor')) ||
+        Config::getSetting('enzyme', 'SHOW_INSERT')) {
 
       return $buf;
     }

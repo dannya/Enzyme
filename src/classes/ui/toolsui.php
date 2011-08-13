@@ -196,7 +196,7 @@ class ToolsUi extends BaseUi {
           if ($tool['id'] == $_REQUEST['tool']) {
             // check that user has needed permissions to access tool
             if (($buf = App::checkPermission($this->user, $tool['permission'])) ||
-                (!ENABLE_LEGACY && (($category == 'migration') || ($category == 'import')))) {
+                (!Config::getSetting('legacy', 'ENABLE_LEGACY') && (($category == 'migration') || ($category == 'import')))) {
 
               // user does not have needed access permissions
               $this->message = $buf;
@@ -230,7 +230,7 @@ class ToolsUi extends BaseUi {
     // draw tools within sections
     foreach ($this->tools as $category => $tools) {
       // show legacy section?
-      if (!ENABLE_LEGACY && (($category == 'migration') || ($category == 'import'))) {
+      if (!Config::getSetting('legacy', 'ENABLE_LEGACY') && (($category == 'migration') || ($category == 'import'))) {
         continue;
       }
 

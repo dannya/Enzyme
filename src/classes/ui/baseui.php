@@ -62,7 +62,7 @@ abstract class BaseUi {
 
 
     // show import section?
-    if (defined('SHOW_INSERT') && !SHOW_INSERT) {
+    if (Config::getSetting('enzyme', 'SHOW_INSERT')) {
       unset($items['insert']);
     }
 

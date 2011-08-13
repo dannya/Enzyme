@@ -20,11 +20,11 @@ include($_SERVER['DOCUMENT_ROOT'] . '/autoload.php');
 
 // set url?
 if (!empty($_REQUEST['page'])) {
-  $url      = HELP_URL . '/' . $_REQUEST['page'];
+  $url      = Config::getSetting('enzyme', 'HELP_URL') . '/' . $_REQUEST['page'];
   $cacheKey = 'help_' . $_REQUEST['page'];
 
 } else {
-  $url      = HELP_URL;
+  $url      = Config::getSetting('enzyme', 'HELP_URL');
   $cacheKey = 'help_index';
 }
 
@@ -44,7 +44,7 @@ if (!$content) {
 
 
   // extract content
-  $content = $page->find(HELP_CONTAINER);
+  $content = $page->find(Config::getSetting('enzyme', 'HELP_CONTAINER'));
   $content = reset($content);
   $content = $content->innertext;
 
@@ -52,7 +52,7 @@ if (!$content) {
 
 
   // get common path which we will rewrite to a local link
-  $commonPath = parse_url(HELP_URL);
+  $commonPath = parse_url(Config::getSetting('enzyme', 'HELP_URL'));
   $commonPath = rtrim($commonPath['path'], '/') . '/';
 
 

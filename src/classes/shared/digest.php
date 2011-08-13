@@ -657,7 +657,7 @@ class Digest {
         }
 
         $buf .= '<div class="bug">
-                   <a class="n" href="' . Enzyme::getSettingUrl(WEBBUG, $bug['bug']) . '" target="_blank">' . sprintf(_('Bug %d: %s'), $bug['bug'], App::truncate(htmlentities($bug['title']), 90, true)) . '</a>
+                   <a class="n" href="' . Enzyme::getSettingUrl(Config::getSetting('data', 'WEBBUG'), $bug['bug']) . '" target="_blank">' . sprintf(_('Bug %d: %s'), $bug['bug'], App::truncate(htmlentities($bug['title']), 90, true)) . '</a>
 
                    <div>' .
                      $icon .
@@ -707,7 +707,7 @@ class Digest {
     for ($i = 0; $i < $limit; $i++) {
       if (empty($commit['format']) || ($commit['format'] == 'svn')) {
         // show links to the web repo viewer
-        $buf[] = '<a class="n" href="' . WEBSVN . $commit['diff'][$i]['path'] . '?r1=' . ($commit['diff'][$i]['revision'] - 1) . '&amp;r2=' . $commit['diff'][$i]['revision'] . '">' . ($i + 1) . '</a>';
+        $buf[] = '<a class="n" href="' . Config::getSetting('data', 'WEBSVN') . $commit['diff'][$i]['path'] . '?r1=' . ($commit['diff'][$i]['revision'] - 1) . '&amp;r2=' . $commit['diff'][$i]['revision'] . '">' . ($i + 1) . '</a>';
 
       } else {
         // don't show links, we don't know the web repo viewer for Git links

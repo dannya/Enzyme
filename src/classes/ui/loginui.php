@@ -22,7 +22,7 @@ class LoginUi {
 
 
   public function __construct() {
-    $this->title = sprintf(_('Welcome to Enzyme @ %s'), PROJECT_NAME);
+    $this->title = sprintf(_('Welcome to Enzyme @ %s'), Config::getSetting('enzyme', 'PROJECT_NAME'));
 
     // get list of available jobs
     $this->jobs  = Enzyme::getAvailableJobs();

@@ -39,12 +39,12 @@ echo Ui::drawHtmlPageStart(null, array('/css/common.css'), array('/js/prototype.
 if ($_REQUEST['type'] == 'issue') {
   $issueType  = 'issue';
   $author     = 'dannya';
-  $dirName    = EXISTING_ISSUES;
+  $dirName    = Config::getSetting('legacy', 'EXISTING_ISSUES');
 
 } else if ($_REQUEST['type'] == 'archive') {
   $issueType  = 'archive';
   $author     = 'dkite';
-  $dirName    = EXISTING_ARCHIVE;
+  $dirName    = Config::getSetting('legacy', 'EXISTING_ARCHIVE');
 
 } else {
   echo _('Invalid import type (needs to be "issue" or "archive")');

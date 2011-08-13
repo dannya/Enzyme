@@ -95,8 +95,8 @@ if (($_REQUEST['dataType'] == 'name') ||
 
 
   // move media file on filesystem
-  if (is_file(DIGEST_BASE_DIR . $oldFileLocation)) {
-    $newBaseLocation = DIGEST_BASE_DIR . Media::getBasePath($newFileLocation, 1);
+  if (is_file(Config::getSetting('system', 'DIGEST_BASE_DIR') . $oldFileLocation)) {
+    $newBaseLocation = Config::getSetting('system', 'DIGEST_BASE_DIR') . Media::getBasePath($newFileLocation, 1);
 
     if (!is_dir($newBaseLocation)) {
       // create media directory
@@ -108,7 +108,7 @@ if (($_REQUEST['dataType'] == 'name') ||
     }
 
     // move file
-    rename(DIGEST_BASE_DIR . $oldFileLocation, DIGEST_BASE_DIR . $newFileLocation);
+    rename(Config::getSetting('system', 'DIGEST_BASE_DIR') . $oldFileLocation, Config::getSetting('system', 'DIGEST_BASE_DIR') . $newFileLocation);
 
   } else {
     // error, don't continue!
@@ -124,13 +124,13 @@ if (($_REQUEST['dataType'] == 'name') ||
 
 
   // also move thumbnail image?
-  if (!empty($media['thumbnail']) && is_file(DIGEST_BASE_DIR . $media['thumbnail'])) {
+  if (!empty($media['thumbnail']) && is_file(Config::getSetting('system', 'DIGEST_BASE_DIR') . $media['thumbnail'])) {
     $newFileLocation = str_replace('/' . $_REQUEST['date'] . '/',
                                    '/' . $_REQUEST['data'] . '/',
                                    $media['thumbnail']);
 
     // move file
-    if (rename(DIGEST_BASE_DIR . $media['thumbnail'], DIGEST_BASE_DIR . $newFileLocation)) {
+    if (rename(Config::getSetting('system', 'DIGEST_BASE_DIR') . $media['thumbnail'], Config::getSetting('system', 'DIGEST_BASE_DIR') . $newFileLocation)) {
       // change stored thumbnail filename
       $values['thumbnail'] = $newFileLocation;
     }
@@ -163,11 +163,11 @@ if (($_REQUEST['dataType'] == 'name') ||
 
 
   // move media file on filesystem
-  if (is_file(DIGEST_BASE_DIR . $oldFileLocation) && !is_file(DIGEST_BASE_DIR . $newFileLocation)) {
-    $newBaseLocation = DIGEST_BASE_DIR . Media::getBasePath($newFileLocation, 1);
+  if (is_file(Config::getSetting('system', 'DIGEST_BASE_DIR') . $oldFileLocation) && !is_file(Config::getSetting('system', 'DIGEST_BASE_DIR') . $newFileLocation)) {
+    $newBaseLocation = Config::getSetting('system', 'DIGEST_BASE_DIR') . Media::getBasePath($newFileLocation, 1);
 
     // move file
-    rename(DIGEST_BASE_DIR . $oldFileLocation, DIGEST_BASE_DIR . $newFileLocation);
+    rename(Config::getSetting('system', 'DIGEST_BASE_DIR') . $oldFileLocation, Config::getSetting('system', 'DIGEST_BASE_DIR') . $newFileLocation);
 
   } else {
     // error, don't continue!
@@ -181,12 +181,12 @@ if (($_REQUEST['dataType'] == 'name') ||
 
 
   // also rename thumbnail image?
-  if (!empty($media['thumbnail']) && is_file(DIGEST_BASE_DIR . $media['thumbnail'])) {
+  if (!empty($media['thumbnail']) && is_file(Config::getSetting('system', 'DIGEST_BASE_DIR') . $media['thumbnail'])) {
     $ext              = App::getExtension($media['thumbnail']);
     $newThumbLocation = App::stripExtension($_REQUEST['data']) . '_thumb.' . $ext;
 
     // move file
-    if (rename(DIGEST_BASE_DIR . $media['thumbnail'], DIGEST_BASE_DIR . $newFileBase . $newThumbLocation)) {
+    if (rename(Config::getSetting('system', 'DIGEST_BASE_DIR') . $media['thumbnail'], Config::getSetting('system', 'DIGEST_BASE_DIR') . $newFileBase . $newThumbLocation)) {
       // change stored thumbnail filename
       $values['thumbnail'] = $newFileBase . $newThumbLocation;
     }

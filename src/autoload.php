@@ -76,7 +76,6 @@ if (COMMAND_LINE) {
 define('DIGEST_APP_ID',       'commit-digest');
 define('ENZYME_APP_ID',       Config::$app['id']);
 
-
 define('JAVASCRIPT_LIBRARY',  'prototype');
 
 
@@ -133,11 +132,6 @@ if (($_SERVER['SCRIPT_NAME'] == '/js/index.php') ||
                             array_merge(array('/js/prototype.js', '/js/effects.js', '/js/index.php?script=common'), $setup->getScript()));
       exit;
 
-    } else {
-      // define settings for app access
-      foreach ($settings as $setting) {
-        define($setting['setting'], $setting['value']);
-      }
     }
   }
 }
@@ -176,6 +170,6 @@ if (LIVE_SITE) {
 
 
 // set timezone
-date_default_timezone_set(DEFAULT_TIMEZONE);
+date_default_timezone_set(Config::getSetting('locale', 'TIMEZONE'));
 
 ?>

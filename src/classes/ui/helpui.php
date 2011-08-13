@@ -47,7 +47,7 @@ class HelpUi extends BaseUi {
               </a>
 
               <span>' .
-                sprintf(_('This help content is a Wiki: help improve it @ %s'), '<a href="' . HELP_URL . '" target="_blank">' . HELP_URL . '</a>') .
+                sprintf(_('This help content is a Wiki: help improve it @ %s'), '<a href="' . Config::getSetting('enzyme', 'HELP_URL') . '" target="_blank">' . HELP_URL . '</a>') .
            '  </span>
             </h3>
 

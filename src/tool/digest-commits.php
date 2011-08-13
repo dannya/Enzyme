@@ -36,7 +36,7 @@ echo Ui::drawHtmlPageStart(null, array('/css/common.css'), array('/js/prototype.
 
 
 // get sorted dir structure for iterating
-$dirs = App::getDirs(EXISTING_ISSUES);
+$dirs = App::getDirs(Config::getSetting('legacy', 'EXISTING_ISSUES'));
 
 
 // iterate

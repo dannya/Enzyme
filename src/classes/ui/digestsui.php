@@ -182,7 +182,7 @@ class DigestsUi extends BaseUi {
                    '  </a>
 
                       <a class="action" href="#" onclick="dotBlurb(\'' . $digest['date'] . '\');">' . ('Dot') . '</a>
-                      <a class="action" href="' . DIGEST_URL . '/issues/' . $digest['date'] . '/?review" target="_blank">' . ('Preview') . '</a>
+                      <a class="action" href="' . Config::getSetting('enzyme', 'DIGEST_URL') . '/issues/' . $digest['date'] . '/?review" target="_blank">' . ('Preview') . '</a>
                     </li>';
         }
 
@@ -213,7 +213,7 @@ class DigestsUi extends BaseUi {
            '  <span>
                 <span id="indicator-info"><span>&nbsp;</span></span>
                 <input id="save-info" type="button" value="' . _('Save changes') . '" title="' . _('Save changes') . '" onclick="saveSection(\'' . $this->data['date'] . '\', \'info\');" />
-                <input id="preview" type="button" value="' . _('Preview') . '" title="' . _('Preview') . '" onclick="window.open(\'' . DIGEST_URL . '/issues/' . $this->data['date'] . '/?review\');" />
+                <input id="preview" type="button" value="' . _('Preview') . '" title="' . _('Preview') . '" onclick="window.open(\'' . Config::getSetting('enzyme', 'DIGEST_URL') . '/issues/' . $this->data['date'] . '/?review\');" />
               </span>
             </h2>
 
@@ -825,7 +825,7 @@ class DigestsUi extends BaseUi {
                '      <span class="d">' .
                         $diffs .
                '      </span>
-                      <a class="r n" href="' . DIGEST_URL . '/issues/' . $this->data['date'] . '/moreinfo/' . $commit['revision'] . '/" target="_blank">' .
+                      <a class="r n" href="' . Config::getSetting('enzyme', 'DIGEST_URL') . '/issues/' . $this->data['date'] . '/moreinfo/' . $commit['revision'] . '/" target="_blank">' .
                         sprintf(_('Revision %s'), $commit['revision']) .
                      '</a>
                     </div>

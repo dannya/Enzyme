@@ -20,8 +20,8 @@ class App {
     if (defined('LANGUAGE')) {
       return false;
     }
-    if (!defined('DEFAULT_LANGUAGE')) {
-      define('DEFAULT_LANGUAGE', 'en_US');
+    if (Config::getSetting('locale', 'language')) {
+      Config::setSetting(array('locale', 'language'), 'en_US');
     }
 
     // set language
@@ -42,7 +42,7 @@ class App {
 
     } else {
       // use default language
-      define('LANGUAGE', DEFAULT_LANGUAGE);
+      define('LANGUAGE', Config::$locale['language']);
     }
 
 

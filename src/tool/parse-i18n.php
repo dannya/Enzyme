@@ -36,7 +36,7 @@ echo Ui::drawHtmlPageStart(null, array('/css/common.css'), array('/js/prototype.
 
 
 // get i18n teams page
-$page = Dom::file_get_html(I18N_TEAMS);
+$page = Dom::file_get_html(Config::getSetting('data', 'I18N_TEAMS'));
 
 foreach ($page->find('div#teamlist table.datalist tbody tr') as $row) {
   // skip header

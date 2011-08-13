@@ -38,12 +38,12 @@ echo Ui::drawHtmlPageStart(null, array('/css/common.css'), array('/js/prototype.
 // load data
 $filename = 'people_kde.txt';
 
-if (!is_file(EXISTING_DATA . '/' . $filename)) {
-  Ui::displayMsg(sprintf(_('Cannot find %s'), EXISTING_DATA . '/' . $filename), 'error');
+if (!is_file(Config::getSetting('legacy', 'EXISTING_DATA') . '/' . $filename)) {
+  Ui::displayMsg(sprintf(_('Cannot find %s'), Config::getSetting('legacy', 'EXISTING_DATA') . '/' . $filename), 'error');
   exit;
 }
 
-$data = @file(EXISTING_DATA . '/' . $filename);
+$data = @file(Config::getSetting('legacy', 'EXISTING_DATA') . '/' . $filename);
 
 
 // load existing developer records

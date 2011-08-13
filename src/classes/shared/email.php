@@ -28,7 +28,7 @@ class Email {
 
   public function __construct(array $to, $subject, $message, $isHtml = false, $from = null) {
     // check that a SMTP server has been set
-    if (!defined('SMTP')) {
+    if (!Config::getSetting('enzyme', 'SMTP')) {
       trigger_error(_('SMTP mail server has not been set!'));
       return false;
     }
@@ -40,7 +40,7 @@ class Email {
     if ($from) {
       $this->from   = $from;
     } else {
-      $this->from   = 'no-reply@' . str_replace('http://', null, ENZYME_URL);
+      $this->from   = 'no-reply@' . str_replace('http://', null, Config::getSetting('enzyme', 'ENZYME_URL'));
     }
 
     $this->subject  = $subject;
@@ -49,7 +49,7 @@ class Email {
 
 
     // setup SMTP server
-    ini_set('SMTP',           SMTP);
+    ini_set('SMTP',           Config::getSetting('enzyme', 'SMTP'));
     ini_set('sendmail_from',  $this->from);
     ini_set('smtp_port',      25);
 

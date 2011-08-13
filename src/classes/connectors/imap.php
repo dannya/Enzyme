@@ -44,7 +44,7 @@ class Imap extends Connector {
 
     if ($emails) {
       // get date of last published issue (+ 14 day safety margin) for commit comparison?
-      if (AUTO_REVIEW_COMMITS) {
+      if (Config::getSetting('enzyme', 'AUTO_REVIEW_COMMITS')) {
         $lastPublishedIssue = strtotime(Digest::getLastIssueDate(null, true, true)) - 1209600;
       }
 

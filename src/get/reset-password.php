@@ -74,12 +74,12 @@ if (!empty($_REQUEST['code']) && !empty($_REQUEST['new_password'])) {
                       _('This link is valid for 6 hours, and one password change only.') . "\n\n" .
                       _('Be sure to change your password immediately after logging in by going to "Settings" at the top right.') . "\n\n" .
                       _('If you have not requested the password reset, please ignore this email.') . "\n" .
-              sprintf(_('If you get any more unrequested reset messages, please contact %s'), ADMIN_EMAIL) . "\n\n" .
-              sprintf(_('Thanks, the %s team'), PROJECT_NAME);
+              sprintf(_('If you get any more unrequested reset messages, please contact %s'), Config::getSetting('enzyme', 'ADMIN_EMAIL')) . "\n\n" .
+              sprintf(_('Thanks, the %s team'), Config::getSetting('enzyme', 'PROJECT_NAME'));
 
 
   // send email
-  $email            = new Email($to, sprintf('%s Reset Password', PROJECT_NAME), $message);
+  $email            = new Email($to, sprintf('%s Reset Password', Config::getSetting('enzyme', 'PROJECT_NAME')), $message);
   $json['success']  = $email->send();
 }
 

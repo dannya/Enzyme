@@ -600,10 +600,18 @@ abstract class DbMysql extends Db {
         $theKey = $item[$key];
       }
 
+
       // overwrite values?
-      if ($overwrite) {
+      if ($overwrite === true) {
+        // overwrite values on 2nd level
         $data[$theKey] = $item;
+
+      } else if (is_string($overwrite)) {
+        // write values on 2nd level using specific key name for key
+        $data[$theKey][$item[$overwrite]] = $item;
+
       } else {
+        // write values on 2nd level using auto numeric keys
         $data[$theKey][] = $item;
       }
     }

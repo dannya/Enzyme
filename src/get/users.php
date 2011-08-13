@@ -88,14 +88,14 @@ if (($_REQUEST['dataType'] == 'new-user') || ($_REQUEST['dataType'] == 'approve-
     $to       = array('name'    => $data['firstname'] . ' ' . $data['lastname'],
                       'address' => $data['email']);
     $message  = sprintf('%s, your application for %s has been successful!', $data['firstname'], $data['permissions']) . "\n" .
-                sprintf('To get started, please go to %s and login with the following details:', ENZYME_URL . '/') . "\n\n" .
+                sprintf('To get started, please go to %s and login with the following details:', Config::getSetting('enzyme', 'ENZYME_URL') . '/') . "\n\n" .
                 sprintf('  Username: %s', $data['username']) . "\n" .
                 sprintf('  Password: %s', $tmpPassword) . "\n\n" .
                         'Be sure to change your password immediately after logging in by going to "Settings" at the top right.' . "\n" .
-                sprintf('If you have any questions, please contact %s', ADMIN_EMAIL) . "\n\n" .
-                sprintf('Thanks, the %s team', PROJECT_NAME);
+                sprintf('If you have any questions, please contact %s', Config::getSetting('enzyme', 'ADMIN_EMAIL')) . "\n\n" .
+                sprintf('Thanks, the %s team', Config::getSetting('enzyme', 'PROJECT_NAME'));
 
-    $email    = new Email($to, sprintf('%s Application Successful', PROJECT_NAME), $message);
+    $email    = new Email($to, sprintf('%s Application Successful', Config::getSetting('enzyme', 'PROJECT_NAME')), $message);
     $email->send();
   }
 
@@ -110,11 +110,11 @@ if (($_REQUEST['dataType'] == 'new-user') || ($_REQUEST['dataType'] == 'approve-
 
     $to       = array('name'    => $tmpData['firstname'] . ' ' . $tmpData['lastname'],
                       'address' => $tmpData['email']);
-    $message  = sprintf('%s, your application at %s has been declined.', $tmpData['firstname'], PROJECT_NAME) . "\n" .
-                sprintf('If you have any questions, please contact %s', ADMIN_EMAIL) . "\n\n" .
-                sprintf('Regards, the %s team', PROJECT_NAME);
+    $message  = sprintf('%s, your application at %s has been declined.', $tmpData['firstname'], Config::getSetting('enzyme', 'PROJECT_NAME')) . "\n" .
+                sprintf('If you have any questions, please contact %s', Config::getSetting('enzyme', 'ADMIN_EMAIL')) . "\n\n" .
+                sprintf('Regards, the %s team', Config::getSetting('enzyme', 'PROJECT_NAME'));
 
-    $email    = new Email($to, sprintf('%s Application Declined', PROJECT_NAME), $message);
+    $email    = new Email($to, sprintf('%s Application Declined', Config::getSetting('enzyme', 'PROJECT_NAME')), $message);
     $email->send();
   }
 

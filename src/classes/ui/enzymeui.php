@@ -57,7 +57,7 @@ class EnzymeUi {
 
       } else {
         // logged in, initialise authorised UI
-        if ($current == 'insert' && defined('SHOW_INSERT') && SHOW_INSERT) {
+        if ($current == 'insert' && Config::getSetting('enzyme', 'SHOW_INSERT')) {
           $this->frame = new InsertUI($this->user);
 
         } else if ($current == 'review') {
@@ -122,12 +122,21 @@ class EnzymeUi {
 
 
   public function drawMeta() {
-    $buf = '<meta name="description" content="' . Config::$meta['description'] . '" />
-            <meta name="keywords" content="' . Config::$meta['keywords'] . '" />
-            <meta name="viewport" content="width=device-width; initial-scale=1.0" />
+    if (isset(Config::$meta['keywords']) && Config::$meta['keywords']) {
+      $buf = '<meta name="author" content="' . Config::$meta['author'] . '" />';
+    } else {
+      $buf = null;
+    }
 
-            <link rel="shortcut icon" href="' . BASE_URL .'/favicon.ico" type="image/x-icon" />
-            <link rel="icon" href="' . BASE_URL . '/favicon.ico" type="image/x-icon" />';
+    $buf .=  '<meta charset="utf-8" />
+
+              <meta name="description" content="' . Config::$meta['description'] . '" />
+              <meta name="keywords" content="' . Config::$meta['keywords'] . '" />
+
+              <meta name="viewport" content="width=device-width; initial-scale=1.0" />
+
+              <link rel="shortcut icon" href="' . BASE_URL .'/favicon.ico" type="image/x-icon" />
+              <link rel="icon" href="' . BASE_URL . '/favicon.ico" type="image/x-icon" />';
 
     return $buf;
   }

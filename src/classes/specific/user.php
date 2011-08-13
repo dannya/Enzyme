@@ -131,7 +131,7 @@ class User {
     }
 
     // change language?
-    if ($this->data['language'] != DEFAULT_LANGUAGE) {
+    if ($this->data['language'] != Config::getSetting('locale', 'LANGUAGE')) {
       App::setLanguage($this->data['language']);
     } else {
       App::setLanguage();

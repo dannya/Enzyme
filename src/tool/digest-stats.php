@@ -37,10 +37,10 @@ echo Ui::drawHtmlPageStart(null, array('/css/common.css'), array('/js/prototype.
 
 // look in directory for files
 if ($_REQUEST['type'] == 'issue') {
-  $dirName = EXISTING_ISSUES;
+  $dirName = Config::getSetting('legacy', 'EXISTING_ISSUES');
 
 } else if ($_REQUEST['type'] == 'archive') {
-  $dirName = EXISTING_ARCHIVE;
+  $dirName = Config::getSetting('legacy', 'EXISTING_ARCHIVE');
 
 } else {
   echo _('Invalid import type (needs to be "issue" or "archive")');
