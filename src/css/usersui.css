@@ -132,6 +132,7 @@ div.application table tr.message td.value {
 
 div.application table tr.jobs td.label {
   padding-top:24px;
+  padding-bottom:8px;
 }
 div.application table tr.jobs td.value {
   padding-top:22px;

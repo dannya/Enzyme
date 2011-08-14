@@ -375,6 +375,12 @@ class UsersUi extends BaseUi {
                           <input id="paths-' . $counter . '" name="paths" type="text" value="' . $application['paths'] . '" />
                         </td>
                       </tr>
+                      <tr>
+                        <td class="label">' . _('Repositories') . '</td>
+                        <td class="value">
+                          <input id="repos-' . $counter . '" name="repos" type="text" value="' . $application['repos'] . '" />
+                        </td>
+                      </tr>
                       <tr class="message">
                         <td class="label">' . _('Message') . '</td>
                         <td class="value">' . str_replace("\n", '<br />', $application['message']) . '</td>

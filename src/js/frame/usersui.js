@@ -53,7 +53,7 @@ function saveNewAccount(event) {
   var theData         = {};
   var unfilled        = false;
   var neededFields    = ['username', 'email', 'firstname', 'lastname'];
-  var optionalFields  = ['permission-admin', 'permission-editor', 'permission-reviewer', 'permission-classifier', 'permission-translator', 'paths'];
+  var optionalFields  = ['permission-admin', 'permission-editor', 'permission-reviewer', 'permission-classifier', 'permission-translator', 'paths', 'repos'];
 
   fields.each(function(field) {
     if (neededFields.indexOf(field.readAttribute('name')) != -1) {
@@ -208,6 +208,9 @@ function saveChange(user, event) {
 
 
   // send off data
+  element.removeClassName('success');
+  element.removeClassName('failure');
+
   new Ajax.Request(BASE_URL + '/get/users.php', {
     method: 'post',
     parameters: {

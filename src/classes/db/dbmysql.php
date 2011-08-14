@@ -18,7 +18,7 @@
 abstract class DbMysql extends Db {
   public static function connect() {
     // connect to database server
-    mysql_connect(Config::$db['host'], Config::$db['user'], Config::$db['password']) or trigger_error(sprintf(_("Couldn't connect to database: ensure you have set the correct values at the top of %s/autoload.php"), BASE_DIR));
+    mysql_connect(Config::$db['host'], Config::$db['user'], Config::$db['password']) or trigger_error(sprintf('Could not connect to database: ensure you have set the correct values in %s/classes/specific/config.php', BASE_DIR));
 
     // select database
     $success = @mysql_select_db(Config::$db['database']);
@@ -474,7 +474,7 @@ abstract class DbMysql extends Db {
 
   private static function createValues($context, $values, $isEnum = false) {
     if (empty($values) || !is_array($values)) {
-      trigger_error(_('Query failed'));
+      trigger_error('Query failed');
       return null;
     }
 
@@ -544,7 +544,7 @@ abstract class DbMysql extends Db {
 
   private static function createValuesMulti($context, $values, $isEnum = false) {
     if (empty($values) || !is_array($values)) {
-      trigger_error(_('Query failed'));
+      trigger_error('Query failed');
       return null;
     }
 
@@ -739,7 +739,7 @@ abstract class DbMysql extends Db {
       $result = mysql_query($sql);
 
       if (!$result) {
-        trigger_error(sprintf(_('Query failed: %s'), mysql_error()));
+        trigger_error(sprintf('Query failed: %s', mysql_error()));
       }
 
       return $result;

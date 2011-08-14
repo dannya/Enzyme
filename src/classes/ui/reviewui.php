@@ -114,9 +114,6 @@ class ReviewUi extends BaseUi {
       return false;
 
     } else if ($revision['format'] == 'git') {
-      print_R($revision);
-      exit;
-
       if (!empty($this->user->repos)) {
         foreach ($this->user->repos as $repo) {
           if (strpos($revision['repository'], $repo) !== false) {

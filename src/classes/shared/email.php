@@ -29,7 +29,7 @@ class Email {
   public function __construct(array $to, $subject, $message, $isHtml = false, $from = null) {
     // check that a SMTP server has been set
     if (!Config::getSetting('enzyme', 'SMTP')) {
-      trigger_error(_('SMTP mail server has not been set!'));
+      trigger_error('SMTP mail server has not been set!');
       return false;
     }
 

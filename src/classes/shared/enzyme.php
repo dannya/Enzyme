@@ -136,7 +136,7 @@ class Enzyme {
 
     if (!$existingSettings) {
       // load from db and reindex
-      $existingSettings = Db::reindex(Db::load('settings2', false), 'setting', false, 'key');
+      $existingSettings = Db::reindex(Db::load('settings', false), 'setting', false, 'key');
 
       if ($cacheIfEmpty) {
         // cache settings
@@ -263,11 +263,11 @@ class Enzyme {
                                           'default' => null,
                                           'example' => null);
 
-    $tmp['DEFAULT_TIMEZONE']      = array('title'   => _('Default Timezone'),
+    $tmp['TIMEZONE']              = array('title'   => _('Default Timezone'),
                                           'valid'   => array('Europe/London' => 'Europe/London'),
                                           'default' => 'Europe/London',
                                           'example' => null);
-    $tmp['DEFAULT_LANGUAGE']      = array('title'   => _('Default Language'),
+    $tmp['LANGUAGE']              = array('title'   => _('Default Language'),
                                           'valid'   => Digest::getLanguages(),
                                           'default' => 'en_US',
                                           'example' => null);
@@ -324,8 +324,8 @@ class Enzyme {
                                              'BUG_STATS'              => $tmp['BUG_STATS']));
 
     $settings[] = array('title'     => _('Display Defaults'),
-                        'settings'  => array('DEFAULT_TIMEZONE'       => $tmp['DEFAULT_TIMEZONE'],
-                                             'DEFAULT_LANGUAGE'       => $tmp['DEFAULT_LANGUAGE']));
+                        'settings'  => array('TIMEZONE'               => $tmp['TIMEZONE'],
+                                             'LANGUAGE'               => $tmp['LANGUAGE']));
 
     $settings[] = array('title'     => _('Legacy Import'),
                         'settings'  => array('ENABLE_LEGACY'          => $tmp['ENABLE_LEGACY'],
@@ -392,7 +392,7 @@ class Enzyme {
     $available = Config::getSetting('system', 'AVAILABLE_JOBS');
 
     // split into array
-    $availableJobs = App::splitCommaList($available['value']);
+    $availableJobs = App::splitCommaList($available);
 
     return $availableJobs;
   }

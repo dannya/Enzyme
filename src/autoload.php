@@ -104,8 +104,8 @@ if (($_SERVER['SCRIPT_NAME'] == '/js/index.php') ||
     ($_SERVER['SCRIPT_NAME'] == '/get/setup-user.php')) {
 
   // common script and setup handler need to bypass database check (used in setup!)
-  define('DEFAULT_LANGUAGE', 'en_US');
-  define('DEFAULT_TIMEZONE', 'Europe/London');
+  define('LANGUAGE', 'en_US');
+  define('TIMEZONE', 'Europe/London');
 
 } else {
   if (!$databaseExists) {

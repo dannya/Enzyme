@@ -235,6 +235,9 @@ function saveChange(theDate, theNumber, event) {
 
 
   // send off data
+  element.removeClassName('success');
+  element.removeClassName('failure');
+
   new Ajax.Request(BASE_URL + '/get/change-media.php', {
     method: 'post',
     parameters: {
