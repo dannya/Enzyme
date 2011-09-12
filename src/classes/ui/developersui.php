@@ -126,7 +126,7 @@ class DevelopersUi extends BaseUi {
 
 
   public function getStyle() {
-    return array('/css/developersui.css');
+    return array('/css/frame/developersui.css');
   }
 
 

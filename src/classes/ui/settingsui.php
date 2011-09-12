@@ -175,7 +175,7 @@ class SettingsUi extends BaseUi {
 
 
   public function getStyle() {
-    return array('/css/settingsui.css');
+    return array('/css/frame/settingsui.css');
   }
 }
 

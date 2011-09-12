@@ -140,7 +140,7 @@ input[type="password"] {
 
 input[type="button"],
 input[type="submit"] {
-  background:url("../img/bg.png") repeat scroll 0 0 transparent;
+  background:url("../../img/bg.png") repeat scroll 0 0 transparent;
   color:#fff;
   cursor:pointer;
   float:right;
@@ -162,7 +162,7 @@ input[type="submit"].selected {
 
 #content input[type="button"],
 #content input[type="submit"] {
-  background:url("../img/bgd.png") repeat scroll 0 0 transparent;
+  background:url("../../img/bgd.png") repeat scroll 0 0 transparent;
   color:#000;
 }
 #content input[type="button"]:hover,
@@ -221,7 +221,7 @@ h3 a.button {
   height:22px;
   margin:2px 0 0 10px;
 
-  background:url('../img/sprite.png') no-repeat;
+  background:url('../../img/sprite.png') no-repeat;
 }
 
 h3 a.button-home {
@@ -257,7 +257,7 @@ div#header {
   position:fixed;
   width:100%;
   height:38px;
-  background:url(../img/header-bg.png) repeat scroll 0 0 transparent;
+  background:url(../../img/header-bg.png) repeat scroll 0 0 transparent;
   z-index:1000;
 }
 
@@ -268,7 +268,7 @@ div#header a#logo {
   left:0;
   width:250px;
   height:38px;
-  background:url(../img/logo-hover.png) no-repeat scroll 0 0 transparent;
+  background:url(../../img/logo-hover.png) no-repeat scroll 0 0 transparent;
 }
 div#header a#logo:hover {
   background-position:-0 -38px;
@@ -348,7 +348,7 @@ div#sidebar {
   bottom:0;
   width:205px;
 
-  background:url(../img/sidebar-bg.png) repeat scroll 0 0 transparent;
+  background:url(../../img/sidebar-bg.png) repeat scroll 0 0 transparent;
   border-right:3px dotted #333;  
   z-index:1001;
 }
@@ -375,7 +375,7 @@ div#sidebar ul li a {
   border-bottom:none;
 }
 div#sidebar ul li a:hover {
-  background:url(../img/bg.png) repeat scroll 0 0 transparent;
+  background:url(../../img/bg.png) repeat scroll 0 0 transparent;
   color:#000;
 
   border-radius:3px;
@@ -383,7 +383,7 @@ div#sidebar ul li a:hover {
   -webkit-border-radius:3px;
 }
 div#sidebar ul li.selected a {
-  background:url(../img/bgd.png) repeat scroll 0 0 transparent;
+  background:url(../../img/bgd.png) repeat scroll 0 0 transparent;
   color:#fff;
   text-shadow:#000 2px 2px 2px;
   
@@ -413,7 +413,7 @@ div#status-area {
   left:208px;
   right:0;
 
-  background:url(../img/header-bg.png) repeat scroll 0 0 transparent;
+  background:url(../../img/header-bg.png) repeat scroll 0 0 transparent;
 }
 
 div#status-area-text {
@@ -543,7 +543,7 @@ span.indicator-failure span {
   top:1px;
   width:22px;
   height:22px;
-  background:url("../img/sprite.png") repeat scroll 0 0 transparent;
+  background:url("../../img/sprite.png") repeat scroll 0 0 transparent;
 }
 
 span.indicator-success {
@@ -608,7 +608,7 @@ div.media-item span.image {
   height:22px;
   margin:0 10px 0 0;
 
-  background:url('../img/sprite.png') no-repeat;
+  background:url('../../img/sprite.png') no-repeat;
 }
 div.media-item span.video {
   background-position:-330px -0;
@@ -718,7 +718,7 @@ div.account-status div {
   top:1px;
   width:22px;
   height:22px;
-  background:url("../img/sprite.png") repeat scroll 0 0 transparent;
+  background:url("../../img/sprite.png") repeat scroll 0 0 transparent;
 }
 
 div.active {

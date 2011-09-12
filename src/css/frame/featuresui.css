@@ -113,7 +113,7 @@ div#ideas div.idea div.idea-save {
   width:22px;
   height:22px;
 
-  background:url('../img/sprite.png') no-repeat;
+  background:url('../../img/sprite.png') no-repeat;
   background-position:-220px -22px;
   cursor:pointer;
 }

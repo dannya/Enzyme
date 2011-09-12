@@ -87,7 +87,7 @@ class ResetUi {
 
 
   public function getStyle() {
-    return array('/css/loginui.css');
+    return array('/css/frame/loginui.css');
   }
 }
 

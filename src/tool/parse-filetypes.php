@@ -32,7 +32,7 @@ ob_start();
 
 
 // draw html page start
-echo Ui::drawHtmlPageStart(null, array('/css/common.css'), array('/js/prototype.js'));
+echo Ui::drawHtmlPageStart(null, array('/css/includes/common.css'), array('/js/prototype.js'));
 
 
 // load data

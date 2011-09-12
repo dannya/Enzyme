@@ -97,7 +97,7 @@ class ClassifyUi extends BaseUi {
 
 
   public function getStyle() {
-    return array('/css/reviewui.css');
+    return array('/css/frame/reviewui.css');
   }
 
 

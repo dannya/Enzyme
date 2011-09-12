@@ -75,7 +75,7 @@ div#active-users table tbody td span.browser {
   width:22px;
   height:22px;
 
-  background:url('../img/browsers.png') no-repeat;
+  background:url('../../img/browsers.png') no-repeat;
   cursor:help;
 }
 

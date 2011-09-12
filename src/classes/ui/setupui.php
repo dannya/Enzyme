@@ -227,7 +227,7 @@ class SetupUi extends BaseUi {
 
 
   public function getStyle() {
-    return array('/css/setupui.css');
+    return array('/css/frame/setupui.css');
   }
 
 

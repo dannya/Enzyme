@@ -85,7 +85,7 @@ class InsertUi extends BaseUi {
 
 
   public function getStyle() {
-    return array('/css/insertui.css');
+    return array('/css/frame/insertui.css');
   }
 }
 

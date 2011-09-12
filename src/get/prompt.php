@@ -34,6 +34,6 @@ $buf = '<p class="prompt">' .
        '</p>';
 
 
-echo Ui::drawHtmlPage($buf, null, array('/css/common.css'));
+echo Ui::drawHtmlPage($buf, null, array('/css/includes/common.css'));
 
 ?>

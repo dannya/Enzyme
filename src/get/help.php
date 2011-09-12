@@ -71,6 +71,6 @@ if (!$content) {
 
 
 // output content
-echo Ui::drawHtmlPage($content, null, array('/css/common.css'), array(), 'help');
+echo Ui::drawHtmlPage($content, null, array('/css/includes/common.css'), array(), 'help');
 
 ?>

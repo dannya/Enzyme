@@ -171,7 +171,7 @@ class UsersUi extends BaseUi {
 
 
   public function getStyle() {
-    return array('/css/usersui.css');
+    return array('/css/frame/usersui.css');
   }
 
 

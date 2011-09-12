@@ -211,7 +211,7 @@ div.section div.delete-introduction {
   padding:9px;
   margin:0;
 
-  background:url("../img/bgd.png") repeat transparent;
+  background:url("../../img/bgd.png") repeat transparent;
   cursor:pointer;
   
   border-radius:5px;
@@ -231,7 +231,7 @@ div.section div.save-introduction div,
 div.section div.delete-introduction div {
   width:22px;
   height:22px;
-  background:url("../img/sprite.png") no-repeat transparent;
+  background:url("../../img/sprite.png") no-repeat transparent;
   background-position:-0 -0;
 }
 div.section div.save-introduction:hover div {
@@ -247,7 +247,7 @@ div.section div.delete-introduction:hover div {
 
 
 div.section span {
-  background:url("../img/bgd.png") repeat scroll 0 0 transparent;
+  background:url("../../img/bgd.png") repeat scroll 0 0 transparent;
   position:absolute;
   left:0;
   font-size:26px;
@@ -356,7 +356,7 @@ div.commit div.selectors div.classifier i {
   margin:2px;
 
   background-color:#666;
-  background:url('../img/sprite.png') no-repeat;
+  background:url('../../img/sprite.png') no-repeat;
 }
 
 
@@ -368,7 +368,7 @@ div#floating-status div.remove {
   margin:1px 8px 0 -2px;
 
   background-color:#666;
-  background:url('../img/sprite.png') no-repeat;
+  background:url('../../img/sprite.png') no-repeat;
   background-position:-44px -0px;
   cursor:pointer;
 }
@@ -432,7 +432,7 @@ div.commit div.details div.info div.b div.bug div div {
 
   width:22px;
   height:22px;
-  background:url('../img/sprite.png') no-repeat;
+  background:url('../../img/sprite.png') no-repeat;
   background-position:-88px -22px;
 }
 div.commit div.details div.info div.b div.bug div span {
@@ -546,7 +546,7 @@ div#features div.featureExpand div.feature-expand {
   width:22px;
   height:22px;
 
-  background:url('../img/sprite.png') no-repeat;
+  background:url('../../img/sprite.png') no-repeat;
   background-position:-220px -22px;
   cursor:pointer;
 }
@@ -604,7 +604,7 @@ div#floating-status {
 
   color:#fff;
   text-shadow:#000 2px 2px 2px;
-  background:url(../img/bgd.png) repeat scroll 0 0 transparent;
+  background:url(../../img/bgd.png) repeat scroll 0 0 transparent;
   
   border-radius:3px;
   -moz-border-radius:3px;

@@ -51,7 +51,7 @@ class HomeUi extends BaseUi {
 
 
   public function getStyle() {
-    return array('/css/homeui.css');
+    return array('/css/frame/homeui.css');
   }
 }
 

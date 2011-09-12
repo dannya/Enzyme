@@ -22,7 +22,7 @@ final class Config {
   // define app constants
   public static $app        = array('id'          => 'enzyme',
                                     'name'        => 'Enzyme',
-                                    'version'     => '1.20');
+                                    'version'     => '1.21');
 
 
   // define meta information
@@ -93,7 +93,7 @@ final class Config {
 
         echo Ui::drawHtmlPage($setup->drawPage(),
                               Config::$app['name'] . ' - ' . _('Setup'),
-                              array('/css/common.css', '/css/setupui.css'),
+                              array('/css/includes/common.css', '/css/frame/setupui.css'),
                               array_merge(array('/js/prototype.js', '/js/effects.js', '/js/index.php?script=common'), $setup->getScript()));
         exit;
       }

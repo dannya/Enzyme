@@ -51,7 +51,7 @@ div.item div.commit-title div.buttons div {
   width:22px;
   height:22px;
 
-  background:url(../img/sprite.png) repeat scroll 0 0 transparent;
+  background:url(../../img/sprite.png) repeat scroll 0 0 transparent;
   cursor:pointer;
 }
 
@@ -125,7 +125,7 @@ div.classify div.commit-msg div.bugs div {
   width:22px;
   height:22px;
 
-  background:url(../img/sprite.png) no-repeat;
+  background:url(../../img/sprite.png) no-repeat;
   background-position:-66px -22px;
   margin-left:6px;
   cursor:pointer;
@@ -161,7 +161,7 @@ div.item div.commit-panel div.remove {
 
   background-color:#666;
   cursor:pointer;
-  background:url('../img/sprite.png') no-repeat;
+  background:url('../../img/sprite.png') no-repeat;
   background-position:-44px -66px;
 }
 div.item div.commit-panel div.remove:hover {
@@ -312,7 +312,7 @@ label#classify-user-filter i {
   display:inline-block;
   width:22px;
   height:22px;
-  background:url(../img/sprite.png) no-repeat scroll transparent;
+  background:url(../../img/sprite.png) no-repeat scroll transparent;
 }
 
 div#interface-selector label.mouse i {

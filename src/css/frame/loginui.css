@@ -5,7 +5,7 @@ div#login-footer {
   right:0;
   height:35px;
 
-  background:url("../img/header-bg.png") repeat scroll 0 0 transparent;
+  background:url("../../img/header-bg.png") repeat scroll 0 0 transparent;
 }
 div#login-footer a {
   display:block;
@@ -15,7 +15,7 @@ div#login-footer a {
 
   width:307px;
   height:35px;
-  background:url("../img/powered-long.png") no-repeat scroll 0 0 transparent;
+  background:url("../../img/powered-long.png") no-repeat scroll 0 0 transparent;
 }
 
 
@@ -35,7 +35,7 @@ div#login-column-2 h2 {
 
 div#login-column-1 {
   left:0;
-  background:url("../img/sidebar-bg.png") repeat scroll 0 0 transparent;
+  background:url("../../img/sidebar-bg.png") repeat scroll 0 0 transparent;
   border-right:3px dotted #333;
 }
 div#login-column-2 {
@@ -119,7 +119,7 @@ div#login-box {
   width:300px;
   margin:100px auto;
   padding:14px;
-  background:url(../img/header-bg.png) repeat scroll 0 0 transparent;
+  background:url("../../img/header-bg.png") repeat scroll 0 0 transparent;
 }
 
 div#login-box div.row {
@@ -154,5 +154,5 @@ div#login-box div.button a {
 }
 
 div#login-box div.button input {
-  background:url(../img/bg.png) repeat scroll 0 0 transparent;
+  background:url("../../img/bg.png") repeat scroll 0 0 transparent;
 }

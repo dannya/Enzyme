@@ -114,7 +114,7 @@ if (($_SERVER['SCRIPT_NAME'] == '/js/index.php') ||
 
     echo Ui::drawHtmlPage($setup->drawPage(),
                           Config::$app['name'] . ' - ' . _('Setup'),
-                          array('/css/common.css', '/css/setupui.css'),
+                          array('/css/includes/common.css', '/css/frame/setupui.css'),
                           array_merge(array('/js/prototype.js', '/js/effects.js', '/js/index.php?script=common'), $setup->getScript()));
     exit;
 
@@ -128,7 +128,7 @@ if (($_SERVER['SCRIPT_NAME'] == '/js/index.php') ||
 
       echo Ui::drawHtmlPage($setup->drawPage(),
                             Config::$app['name'] . ' - ' . _('Setup'),
-                            array('/css/common.css', '/css/setupui.css'),
+                            array('/css/includes/common.css', '/css/frame/setupui.css'),
                             array_merge(array('/js/prototype.js', '/js/effects.js', '/js/index.php?script=common'), $setup->getScript()));
       exit;
 

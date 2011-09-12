@@ -175,7 +175,7 @@ class ToolsUi extends BaseUi {
 
 
   public function getStyle() {
-    return array('/css/toolsui.css');
+    return array('/css/frame/toolsui.css');
   }
 
 

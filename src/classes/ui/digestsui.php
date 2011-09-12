@@ -71,8 +71,8 @@ class DigestsUi extends BaseUi {
 
 
   public function getStyle() {
-    return array('/css/lightwindow.css',
-                 '/css/digestsui.css');
+    return array('/css/includes/lightwindow.css',
+                 '/css/frame/digestsui.css');
   }
 
 

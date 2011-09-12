@@ -63,7 +63,7 @@ class HelpUi extends BaseUi {
 
 
   public function getStyle() {
-    return array('/css/helpui.css');
+    return array('/css/frame/helpui.css');
   }
 }
 

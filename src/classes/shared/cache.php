@@ -242,7 +242,6 @@ class Cache {
 
       // minify?
       if ($minify) {
-        // TODO: implement CSS minify
         $min = MinifyCss::minify($buf);
 
       } else {
@@ -258,14 +257,9 @@ class Cache {
 
       // write to file
       file_put_contents(BASE_DIR . $filename, $min);
-
-      // return filename
-      return $filename . '?version=' . Config::$app['version'];
-
-    } else {
-      // already minified, return filename
-      return $filename . '?version=' . Config::$app['version'];
     }
+
+    return $filename . '?version=' . Config::$app['version'];
   }
 
 

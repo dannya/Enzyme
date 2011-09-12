@@ -19,7 +19,7 @@ class EnzymeUi {
   public $user              = null;
   public $frame             = null;
 
-  private $style            = array('/css/common.css');
+  private $style            = array('/css/includes/common.css');
   private $appScript        = array('/js/prototype.js',
                                     '/js/effects.js',
                                     '/js/hotkey.js');
@@ -102,13 +102,6 @@ class EnzymeUi {
     // get specific style
     $this->style = array_merge($this->style, $this->frame->getStyle());
 
-    // draw browser-specific stylesheet?
-    $browser = App::getBrowserInfo();
-
-    if ($browser['name'] == 'chrome') {
-      $this->style[] = '/css/browser-chrome.css';
-    }
-
     // set script
     $this->userScript[] = '/js/index.php?script=common&amp;id=' . $this->frame->id . '&amp;language=' . LANGUAGE;
   }
@@ -143,10 +136,27 @@ class EnzymeUi {
 
 
   public function drawStyle() {
+    // compile
+    $theStyle = $this->style;
+
+    if (LIVE_SITE) {
+      $theStyle = array(Cache::getMinCss('web_' . $this->frame->id, $theStyle));
+    }
+
+
+    // draw browser-specific stylesheet?
+    $browser = App::getBrowserInfo();
+
+    if ($browser['name'] == 'chrome') {
+      $theStyle[] = '/css/browser/browser-chrome.css';
+    }
+
+
+    // draw
     $buf = null;
 
-    foreach ($this->style as $style) {
-      $buf .= '<link rel="stylesheet" href="' . BASE_URL . $style . '?version=' . Config::$app['version'] . '" type="text/css" media="screen" />' . "\n";
+    foreach ($theStyle as $style) {
+      $buf .= '<link rel="stylesheet" href="' . BASE_URL . $style . '" type="text/css" media="screen" />' . "\n";
     }
 
     return $buf;

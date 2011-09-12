@@ -72,7 +72,7 @@ class MediaUi extends BaseUi {
 
 
   public function getStyle() {
-    return array('/css/mediaui.css');
+    return array('/css/frame/mediaui.css');
   }
 
 

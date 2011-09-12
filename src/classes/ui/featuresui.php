@@ -83,8 +83,8 @@ class FeaturesUi extends BaseUi {
 
 
   public function getStyle() {
-    return array('/css/lightwindow.css',
-                 '/css/featuresui.css');
+    return array('/css/includes/lightwindow.css',
+                 '/css/frame/featuresui.css');
   }
 
 
