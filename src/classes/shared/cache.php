@@ -142,7 +142,7 @@ class Cache {
   }
 
 
-  public static function getMinJs($key, $script, $minScript = null) {
+  public static function getMinJs($key, $script, $minScript = null, $minify = true) {
     self::getKey($key);
 
     // output filename
@@ -164,8 +164,12 @@ class Cache {
         $buf .= file_get_contents($base . $file) . "\n\n";
       }
 
-      // minify
+      // minify?
+      if ($minify) {
       $min = MinifyJs::minify($buf);
+      } else {
+        $min = $buf;
+      }
 
       // append script already minified
       if (is_array($minScript) && $minScript) {
@@ -211,6 +215,57 @@ class Cache {
     }
 
     return $min;
+  }
+
+
+  public static function getMinCss($key, $style, $minStyle = null, $minify = true) {
+    self::getKey($key);
+
+    // output filename
+    $filename = '/css/min/' . $key['id'] . '.css';
+
+    if (!is_file(BASE_DIR . $filename)) {
+      // minify style
+      $buf = null;
+
+      // combine all style into single file
+      foreach ($style as $file) {
+        // file or url?
+        if (strpos($file, '=') !== false) {
+          $base = BASE_URL;
+        } else {
+          $base = BASE_DIR;
+        }
+
+        $buf .= file_get_contents($base . $file) . "\n\n";
+      }
+
+      // minify?
+      if ($minify) {
+        // TODO: implement CSS minify
+        $min = MinifyCss::minify($buf);
+
+      } else {
+        $min = $buf;
+      }
+
+      // append style already minified
+      if (is_array($minStyle) && $minStyle) {
+        foreach ($minStyle as $file) {
+          $min .= file_get_contents($base . $file) . "\n\n";
+        }
+      }
+
+      // write to file
+      file_put_contents(BASE_DIR . $filename, $min);
+
+      // return filename
+      return $filename . '?version=' . Config::$app['version'];
+
+    } else {
+      // already minified, return filename
+      return $filename . '?version=' . Config::$app['version'];
+    }
   }
 
 

@@ -565,7 +565,14 @@ abstract class DbMysql extends Db {
       $tmpValues = array();
 
       foreach ($row as $key => $tmpValue) {
-        $tmpValues[] = self::quote($tmpValue, false, $isEnum);
+        $value = self::quote($tmpValue, false, $isEnum);
+
+        // set as null?
+        if ($value === null) {
+          $tmpValues[] = 'NULL';
+        } else {
+          $tmpValues[] = $value;
+        }
       }
 
       // add to array
@@ -574,7 +581,7 @@ abstract class DbMysql extends Db {
 
 
     // return
-    return '(' . implode(', ', $theKeys) . ') VALUES ' . implode(', ', $valuesArray);
+    return '(`' . implode('`, `', $theKeys) . '`) VALUES ' . implode(', ', $valuesArray);
   }
 
 
@@ -685,14 +692,18 @@ abstract class DbMysql extends Db {
   }
 
 
-  public static function convertDatatype($value) {
+  public static function convertDatatype($value, $nullToString = false) {
     if ($value === 'Y') {
       return true;
     } else if ($value === 'N') {
       return false;
 
     } else {
-      return $value;
+      if ($nullToString && ($value === null)) {
+        return 'null';
+      } else {
+        return $value;
+      }
     }
   }
 

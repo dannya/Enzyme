@@ -23,8 +23,11 @@ class Date {
       $format = 'l, jS F Y';
     } else if ($type == 'full-day-time') {
       $format = 'l, jS F Y @ g:ia';
+
     } else if ($type == 'short') {
       $format = 'd/m/Y';
+    } else if ($type == 'short-day-time') {
+      $format = 'D, jS M @ g:ia';
     }
 
     return date($format, strtotime($date));
@@ -58,6 +61,10 @@ class Date {
 
     // find correct period
     for ($j = 0; $difference >= $lengths[$j]; $j++) {
+      if ($j > 5) {
+        break;
+      }
+
       $difference /= $lengths[$j];
     }
 

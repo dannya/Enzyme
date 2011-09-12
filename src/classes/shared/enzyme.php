@@ -1395,7 +1395,7 @@ class Enzyme {
 
     // extract bugs
     do {
-      preg_match('/(BUG|BUGS|CCBUG|FEATURE)[:]?[=]?[ ]?[#]?[0-9]{4,6}/', $msg, $matches);
+      preg_match('/(CCBUG|BUGS|BUG|FEATURE)[:]?[=]?[ ]?[#]?[0-9]{4,6}/', $msg, $matches);
 
       if (isset($matches[0])) {
         // remove bug from msg

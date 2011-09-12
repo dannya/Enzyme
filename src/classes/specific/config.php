@@ -16,7 +16,7 @@
 
 
 final class Config {
-  public static $framework  = array('version'     => '20110814');
+  public static $framework  = array('version'     => '20110912');
 
 
   // define app constants
