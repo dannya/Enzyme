@@ -16,13 +16,13 @@
 
 
 final class Config {
-  public static $framework  = array('version'     => '20110912');
+  public static $framework  = array('version'     => '20111004');
 
 
   // define app constants
   public static $app        = array('id'          => 'enzyme',
                                     'name'        => 'Enzyme',
-                                    'version'     => '1.21');
+                                    'version'     => '1.22');
 
 
   // define meta information

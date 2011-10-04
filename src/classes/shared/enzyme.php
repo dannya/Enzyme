@@ -1236,95 +1236,66 @@ class Enzyme {
 
 
     // get number of reviewed / classified (total)
-    $tmp    = Db::loadEfficient('commits_reviewed');
+    $tmp1   = Db::sql('SELECT reviewer AS user, COUNT(reviewer) as reviewed FROM commits_reviewed GROUP BY user', 'user');
+    $tmp2   = Db::sql('SELECT reviewer AS user, COUNT(reviewer) as selected FROM commits_reviewed WHERE marked = 1 GROUP BY user', 'user');
+    $tmp3   = Db::sql('SELECT classifier AS user, COUNT(classifier) as classified FROM commits_reviewed GROUP BY user', 'user');
 
-    foreach ($tmp as $item) {
-      // reviewed
-      if (!empty($item['reviewer'])) {
-        // initialise values
-        if (!isset($stats[$item['reviewer']])) {
-          $stats[$item['reviewer']]['reviewed']['total']          = 0;
-          $stats[$item['reviewer']]['reviewed']['week']           = 0;
-          $stats[$item['reviewer']]['selected']['total']          = 0;
-          $stats[$item['reviewer']]['selected']['week']           = 0;
-          $stats[$item['reviewer']]['selectedPercent']['total']   = 0;
-          $stats[$item['reviewer']]['selectedPercent']['week']    = 0;
-          $stats[$item['reviewer']]['classified']['total']        = 0;
-          $stats[$item['reviewer']]['classified']['week']         = 0;
-        }
-
-        // increment
-        if (!isset($stats[$item['reviewer']]['reviewed']['total'])) {
-          $stats[$item['reviewer']]['reviewed']['total'] = 1;
-        } else {
-          ++$stats[$item['reviewer']]['reviewed']['total'];
-        }
-
-        // also record selections
-        if (!empty($item['marked'])) {
-          if (!isset($stats[$item['reviewer']]['selected']['total'])) {
-            $stats[$item['reviewer']]['selected']['total'] = 1;
-          } else {
-            ++$stats[$item['reviewer']]['selected']['total'];
-          }
-        }
+    foreach ($tmp1 as $key => $value) {
+      // initialise values
+      if (!isset($stats[$key])) {
+        $stats[$key]['reviewed']['total']          = 0;
+        $stats[$key]['reviewed']['week']           = 0;
+        $stats[$key]['selected']['total']          = 0;
+        $stats[$key]['selected']['week']           = 0;
+        $stats[$key]['selectedPercent']['total']   = 0;
+        $stats[$key]['selectedPercent']['week']    = 0;
+        $stats[$key]['classified']['total']        = 0;
+        $stats[$key]['classified']['week']         = 0;
       }
 
-
-      // classified
-      if (!empty($item['classifier'])) {
-        // initialise values
-        if (!isset($stats[$item['classifier']])) {
-          $stats[$item['classifier']]['reviewed']['total']          = 0;
-          $stats[$item['classifier']]['reviewed']['week']           = 0;
-          $stats[$item['classifier']]['selected']['total']          = 0;
-          $stats[$item['classifier']]['selected']['week']           = 0;
-          $stats[$item['classifier']]['selectedPercent']['total']   = 0;
-          $stats[$item['classifier']]['selectedPercent']['week']    = 0;
-          $stats[$item['classifier']]['classified']['total']        = 0;
-          $stats[$item['classifier']]['classified']['week']         = 0;
-        }
-
-        // increment
-        if (!isset($stats[$item['classifier']]['classified']['total'])) {
-          $stats[$item['classifier']]['classified']['total'] = 1;
-        } else {
-          ++$stats[$item['classifier']]['classified']['total'];
-        }
-      }
+      // set values
+      $stats[$key]['reviewed']['total']         = isset($tmp1[$key]['reviewed']) ? $tmp1[$key]['reviewed'] : 0;
+      $stats[$key]['selected']['total']         = isset($tmp2[$key]['selected']) ? $tmp2[$key]['selected'] : 0;
+      $stats[$key]['selectedPercent']['total']  = (($stats[$key]['selected']['total'] / $stats[$key]['reviewed']['total']) * 100);
+      $stats[$key]['classified']['total']       = isset($tmp3[$key]['classified']) ? $tmp3[$key]['classified'] : 0;
     }
 
+    unset($tmp1, $tmp2, $tmp3);
 
 
     // get number of reviewed (week)
-    $tmp   = Db::sql('SELECT * FROM commits_reviewed
-                      WHERE reviewed > "' . $start . '"
-                      AND reviewed <= "' . $end . '"', true);
+    $tmp = Db::sql('SELECT reviewer, COUNT(reviewer) as reviewed FROM commits_reviewed
+                    WHERE reviewed > "' . $start . '"
+                    AND reviewed <= "' . $end . '"
+                    GROUP BY reviewer', true);
 
     if ($tmp) {
       foreach ($tmp as $item) {
-        // reviewed
-        if (!isset($stats[$item['reviewer']]['reviewed']['week'])) {
-          $stats[$item['reviewer']]['reviewed']['week'] = 1;
-        } else {
-          ++$stats[$item['reviewer']]['reviewed']['week'];
-        }
+        $stats[$item['reviewer']]['reviewed']['week'] = $item['reviewed'];
       }
 
 
       // get number of selected (week)
-      $tmp   = Db::sql('SELECT * FROM commits_reviewed
-                        WHERE marked = 1
-                        AND reviewed > "' . $start . '"
-                        AND reviewed <= "' . $end . '"', true);
+      $tmp = Db::sql('SELECT reviewer, COUNT(reviewer) as selected FROM commits_reviewed
+                      WHERE marked = 1
+                      AND reviewed > "' . $start . '"
+                      AND reviewed <= "' . $end . '"
+                      GROUP BY reviewer', true);
 
       foreach ($tmp as $item) {
-        // selected
-        if (!isset($stats[$item['reviewer']]['selected']['week'])) {
-          $stats[$item['reviewer']]['selected']['week'] = 1;
-        } else {
-          ++$stats[$item['reviewer']]['selected']['week'];
-        }
+        $stats[$item['reviewer']]['selected']['week'] = $item['selected'];
+      }
+
+
+      // get number of classified (week)
+      $tmp = Db::sql('SELECT classifier, COUNT(classifier) as classified FROM commits_reviewed
+                      WHERE classified IS NOT NULL
+                      AND classified > "' . $start . '"
+                      AND classified <= "' . $end . '"
+                      GROUP BY classifier', true);
+
+      foreach ($tmp as $item) {
+        $stats[$item['classifier']]['classified']['week'] = $item['classified'];
       }
 
 
@@ -1336,23 +1307,6 @@ class Enzyme {
 
         if ($item['reviewed']['total']) {
           $item['selectedPercent']['total'] = (($item['selected']['total'] / $item['reviewed']['total']) * 100);
-        }
-      }
-
-
-      // get number of classified (week)
-      $tmp   = Db::sql('SELECT * FROM commits_reviewed
-                        WHERE classified IS NOT NULL
-                        AND classified > "' . $start . '"
-                        AND classified <= "' . $end . '"', true);
-
-      foreach ($tmp as $item) {
-        // classified
-        if (!isset($stats[$item['classifier']]['classified']['week'])) {
-          $stats[$item['classifier']]['classified']['week'] = 1;
-
-        } else if (is_array($stats[$item['classifier']]['classified'])) {
-          ++$stats[$item['classifier']]['classified']['week'];
         }
       }
 

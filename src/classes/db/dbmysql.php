@@ -672,7 +672,7 @@ abstract class DbMysql extends Db {
   }
 
 
-  public static function loadEfficient($table, $fields = '*', $idField = 'id', $pageSize = 25000) {
+  public static function loadEfficient($table, $fields = '*', $idField = 'id', $pageSize = 10000) {
     $data = null;
 
     // ensure table(s) is valid
@@ -721,6 +721,7 @@ abstract class DbMysql extends Db {
         }
       }
 
+      unset($query);
       $i += $pageSize;
     }
 
