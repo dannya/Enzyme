@@ -672,6 +672,63 @@ abstract class DbMysql extends Db {
   }
 
 
+  public static function loadEfficient($table, $fields = '*', $idField = 'id', $pageSize = 25000) {
+    $data = null;
+
+    // ensure table(s) is valid
+    if (is_array($table)) {
+      foreach ($table as $theTable) {
+        if (!in_array($theTable, Config::$db['tables'])) {
+          return null;
+        }
+      }
+
+      $table = implode(',', $table);
+
+    } else if (!in_array($table, Config::$db['tables'])) {
+      return null;
+    }
+
+
+    // sanitise
+    $idField = self::sanitise($idField, 'id');
+
+
+    // get min / max boundaries
+    $boundaries = Db::sql('SELECT MIN(' . $idField . ') AS min, MAX(' . $idField . ') AS max FROM ' . $table,
+                          true);
+    $boundaries = reset($boundaries);
+
+
+    // execute queries
+    $i = $boundaries['min'];
+
+    while ($i < $boundaries['max']) {
+      $start  = $i;
+      $end    = $i + $pageSize;
+
+      // create appropriate select query
+      $selectQuery = 'SELECT ' . self::sanitise($fields, '*') . ' FROM ' . $table .
+                     ' WHERE ' . $idField . ' >= ' . $start . ' AND ' . $idField . ' < ' . $end;
+
+      // run query
+      $query = self::query($selectQuery);
+
+      // index data
+      if (mysql_num_rows($query) != 0) {
+        while ($tmp = mysql_fetch_assoc($query)) {
+          $data[] = $tmp;
+        }
+      }
+
+      $i += $pageSize;
+    }
+
+    // return data
+    return $data;
+  }
+
+
   public static function quote($value, $sanitised = false, $isEnum = false) {
     // sanitise first?
     if (!$sanitised) {

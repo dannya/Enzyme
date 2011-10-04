@@ -1236,7 +1236,7 @@ class Enzyme {
 
 
     // get number of reviewed / classified (total)
-    $tmp    = Db::sql('SELECT * FROM commits_reviewed', true);
+    $tmp    = Db::loadEfficient('commits_reviewed');
 
     foreach ($tmp as $item) {
       // reviewed
