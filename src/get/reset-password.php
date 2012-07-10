@@ -79,7 +79,7 @@ if (!empty($_REQUEST['code']) && !empty($_REQUEST['new_password'])) {
 
 
   // send email
-  $email            = new Email($to, sprintf('%s Reset Password', Config::getSetting('enzyme', 'PROJECT_NAME')), $message);
+  $email            = new Email($to, sprintf(_('%s Reset Password'), Config::getSetting('enzyme', 'PROJECT_NAME')), $message);
   $json['success']  = $email->send();
 }
 

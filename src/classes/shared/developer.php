@@ -16,7 +16,7 @@
 
 
 class Developer {
-  public $data = null;
+  public $data                  = null;
   public $privacy               = null;
   public $access                = null;
   public $surveyDone            = false;
@@ -30,7 +30,7 @@ class Developer {
   // display:   where the field is displayed ('all', 'admin', 'hidden')
   // editable:  whether this value can be changed within Enzyme
   // privacy:   whether privacy can be enabled/disabled for this field (wrap in array to represent enum)
-  public static $fields         = array('account'         => array('type'   => 'string',
+  public static $fields         = array('account'         => array('type'     => 'string',
                                                                    'display'  => 'all',
                                                                    'editable' => false,
                                                                    'privacy'  => false),
@@ -42,32 +42,32 @@ class Developer {
                                                                    'display'  => 'all',
                                                                    'editable' => true,
                                                                    'privacy'  => 'email'),
-                                        'nickname'        => array('type'   => 'string',
+                                        'nickname'        => array('type'     => 'string',
                                                                    'display'  => 'all',
                                                                    'editable' => true,
                                                                    'privacy'  => 'nickname'),
-                                        'dob'             => array('type'   => 'date',
+                                        'dob'             => array('type'     => 'date',
                                                                    'display'  => 'all',
                                                                    'editable' => true,
                                                                    'privacy'  => array('dob')),
-                                        'gender'          => array('type'   => 'enum',
+                                        'gender'          => array('type'     => 'enum',
                                                                    'display'  => 'all',
                                                                    'editable' => true,
                                                                    'privacy'  => 'gender'),
-                                        'motivation'      => array('type'   => 'enum',
+                                        'motivation'      => array('type'     => 'enum',
                                                                    'display'  => 'all',
                                                                    'editable' => true,
                                                                    'privacy'  => 'motivation'),
-                                        'employer'        => array('type'   => 'string',
+                                        'employer'        => array('type'     => 'string',
                                                                    'display'  => 'all',
                                                                    'editable' => true,
                                                                    'privacy'  => 'employer'),
-                                        'colour'          => array('type'   => 'enum',
+                                        'colour'          => array('type'     => 'enum',
                                                                    'display'  => 'all',
                                                                    'editable' => true,
                                                                    'privacy'  => 'colour'),
 
-                                        'continent'       => array('type'   => 'enum',
+                                        'continent'       => array('type'     => 'enum',
                                                                    'display'  => 'all',
                                                                    'editable' => true,
                                                                    'privacy'  => 'continent'),
@@ -75,36 +75,36 @@ class Developer {
                                                                    'display'  => 'all',
                                                                    'editable' => true,
                                                                    'privacy'  => 'country'),
-                                        'location'        => array('type'   => 'string',
+                                        'location'        => array('type'     => 'string',
                                                                    'display'  => 'all',
                                                                    'editable' => true,
                                                                    'privacy'  => 'location'),
-                                        'latitude'        => array('type'   => 'float',
+                                        'latitude'        => array('type'     => 'float',
                                                                    'display'  => 'all',
                                                                    'editable' => true,
                                                                    'privacy'  => 'location'),
-                                        'longitude'       => array('type'   => 'float',
+                                        'longitude'       => array('type'     => 'float',
                                                                    'display'  => 'all',
                                                                    'editable' => true,
                                                                    'privacy'  => 'location'),
 
-                                        'homepage'        => array('type'   => 'string',
+                                        'homepage'        => array('type'     => 'string',
                                                                    'display'  => 'all',
                                                                    'editable' => true,
                                                                    'privacy'  => 'homepage'),
-                                        'blog'            => array('type'   => 'string',
+                                        'blog'            => array('type'     => 'string',
                                                                    'display'  => 'all',
                                                                    'editable' => true,
                                                                    'privacy'  => 'blog'),
-                                        'lastfm'          => array('type'   => 'string',
+                                        'lastfm'          => array('type'     => 'string',
                                                                    'display'  => 'all',
                                                                    'editable' => true,
                                                                    'privacy'  => 'lastfm'),
-                                        'microblog_type'  => array('type'   => 'enum',
+                                        'microblog_type'  => array('type'     => 'enum',
                                                                    'display'  => 'all',
                                                                    'editable' => true,
                                                                    'privacy'  => 'microblog'),
-                                        'microblog_user'  => array('type'   => 'string',
+                                        'microblog_user'  => array('type'     => 'string',
                                                                    'display'  => 'all',
                                                                    'editable' => true,
                                                                    'privacy'  => 'microblog'),
@@ -174,31 +174,31 @@ class Developer {
       // check if survey has been completed
       $this->surveyDone = Db::exists('developer_survey', array('account' => $privacy['account']));
 
-    // set privacy settings to each data value
-    foreach (self::$fields as $id => $spec) {
-      if (!isset($spec['privacy'])) {
-        continue;
-      }
-
-      if ($spec['privacy'] === false) {
-        // set privacy as irrelevant for this field
-        $this->privacy[$id] = null;
-
-      } else if (is_array($spec['privacy'])) {
-        $spec['privacy'] = reset($spec['privacy']);
-
-        // note that we cast to int here if possible (not bool, as done below)!
-        if (is_numeric($privacy[$spec['privacy']])) {
-          $this->privacy[$id] = (int)$privacy[$spec['privacy']];
-        } else {
-          $this->privacy[$id] = $privacy[$spec['privacy']];
+      // set privacy settings to each data value
+      foreach (self::$fields as $id => $spec) {
+        if (!isset($spec['privacy'])) {
+          continue;
         }
 
-      } else {
-        // cast to boolean for ease of use
-        $this->privacy[$id] = (bool)$privacy[$spec['privacy']];
+        if ($spec['privacy'] === false) {
+          // set privacy as irrelevant for this field
+          $this->privacy[$id] = null;
+
+        } else if (is_array($spec['privacy'])) {
+          $spec['privacy'] = reset($spec['privacy']);
+
+          // note that we cast to int here if possible (not bool, as done below)!
+          if (is_numeric($privacy[$spec['privacy']])) {
+            $this->privacy[$id] = (int)$privacy[$spec['privacy']];
+          } else {
+            $this->privacy[$id] = $privacy[$spec['privacy']];
+          }
+
+        } else {
+          // cast to boolean for ease of use
+          $this->privacy[$id] = (bool)$privacy[$spec['privacy']];
+        }
       }
-    }
 
       // make terms_accepted version available too
       $this->privacy['terms_accepted'] = $privacy['terms_accepted'];
@@ -210,12 +210,12 @@ class Developer {
       $this->internalPrivacy  = $privacy;
 
 
-    // set access details (if this method of loading was used)
-    if ($field == 'access_code') {
-      $this->access = array('ip'      => $privacy['access_ip'],
-                            'code'    => $privacy['access_code'],
-                            'timeout' => $privacy['access_timeout']);
-    }
+      // set access details (if this method of loading was used)
+      if ($field == 'access_code') {
+        $this->access = array('ip'      => $privacy['access_ip'],
+                              'code'    => $privacy['access_code'],
+                              'timeout' => $privacy['access_timeout']);
+      }
     }
 
 
@@ -329,21 +329,21 @@ class Developer {
 
 
   public static function getFieldStrings() {
-    $fields  = array('account'    => _('Account'),
+    $fields  = array('account'        => _('Account'),
                      'name'           => _('Name'),
                      'email'          => _('Email'),
-                     'nickname'   => _('Nickname'),
+                     'nickname'       => _('Nickname'),
                      'dob'            => _('Date of Birth'),
-                     'gender'     => _('Gender'),
+                     'gender'         => _('Gender'),
                      'motivation'     => _('Motivation'),
                      'employer'       => _('Employer'),
                      'colour'         => _('Colour'),
 
-                     'continent'  => _('Continent'),
-                     'country'    => _('Country'),
-                     'location'   => _('Location'),
-                     'latitude'   => _('Latitude'),
-                     'longitude'  => _('Longitude'),
+                     'continent'      => _('Continent'),
+                     'country'        => _('Country'),
+                     'location'       => _('Location'),
+                     'latitude'       => _('Latitude'),
+                     'longitude'      => _('Longitude'),
 
                      'homepage'       => _('Homepage URL'),
                      'blog'           => _('Blog URL'),

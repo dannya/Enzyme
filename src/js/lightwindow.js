@@ -235,7 +235,8 @@ lightwindow.prototype = {
 			finalAnimationHandler : false,
 			formHandler : false,
 			galleryAnimationHandler : false,
-			showGalleryCount : true
+			showGalleryCount : true,
+			clickClose : true
 		}, options || {});
 		this.duration = ((11-this.options.resizeSpeed)*0.15);
 		this._setupLinks();
@@ -328,8 +329,16 @@ lightwindow.prototype = {
 			width : null,
 			loadingAnimation : null,
 			iframeEmbed : null,
-			form : null
+			form : null,
+			clickClose: true
 		}, options || {});
+
+		// close on click?
+		if (this.element.clickClose) {
+			Event.observe($('lightwindow_overlay'), 'click', this.deactivate.bindAsEventListener(this), false);
+		} else {
+			Event.stopObserving($('lightwindow_overlay'), 'click');
+		}
 		
 		// Set the window type
 		this.contentToFetch = this.element.href;
@@ -528,9 +537,6 @@ lightwindow.prototype = {
 		} else {
 			Event.observe(window, 'DOMMouseScroll', this._stopScrolling.bindAsEventListener(this), false);
 		}
-				
-		Event.observe(overlay, 'click', this.deactivate.bindAsEventListener(this), false);
-		overlay.onclick = function() {return false;};
 	},
 	//
 	//  Add loading window markup
@@ -1332,10 +1338,16 @@ lightwindow.prototype = {
 				this.contentToFetch, {
 					method: 'get', 
 					parameters: '', 
+					evalJS: 'force',
 					onComplete: function(response) {
 						$('lightwindow_contents').innerHTML += '<div class="contents">' + response.responseText + '</div>';
+
 						this.resizeTo.height = $('lightwindow_contents').scrollHeight+(this.options.contentOffset.height);
 						this.resizeTo.width = $('lightwindow_contents').scrollWidth+(this.options.contentOffset.width);
+
+						// eval inline script
+						response.responseText.evalScripts();
+
 						this._processWindow();
 					}.bind(this)
 				}

@@ -150,9 +150,9 @@ class Ui {
 
       } else {
         // if items are numerically-indexed, use safer method
-      $items[''] = '';
-      ksort($items);
-    }
+        $items[''] = '';
+        ksort($items);
+      }
     }
 
 

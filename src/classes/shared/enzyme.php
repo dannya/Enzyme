@@ -2,7 +2,7 @@
 
 /*-------------------------------------------------------+
  | Enzyme
- | Copyright 2010-2011 Danny Allen <danny@enzyme-project.org>
+ | Copyright 2010-2012 Danny Allen <danny@enzyme-project.org>
  | http://www.enzyme-project.org/
  +--------------------------------------------------------+
  | This program is released as free software under the
@@ -878,9 +878,9 @@ class Enzyme {
     Ui::displayMsg(_('Getting revision data...'));
 
 
-    $data = Db::load('commits',
+    $data  = Db::load('commits',
                       array('date' => array('type' => 'range',
-                            'args' => array($boundaries['start'], $boundaries['end']))),
+                                            'args' => array($boundaries['start'], $boundaries['end']))),
                       null,
                       '*',
                       true,
@@ -1188,8 +1188,8 @@ class Enzyme {
 
 
       // extract overall numbers
-      preg_match_all('/ [0-9]+ /', $page->find('div#main h3', 0)->innertext, $totalBugs);
-      preg_match_all('/[0-9]+ /', $page->find('div#main h4', 0)->innertext, $weekBugs);
+      preg_match_all('/ [0-9]+ /', $page->find('div#bugzilla-body h3', 0)->innertext, $totalBugs);
+      preg_match_all('/[0-9]+ /', $page->find('div#bugzilla-body h4', 0)->innertext, $weekBugs);
 
       $totalBugs  = reset($totalBugs);
       $weekBugs   = reset($weekBugs);

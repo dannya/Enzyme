@@ -333,9 +333,9 @@ class Digest {
           // could be name or account
           $identifier = $row['identifier'];
 
-      // record person so we can get name, etc later
-      $people[$row['identifier']] = $row['identifier'];
-    }
+          // record person so we can get name, etc later
+          $people[$row['identifier']] = $row['identifier'];
+        }
 
         $digest['stats']['bugfixers'][$identifier] = $row['value'];
       }

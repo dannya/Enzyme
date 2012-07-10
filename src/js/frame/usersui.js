@@ -232,11 +232,12 @@ function saveChange(user, event) {
         
         // if "username" (which is also the database identifier!) changes, update method calls and DOM
         if (theDataType == 'username') {
-        	alert('s');
+        	// TODO: we also need to change the username references in the db!
+
           var username   = element.value;
           var parentRow  = element.up('tr');
           var fields     = parentRow.select('input');
-    
+
           // update account status button
           var accountButton = parentRow.select('div.account-status').first();
           accountButton.writeAttribute('id', "active-" + username);

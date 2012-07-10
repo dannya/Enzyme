@@ -44,7 +44,7 @@ class Date {
                       _('%d months ago'),
                       _('%d years ago'));
 
-    $lengths  = array(60, 60, 24, 7, 4.35, 12);
+    $lengths  = array(60, 60, 24, 7, 4.35, 12, 1);
 
     // process input?
     if (!is_int($timestamp)) {
@@ -61,14 +61,19 @@ class Date {
 
     // find correct period
     for ($j = 0; $difference >= $lengths[$j]; $j++) {
-      if ($j > 5) {
+      $difference = $difference / $lengths[$j];
+
+      if ($j >= 6) {
         break;
       }
-
-      $difference /= $lengths[$j];
     }
 
-    $difference = round($difference);
+    // handle years string better
+    if ($j == 6) {
+      $difference = round($difference, 2);
+    } else {
+      $difference = round($difference);
+    }
 
     return sprintf($periods[$j], $difference);
   }
