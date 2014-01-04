@@ -2,7 +2,7 @@
 
 /*-------------------------------------------------------+
  | PHPzy (Web Application Framework)
- | Copyright 2010-2011 Danny Allen <me@dannya.com>
+ | Copyright 2010-2013 Danny Allen <me@dannya.com>
  | http://www.dannya.com/
  +--------------------------------------------------------+
  | This program is released as free software under the
@@ -21,7 +21,7 @@ class Ui {
       header('Location: ' . BASE_URL . $page);
 
     } else{
-      echo '<script type="text/javascript">top.location="', BASE_URL, $page, '";</script>';
+      echo '<script>top.location.href="', BASE_URL, $page, '";</script>';
     }
 
     exit;
@@ -57,7 +57,7 @@ class Ui {
 
     if ($js) {
       foreach ($js as $file) {
-        $script .= '<script type="text/javascript" src="' . BASE_URL . $file . '"></script>' . "\n";
+        $script .= '<script src="' . BASE_URL . $file . '"></script>' . "\n";
       }
     }
 

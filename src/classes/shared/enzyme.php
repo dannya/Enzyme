@@ -2,7 +2,7 @@
 
 /*-------------------------------------------------------+
  | Enzyme
- | Copyright 2010-2012 Danny Allen <danny@enzyme-project.org>
+ | Copyright 2010-2013 Danny Allen <danny@enzyme-project.org>
  | http://www.enzyme-project.org/
  +--------------------------------------------------------+
  | This program is released as free software under the
@@ -220,16 +220,7 @@ class Enzyme {
                                           'valid'   => null,
                                           'default' => 0.1,
                                           'example' => null);
-    $tmp['SURVEY_ACTIVE']         = array('title'   => _('Survey Active'),
-                                          'valid'   => array('0'  => _('No'),
-                                                             '1'  => _('Yes')),
-                                          'default' => '0',
-                                          'example' => null);
 
-    $tmp['GENERATE_MAPS']         = array('title'   => _('Map Generation Service URL'),
-                                          'valid'   => null,
-                                          'default' => 'http://grafin.enzyme-project.org/index.php',
-                                          'example' => 'http://grafin.enzyme-project.org/index.php');
     $tmp['RECENT_COMMITS']        = array('title'   => _('Recent Commits RSS URL'),
                                           'valid'   => null,
                                           'default' => null,
@@ -309,12 +300,10 @@ class Enzyme {
                                              'SMTP'                   => $tmp['SMTP'],
                                              'SHOW_INSERT'            => $tmp['SHOW_INSERT'],
                                              'AUTO_REVIEW_COMMITS'    => $tmp['AUTO_REVIEW_COMMITS'],
-                                             'DATA_TERMS_VERSION'     => $tmp['DATA_TERMS_VERSION'],
-                                             'SURVEY_ACTIVE'          => $tmp['SURVEY_ACTIVE']));
+                                             'DATA_TERMS_VERSION'     => $tmp['DATA_TERMS_VERSION']));
 
     $settings[] = array('title'     => _('Data Locations'),
-                        'settings'  => array('GENERATE_MAPS'          => $tmp['GENERATE_MAPS'],
-                                             'RECENT_COMMITS'         => $tmp['RECENT_COMMITS'],
+                        'settings'  => array('RECENT_COMMITS'         => $tmp['RECENT_COMMITS'],
                                              'WEBSVN'                 => $tmp['WEBSVN'],
                                              'WEBBUG'                 => $tmp['WEBBUG'],
                                              'WEBBUG_XML'             => $tmp['WEBBUG_XML'],

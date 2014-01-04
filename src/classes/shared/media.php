@@ -205,7 +205,7 @@ class Media {
       // show link?
       if ($media['size']) {
         $link  = '<div class="link">
-                    <a href="' . BASE_URL . $media['file'] . '" title="' . strip_tags($string) . '">' .
+                    <a href="' . BASE_URL . $media['file'] . '" title="' . strip_tags($media['name']) . '">' .
                         sprintf(_('Download <b>%s</b> video (%s, %s)'), $media['name'], $media['size'], $media['ext']) .
                  '  </a>
                   </div>';

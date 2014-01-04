@@ -1,9 +1,10 @@
 Enzyme
 ------
-A project-independent (and eventually SCM-agnostic) tool for creating regular project reports 
-and assisting interesting statistical analysis.
+A project-independent and source-code-control-system-agnostic tool for creating regular project reports and assisting interesting statistical analysis.
 
 See http://enzyme-project.org/
+
+Powers the KDE Commit-Digest (http://commit-digest.org/).
 
 
 Installation

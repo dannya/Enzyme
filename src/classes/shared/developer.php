@@ -2,7 +2,7 @@
 
 /*-------------------------------------------------------+
  | Enzyme
- | Copyright 2010-2011 Danny Allen <danny@enzyme-project.org>
+ | Copyright 2010-2013 Danny Allen <danny@enzyme-project.org>
  | http://www.enzyme-project.org/
  +--------------------------------------------------------+
  | This program is released as free software under the
@@ -19,9 +19,8 @@ class Developer {
   public $data                  = null;
   public $privacy               = null;
   public $access                = null;
-  public $surveyDone            = false;
 
-  public static $fieldSections  = array('core'            => array('account', 'name', 'email', 'nickname', 'dob', 'gender', 'motivation', 'employer', 'colour'),
+  public static $fieldSections  = array('core'            => array('account', 'name', 'email', 'nickname', 'dob', 'gender', 'nationality', 'motivation', 'employer', 'colour'),
                                         'geographic'      => array('continent', 'country', 'location', 'latitude', 'longitude'),
                                         'social'          => array('homepage', 'blog', 'lastfm', 'microblog_type', 'microblog_user'),
                                         'system'          => array('access_ip', 'access_code', 'access_timeout'));
@@ -54,6 +53,10 @@ class Developer {
                                                                    'display'  => 'all',
                                                                    'editable' => true,
                                                                    'privacy'  => 'gender'),
+                                        'nationality'     => array('type'     => 'string',
+                                                                   'display'  => 'all',
+                                                                   'editable' => true,
+                                                                   'privacy'  => 'nationality'),
                                         'motivation'      => array('type'     => 'enum',
                                                                    'display'  => 'all',
                                                                    'editable' => true,
@@ -171,9 +174,6 @@ class Developer {
 
     // load developer data
     if ($this->data = Db::load('developers', array('account' => $privacy['account']), 1)) {
-      // check if survey has been completed
-      $this->surveyDone = Db::exists('developer_survey', array('account' => $privacy['account']));
-
       // set privacy settings to each data value
       foreach (self::$fields as $id => $spec) {
         if (!isset($spec['privacy'])) {
@@ -335,9 +335,10 @@ class Developer {
                      'nickname'       => _('Nickname'),
                      'dob'            => _('Date of Birth'),
                      'gender'         => _('Gender'),
+                     'nationality'    => _('Nationality'),
                      'motivation'     => _('Motivation'),
                      'employer'       => _('Employer'),
-                     'colour'         => _('Colour'),
+                     'colour'         => _('Favourite colour'),
 
                      'continent'      => _('Continent'),
                      'country'        => _('Country'),
